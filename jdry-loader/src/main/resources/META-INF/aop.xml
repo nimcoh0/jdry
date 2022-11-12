@@ -1,0 +1,9 @@
+<aspectj>
+    <aspects>
+        <aspect name="org.softauto.listener.impl.Listener"/>
+        <weaver options="-verbose "/>
+
+    </aspects>
+
+
+</aspectj>

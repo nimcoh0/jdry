@@ -1,0 +1,222 @@
+package org.softauto.core;
+
+
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.softauto.annotations.DefaultValueForTesting;
+
+
+import java.io.File;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.net.Inet4Address;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+
+public class Utils {
+
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Utils.class);
+
+
+
+
+
+    /**
+     * get local Machine Ip
+     * @return
+     */
+    public static String getMachineIp(){
+        try {
+            return Inet4Address.getLocalHost().getHostAddress();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * get local Machine Name
+     * @return
+     */
+    public static String getMachineName(){
+        try {
+            return Inet4Address.getLocalHost().getHostName();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Method getMethod(Object o, String fullMethodName, Class[] types)throws Exception{
+        try {
+            Method m = null;
+            if(o instanceof Class){
+                m = ((Class)o).getDeclaredMethod(getMethodName(fullMethodName), types);
+            }else {
+                m = o.getClass().getDeclaredMethod(getMethodName(fullMethodName), types);
+            }
+            m.setAccessible(true);
+            return m;
+        }catch (Exception e){
+            logger.error("fail get method "+ fullMethodName,e);
+        }
+        return  null;
+    }
+
+    public static Object[] getConstructorDefaultValues(String fullClassName){
+        List<Object> defaultValues = new ArrayList<>();
+        try {
+            Class klazz = Class.forName(fullClassName);
+            Constructor<?>[] constructors = klazz.getConstructors();
+            for (Constructor constructor : constructors) {
+                Annotation[][] annotations = constructor.getParameterAnnotations();
+                for (int i = 0; i < annotations.length; i++) {
+                    for (int j = 0; j < annotations[i].length; j++) {
+                        if (annotations[i][j].annotationType().getName().equals("org.softauto.annotations.DefaultValue")) {
+                            String value = ((org.softauto.annotations.DefaultValueForTesting) annotations[i][j]).value();
+                            String name = constructor.getParameters()[i].getName();
+                            if (constructor.getParameters()[i].getAnnotation(DefaultValueForTesting.class).type() != null && !constructor.getParameters()[i].getAnnotation(DefaultValueForTesting.class).type().isEmpty()) {
+                                String type = constructor.getParameters()[i].getAnnotation(DefaultValueForTesting.class).type().toString();
+                                defaultValues.add(ObjectConverter.convert(value, constructor.getParameters()[i].getType(), type));
+                            } else {
+                                defaultValues.add(value);
+                            }
+                        }
+                    }
+                }
+            }
+        }catch (Exception e){
+
+        }
+        return defaultValues.toArray();
+    }
+
+    public static Class[] extractConstructorDefaultArgsTypes(String fullClassName){
+        try {
+            Class c = Class.forName(fullClassName);
+            Constructor[] constructors = c.getDeclaredConstructors();
+            for(Constructor constructor: constructors){
+                if( constructor.getParameters()[0].getAnnotation(DefaultValueForTesting.class) != null){
+                    return constructor.getParameterTypes();
+                }
+            }
+        }catch (Exception e){
+            logger.error("fail extract Args Types for "+fullClassName,e);
+        }
+        return null;
+    }
+
+    public static String getFullClassName(String descriptor){
+        return  descriptor.substring(0,descriptor.lastIndexOf("_")).replace("_",".");
+    }
+
+    public static String getFullClassName2(String descriptor){
+        return  descriptor.substring(0,descriptor.lastIndexOf("_"));
+    }
+
+    public static String getMethodName(String descriptor){
+        return descriptor.substring(descriptor.lastIndexOf("_")+1,descriptor.length());
+    }
+
+
+    public static String getClassName(String descriptor){
+        String str = getFullClassName2(descriptor);
+        return  str.substring(str.lastIndexOf("_")+1);
+    }
+
+    public static String toString(Object obj){
+        return ToStringBuilder.reflectionToString(obj, new MultipleRecursiveToStringStyle());
+    }
+
+
+    public static String result2String(Object result){
+        try{
+
+            if(result != null){
+                if(result instanceof List){
+                    return ToStringBuilder.reflectionToString(((List)result).toArray(), new MultipleRecursiveToStringStyle());
+                }else {
+                    return ToStringBuilder.reflectionToString(result, new MultipleRecursiveToStringStyle());
+                }
+            }
+        }catch(Exception e){
+            logger.warn("result to String fail on  ",e.getMessage());
+        }
+        return "";
+    }
+
+    public static Class getClazz(String path,String clazzName){
+        Class c = null;
+        try{
+            String localPath = path.substring(0,path.lastIndexOf("classes")+8);
+            String clazz = path.substring(path.lastIndexOf("classes") + 8, path.length()).replace("/", ".")+"."+clazzName;
+            //URLClassLoader sysloader = (URLClassLoader)ClassLoader.getSystemClassLoader();
+            URL[] urls = new URL[1];
+            urls[0] =(new File(localPath.trim()).toURL());
+            URLClassLoader urlClassLoader = createClassLoader(urls );
+            //addURL(new File(localPath).toURL(),sysloader);
+            c = (Class) urlClassLoader.loadClass(clazz );
+        }catch (ClassNotFoundException e){
+            logger.warn("class not found"+ path+"/"+clazzName);
+        }catch (Exception e){
+            logger.error("fail get class "+ path+"/"+clazzName,e);
+        }
+        return c;
+    }
+
+    protected static URLClassLoader createClassLoader(URL[] _urls ) throws Exception {
+        List<URL> urls = new ArrayList<>();
+        urls.addAll(Arrays.asList(_urls));
+        URLClassLoader uRLClassLoader =  new URLClassLoader(urls.toArray(new URL[0]), Thread.currentThread().getContextClassLoader());
+        Thread.currentThread().setContextClassLoader(uRLClassLoader);
+        return uRLClassLoader;
+    }
+
+    public static Class<?> getSubClass(Class<?>[] classes, String name){
+        for(Class<?> c : classes){
+            if(c.getName().equals(name)){
+                logger.debug("successfully found subclass for "+name);
+                return c;
+            }
+        }
+        logger.warn("subclass not found for "+name);
+        return null;
+    }
+
+    public static Method getMethod2(Object o, String fullMethodName, Class[] types)throws Exception{
+        try {
+            logger.debug("trying to find method " + fullMethodName +" with types "+ result2String(types)+ " on "+o.getClass().getName());
+            Method[] m = o.getClass().getMethods();
+            if (o instanceof Class<?>) {
+                Class c = (Class) o;
+                Method method = c.getMethod(getMethodName(fullMethodName), types);
+                logger.debug("found method " + fullMethodName);
+                return method;
+            }
+            Method method = o.getClass().getMethod(fullMethodName, types);
+            logger.debug("found method " + fullMethodName);
+            return method;
+        }catch (Exception e){
+            logger.warn("fail get method 2 "+ fullMethodName,e.getMessage());
+            return null;
+
+        }
+
+    }
+
+    public static Class findClass(String fullClassName){
+        try{
+            Class c =   Thread.currentThread().getContextClassLoader().loadClass(fullClassName);
+            return c;
+        }catch (Exception e){
+            logger.error("find Class fail " + fullClassName,e);
+        }
+        return null;
+    }
+}

@@ -1,0 +1,226 @@
+package org.softauto.jaxrs.service;
+
+
+
+import org.softauto.core.Utils;
+import org.softauto.jaxrs.JerseyHelper;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import java.net.URI;
+import java.util.HashMap;
+
+
+public class RestService {
+
+    private static TestDefinition testDefinition = null;
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(RestService.class);
+
+    public static TestDefinition getServiceDefinition(){
+         return testDefinition;
+    }
+
+    public static TestDefinition createTestDefinition(String stepName, Object[] args, HashMap<String,Object> callOptions) {
+        return _createTestDefinition(stepName,args,callOptions);
+    }
+
+    public static TestDefinition createTestDefinition(String stepName, Object[] args) {
+        return _createTestDefinition(stepName,args,null);
+    }
+
+    private static TestDefinition _createTestDefinition(String stepName, Object[] args,HashMap<String,Object> callOptions) {
+        TestDefinition.Builder testDefinitionBuilder = null;
+        try {
+            TestDescriptor testDescriptor = TestDescriptor.create(stepName);
+            testDefinitionBuilder = TestDefinition.builder(testDescriptor);
+            //for(Item item : test.getItems()){
+                //if (item.getProp("transceiver").equals("JAXRS")) {
+            testDefinitionBuilder.addStep(testDescriptor.getStep(stepName,args,callOptions),ServiceCaller.call());
+               //}
+           //}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return testDefinition = testDefinitionBuilder.build();
+    }
+
+
+
+    public static class GETMethodHandler implements ServiceCaller.UnaryClass  {
+
+        @Override
+        public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
+            try {
+                //HashMap<String,Object> callOptions = (HashMap<String, Object>) args[2];
+                Client client = stepDescriptor.getClient();
+                ChannelDescriptor channel = stepDescriptor.getChannel();
+                MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
+                MediaType produce = stepDescriptor.getProduce();
+                URI uri = channel.getUri();
+                Cookie cookie = stepDescriptor.getCookie();
+                //return (T) new JerseyHelper(client).get(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType());
+
+/*
+                        ClientBuilder.newBuilder().setPassword(stepDescriptor.getAuthenticationPassword())
+                        .setUsername(stepDescriptor.getAuthenticationUserName())
+                        .setSchema(stepDescriptor.getAuthenticationSchema())
+                        .build()
+                        .getClient();
+                ChannelDescriptor channel = ChannelBuilder.newBuilder().setHost(stepDescriptor.getHost())
+                        .setProtocol(stepDescriptor.getProtocol())
+                        .setArgs(args)
+                        .setPath(stepDescriptor.getPath())
+                        .setPort(stepDescriptor.getPort())
+                        .setBaseUrl(stepDescriptor.getBase_url())
+                        .build()
+                        .getChannelDescriptor();
+                MultivaluedMap<String, Object> headers = HeaderBuilder.newBuilder().build().getHeaders();
+                MediaType produce = stepDescriptor.getProduce();
+
+                URI uri =  channel.getUri();
+
+
+ */
+                logger.debug("invoke GET for "+ uri);
+                return (T) new JerseyHelper(client).get(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType(),cookie);
+            }catch (Exception e){
+                logger.error("fail invoke GET for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
+            }
+            return null;
+        }
+    }
+
+    public static class POSTMethodHandler implements ServiceCaller.UnaryClass  {
+
+        @Override
+        public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
+            try {
+                Client client = stepDescriptor.getClient();
+                ChannelDescriptor channel = stepDescriptor.getChannel();
+                MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
+                MediaType produce = stepDescriptor.getProduce();
+                Entity<?> entity = stepDescriptor.getEntity();
+                URI uri = channel.getUri();
+                Cookie cookie = stepDescriptor.getCookie();
+                /*
+                Client client = ClientBuilder.newBuilder().setPassword(stepDescriptor.getAuthenticationPassword())
+                        .setUsername(stepDescriptor.getAuthenticationUserName())
+                        .setSchema(stepDescriptor.getAuthenticationSchema())
+                        .build()
+                        .getClient();
+                ChannelDescriptor channel = ChannelBuilder.newBuilder().setHost(stepDescriptor.getHost())
+                        .setProtocol(stepDescriptor.getProtocol())
+                        .setArgs(args)
+                        .setPath(stepDescriptor.getPath())
+                        .setPort(stepDescriptor.getPort())
+                        .setBaseUrl(stepDescriptor.getBase_url())
+                        .build()
+                        .getChannelDescriptor();
+                MultivaluedMap<String, Object> headers = HeaderBuilder.newBuilder().build().getHeaders();
+                MediaType produce = stepDescriptor.getProduce();
+                Entity<?> entity = EntityBuilder.newBuilder().setProduce(produce).setArgs(args).setArgsNames(stepDescriptor.getArgsNames()).build().getEntity();
+
+                URI uri =  channel.getUri();
+
+                 */
+                //Entity<?> entity = org.softauto.jaxrs.Utils.buildEntity(produces,(Object[])args[0]);
+                logger.debug("invoke POST for "+ uri );
+
+
+                return (T)new JerseyHelper(client).post(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType(),entity,cookie);
+
+            }catch (Exception e){
+                logger.error("fail invoke POST for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
+            }
+            return null;
+        }
+    }
+
+    public static class PUTMethodHandler implements ServiceCaller.UnaryClass  {
+
+        @Override
+        public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args){
+            try {
+                Client client = stepDescriptor.getClient();
+                ChannelDescriptor channel = stepDescriptor.getChannel();
+                MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
+                MediaType produce = stepDescriptor.getProduce();
+                Entity<?> entity = stepDescriptor.getEntity();
+                URI uri = channel.getUri();
+                Cookie cookie = stepDescriptor.getCookie();
+                /*
+                Client client = ClientBuilder.newBuilder().setPassword(stepDescriptor.getAuthenticationPassword())
+                        .setUsername(stepDescriptor.getAuthenticationUserName())
+                        .setSchema(stepDescriptor.getAuthenticationSchema())
+                        .build()
+                        .getClient();
+                ChannelDescriptor channel = ChannelBuilder.newBuilder().setHost(stepDescriptor.getHost())
+                        .setProtocol(stepDescriptor.getProtocol())
+                        .setArgs(args)
+                        .setPath(stepDescriptor.getPath())
+                        .setPort(stepDescriptor.getPort())
+                        .setBaseUrl(stepDescriptor.getBase_url())
+                        .build()
+                        .getChannelDescriptor();
+                MultivaluedMap<String, Object> headers = HeaderBuilder.newBuilder().build().getHeaders();
+                MediaType produce = stepDescriptor.getProduce();
+                Entity<?> entity = EntityBuilder.newBuilder().setProduce(produce).setArgs(args).setArgsNames(stepDescriptor.getArgsNames()).build().getEntity();
+
+
+                 */
+                //URI uri =  channel.getUri();
+                //Entity<?> entity = org.softauto.jaxrs.Utils.buildEntity(produces,(Object[])args[0]);
+                logger.debug("invoke PUT for "+ uri + " with headers "+ headers.values() + " entity");
+                return (T)new JerseyHelper(client).put(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType(),entity,cookie);
+            }catch (Exception e){
+                logger.error("fail invoke PUT for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
+            }
+            return null;
+        }
+    }
+
+    public static class DELETEMethodHandler implements ServiceCaller.UnaryClass  {
+
+        @Override
+        public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
+            try {
+                Client client = stepDescriptor.getClient();
+                ChannelDescriptor channel = stepDescriptor.getChannel();
+                MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
+                MediaType produce = stepDescriptor.getProduce();
+                Entity<?> entity = stepDescriptor.getEntity();
+                URI uri = channel.getUri();
+                Cookie cookie = stepDescriptor.getCookie();
+                /*
+                Client client = ClientBuilder.newBuilder().setPassword(stepDescriptor.getAuthenticationPassword())
+                        .setUsername(stepDescriptor.getAuthenticationUserName())
+                        .setSchema(stepDescriptor.getAuthenticationSchema())
+                        .build()
+                        .getClient();
+                ChannelDescriptor channel = ChannelBuilder.newBuilder().setHost(stepDescriptor.getHost())
+                        .setProtocol(stepDescriptor.getProtocol())
+                        .setArgs(args)
+                        .setPath(stepDescriptor.getPath())
+                        .setPort(stepDescriptor.getPort())
+                        .setBaseUrl(stepDescriptor.getBase_url())
+                        .build()
+                        .getChannelDescriptor();
+                MultivaluedMap<String, Object> headers = HeaderBuilder.newBuilder().build().getHeaders();
+                MediaType produce = stepDescriptor.getProduce();
+                Entity<?> entity = EntityBuilder.newBuilder().setProduce(produce).setArgs(args).setArgsNames(stepDescriptor.getArgsNames()).build().getEntity();
+
+                URI uri =  channel.getUri();
+
+                 */
+                logger.debug("invoke DELETE for "+ uri + " with headers "+ headers.values() );
+                return (T)new JerseyHelper(client).delete(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType(),cookie);
+            }catch (Exception e){
+                logger.error("fail invoke DELETE for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
+            }
+            return null;
+        }
+    }
+
+}

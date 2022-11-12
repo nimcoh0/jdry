@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Agent-Class: org.softauto.loader.Loader
+Premain-Class: org.softauto.loader.Loader
+Permissions: all-permission
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Can-Set-Native-Method-Prefix: true
+
+
+
+
+
+

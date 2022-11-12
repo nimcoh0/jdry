@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.softauto</groupId>
+    <artifactId>jdry2</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>jdry-jaxrs</module>
+        <module>jdry-annotations</module>
+        <module>jdry-core</module>
+        <module>jdry-jackson-serializers</module>
+        <module>jdry-grpc</module>
+        <module>jdry-jaxrs-annotations</module>
+        <module>jdry-listener-server</module>
+        <module>jdry-loader</module>
+        <module>jdry-tester</module>
+        <module>jdry-testng-plugin</module>
+        <module>jdry-local</module>
+        <module>jdry-serializer</module>
+        <module>jdry-listener</module>
+        <module>jdry-injector</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+</project>
