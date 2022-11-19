@@ -13,10 +13,7 @@ import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class Utils {
@@ -78,7 +75,7 @@ public class Utils {
                 Annotation[][] annotations = constructor.getParameterAnnotations();
                 for (int i = 0; i < annotations.length; i++) {
                     for (int j = 0; j < annotations[i].length; j++) {
-                        if (annotations[i][j].annotationType().getName().equals("org.softauto.annotations.DefaultValue")) {
+                        if (annotations[i][j].annotationType().getName().equals("org.softauto.annotations.DefaultValueForTesting")) {
                             String value = ((org.softauto.annotations.DefaultValueForTesting) annotations[i][j]).value();
                             String name = constructor.getParameters()[i].getName();
                             if (constructor.getParameters()[i].getAnnotation(DefaultValueForTesting.class).type() != null && !constructor.getParameters()[i].getAnnotation(DefaultValueForTesting.class).type().isEmpty()) {
@@ -92,7 +89,7 @@ public class Utils {
                 }
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return defaultValues.toArray();
     }
@@ -102,14 +99,14 @@ public class Utils {
             Class c = Class.forName(fullClassName);
             Constructor[] constructors = c.getDeclaredConstructors();
             for(Constructor constructor: constructors){
-                if( constructor.getParameters()[0].getAnnotation(DefaultValueForTesting.class) != null){
+                if(constructor.getParameters().length >0 &&  constructor.getParameters()[0].getAnnotation(DefaultValueForTesting.class) != null){
                     return constructor.getParameterTypes();
                 }
             }
         }catch (Exception e){
             logger.error("fail extract Args Types for "+fullClassName,e);
         }
-        return null;
+        return new Class[0];
     }
 
     public static String getFullClassName(String descriptor){
@@ -219,4 +216,44 @@ public class Utils {
         }
         return null;
     }
+
+    public static Class getPrimitiveClass(String clazz){
+       return builtInMap.get(clazz);
+    }
+
+    public static boolean isPrimitive(String name){
+        if(PRIMITIVES.contains(name.toLowerCase())){
+            return true;
+        }
+        return false;
+    }
+
+    static final List<String> PRIMITIVES = new ArrayList<>();
+    static {
+        PRIMITIVES.add("string");
+        PRIMITIVES.add("bytes");
+        PRIMITIVES.add("int");
+        PRIMITIVES.add("long");
+        PRIMITIVES.add("float");
+        PRIMITIVES.add("double");
+        PRIMITIVES.add("boolean");
+        PRIMITIVES.add("null");
+        PRIMITIVES.add("void");
+    }
+
+
+    static Map<String,Class> builtInMap = new HashMap<String,Class>();
+    static {
+        builtInMap.put("int", Integer.TYPE );
+        builtInMap.put("long", Long.TYPE );
+        builtInMap.put("double", Double.TYPE );
+        builtInMap.put("float", Float.TYPE );
+        builtInMap.put("boolean", Boolean.TYPE );
+        builtInMap.put("char", Character.TYPE );
+        builtInMap.put("byte", Byte.TYPE );
+        builtInMap.put("void", Void.TYPE );
+        builtInMap.put("short", Short.TYPE );
+
+    }
+
 }

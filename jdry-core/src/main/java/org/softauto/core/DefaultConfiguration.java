@@ -15,7 +15,6 @@ public class DefaultConfiguration {
         configuration.put(Context.LISTENER_PORT,"9091");
         configuration.put(Context.SERIALIZER_PORT,"8085");
         configuration.put(Context.SERIALIZER_HOST,"localhost");
-        configuration.put(Context.ENABLE_SESSION,"true");
         configuration.put(Context.STEP_SERVICE_NAME,"StepService");
         configuration.put(Context.LISTENER_SERVICE_NAME,"ListenerService");
         configuration.put(Context.LISTENER_SERVICE_IMPL,"Listener");

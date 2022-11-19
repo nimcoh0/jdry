@@ -22,15 +22,18 @@ public class ContainerResponseSerializer extends StdSerializer<ContainerResponse
     @Override
     public void serialize(ContainerResponse containerResponse, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         HashMap<String, Object> hm = new HashMap<>();
-
+        HashMap<String, Object> hm1 = new HashMap<>();
         hm.put("Headers", containerResponse.getHeaders());
         hm.put("Cookies", containerResponse.getCookies());
         hm.put("MediaType", containerResponse.getMediaType());
         hm.put("isChunked", containerResponse.isChunked());
         hm.put("statue", containerResponse.getStatus());
-
-        jsonGenerator.writeStartObject();
-        jsonGenerator.writeObjectField("response", hm);
-        jsonGenerator.writeEndObject();
+        hm1.put("type",containerResponse.getEntity().getClass());
+        hm1.put("response", hm);
+        //hm.put("originalType","org.glassfish.jersey.server.ContainerResponse");
+        //jsonGenerator.writeStartObject();
+        jsonGenerator.writeObject(hm1);
+        //jsonGenerator.writeObjectField("response", hm);
+        //jsonGenerator.writeEndObject();
     }
 }

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.softauto.core.*;
 import org.softauto.core.DefaultConfiguration;
-import org.softauto.listener.server.ListenerObserver;
-import org.softauto.listener.server.ListenerServerProviderImpl;
+import org.softauto.listener.ListenerObserver;
+import org.softauto.listener.ListenerServerProviderImpl;
 import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FileReader;
@@ -52,6 +52,7 @@ public class SystemState {
     private Boolean sayHello(){
         try {
             return new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_hello", new Object[]{}, new Class[]{});
+
          }catch (Exception e){
             logger.error("fail sayHello",e);
         }
@@ -110,6 +111,7 @@ public class SystemState {
         return this;
     }
 
+    /*
     public SystemState addListener(String fqmn,Class...types)throws Exception{
         new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_addListener", new Object[]{fqmn,types}, new Class[]{String.class,Class[].class});
         return this;
@@ -129,4 +131,6 @@ public class SystemState {
         new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_removeListener", new Object[]{fqmn,types}, new Class[]{String.class,Class[].class});
         return this;
     }
+
+     */
 }

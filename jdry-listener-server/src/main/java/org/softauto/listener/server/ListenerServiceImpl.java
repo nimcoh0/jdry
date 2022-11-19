@@ -1,17 +1,19 @@
 package org.softauto.listener.server;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.*;
-import org.softauto.injector.core.Utils;
 import org.softauto.serializer.service.Message;
 import org.softauto.serializer.service.SerializerService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 public class ListenerServiceImpl implements SerializerService{
 
@@ -30,8 +32,11 @@ public class ListenerServiceImpl implements SerializerService{
 
 
     @Override
-    public synchronized Object execute(Message message) throws Exception {
+    public synchronized Object execute(ByteBuffer mes) throws Exception {
         Object methodResponse = null;
+        String newContent = new String(mes.array(), StandardCharsets.UTF_8);
+        Message message = new ObjectMapper().readValue(newContent,Message.class);
+
         try {
             if(message.getDescriptor().equals("log") || message.getDescriptor().equals("logError")){
                 printLog(message);
@@ -62,10 +67,10 @@ public class ListenerServiceImpl implements SerializerService{
                 }else {
                     Method method = org.softauto.core.Utils.getMethod2(o, message.getDescriptor(), message.getTypes());
                     if (method == null) {
-                        logger.error("no method found for " + message.getDescriptor() + " types " + org.softauto.injector.core.Utils.result2String(message.getTypes()) + " on " + o.getClass().getName());
+                        logger.error("no method found for " + message.getDescriptor() + " types " + Utils.result2String(message.getTypes()) + " on " + o.getClass().getName());
                         throw new Exception("method not found for " + message.getDescriptor());
                     }
-                    logger.debug("invoking " + message.getDescriptor() + " args " + org.softauto.injector.core.Utils.result2String(message.getArgs()));
+                    logger.debug("invoking " + message.getDescriptor() + " args " + Utils.result2String(message.getArgs()));
                     method.setAccessible(true);
                     if (Modifier.isStatic(method.getModifiers())) {
                         methodResponse = method.invoke(null, message.getArgs());
@@ -83,6 +88,8 @@ public class ListenerServiceImpl implements SerializerService{
                 logger.error("fail invoke method " + message.getDescriptor(), e);
 
             }
+
+
 
         return methodResponse;
 

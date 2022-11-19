@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ClassTypeForTesting {
 
-    String value() default "INITIALIZE_NO_PARAM";
+    String value() default "INITIALIZE_IF_NOT_EXIST";
+
 
 }

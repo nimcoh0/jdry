@@ -11,7 +11,6 @@ public class Context {
     //public static Object get(String key){
      //   return ctx.get(key);
    // }
-    public final static String ENABLE_SESSION = "enable_session";
     public final static String SEND_LOG_TO_TESTER = "send_log_to_tester";
     public final static String SEND_JDRY_LOG_TO_TESTER = "send_jdry_log_to_tester";
     public final static String LOAD_WEAVER = "load_weaver";

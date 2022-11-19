@@ -7,6 +7,7 @@ import com.google.common.base.Splitter;
 import org.softauto.core.Configuration;
 import org.softauto.core.Context;
 import org.softauto.core.TestContext;
+import org.softauto.core.Utils;
 import org.softauto.jaxrs.annotations.AuthenticationType;
 import org.softauto.jaxrs.util.ChannelBuilder;
 import org.softauto.jaxrs.util.ClientBuilder;
@@ -64,6 +65,8 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
     URI uri ;
 
+
+
     HashMap<String,Object> callOptions;
 
     MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
@@ -82,10 +85,13 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
         this.fullMethodName = fullMethodName;
     }
 
+
     @Override
     public void setCallOptions(HashMap<String,Object> callOptions) {
-        this.callOptions = callOptions;
+        this.callOptions = (HashMap<String, Object>) callOptions.get("callOption");
     }
+
+
 
 
     @Override
@@ -148,7 +154,7 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
     @Override
     public MediaType getProduce() {
-        return MediaType.valueOf(callOptions.get("mediaType").toString());
+        return produce = MediaType.valueOf(callOptions.get("mediaType").toString());
     }
 
     @Override
@@ -167,16 +173,7 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
     }
 
 
-    @Override
-    public Class<?> getReturnType() {
-        try {
-            String clazz = callOptions.get("returnType").toString();
-            return this.getClass().getClassLoader().loadClass(clazz);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 
     @Override
     public boolean isSession() {

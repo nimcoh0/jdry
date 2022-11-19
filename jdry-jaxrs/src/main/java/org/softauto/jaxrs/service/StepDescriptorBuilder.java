@@ -27,13 +27,23 @@ public class StepDescriptorBuilder {
 
         HashMap<String,Object> configuration;
 
-
+        String name;
 
         Object[] args;
 
-
+        Object returnType;
 
         IStepDescriptor stepDescriptor;
+
+        public Builder setReturnType(Object returnType) {
+            this.returnType = returnType;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
 
         public Builder setCallOptions(HashMap<String, Object> callOptions) {
             this.callOptions = callOptions;
@@ -63,9 +73,11 @@ public class StepDescriptorBuilder {
         public StepDescriptorBuilder build(){
             stepDescriptor.setArgs(args);
             stepDescriptor.setConfiguration(configuration);
+            stepDescriptor.setFullMethodName(name);
             //stepDescriptor.setItem(item);
             //stepDescriptor.setTest(test);
             stepDescriptor.setCallOptions(callOptions);
+
             return new StepDescriptorBuilder(stepDescriptor.build());
         }
     }

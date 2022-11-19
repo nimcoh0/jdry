@@ -58,6 +58,7 @@ public class HttpServletRequestSerializer extends StdSerializer<HttpServletReque
         hm.put("SessionId",httpServletRequest.getSession().getId());
         hm.put("Protocol",httpServletRequest.getProtocol());
         hm.put("headers",getHeaders(httpServletRequest));
+        //hm.put("type",HttpServletRequest.class);
         //hm.put("Attributes",getAttributes(httpServletRequest));
         hm.put("Method",httpServletRequest.getMethod());
         //hm.put("ParameterNames",new ObjectMapper().writeValueAsString(httpServletRequest.getParameterNames()));
@@ -66,9 +67,14 @@ public class HttpServletRequestSerializer extends StdSerializer<HttpServletReque
         //ServletInputStream servletInputStream = httpServletRequest.getInputStream();
         //String requestStr = IOUtils.toString(httpServletRequest.getInputStream());
         //String s =ByteSource.wrap(ByteStreams.toByteArray(httpServletRequest.getInputStream())).asCharSource(Charsets.UTF_8).read();
-        jsonGenerator.writeStartObject();
-        if(hm.size() > 0)
-            jsonGenerator.writeObjectField("javax.servlet.http.HttpServletRequest",hm);
-        jsonGenerator.writeEndObject();
+        //jsonGenerator.writeStartObject();
+        if(hm.size() > 0) {
+            HashMap<String, Object> hm1 = new HashMap<>();
+            hm1.put("javax.servlet.http.HttpServletRequest", hm);
+            hm1.put("type",HttpServletRequest.class);
+            jsonGenerator.writeObject(hm1);
+            //jsonGenerator.writeObjectField("javax.servlet.http.HttpServletRequest", hm);
+        }
+        //jsonGenerator.writeEndObject();
     }
 }

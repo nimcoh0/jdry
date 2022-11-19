@@ -7,8 +7,7 @@ import org.softauto.core.Assert;
 import org.softauto.core.Context;
 import org.softauto.core.TestContext;
 import org.softauto.core.TestLifeCycle;
-import org.softauto.listener.server.ListenerObserver;
-import org.softauto.listener.server.ListenerServerProviderImpl;
+import org.softauto.listener.ListenerObserver;
 import org.softauto.tester.SystemState;
 import org.testng.*;
 
@@ -68,12 +67,12 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
                     logger.error("fail end test" );
                 }
             ListenerObserver.getInstance().reset();
-            ListenerServerProviderImpl.getInstance().shutdown();
-            if(SystemState.getInstance().shutdown()){
-                   logger.debug("successfully shutdown ");
-                } else {
-                    logger.error("fail shutdown ");
-                }
+            //ListenerServerProviderImpl.getInstance().shutdown();
+            //if(SystemState.getInstance().shutdown()){
+                  // logger.debug("successfully shutdown ");
+               // } else {
+                   // logger.error("fail shutdown ");
+               // }
 
             final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
             final Configuration config = ctx.getConfiguration();

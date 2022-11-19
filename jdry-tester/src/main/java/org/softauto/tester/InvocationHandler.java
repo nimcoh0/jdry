@@ -21,7 +21,7 @@ public class InvocationHandler {
             Provider provider = ProviderManager.provider(transceiver).create();
             logger.debug("invoke method " + methodName+ " using protocol "+ transceiver);
             provider.exec( methodName, callback,null,args,types,null);
-            logger.debug("callback value "+callback.getResult()+" get error "+callback.getError());
+            logger.debug("callback value  get error "+callback.getError());
         } catch (Exception e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
         }
@@ -35,7 +35,7 @@ public class InvocationHandler {
             Provider provider = ProviderManager.provider(transceiver).create();
             logger.debug("invoke method " + methodName+ " using protocol "+ transceiver+ " call options "+ Arrays.toString(callOptions.entrySet().toArray()));
             provider.exec( methodName, callback,null,args,types,callOptions);
-            logger.debug("callback value "+callback.getResult()+" get error "+callback.getError());
+            logger.debug("callback value  get error "+callback.getError());
         } catch (Exception e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
         }

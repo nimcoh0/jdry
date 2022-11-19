@@ -22,15 +22,15 @@ public class RestService {
          return testDefinition;
     }
 
-    public static TestDefinition createTestDefinition(String stepName, Object[] args, HashMap<String,Object> callOptions) {
+    public static <T> TestDefinition createTestDefinition(String stepName, Object[] args, HashMap<String,Object> callOptions) {
         return _createTestDefinition(stepName,args,callOptions);
     }
 
-    public static TestDefinition createTestDefinition(String stepName, Object[] args) {
+    public static <T> TestDefinition createTestDefinition(String stepName, Object[] args) {
         return _createTestDefinition(stepName,args,null);
     }
 
-    private static TestDefinition _createTestDefinition(String stepName, Object[] args,HashMap<String,Object> callOptions) {
+    private static <T> TestDefinition _createTestDefinition(String stepName, Object[] args,HashMap<String,Object> callOptions) {
         TestDefinition.Builder testDefinitionBuilder = null;
         try {
             TestDescriptor testDescriptor = TestDescriptor.create(stepName);
@@ -84,7 +84,7 @@ public class RestService {
 
  */
                 logger.debug("invoke GET for "+ uri);
-                return (T) new JerseyHelper(client).get(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType(),cookie);
+                return (T) new JerseyHelper(client).get(uri.toString(), produce.toString(), headers, (Class<T>)Object.class,cookie);
             }catch (Exception e){
                 logger.error("fail invoke GET for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }
@@ -129,7 +129,7 @@ public class RestService {
                 logger.debug("invoke POST for "+ uri );
 
 
-                return (T)new JerseyHelper(client).post(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType(),entity,cookie);
+                return (T)new JerseyHelper(client).post(uri.toString(), produce.toString(), headers,  (Class<T>)Object.class,entity,cookie);
 
             }catch (Exception e){
                 logger.error("fail invoke POST for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
@@ -173,7 +173,7 @@ public class RestService {
                 //URI uri =  channel.getUri();
                 //Entity<?> entity = org.softauto.jaxrs.Utils.buildEntity(produces,(Object[])args[0]);
                 logger.debug("invoke PUT for "+ uri + " with headers "+ headers.values() + " entity");
-                return (T)new JerseyHelper(client).put(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType(),entity,cookie);
+                return (T)new JerseyHelper(client).put(uri.toString(), produce.toString(), headers,  (Class<T>)Object.class,entity,cookie);
             }catch (Exception e){
                 logger.error("fail invoke PUT for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }
@@ -215,7 +215,7 @@ public class RestService {
 
                  */
                 logger.debug("invoke DELETE for "+ uri + " with headers "+ headers.values() );
-                return (T)new JerseyHelper(client).delete(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType(),cookie);
+                return (T)new JerseyHelper(client).delete(uri.toString(), produce.toString(), headers,  (Class<T>)Object.class,cookie);
             }catch (Exception e){
                 logger.error("fail invoke DELETE for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }

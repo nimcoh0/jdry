@@ -11,10 +11,10 @@ public @interface Step {
 
     String description() default "";
 
-    String fqmn() default "";
+    String fqmn() ;
 
-    String expression() default "";
+    String expression() ;
 
-    String type() default "";
+    String type() ;
 
 }

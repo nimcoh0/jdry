@@ -5,11 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.METHOD,ElementType.CONSTRUCTOR,ElementType.ANNOTATION_TYPE})
+@Target({ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Mock {
 
-    Parameter[] parameter() default {};
+    Parameter[] parameter() ;
 
 
 }

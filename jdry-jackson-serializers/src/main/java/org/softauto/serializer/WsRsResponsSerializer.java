@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class WsRsResponsSerializer extends StdSerializer<Response> {
 
@@ -19,11 +20,14 @@ public class WsRsResponsSerializer extends StdSerializer<Response> {
 
     @Override
     public void serialize(Response response, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-
+        HashMap<String, Object> hm = new HashMap<>();
         if(response.hasEntity()) {
             Object entity = response.getEntity();
+            hm.put("type",response.getEntity().getClass());
+            hm.put("entity",entity);
+
             //jsonGenerator.writeStartObject();
-            jsonGenerator.writeObject(entity);
+            jsonGenerator.writeObject(hm);
         }else {
             jsonGenerator.writeObject(response.getStatus());
         }

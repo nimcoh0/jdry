@@ -63,6 +63,8 @@ public class TestDescriptor {
         return steps.computeIfAbsent(stepName.replace(".","_"),
                 key -> StepDescriptorBuilder.newBuilder().setConfiguration(Configuration.getConfiguration())
                         .setArgs(args)
+                        .setName(stepName)
+
                         //.setItem(item)
                         .setCallOptions(callOptions)
                         //.setTest(test)

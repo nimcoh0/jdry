@@ -24,11 +24,11 @@ public interface IStepDescriptor {
 
     Map<String, Object> getProperties();
 
-
+    void setFullMethodName(String fullMethodName);
 
     String getFullMethodName();
 
-    Class<?> getReturnType();
+
 
     boolean isSession();
 
@@ -45,5 +45,7 @@ public interface IStepDescriptor {
     Cookie getCookie();
 
     void setCallOptions(HashMap<String,Object> callOptions);
+
+
 
 }

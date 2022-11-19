@@ -6,9 +6,7 @@ import org.softauto.core.Configuration;
 import org.softauto.core.Context;
 import org.softauto.core.TestLifeCycle;
 import org.softauto.injector.InjectorInitializer;
-import org.softauto.listener.Listeners;
 import org.softauto.listener.manager.ListenerClientProviderImpl;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,8 +36,8 @@ public class SystemServiceImpl {
 
     }
 
-    public int hello() {
-        return 0;
+    public boolean hello() {
+        return true;
     }
 
 
@@ -48,18 +46,18 @@ public class SystemServiceImpl {
      * set start test log
      * @param testname
      */
-    public void startTest(String testname){
+    public boolean startTest(String testname){
         Context.setTestState(TestLifeCycle.START);
         logger.info(" **************** start test "+ testname+ " ******************");
         logger.info(TRACER," **************** start test "+ testname+ " ******************");
-
+        return true;
     }
 
     /**
      * set end test log
      * @param testname
      */
-    public void endTest(String testname){
+    public boolean endTest(String testname){
         try {
             Context.setTestState(TestLifeCycle.STOP);
             SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
@@ -73,6 +71,7 @@ public class SystemServiceImpl {
         }catch (Exception e){
             logger.error("fail end test ",e);
         }
+        return true;
     }
 
     /**
@@ -80,7 +79,7 @@ public class SystemServiceImpl {
      * @param configuration
      * @return
      */
-    public int configuration(HashMap<String,Object> configuration) {
+    public boolean configuration(HashMap<String,Object> configuration) {
         try {
             Context.setTestState(TestLifeCycle.INITIALIZE);
             Configuration.setConfiguration(configuration);
@@ -92,7 +91,7 @@ public class SystemServiceImpl {
             logger.error("fail set configuration  ",e);
         }
         logger.debug("successfully  set configuration  ");
-        return 0;
+        return true;
     }
 
     public void shutdown() {
@@ -110,19 +109,4 @@ public class SystemServiceImpl {
         }
     }
 
-    public void addListener(String fqmn,Class...types){
-        Listeners.addListener(fqmn,types);
-    }
-
-    public void addListenerMock(String fqmn,Class[] types,Object[] value){
-        Listeners.addMock(fqmn,types,value);
-    }
-
-    public void resetListeners(){
-        Listeners.resetListener();
-    }
-
-    public void removeListener(String fqmn){
-        Listeners.removeListener(fqmn);
-    }
 }

@@ -11,7 +11,7 @@ public @interface Before {
 
     String expression() default "";
 
-    Step step() default @Step;
+    Step step() default @Step(fqmn = "", expression = "", type = "") ;
 
     String description() default "";
 

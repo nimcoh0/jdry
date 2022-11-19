@@ -7,10 +7,11 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.deserializer.NullStringJsonDeserializer;
+import org.softauto.listener.ListenerServerProviderImpl;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.ProviderScope;
 import org.softauto.plugin.spi.PluginProvider;
-
+import org.testng.annotations.BeforeMethod;
 
 
 public class AbstractTesterImpl {
@@ -19,6 +20,7 @@ public class AbstractTesterImpl {
 
     public ObjectMapper mapper = new ObjectMapper();
 
+    public Test test;
 
 
     public AbstractTesterImpl(){
@@ -30,7 +32,9 @@ public class AbstractTesterImpl {
            //SimpleModule module = new SimpleModule();
            //module.addDeserializer(NullNode.class, new JsonNodeDeserializer());
            //mapper.registerModule(module);
+
            SystemState.getInstance().initialize();
+           ListenerServerProviderImpl.getInstance().initialize().register();
            loadPlugins();
           // loadTestSuite();
         }catch (Exception e){
@@ -39,6 +43,10 @@ public class AbstractTesterImpl {
     }
 
 
+    @BeforeMethod
+    public void beforeMethod(){
+        test = new Test();
+    }
 
     public  void loadPlugins(){
         try {

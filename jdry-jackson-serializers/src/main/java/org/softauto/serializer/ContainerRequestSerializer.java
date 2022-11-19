@@ -90,6 +90,8 @@ public class ContainerRequestSerializer extends StdSerializer<ContainerRequest> 
              //hm.put("properties",getProperties(requestContext));
              //hm.put("AuthenticationScheme", (GrizzlyHttpContainer)requestContext.getSecurityContext();
              hm.put("Method", requestContext.getMethod());
+
+             //hm.put("type",ContainerRequest.class);
              MultivaluedMap<String, String> headers = ((ContainerRequestContext) requestContext).getHeaders();
              List<String> authorization = headers.get("Authorization");
              if (authorization != null && !authorization.isEmpty()) {
@@ -155,13 +157,17 @@ public class ContainerRequestSerializer extends StdSerializer<ContainerRequest> 
 
              */
 
-            jsonGenerator.writeStartObject();
+            //jsonGenerator.writeStartObject();
 
-            if(hm.size() > 0)
-                jsonGenerator.writeObjectField("requestContext",hm);
+            if(hm.size() > 0) {
+                HashMap<String, Object> hm1 = new HashMap<>();
+                hm1.put("requestContext", hm);
+                hm1.put("type", ContainerRequest.class);
+                //jsonGenerator.writeObjectField("requestContext", hm);
+                jsonGenerator.writeObject(hm1);
 
-
-            jsonGenerator.writeEndObject();
+                //jsonGenerator.writeEndObject();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
