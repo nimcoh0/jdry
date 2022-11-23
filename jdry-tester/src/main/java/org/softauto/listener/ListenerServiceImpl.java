@@ -37,6 +37,13 @@ public class ListenerServiceImpl implements SerializerService{
                 logger.debug("execute message " + message.toJson());
                 Object o = ListenerObserver.getInstance().getLastChannel(message.getDescriptor());
                 if (o != null) {
+                    logger.debug("got message " + message.toJson());
+                    Exec exec = (Exec) o;
+                    if(exec.getPhase().equals(message.getState()))
+                        methodResponse = exec.apply(message.getArgs());
+                    logger.debug("result of function " + methodResponse);
+                    /*
+                    methodResponse = message.getArgs();
                     if (o instanceof FunctionBefore) {
                         if (message.getState().equals(ListenerType.BEFORE.name())) {
                             logger.debug("got message Before " + message.toJson());
@@ -55,12 +62,26 @@ public class ListenerServiceImpl implements SerializerService{
                             logger.debug("result of function After " + methodResponse);
                         }
                     }
+
+                     */
+                }else {
+                    byte[] m = new ObjectMapper().writeValueAsBytes(message.getArgs());
+                    ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+                    return byteBuffer;
+
                 }
+            }else {
+                byte[] m = new ObjectMapper().writeValueAsBytes(message.getArgs());
+                ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+                return byteBuffer;
+
             }
         } catch(Exception e){
             logger.error("fail invoke method " + message.getDescriptor(), e);
         }
-        return methodResponse;
+        byte[] m = new ObjectMapper().writeValueAsBytes(methodResponse);
+        ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+        return byteBuffer;
     }
 
 

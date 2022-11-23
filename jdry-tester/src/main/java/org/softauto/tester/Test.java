@@ -2,10 +2,12 @@ package org.softauto.tester;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.softauto.listener.Exec;
 import org.softauto.listener.ListenerObserver;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.function.Function;
 
 public class Test {
 
@@ -52,11 +54,27 @@ public class Test {
         return  new Listener().setFqmn(fqmn);
     }
 
+    public static Listener addListener(Function function,String phase,String fqmn, Class...types)throws Exception{
+        //SystemState.getInstance().addListener(fqmn,types);
+        logger.debug("add Listener successfully "+ fqmn+ " types "+ Arrays.toString(types));
+        Exec func = new Exec(function,fqmn).setPhase(phase);
+        ListenerObserver.getInstance().register(fqmn,func);
+        return  new Listener().setFqmn(fqmn).setFunc(func);
+    }
+
 
     public static Listener addListener(String fqmn,Object[] value, Class...types)throws Exception{
         //SystemState.getInstance().addListener(fqmn,value,types);
         logger.debug("add Listener im mock mode successfully "+ fqmn+ " types "+ Arrays.toString(types));
         return  new Listener().setFqmn(fqmn);
+    }
+
+    public static Listener addListener(Function function,String phase,String fqmn,Object[] value, Class...types)throws Exception{
+        //SystemState.getInstance().addListener(fqmn,value,types);
+        logger.debug("add Listener im mock mode successfully "+ fqmn+ " types "+ Arrays.toString(types));
+        Exec func = new Exec(function,fqmn).setPhase(phase);
+        ListenerObserver.getInstance().register(fqmn,func);
+        return  new Listener().setFqmn(fqmn).setFunc(func);
     }
 
 

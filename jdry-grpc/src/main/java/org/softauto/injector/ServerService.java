@@ -24,21 +24,15 @@ public class ServerService {
     public static class NoneHandler implements ServiceCaller.UnaryClass  {
         @Override
         public Object[] invoke(String fullClassName, Object[] args,Class[] types) {
+            Object obj = null;
             try {
                 Class c = Class.forName(fullClassName);
-
-                    Object[] objects = HeapHelper.getInstances(c);
-                    if (objects != null && objects.length > 0) {
-                        logger.debug("found "+objects.length+" instances in jvm. for class "+ fullClassName);
-                        return objects;
-                    }
-
-                logger.error("Class not loaded by the SUT and no info for auto loading for  " + fullClassName);
-                return objects;
+                obj  = c.getConstructors()[0].newInstance();
+                logger.debug("Class Initialize  " + fullClassName);
             }catch (Exception e){
-                logger.warn("fail get Instance Class for  "+fullClassName,e.getMessage());
+                logger.warn("fail Initialize Class  "+fullClassName,e.getMessage());
             }
-            return new Object[]{};
+            return new Object[]{obj};
         }
 
 
@@ -97,7 +91,7 @@ public class ServerService {
                     obj = constructor.newInstance(args);
                 }else {
 
-                    obj  = c.newInstance();
+                    obj =  c.getConstructors()[0].newInstance();
                 }
                 logger.debug("invoke Initialize class "+fullClassName + "with ares "+Utils.result2String(args) + "and types "+Utils.result2String(types));
             }catch (Exception e){
@@ -120,7 +114,7 @@ public class ServerService {
                     Constructor constructor = c.getDeclaredConstructor(types);
                     obj = constructor.newInstance(args);
                 }else {
-                    obj  = c.newInstance();
+                    obj = c.getConstructors()[0].newInstance();
                 }
                 logger.debug("invoke Initialize class "+fullClassName + "with ares "+Utils.result2String(args) + "and types "+Utils.result2String(types));
             }catch (Exception e){

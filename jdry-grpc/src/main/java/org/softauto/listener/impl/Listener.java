@@ -99,42 +99,16 @@ public class Listener {
         return null;
     }
 
-    @Before("execution(* *(..)) && !within(org.softauto..*)")
-    public synchronized void traceIn(JoinPoint joinPoint){
-        String fqmn = null;
-        try {
-            if(trace) {
-                MethodSignature sig = (MethodSignature) joinPoint.getSignature();
-                fqmn = Utils.buildMethodFQMN(sig.getName(), sig.getDeclaringType().getName());
-                logger.trace(TRACER, "IN " + fqmn + "( " + Arrays.toString(sig.getMethod().getParameterTypes()) + ")[" + Arrays.toString(joinPoint.getArgs()) + "]");
-            }
-        } catch (Throwable e) {
-            logger.error("capture message "+fqmn+" fail  ",e );
-        }
-    }
-
-    @After("execution(* *(..)) && !within(org.softauto..*)")
-    public synchronized void traceOut(JoinPoint joinPoint){
-        String fqmn = null;
-        try {
-            if(trace) {
-                MethodSignature sig = (MethodSignature) joinPoint.getSignature();
-                fqmn = Utils.buildMethodFQMN(sig.getName(), sig.getDeclaringType().getName());
-                logger.trace(TRACER, "OUT " + fqmn + " (" + sig.getReturnType() + ") ");
-            }
-        } catch (Throwable e) {
-            logger.error("capture message "+fqmn+" fail  ",e );
-        }
-    }
 
 
-    @Before(value = "@annotation(org.softauto.annotations.ListenerForTesting)")
+
+    @Before(value = ("@annotation(org.softauto.annotations.ListenerForTesting) || @annotation(org.softauto.annotations.VerifyForTesting)"))
     //@Before("execution(* *(..)) && !within(org.softauto..*)")
     public synchronized void captureAll(JoinPoint joinPoint){
         AtomicReference<String> fqmn = new AtomicReference();
         try {
             if(serviceImpl != null) {
-                Method method = serviceImpl.getClass().getDeclaredMethod("execute", new Class[]{String.class, Object[].class, Class[].class});
+                Method method = serviceImpl.getClass().getDeclaredMethod("executeBefore", new Class[]{String.class, Object[].class, Class[].class});
                 MethodSignature sig = (MethodSignature) joinPoint.getSignature();
                 fqmn.set(Utils.buildMethodFQMN(sig.getName(), sig.getDeclaringType().getName()));
                 //logger.trace(TRACER, "IN " + fqmn.get() + "( " + Arrays.toString(sig.getMethod().getParameterTypes()) + ")[" + Arrays.toString(joinPoint.getArgs()) + "]");
@@ -168,13 +142,15 @@ public class Listener {
 
 
 
-    @AfterReturning(value = "@annotation(org.softauto.annotations.ListenerForTesting)", returning="result")
+
+
+    @AfterReturning(value = ("@annotation(org.softauto.annotations.ListenerForTesting) || @annotation(org.softauto.annotations.VerifyForTesting)"), returning="result")
     //@AfterReturning(pointcut="execution(* *(..)) && !within(org.softauto..*)", returning="result")
     public synchronized   void returning(JoinPoint joinPoint,Object result) {
         try {
             if(serviceImpl != null) {
 
-                Method method = serviceImpl.getClass().getDeclaredMethod("execute", new Class[]{String.class, Object[].class, Class[].class});
+                Method method = serviceImpl.getClass().getDeclaredMethod("executeAfter", new Class[]{String.class, Object[].class, Class[].class});
                 MethodSignature sig = (MethodSignature) joinPoint.getSignature();
                 //if(Listeners.isExist(sig)) {
                     Thread currentThread = Thread.currentThread();

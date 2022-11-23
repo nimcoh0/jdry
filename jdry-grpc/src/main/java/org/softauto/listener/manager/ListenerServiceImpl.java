@@ -24,9 +24,7 @@ public class ListenerServiceImpl implements ListenerService {
                 result = serializer.write(message);
                 logger.debug("send message successfully " + methodName);
             }
-        }catch (NoSuchMethodException n){
-            logger.debug("send message "+methodName+" fail  ",n );
-            return (new Object[]{});
+
         } catch (Exception e) {
             if (e.getCause().toString().contains("UNAVAILABLE")) {
                 logger.debug("fail on UNAVAILABLE ", e);
@@ -47,13 +45,13 @@ public class ListenerServiceImpl implements ListenerService {
     }
 
     @Override
-    public  Object executeAfter(String methodName, Object[] args, Class[] types) throws Exception {
-        Object result = null;
+    public  void executeAfter(String methodName, Object[] args, Class[] types) throws Exception {
+        //Object result = null;
         try {
             if(Context.getTestState().equals(TestLifeCycle.START)) {
                 Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE)).setPort(Integer.valueOf(Configuration.get(Context.LISTENER_PORT))).build();
                 Message message = Message.newBuilder().setState(ListenerType.AFTER.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build();
-                result = serializer.write(message);
+                serializer.write(message);
                 logger.debug("send message successfully " + methodName);
             }
         } catch (Exception e) {
@@ -64,7 +62,7 @@ public class ListenerServiceImpl implements ListenerService {
             logger.debug("send message "+methodName+" fail  ",e );
         }
         logger.debug("returning from executeAfter" );
-        return result;
+        //return result;
     }
 
 

@@ -14,7 +14,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class SerializerServiceImpl implements SerializerService,SerializerService.Callback{
@@ -40,9 +42,29 @@ public class SerializerServiceImpl implements SerializerService,SerializerServic
         return methodResponse;
     }
 
+    private Object[] buildArgs(Message message){
+        Object[] args = new Object[message.getArgs().length];
+        try {
+            if(message.getArgs() != null && message.getArgs().length > 0) {
+                for (int i = 0; i < args.length; i++) {
+                    String str = new ObjectMapper().writeValueAsString(message.getArgs()[i]);
+                    String typename = message.getTypes()[i].getTypeName();
+                    Class<?> c = Class.forName(typename);
+                    Object o = new ObjectMapper().readValue(str, c);
+                    args[i] = o;
+                }
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return args;
+    }
+
+
     private Object doExecute(ByteBuffer mes) throws Exception {
         Object methodResponse = null;
         try{
+
             String newContent = new String(mes.array(), StandardCharsets.UTF_8);
             Message message = new ObjectMapper().readValue(newContent,Message.class);
             String fullClassName = Utils.getFullClassName(message.getDescriptor());
@@ -69,14 +91,17 @@ public class SerializerServiceImpl implements SerializerService,SerializerServic
             }else {
                 serviceImpl = SystemServiceImpl.getInstance();
             }
-
+                if(serviceImpl instanceof Object[]){
+                    serviceImpl = ((Object[])serviceImpl)[0];
+                }
                 Method m = Utils.getMethod(serviceImpl, methodName, message.getTypes());
                 logger.debug("invoking " + message.getDescriptor());
                 m.setAccessible(true);
+                Object[] args = buildArgs(message);
                 if (Modifier.isStatic(m.getModifiers())) {
-                    methodResponse = m.invoke(null, message.getArgs());
+                    methodResponse = m.invoke(null, args);
                 } else {
-                    methodResponse = m.invoke(serviceImpl, message.getArgs());
+                    methodResponse = m.invoke(serviceImpl, args);
                 }
 
             logger.debug("successfully invoke "+message.getDescriptor()+ " with args "+ Utils.result2String(message.getArgs())+ " on " +serviceImpl.getClass().getName());

@@ -5,6 +5,6 @@ public enum ListenerMode {
     MOCK,
     VERIFY,
     WAIT_TO,
-    WAIT_FOR_RESULT,
+    WAIT_TO_RESULT,
     NONE;
 }

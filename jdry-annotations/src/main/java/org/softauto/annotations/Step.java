@@ -17,4 +17,6 @@ public @interface Step {
 
     String type() ;
 
+    String returnType() default "";
+
 }

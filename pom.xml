@@ -21,6 +21,7 @@
         <module>jdry-testng-plugin</module>
         <!--module>jdry-local</module-->
         <module>jdry-serializer</module>
+        <module>jdry-grpc-client</module>
         <!--module>jdry-listener</module-->
         <!--module>jdry-injector</module-->
     </modules>
