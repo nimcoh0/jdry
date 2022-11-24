@@ -19,7 +19,9 @@ public @interface Assert {
 
     String expression() default "";
 
-    Step step() default @Step(fqmn = "", expression = "", type = "");
+    Step step() default @Step;
 
     String type() default "";
+
+    String call() default "";
 }

@@ -23,6 +23,7 @@ public @interface ApiForTesting {
 
     After after() default @After;
 
+
     //Authentication authentication() default @Authentication;
 
     String id() default "";
@@ -32,4 +33,6 @@ public @interface ApiForTesting {
     String script() default  "";
 
     String group() default "";
+
+    String call() default "";
 }

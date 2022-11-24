@@ -11,12 +11,16 @@ public @interface Step {
 
     String description() default "";
 
-    String fqmn() ;
+    String fqmn() default "";
 
-    String expression() ;
+    String expression() default "";
 
-    String type() ;
+    String type() default "";
 
     String returnType() default "";
+
+    String callOPtions() default "";
+
+    String protocol() default "RPC" ;
 
 }
