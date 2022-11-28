@@ -14,9 +14,9 @@ import java.lang.annotation.Target;
 public @interface ListenerForTesting {
     String description() default "";
 
-    ListenerMode mode() default ListenerMode.WAIT_TO_RESULT;
+    ListenerMode mode() default ListenerMode.LISTENER;
 
-    Mock mock() default @Mock(parameter = {});
+    //Mock mock() default @Mock(parameter = {});
 
     //String result() default "";
 

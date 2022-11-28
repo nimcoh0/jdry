@@ -47,6 +47,7 @@ public class Step {
         future = new CallFuture<>();
         logger.debug("invoking " +fqmn);
         new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+        //new InvocationHandler().invoke(fqmn,args,types,transceiver,callOptions);
     }
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions, CallFuture<T> future)throws Exception{

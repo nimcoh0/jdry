@@ -2,9 +2,8 @@ package org.softauto.annotations.util;
 
 public enum ListenerMode {
 
-    MOCK,
+    //MOCK,
     VERIFY,
-    WAIT_TO,
-    WAIT_TO_RESULT,
+    LISTENER,
     NONE;
 }

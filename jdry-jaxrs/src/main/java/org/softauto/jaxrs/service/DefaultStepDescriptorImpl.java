@@ -78,6 +78,7 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
     private String salt;
 
     public Cookie getCookie(){
+
         return (Cookie) TestContext.get("sessionId");
     }
 
@@ -145,6 +146,9 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
     @Override
     public Entity<?> getEntity() {
+        //if(callOptions.containsKey("entity")){
+        //    return Entity.entity("{\"name\":\"user7\", \"email\":\"user7@gmail.com\", \"password\":\"123\"}",produce);
+       // }
         //if(request.has("entity") && !request.get("entity").asText().isEmpty()){
           //  return Entity.entity(request.get("entity").asText(), request.get("MediaType").get("type").asText() +"/" + request.get("MediaType").get("subtype").asText());
 

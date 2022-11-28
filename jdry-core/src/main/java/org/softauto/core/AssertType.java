@@ -17,13 +17,15 @@ public enum AssertType {
     private final String value;
 
 
-    public static AssertType fromString(String text) {
-        for (AssertType b : AssertType.values()) {
-            if (b.name().equals(text)) {
-                return b;
+    public static AssertType fromString(Object text) {
+        if(text != null) {
+            for (AssertType b : AssertType.values()) {
+                if (b.name().equals(text.toString())) {
+                    return b;
+                }
             }
         }
-        return null;
+        return NONE;
     }
 
     public String getValue() {

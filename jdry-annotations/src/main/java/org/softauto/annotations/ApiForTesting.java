@@ -2,10 +2,7 @@ package org.softauto.annotations;
 
 import org.softauto.annotations.util.StepMode;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
@@ -15,6 +12,8 @@ public @interface ApiForTesting {
 
     String protocol() default "RPC" ;
 
+    //Class protocol() default RPC.class ;
+
     String[] dependencies() default {};
 
     //Assert Assert() default @Assert;
@@ -23,6 +22,7 @@ public @interface ApiForTesting {
 
     After after() default @After;
 
+    Assert anAssert() default @Assert;
 
     //Authentication authentication() default @Authentication;
 

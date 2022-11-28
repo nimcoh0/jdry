@@ -1,8 +1,6 @@
 package org.softauto.annotations;
 
 
-import org.softauto.annotations.util.VerifyType;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,6 +11,8 @@ import java.lang.annotation.Target;
 public @interface VerifyForTesting {
 
     String description() default "";
+
+    Assert anAssert() default @Assert;
 
     //Assert Assert() default @Assert;
 
