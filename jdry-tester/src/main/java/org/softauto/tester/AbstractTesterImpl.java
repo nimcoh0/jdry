@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.softauto.core.Resolver;
 import org.softauto.deserializer.NullStringJsonDeserializer;
 import org.softauto.listener.ListenerServerProviderImpl;
 import org.softauto.plugin.ProviderManager;
@@ -32,7 +33,7 @@ public class AbstractTesterImpl {
            //SimpleModule module = new SimpleModule();
            //module.addDeserializer(NullNode.class, new JsonNodeDeserializer());
            //mapper.registerModule(module);
-
+           Resolver.getInstance().clean();
            SystemState.getInstance().initialize();
            ListenerServerProviderImpl.getInstance().initialize().register();
            loadPlugins();

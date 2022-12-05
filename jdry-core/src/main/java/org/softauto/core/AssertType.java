@@ -4,10 +4,10 @@ package org.softauto.core;
 public enum AssertType {
 
     
-    AssertTrue("Assert.assertTrue"),
-    AssertFalse("Assert.assertTrue"),
-    AssertEquals("Assert.assertEquals"),
-    AssertNotEquals("Assert.assertNotEquals"),
+    AssertTrue("assertTrue"),
+    AssertFalse("assertTrue"),
+    AssertEquals("assertEquals"),
+    AssertNotEquals("assertNotEquals"),
     NONE("none");
 
     private AssertType(String  value) {

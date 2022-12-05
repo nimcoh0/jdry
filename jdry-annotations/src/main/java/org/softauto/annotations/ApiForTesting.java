@@ -1,5 +1,6 @@
 package org.softauto.annotations;
 
+import org.softauto.annotations.util.Role;
 import org.softauto.annotations.util.StepMode;
 
 import java.lang.annotation.*;
@@ -30,9 +31,9 @@ public @interface ApiForTesting {
 
     StepMode mode() default StepMode.API;
 
-    String script() default  "";
+    Role role() default Role.NONE;
 
     String group() default "";
 
-    String call() default "";
+
 }

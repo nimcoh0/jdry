@@ -31,9 +31,16 @@ public class StepDescriptorBuilder {
 
         Object[] args;
 
+        Class[] types;
+
         Object returnType;
 
         IStepDescriptor stepDescriptor;
+
+        public Builder setTypes(Class[] types) {
+            this.types = types;
+            return this;
+        }
 
         public Builder setReturnType(Object returnType) {
             this.returnType = returnType;
@@ -72,8 +79,9 @@ public class StepDescriptorBuilder {
 
         public StepDescriptorBuilder build(){
             stepDescriptor.setArgs(args);
-            stepDescriptor.setConfiguration(configuration);
+            //stepDescriptor.setConfiguration(configuration);
             stepDescriptor.setFullMethodName(name);
+            stepDescriptor.setTypes(types);
             //stepDescriptor.setItem(item);
             //stepDescriptor.setTest(test);
             stepDescriptor.setCallOptions(callOptions);

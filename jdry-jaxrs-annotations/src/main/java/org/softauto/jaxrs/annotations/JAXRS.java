@@ -1,6 +1,7 @@
 package org.softauto.jaxrs.annotations;
 
 
+import javax.ws.rs.core.UriInfo;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,6 +30,6 @@ public @interface JAXRS {
 
     Mode mode() default Mode.NONE;
 
-
+    //javax.ws.rs.core.Context UriInfo() default @javax.ws.rs.core.Context;
 
 }

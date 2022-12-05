@@ -22,22 +22,22 @@ public class RestService {
          return testDefinition;
     }
 
-    public static <T> TestDefinition createTestDefinition(String stepName, Object[] args, HashMap<String,Object> callOptions) {
-        return _createTestDefinition(stepName,args,callOptions);
+    public static <T> TestDefinition createTestDefinition(String stepName, Object[] args,Class[] types, HashMap<String,Object> callOptions) {
+        return _createTestDefinition(stepName,args,types,callOptions);
     }
 
     public static <T> TestDefinition createTestDefinition(String stepName, Object[] args) {
-        return _createTestDefinition(stepName,args,null);
+        return _createTestDefinition(stepName,args,null,null);
     }
 
-    private static <T> TestDefinition _createTestDefinition(String stepName, Object[] args,HashMap<String,Object> callOptions) {
+    private static <T> TestDefinition _createTestDefinition(String stepName, Object[] args,Class[] types,HashMap<String,Object> callOptions) {
         TestDefinition.Builder testDefinitionBuilder = null;
         try {
             TestDescriptor testDescriptor = TestDescriptor.create(stepName);
             testDefinitionBuilder = TestDefinition.builder(testDescriptor);
             //for(Item item : test.getItems()){
                 //if (item.getProp("transceiver").equals("JAXRS")) {
-            testDefinitionBuilder.addStep(testDescriptor.getStep(stepName,args,callOptions),ServiceCaller.call());
+            testDefinitionBuilder.addStep(testDescriptor.getStep(stepName,args,types,callOptions),ServiceCaller.call());
                //}
            //}
         }catch (Exception e){
@@ -54,12 +54,15 @@ public class RestService {
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
             try {
                 //HashMap<String,Object> callOptions = (HashMap<String, Object>) args[2];
+                stepDescriptor.setArgs(args);
+                MediaType produce = stepDescriptor.getProduce();
                 Client client = stepDescriptor.getClient();
                 ChannelDescriptor channel = stepDescriptor.getChannel();
                 MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
-                MediaType produce = stepDescriptor.getProduce();
+
                 URI uri = channel.getUri();
                 Cookie cookie = stepDescriptor.getCookie();
+                Class returnType = stepDescriptor.getReturnType();
                 //return (T) new JerseyHelper(client).get(uri.toString(), produce.toString(), headers, stepDescriptor.getReturnType());
 
 /*
@@ -84,7 +87,7 @@ public class RestService {
 
  */
                 logger.debug("invoke GET for "+ uri);
-                return (T) new JerseyHelper(client).get(uri.toString(), produce.toString(), headers, (Class<T>)Object.class,cookie);
+                return (T) new JerseyHelper(client).get(uri.toString(), produce.toString(), headers, returnType,cookie);
             }catch (Exception e){
                 logger.error("fail invoke GET for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }
@@ -97,13 +100,15 @@ public class RestService {
         @Override
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
             try {
+                stepDescriptor.setArgs(args);
+                MediaType produce = stepDescriptor.getConsume();
                 Client client = stepDescriptor.getClient();
                 ChannelDescriptor channel = stepDescriptor.getChannel();
                 MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
-                MediaType produce = stepDescriptor.getProduce();
                 Entity<?> entity = stepDescriptor.getEntity();
                 URI uri = channel.getUri();
                 Cookie cookie = stepDescriptor.getCookie();
+                Class returnType = stepDescriptor.getReturnType();
                 /*
                 Client client = ClientBuilder.newBuilder().setPassword(stepDescriptor.getAuthenticationPassword())
                         .setUsername(stepDescriptor.getAuthenticationUserName())
@@ -129,7 +134,7 @@ public class RestService {
                 logger.debug("invoke POST for "+ uri );
 
 
-                return (T)new JerseyHelper(client).post(uri.toString(), produce.toString(), headers,  (Class<T>)Object.class,entity,cookie);
+                return (T)new JerseyHelper(client).post(uri.toString(), produce.toString(), headers,  returnType,entity,cookie);
 
             }catch (Exception e){
                 logger.error("fail invoke POST for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
@@ -143,13 +148,16 @@ public class RestService {
         @Override
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args){
             try {
+                stepDescriptor.setArgs(args);
+                MediaType produce = stepDescriptor.getProduce();
                 Client client = stepDescriptor.getClient();
                 ChannelDescriptor channel = stepDescriptor.getChannel();
                 MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
-                MediaType produce = stepDescriptor.getProduce();
+
                 Entity<?> entity = stepDescriptor.getEntity();
                 URI uri = channel.getUri();
                 Cookie cookie = stepDescriptor.getCookie();
+                Class returnType = stepDescriptor.getReturnType();
                 /*
                 Client client = ClientBuilder.newBuilder().setPassword(stepDescriptor.getAuthenticationPassword())
                         .setUsername(stepDescriptor.getAuthenticationUserName())
@@ -173,7 +181,7 @@ public class RestService {
                 //URI uri =  channel.getUri();
                 //Entity<?> entity = org.softauto.jaxrs.Utils.buildEntity(produces,(Object[])args[0]);
                 logger.debug("invoke PUT for "+ uri + " with headers "+ headers.values() + " entity");
-                return (T)new JerseyHelper(client).put(uri.toString(), produce.toString(), headers,  (Class<T>)Object.class,entity,cookie);
+                return (T)new JerseyHelper(client).put(uri.toString(), produce.toString(), headers,  returnType,entity,cookie);
             }catch (Exception e){
                 logger.error("fail invoke PUT for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }
@@ -186,13 +194,16 @@ public class RestService {
         @Override
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
             try {
+                stepDescriptor.setArgs(args);
+                MediaType produce = stepDescriptor.getProduce();
                 Client client = stepDescriptor.getClient();
                 ChannelDescriptor channel = stepDescriptor.getChannel();
                 MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
-                MediaType produce = stepDescriptor.getProduce();
+
                 Entity<?> entity = stepDescriptor.getEntity();
                 URI uri = channel.getUri();
                 Cookie cookie = stepDescriptor.getCookie();
+                Class returnType = stepDescriptor.getReturnType();
                 /*
                 Client client = ClientBuilder.newBuilder().setPassword(stepDescriptor.getAuthenticationPassword())
                         .setUsername(stepDescriptor.getAuthenticationUserName())
@@ -215,7 +226,7 @@ public class RestService {
 
                  */
                 logger.debug("invoke DELETE for "+ uri + " with headers "+ headers.values() );
-                return (T)new JerseyHelper(client).delete(uri.toString(), produce.toString(), headers,  (Class<T>)Object.class,cookie);
+                return (T)new JerseyHelper(client).delete(uri.toString(), produce.toString(), headers,  returnType,cookie);
             }catch (Exception e){
                 logger.error("fail invoke DELETE for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }

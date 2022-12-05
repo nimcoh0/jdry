@@ -86,7 +86,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-        Assert.setContext(testResult.getTestContext(),method);
+       // Assert.setContext(testResult.getTestContext(),method);
     }
 
     @Override

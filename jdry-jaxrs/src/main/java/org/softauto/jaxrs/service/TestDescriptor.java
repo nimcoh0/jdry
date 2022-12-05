@@ -59,12 +59,12 @@ public class TestDescriptor {
 
 
      */
-    public IStepDescriptor getStep(String stepName, Object[] args, HashMap<String,Object> callOptions) {
+    public IStepDescriptor getStep(String stepName, Object[] args,Class[] types, HashMap<String,Object> callOptions) {
         return steps.computeIfAbsent(stepName.replace(".","_"),
                 key -> StepDescriptorBuilder.newBuilder().setConfiguration(Configuration.getConfiguration())
                         .setArgs(args)
                         .setName(stepName)
-
+                        .setTypes(types)
                         //.setItem(item)
                         .setCallOptions(callOptions)
                         //.setTest(test)

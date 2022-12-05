@@ -28,19 +28,21 @@ public interface IStepDescriptor {
 
     String getFullMethodName();
 
+    Class getReturnType();
 
-
-    boolean isSession();
+   // boolean isSession();
 
     IStepDescriptor build();
 
-    void  setConfiguration(HashMap<String, Object> configuration);
+   // void  setConfiguration(HashMap<String, Object> configuration);
 
     void setArgs(Object[] args);
 
-    void  setMethod (ServiceCaller.UnaryClass method)  ;
+    void setTypes(Class[] types);
 
-    ServiceCaller.UnaryClass getMethod();
+    //void  setMethod (ServiceCaller.UnaryClass method)  ;
+
+    ServiceCaller.UnaryClass getMethodImpl();
 
     Cookie getCookie();
 

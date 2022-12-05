@@ -24,7 +24,7 @@ public class ServiceCaller {
         @Override
         public <T> T startCall(IStepDescriptor stepDescriptor, Object[] args) {
             try {
-                return (T) stepDescriptor.getMethod().invoke(stepDescriptor,  args);
+                return (T) stepDescriptor.getMethodImpl().invoke(stepDescriptor,  args);
             }catch (Exception e){
                 e.printStackTrace();
             }

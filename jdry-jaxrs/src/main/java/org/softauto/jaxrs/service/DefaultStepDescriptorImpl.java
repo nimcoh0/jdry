@@ -18,6 +18,8 @@ import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,9 +29,9 @@ import java.util.*;
 
 public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
-    HashMap<String,Object> configuration;
+    //HashMap<String,Object> configuration;
 
-    JsonNode request ;
+    //JsonNode request ;
 
     Object[] args;
 
@@ -37,17 +39,19 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
     ServiceCaller.UnaryClass method;
 
-    Map<String, Object> props;
+    //Map<String, Object> props;
 
-    Map<String, Object> annotations;
+    //Map<String, Object> annotations;
 
-    Map<String, Object> classAnnotations;
+    //Map<String, Object> classAnnotations;
 
-    Map<String, Object>  additionalInfo;
+    //Map<String, Object>  additionalInfo;
 
     String httpMethod;
 
     MediaType produce;
+
+    MediaType consume;
 
     //Test test;
 
@@ -57,25 +61,25 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
     String password;
 
-    String email;
+    //String email;
 
     String path;
 
     String fullMethodName;
 
-    URI uri ;
+    //URI uri ;
 
-
+    Class[] types;
 
     HashMap<String,Object> callOptions;
 
-    MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
+    //MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
 
-    Client client;
+    //Client client;
 
-    private String hashedPassword;
+    //private String hashedPassword;
 
-    private String salt;
+    //private String salt;
 
     public Cookie getCookie(){
 
@@ -89,7 +93,7 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
     @Override
     public void setCallOptions(HashMap<String,Object> callOptions) {
-        this.callOptions = (HashMap<String, Object>) callOptions.get("callOption");
+        this.callOptions = callOptions;
     }
 
 
@@ -100,23 +104,24 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
         String host = (((HashMap<String,Object>) Configuration.get("jaxrs")).get("host").toString());
         String port = (((HashMap<String,Object>) Configuration.get("jaxrs")).get("port").toString());
         String protocol = (((HashMap<String,Object>) Configuration.get("jaxrs")).get("protocol").toString());
-
+        String base_url = (((HashMap<String,Object>) Configuration.get("jaxrs")).get("base_url").toString());
         return  ChannelBuilder.newBuilder().setHost(host)
                 .setProtocol(protocol)
                 .setArgs(args)
-                .setPath(path)
+                .setPath(callOptions.get("path").toString())
                 .setPort(port)
-                //.setBaseUrl(base_url)
+                .setBaseUrl(base_url)
                 .build()
                 .getChannelDescriptor();
     }
 
     @Override
     public Client getClient() {
-        String auth = Configuration.get(org.softauto.jaxrs.configuration.Context.AUTH);
-        if(auth != null && auth.equals(AuthenticationType.BASIC.getValue()) && TestContext.get("sessionId") == null && username != null ) {
-            client =  ClientBuilder.newBuilder().setPassword(password)
-                    .setUsername(username)
+        Client client = null;
+        String auth = ((HashMap<String,Object>)Configuration.get("jaxrs")).get(org.softauto.jaxrs.configuration.Context.AUTH).toString();
+        if(auth != null && auth.equals(AuthenticationType.BASIC.getValue()) && TestContext.get("sessionId") == null && callOptions.get("role").toString().equals("AUTH") ) {
+            client =  ClientBuilder.newBuilder().setPassword(args[1].toString())
+                    .setUsername(args[0].toString())
                     .build()
                     .getClient();
         }else {
@@ -136,6 +141,66 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
        return (MultivaluedMap<String, Object>) callOptions.get("headers");
     }
 
+    public Class getReturnType(){
+        try {
+            String s = callOptions.get("returnType").toString();
+            Class c = Class.forName(s);
+            return c;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    private boolean compareArgsTypes(Class<?>[] c ,Class[] t){
+        if(c != null && t != null ) {
+            if(c.length != t.length){
+                return false;
+            }
+            for (int i = 0; i < c.length; i++) {
+                if (!c[i].getTypeName().equals(t[i].getTypeName())) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private String getMethodName(String fullMethodName){
+        if(fullMethodName.contains(".")){
+            return fullMethodName.substring(fullMethodName.lastIndexOf(".")+1);
+        }
+        return fullMethodName;
+    }
+
+    private String getClassName(String fullMethodName){
+        if(fullMethodName.contains(".")){
+            return fullMethodName.substring(0,fullMethodName.lastIndexOf("."));
+        }
+        return fullMethodName;
+    }
+
+    private List<String> buildArgsNames(){
+        List<String> names = new ArrayList<>();
+        try {
+            Class c = Class.forName(getClassName(fullMethodName.replace("_",".")));
+            for(Method m : c.getMethods()){
+                if(m.getName().equals(getMethodName(fullMethodName.replace("_","."))) && compareArgsTypes(m.getParameterTypes(),types)){
+                    for(Parameter p : m.getParameters()){
+                        names.add(p.getName());
+                    }
+                    return names;
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
+
+    /*
     private List<String> getArgsNames() {
         List<String> argsNames = new ArrayList<>();
         for(int i=0;i<args.length;i++){
@@ -143,6 +208,8 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
         }
         return argsNames;
     }
+
+     */
 
     @Override
     public Entity<?> getEntity() {
@@ -153,23 +220,30 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
           //  return Entity.entity(request.get("entity").asText(), request.get("MediaType").get("type").asText() +"/" + request.get("MediaType").get("subtype").asText());
 
        // }
-        return EntityBuilder.newBuilder().setProduce(produce).setArgs(args).setArgsNames(getArgsNames()).build().getEntity();
+       // if(callOptions.get("role") != null && callOptions.get("role").toString().equals("AUTH")){
+          //  return EntityBuilder.newBuilder().setProduce(consume).build().getEntity();
+       // }else {
+            return EntityBuilder.newBuilder().setProduce(consume).setArgs(args).setArgsNames(buildArgsNames()).build().getEntity();
+       // }
     }
 
     @Override
     public MediaType getProduce() {
-        return produce = MediaType.valueOf(callOptions.get("mediaType").toString());
+        return produce = MediaType.valueOf(callOptions.get("produce").toString());
     }
 
     @Override
     public MediaType getConsume() {
-        return null;
+        return consume = MediaType.valueOf(callOptions.get("consume").toString());
     }
+
 
     @Override
     public Map<String, Object> getProperties() {
         return (Map<String, Object>) callOptions.get("props");
     }
+
+
 
     @Override
     public String getFullMethodName() {
@@ -179,10 +253,10 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
 
 
-    @Override
-    public boolean isSession() {
-        return Boolean.valueOf (((HashMap<String,Object>) Configuration.get("jaxrs")).get("session").toString());
-    }
+    //@Override
+    //public boolean isSession() {
+       // return Boolean.valueOf (((HashMap<String,Object>) Configuration.get("jaxrs")).get("session").toString());
+    //}
 
 
 
@@ -191,16 +265,16 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
         //props = (Map<String, Object>)item.getObjectProps();
         //annotations = props.get("annotations") != null ? (Map<String, Object>)props.get("annotations") : null;
         //classAnnotations = props.get("classAnnotations") != null ? (Map<String, Object>)props.get("classAnnotations") : null;
-        gethttpMethod();
-        parsePath();
-        getProduce();
+        //gethttpMethod();
+        //parsePath();
+       // getProduce();
         return this;
     }
 
-    @Override
-    public void setConfiguration(HashMap<String, Object> configuration) {
-        this.configuration = configuration;
-    }
+    //@Override
+    //public void setConfiguration(HashMap<String, Object> configuration) {
+       // this.configuration = configuration;
+    //}
 
     @Override
     public void setArgs(Object[] args) {
@@ -208,18 +282,23 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
     }
 
     @Override
+    public void setTypes(Class[] types) {
+        this.types = types;
+    }
+
+    /*
+    @Override
     public void setMethod(ServiceCaller.UnaryClass method) {
         this.method = method;
     }
 
-    @Override
-    public ServiceCaller.UnaryClass getMethod() {
-        return buildMethod();
-    }
+     */
 
 
 
 
+
+/*
     private void parseEntity(String entity){
         Map<String, String> result = null;
         if(produce.getSubtype().equals("x-www-form-urlencoded")){
@@ -243,15 +322,17 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
         if(result != null){
             password = result.get(Configuration.get(Context.PASSWORD_FIELD));
             username = result.get(Configuration.get(Context.USERNAME_FIELD));
-            email = result.get(Configuration.get(Context.EMAIL_FIELD));
+            //email = result.get(Configuration.get(Context.EMAIL_FIELD));
         }
     }
 
 
 
+ */
 
 
 
+/*
     private void parsePath(){
         try {
             path = new URL(callOptions.get("requestUri").toString()).toURI().getPath();
@@ -263,12 +344,15 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
     }
 
-    private void gethttpMethod(){
+
+ */
+    public void getMethod(){
         httpMethod = callOptions.get("method").toString();
     }
 
-    private ServiceCaller.UnaryClass buildMethod(){
+    public ServiceCaller.UnaryClass getMethodImpl(){
         ServiceCaller.UnaryClass method = null ;
+        getMethod();
         if(httpMethod.equals("POST")){
             method = new RestService.POSTMethodHandler();
         }
