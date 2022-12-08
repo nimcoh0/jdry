@@ -32,7 +32,7 @@ public class WsRsResponsSerializer extends StdSerializer<Response> {
             hm.put("status",response.getStatus());
             hm.put("hasEntity",false);
             hm.put("buffered",false);
-            hm.put("type","javax.ws.rs.core.Response");
+            hm.put("type",Integer.class);
             jsonGenerator.writeObject(hm);
         }
         //jsonGenerator.writeEndObject();

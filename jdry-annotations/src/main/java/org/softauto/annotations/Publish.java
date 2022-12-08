@@ -5,12 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.METHOD,ElementType.CONSTRUCTOR,ElementType.FIELD})
+@Target({ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DataForTesting {
+public @interface Publish {
 
-   String[] id() default {};
+    String name() default  "";
 
-   //Parameter[] parameter()  ;
+    String value() default  "";
 
 }

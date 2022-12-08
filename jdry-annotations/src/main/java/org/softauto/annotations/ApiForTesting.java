@@ -33,7 +33,9 @@ public @interface ApiForTesting {
 
     Role role() default Role.NONE;
 
-    String group() default "";
+    String[] group() default {};
+
+    Publish[] publish() default @Publish;
 
 
 }
