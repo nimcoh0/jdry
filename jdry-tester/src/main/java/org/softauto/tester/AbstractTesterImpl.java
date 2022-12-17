@@ -23,6 +23,8 @@ public class AbstractTesterImpl {
 
     public Test test;
 
+    public Suite suite = new Suite();
+
 
     public AbstractTesterImpl(){
         try {

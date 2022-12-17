@@ -25,7 +25,7 @@ public enum AssertType {
                 }
             }
         }
-        return NONE;
+        return AssertEquals;
     }
 
     public String getValue() {

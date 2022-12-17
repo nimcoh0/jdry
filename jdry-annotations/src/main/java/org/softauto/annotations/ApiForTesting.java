@@ -2,8 +2,8 @@ package org.softauto.annotations;
 
 import org.softauto.annotations.util.Role;
 import org.softauto.annotations.util.StepMode;
-
 import java.lang.annotation.*;
+
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
