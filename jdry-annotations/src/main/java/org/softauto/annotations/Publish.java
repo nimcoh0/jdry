@@ -1,5 +1,7 @@
 package org.softauto.annotations;
 
+import org.softauto.annotations.util.DataType;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,5 +14,7 @@ public @interface Publish {
     String name() default  "";
 
     String value() default  "";
+
+    DataType dataType() default DataType.NONE;
 
 }

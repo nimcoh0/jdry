@@ -12,6 +12,9 @@ import org.softauto.listener.ListenerServerProviderImpl;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.ProviderScope;
 import org.softauto.plugin.spi.PluginProvider;
+import org.testng.IInvokedMethod;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
 import org.testng.annotations.BeforeMethod;
 
 
@@ -46,9 +49,11 @@ public class AbstractTesterImpl {
     }
 
 
+
     @BeforeMethod
-    public void beforeMethod(){
+    public void beforeMethod(ITestContext testContext){
         test = new Test();
+        test.setId(testContext.getName());
     }
 
     public  void loadPlugins(){

@@ -225,7 +225,7 @@ public class RestService {
                 URI uri =  channel.getUri();
 
                  */
-                logger.debug("invoke DELETE for "+ uri + " with headers "+ headers.values() );
+                logger.debug("invoke DELETE for "+ uri  );
                 return (T)new JerseyHelper(client).delete(uri.toString(), produce.toString(), headers,  returnType,cookie);
             }catch (Exception e){
                 logger.error("fail invoke DELETE for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);

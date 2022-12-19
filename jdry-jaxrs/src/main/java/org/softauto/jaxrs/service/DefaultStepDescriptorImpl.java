@@ -14,10 +14,7 @@ import org.softauto.jaxrs.util.ClientBuilder;
 import org.softauto.jaxrs.util.EntityBuilder;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.net.MalformedURLException;
@@ -101,18 +98,27 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
     @Override
     public ChannelDescriptor getChannel() {
-        String host = (((HashMap<String,Object>) Configuration.get("jaxrs")).get("host").toString());
-        String port = (((HashMap<String,Object>) Configuration.get("jaxrs")).get("port").toString());
-        String protocol = (((HashMap<String,Object>) Configuration.get("jaxrs")).get("protocol").toString());
-        String base_url = (((HashMap<String,Object>) Configuration.get("jaxrs")).get("base_url").toString());
-        return  ChannelBuilder.newBuilder().setHost(host)
-                .setProtocol(protocol)
-                .setArgs(args)
-                .setPath(callOptions.get("path").toString())
-                .setPort(port)
-                .setBaseUrl(base_url)
-                .build()
-                .getChannelDescriptor();
+        if (callOptions.get("requestUri") != null && !callOptions.get("requestUri").toString().contains("?")) {
+            String path = this.callOptions.get("path").toString();
+            if(!callOptions.get("requestUri").toString().contains(path)) {
+                return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri") +"/"+ callOptions.get("path").toString()).build(args));
+            }else {
+                return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri").toString()).build(args));
+            }
+        } else {
+            String host = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("host").toString());
+            String port = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("port").toString());
+            String protocol = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("protocol").toString());
+            String base_url = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("base_url").toString());
+            return ChannelBuilder.newBuilder().setHost(host)
+                    .setProtocol(protocol)
+                    .setArgs(args)
+                    .setPath(callOptions.get("path").toString())
+                    .setPort(port)
+                    .setBaseUrl(base_url)
+                    .build()
+                    .getChannelDescriptor();
+        }
     }
 
     @Override

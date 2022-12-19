@@ -128,10 +128,10 @@ public class JerseyHelper {
                         t = (T) res.readEntity(response);
                     }
                 }else {
-                    t = (T) res;
+                    t = (T) Integer.valueOf(res.getStatus());
                 }
             }else {
-                t = (T) res;
+                t = (T) Integer.valueOf(res.getStatus());
             }
         }catch(Exception e){
             logger.error("delete request fail for url "+ url + " status "+ res.getStatusInfo(),e);

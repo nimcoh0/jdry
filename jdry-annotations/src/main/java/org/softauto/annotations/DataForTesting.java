@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DataForTesting {
 
-   String[] id() default {};
+   //String[] id() default {};
 
-   //Parameter[] parameter()  ;
+   Parameter[] parameter()  ;
 
 }
