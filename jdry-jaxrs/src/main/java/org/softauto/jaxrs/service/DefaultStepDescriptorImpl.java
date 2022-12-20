@@ -94,18 +94,31 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
     }
 
 
-
-
     @Override
     public ChannelDescriptor getChannel() {
+        String path = this.callOptions.get("path") != null ? this.callOptions.get("path").toString() : null;
         if (callOptions.get("requestUri") != null && !callOptions.get("requestUri").toString().contains("?")) {
-            String path = this.callOptions.get("path").toString();
-            if(!callOptions.get("requestUri").toString().contains(path)) {
-                return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri") +"/"+ callOptions.get("path").toString()).build(args));
+            if(path != null && !callOptions.get("requestUri").toString().contains(path)) {
+                if(path.startsWith("/")) {
+                    return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri") + path).build(args));
+                }else {
+                    return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri") +"/"+ path).build(args));
+                }
             }else {
                 return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri").toString()).build(args));
             }
-        } else {
+        }
+        if (callOptions.get("requestUri") != null && callOptions.get("requestUri").toString().contains("?")) {
+            return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri").toString().substring(0,callOptions.get("requestUri").toString().indexOf("?"))).build(args));
+        }
+            //String path = this.callOptions.get("path").toString();
+            if(path != null && callOptions.get("requestUri") != null && !callOptions.get("requestUri").toString().contains(path)) {
+                return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri") +"/"+ path).build(args));
+            }
+            if(path == null && callOptions.get("requestUri") != null ) {
+                return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri").toString()).build(args));
+            }
+
             String host = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("host").toString());
             String port = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("port").toString());
             String protocol = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("protocol").toString());
@@ -119,7 +132,7 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
                     .build()
                     .getChannelDescriptor();
         }
-    }
+
 
     @Override
     public Client getClient() {
