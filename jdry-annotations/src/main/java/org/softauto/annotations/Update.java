@@ -5,16 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.ANNOTATION_TYPE,ElementType.METHOD})
+/**
+ * @// TODO: 15/11/2022 add support for UpdateForTesting 
+ */
+@Target({ElementType.FIELD,ElementType.LOCAL_VARIABLE,ElementType.PARAMETER,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface After {
+public @interface Update {
 
-    String value() default "";
-
-    Step step() default @Step;
-
-    String type() default "";
-
-    String description() default "";
-
+    String provider() ;
 }

@@ -5,16 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.ANNOTATION_TYPE,ElementType.METHOD})
+@Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface After {
-
-    String value() default "";
-
-    Step step() default @Step;
-
-    String type() default "";
-
-    String description() default "";
-
+public @interface ExpValue {
+    String value();
 }

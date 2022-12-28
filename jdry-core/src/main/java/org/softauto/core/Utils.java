@@ -2,15 +2,16 @@ package org.softauto.core;
 
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.softauto.annotations.DefaultValueForTesting;
-
-
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Inet4Address;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
@@ -21,7 +22,33 @@ public class Utils {
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Utils.class);
 
 
+    public static Object instanceClass(String absoluteClassPath){
+        try {
+                String name = absoluteClassPath.substring(absoluteClassPath.lastIndexOf("/") + 1);
+                String path = absoluteClassPath.substring(0, absoluteClassPath.lastIndexOf("/"));
 
+                URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[]{
+                        new URL(
+                                "file:///" + path
+                        )
+                });
+
+                Class clazz = urlClassLoader.loadClass(name);
+                return clazz.getConstructors()[0].newInstance();
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     /**
@@ -66,6 +93,37 @@ public class Utils {
         return  null;
     }
 
+    public static Object[] getConstructorArgsValues(HashMap<String,Object> callOption,Class[] types){
+        List<Object> objs = new ArrayList<>();
+        try {
+            List<String> args = (List<String>) callOption.get("constructor");
+            for(int i=0;i<args.size();i++){
+               String s = new ObjectMapper().writeValueAsString(args.get(i));
+               Object o =  new ObjectMapper().readValue(s,types[i]);
+               objs.add(o);
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return objs.toArray();
+    }
+
+    public static Class[] extractConstructorArgsTypes(String fullClassName){
+        try {
+            Class c = Class.forName(fullClassName);
+            Constructor[] constructors = c.getDeclaredConstructors();
+            for(Constructor constructor: constructors){
+                if(constructor.getParameters().length >0 ){
+                    return constructor.getParameterTypes();
+                }
+            }
+        }catch (Exception e){
+            logger.error("fail extract Args Types for "+fullClassName,e);
+        }
+        return new Class[0];
+    }
+
+    /*
     public static Object[] getConstructorDefaultValues(String fullClassName){
         List<Object> defaultValues = new ArrayList<>();
         try {
@@ -75,11 +133,13 @@ public class Utils {
                 Annotation[][] annotations = constructor.getParameterAnnotations();
                 for (int i = 0; i < annotations.length; i++) {
                     for (int j = 0; j < annotations[i].length; j++) {
-                        if (annotations[i][j].annotationType().getName().equals("org.softauto.annotations.DefaultValueForTesting")) {
-                            String value = ((org.softauto.annotations.DefaultValueForTesting) annotations[i][j]).value();
+                        if (annotations[i][j].annotationType().getName().equals("org.softauto.annotations.DefaultValue")) {
+                            String value = ((DefaultValue) annotations[i][j]).value();
+                            if(value.equals("null"))
+                                value = null;
                             String name = constructor.getParameters()[i].getName();
-                            if (constructor.getParameters()[i].getAnnotation(DefaultValueForTesting.class).type() != null && !constructor.getParameters()[i].getAnnotation(DefaultValueForTesting.class).type().isEmpty()) {
-                                String type = constructor.getParameters()[i].getAnnotation(DefaultValueForTesting.class).type().toString();
+                            if (constructor.getParameters()[i].getAnnotation(DefaultValue.class).type() != null && !constructor.getParameters()[i].getAnnotation(DefaultValue.class).type().isEmpty()) {
+                                String type = constructor.getParameters()[i].getAnnotation(DefaultValue.class).type().toString();
                                 defaultValues.add(ObjectConverter.convert(value, constructor.getParameters()[i].getType(), type));
                             } else {
                                 defaultValues.add(value);
@@ -94,12 +154,14 @@ public class Utils {
         return defaultValues.toArray();
     }
 
+
+
     public static Class[] extractConstructorDefaultArgsTypes(String fullClassName){
         try {
             Class c = Class.forName(fullClassName);
             Constructor[] constructors = c.getDeclaredConstructors();
             for(Constructor constructor: constructors){
-                if(constructor.getParameters().length >0 &&  constructor.getParameters()[0].getAnnotation(DefaultValueForTesting.class) != null){
+                if(constructor.getParameters().length >0 &&  constructor.getParameters()[0].getAnnotation(DefaultValue.class) != null){
                     return constructor.getParameterTypes();
                 }
             }
@@ -108,6 +170,8 @@ public class Utils {
         }
         return new Class[0];
     }
+
+     */
 
     public static String getFullClassName(String descriptor){
         return  descriptor.substring(0,descriptor.lastIndexOf("_")).replace("_",".");

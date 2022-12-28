@@ -1,30 +1,33 @@
 package org.softauto.annotations;
 
 
+
+import org.softauto.annotations.util.ListenerMode;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD,ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface VerifyForTesting {
-
+public @interface Listener {
     String description() default "";
 
-    Assert anAssert() default @Assert;
+    ListenerMode mode() default ListenerMode.LISTENER;
 
-    //Assert Assert() default @Assert;
+    //Mock mock() default @Mock(parameter = {});
 
-    //VerifyType verifyType() default VerifyType.RESULT;
+    //String result() default "";
 
     //Before before() default @Before;
 
     //After after() default @After;
-    Step step() default @Step(fqmn = "", expression = "", type = "");
 
     String type() default "";
 
     String expression() default "";
+
+    Step step() default @Step(fqmn = "", expression = "", type = "");
 
 }

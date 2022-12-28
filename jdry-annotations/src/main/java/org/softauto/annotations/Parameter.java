@@ -1,7 +1,5 @@
 package org.softauto.annotations;
 
-import org.softauto.annotations.util.DataType;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,8 +16,6 @@ public @interface Parameter {
     String description() default "";
 
     String type() default "";
-
-    DataType dataType() default DataType.NONE;
 
     String id() default "";
 }

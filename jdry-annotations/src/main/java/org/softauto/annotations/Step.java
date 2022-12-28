@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.ANNOTATION_TYPE})
+@Target({ElementType.ANNOTATION_TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Step {
 
@@ -23,4 +23,5 @@ public @interface Step {
 
     String protocol() default "RPC" ;
 
+    String id() default "";
 }

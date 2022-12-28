@@ -5,11 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.TYPE})
+@Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ClassTypeForTesting {
+public @interface PublishValue {
 
-    String value() default "INITIALIZE_IF_NOT_EXIST";
-
-
+    String value();
 }

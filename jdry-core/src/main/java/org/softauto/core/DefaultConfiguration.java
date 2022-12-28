@@ -29,6 +29,7 @@ public class DefaultConfiguration {
         configuration.put(Context.USERNAME_FIELD,"username");
         configuration.put(Context.PASSWORD_FIELD,"password");
         configuration.put(Context.EMAIL_FIELD,"email");
+        configuration.put(Context.TEST_LIB, "C:/work/myprojects/java/WebServiceTestsAuto/target/test-classes/tests/TestLib.class");
     }
 
     public static HashMap<String,Object> getConfiguration() {

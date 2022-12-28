@@ -16,6 +16,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -69,16 +70,20 @@ public class SerializerServiceImpl implements SerializerService,SerializerServic
             Message message = new ObjectMapper().readValue(newContent,Message.class);
             String fullClassName = Utils.getFullClassName(message.getDescriptor());
             String methodName = Utils.getMethodName(message.getDescriptor());
+            HashMap<String, Object> callOption = null;
+            if(message.getData().containsKey("callOption")) {
+                callOption = (HashMap<String, Object>) message.getData().get("callOption");
+            }
             Object serviceImpl;
             String classType = ClassType.INITIALIZE_IF_NOT_EXIST.name();
-            if(message.getData().get("classType") != null) {
-                classType = message.getData().get("classType").toString();
+            if(callOption != null && callOption.get("classType") != null) {
+                classType = callOption.get("classType").toString();
             }
-            if(injector != null && !fullClassName.equals("org.softauto.system.SystemServiceImpl")) {
+            if(injector != null && !fullClassName.equals("org.softauto.system.SystemServiceImpl") && callOption != null) {
                 //if(classType.equals(ClassType.INITIALIZE) && !Utils.getClassName(fullClassName).equals(methodName)){
                     logger.debug("got request to method "+methodName+"  . trying to load class");
-                    Class[] types = Utils.extractConstructorDefaultArgsTypes(fullClassName);
-                    Object[] args = Utils.getConstructorDefaultValues(fullClassName);
+                    Class[] types = Utils.extractConstructorArgsTypes(fullClassName);
+                    Object[] args = Utils.getConstructorArgsValues(callOption,types);
                     serviceImpl = injector.inject(fullClassName,args,types, ClassType.fromString(classType));
                     if(serviceImpl == null){
                         logger.error("fail to initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));

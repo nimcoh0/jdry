@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.ANNOTATION_TYPE})
+@Target({ElementType.ANNOTATION_TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Assert {
 
@@ -17,7 +17,7 @@ public @interface Assert {
 
     String description() default "";
 
-    String expression() default "";
+    String value() default "";
 
     Step step() default @Step;
 

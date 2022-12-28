@@ -5,13 +5,10 @@ import org.apache.logging.log4j.MarkerManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.softauto.annotations.Mock;
-import org.softauto.annotations.UpdateForTesting;
+import org.softauto.annotations.Update;
 import org.softauto.core.Iprovider;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
@@ -49,17 +46,17 @@ public class Listener {
     }
 
 
-    @Pointcut("@annotation(updateForTesting)")
-    public void callAt(UpdateForTesting updateForTesting) {
+    @Pointcut("@annotation(update)")
+    public void callAt(Update update) {
     }
 
     //@annotation(UpdateForTesting) && execution(* *(..))  && !within(org.softauto..*) ")
     //@Around("@annotation(UpdateForTesting) && execution(* *(..))  && !within(org.softauto..*) ")
-    @Around("callAt(updateForTesting)")
-    public synchronized Object captureUpdateProvider(org.aspectj.lang.ProceedingJoinPoint joinPoint,UpdateForTesting updateForTesting){
+    @Around("callAt(update)")
+    public synchronized Object captureUpdateProvider(org.aspectj.lang.ProceedingJoinPoint joinPoint, Update update){
         Object o = null;
         try {
-            Class c = Class.forName(updateForTesting.provider());
+            Class c = Class.forName(update.provider());
             Constructor<?> ctor = c.getConstructor();
             Iprovider p = (Iprovider)ctor.newInstance();
             o = joinPoint.proceed();
@@ -72,37 +69,11 @@ public class Listener {
 
 
 
-    @Pointcut("@annotation(mock)")
-    public void callMock(Mock mock) {
-    }
-
-    /**
-     * @// TODO: 14/11/2022 impl convert mock annotations to Object[]  
-     * @param joinPoint
-     * @param mock
-     * @return
-     */
-    @Around("callMock(mock)")
-    public  synchronized   Object captureMock(org.aspectj.lang.ProceedingJoinPoint joinPoint,Mock mock){
-        String fqmn = null;
-        try {
-            if(serviceImpl != null) {
-                MethodSignature sig = (MethodSignature) joinPoint.getSignature();
-                fqmn = Utils.buildMethodFQMN(sig.getName(), sig.getDeclaringType().getName());
-                Object[] parameters = sig.getMethod().getAnnotation(org.softauto.annotations.Mock.class).parameter();
-                //return joinPoint.proceed(parameters);
-            }
-            return joinPoint.proceed();
-        } catch (Throwable e) {
-            logger.error("capture message "+fqmn+" fail  ",e );
-        }
-        return null;
-    }
 
 
 
 
-    @Before(value = ("@annotation(org.softauto.annotations.ListenerForTesting) || @annotation(org.softauto.annotations.VerifyForTesting)"))
+    @Before(value = ("@annotation(org.softauto.annotations.Listener) || @annotation(org.softauto.annotations.Verify)"))
     //@Before("execution(* *(..)) && !within(org.softauto..*)")
     public synchronized void captureAll(JoinPoint joinPoint){
         AtomicReference<String> fqmn = new AtomicReference();
@@ -144,7 +115,7 @@ public class Listener {
 
 
 
-    @AfterReturning(value = ("@annotation(org.softauto.annotations.ListenerForTesting) || @annotation(org.softauto.annotations.VerifyForTesting)"), returning="result")
+    @AfterReturning(value = ("@annotation(org.softauto.annotations.Listener) || @annotation(org.softauto.annotations.Verify)"), returning="result")
     //@AfterReturning(pointcut="execution(* *(..)) && !within(org.softauto..*)", returning="result")
     public synchronized   void returning(JoinPoint joinPoint,Object result) {
         try {

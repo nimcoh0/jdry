@@ -5,10 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
-@Target({ElementType.PARAMETER, ElementType.CONSTRUCTOR})
+@Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DefaultValueForTesting {
+public @interface TextValue {
+
+
     String value();
-    String type() default "";
+
 }

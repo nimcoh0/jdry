@@ -5,12 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.METHOD,ElementType.CONSTRUCTOR,ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DataForTesting {
+public @interface Initialize {
 
-   //String[] id() default {};
+    String value() default "INITIALIZE_IF_NOT_EXIST";
 
-   Parameter[] parameter()  ;
 
 }

@@ -61,6 +61,7 @@ public class Context {
     public final static String SERIALIZER_SET = "set";
     public final static String PLUGINS = "plugins";
     public final static String PLUGIN = "plugin";
+    public final static String TEST_LIB = "test_lib";
 
     //public final static String LOG4J2_SOCKET_TCP_SERVER_PORT = "log4j2_socket_tcp_server_port";
     public static TestLifeCycle TestState = TestLifeCycle.NONE;

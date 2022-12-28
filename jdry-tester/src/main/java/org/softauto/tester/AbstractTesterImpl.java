@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.softauto.core.Configuration;
+import org.softauto.core.Context;
 import org.softauto.core.Resolver;
 import org.softauto.deserializer.NullStringJsonDeserializer;
 import org.softauto.listener.ListenerServerProviderImpl;
@@ -17,6 +19,11 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.BeforeMethod;
 
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+
 
 public class AbstractTesterImpl {
 
@@ -27,6 +34,8 @@ public class AbstractTesterImpl {
     public Test test;
 
     public Suite suite = new Suite();
+
+
 
 
     public AbstractTesterImpl(){
@@ -65,5 +74,6 @@ public class AbstractTesterImpl {
             logger.error("fail to load plugins  ",e);
         }
     }
+
 
 }
