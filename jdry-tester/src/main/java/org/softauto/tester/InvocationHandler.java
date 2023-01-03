@@ -58,8 +58,8 @@ public class InvocationHandler {
         CallFuture<T> future = new CallFuture<>();
         T t = null;
         try {
-            String host = Configuration.get(Context.SERIALIZER_HOST);
-            int port = Integer.valueOf(Configuration.get(Context.SERIALIZER_PORT));
+            String host = Configuration.get(Context.SERIALIZER_HOST).asString();
+            int port = Configuration.get(Context.SERIALIZER_PORT).asInteger();
             Serializer serializer = new Serializer().setHost(host).setPort(port).build();
             Message message = Message.newBuilder().setDescriptor(methodName).setArgs(args).setTypes(types).build();
             t = serializer.write(message);

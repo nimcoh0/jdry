@@ -19,7 +19,7 @@ public class ListenerServiceImpl implements ListenerService {
         Object result = null;
         try {
             if(Context.getTestState().equals(TestLifeCycle.START)) {
-                Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE)).setPort(Integer.valueOf(Configuration.get(Context.LISTENER_PORT))).build();
+                Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
                 Message message = Message.newBuilder().setState(ListenerType.BEFORE.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build();
                 result = serializer.write(message);
                 logger.debug("send message successfully " + methodName);
@@ -49,7 +49,7 @@ public class ListenerServiceImpl implements ListenerService {
         //Object result = null;
         try {
             if(Context.getTestState().equals(TestLifeCycle.START)) {
-                Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE)).setPort(Integer.valueOf(Configuration.get(Context.LISTENER_PORT))).build();
+                Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
                 Message message = Message.newBuilder().setState(ListenerType.AFTER.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build();
                 serializer.write(message);
                 logger.debug("send message successfully " + methodName);

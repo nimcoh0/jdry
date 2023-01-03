@@ -5,13 +5,13 @@ import org.softauto.annotations.util.StepMode;
 import java.lang.annotation.*;
 
 
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD,ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Api {
 
     String description() default "";
 
-    String protocol() default "RPC" ;
+    String protocol()  ;
 
     //Class protocol() default RPC.class ;
 
@@ -37,5 +37,5 @@ public @interface Api {
 
     Publish[] publish() default @Publish;
 
-
+    String callback() default "";
 }

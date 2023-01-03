@@ -21,7 +21,7 @@ public @interface Verify {
     //Before before() default @Before;
 
     //After after() default @After;
-    Step step() default @Step(fqmn = "", expression = "", type = "");
+    Step step() default @Step(fqmn = "", expression = "", type = "", protocol = "");
 
     String type() default "";
 

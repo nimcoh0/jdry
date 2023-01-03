@@ -100,8 +100,8 @@ public class JaxrsProviderImpl implements Provider {
     @Override
     public Provider initialize() throws IOException {
         try {
-            if((((HashMap<String,Object>) Configuration.get("jaxrs")).get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS) != null) )   {
-                String name = ((HashMap<String,Object>) Configuration.get("jaxrs")).get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS).toString();
+            if((Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS) != null) )   {
+                String name = Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS).toString();
                 Class c = Class.forName(name);//Thread.currentThread().getContextClassLoader().loadClass(fullClassName);
                 IStepDescriptor stepDescriptor = (IStepDescriptor) c.getConstructor().newInstance();
                 TestContext.put("stepDescriptor",stepDescriptor);

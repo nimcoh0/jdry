@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Data {
 
-   String value() ;
+   String value() default "";
    //String[] id() default {};
 
    Parameter[] parameter() default {} ;

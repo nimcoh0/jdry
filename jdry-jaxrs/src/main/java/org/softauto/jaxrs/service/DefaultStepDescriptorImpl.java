@@ -119,10 +119,10 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
                 return new ChannelDescriptor(UriBuilder.fromUri(callOptions.get("requestUri").toString()).build(args));
             }
 
-            String host = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("host").toString());
-            String port = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("port").toString());
-            String protocol = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("protocol").toString());
-            String base_url = (((HashMap<String, Object>) Configuration.get("jaxrs")).get("base_url").toString());
+            String host = (Configuration.get("jaxrs").asMap().get("host").toString());
+            String port = (Configuration.get("jaxrs").asMap().get("port").toString());
+            String protocol = (Configuration.get("jaxrs").asMap().get("protocol").toString());
+            String base_url = ( Configuration.get("jaxrs").asMap().get("base_url").toString());
             return ChannelBuilder.newBuilder().setHost(host)
                     .setProtocol(protocol)
                     .setArgs(args)
@@ -137,7 +137,7 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
     @Override
     public Client getClient() {
         Client client = null;
-        String auth = ((HashMap<String,Object>)Configuration.get("jaxrs")).get(org.softauto.jaxrs.configuration.Context.AUTH).toString();
+        String auth = Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.AUTH).toString();
         if(auth != null && auth.equals(AuthenticationType.BASIC.getValue()) && TestContext.get("sessionId") == null && callOptions.get("role").toString().equals("AUTH") ) {
             client =  ClientBuilder.newBuilder().setPassword(args[1].toString())
                     .setUsername(args[0].toString())

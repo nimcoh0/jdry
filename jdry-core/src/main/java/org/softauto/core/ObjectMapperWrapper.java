@@ -33,7 +33,7 @@ public class ObjectMapperWrapper {
     }
 
     private ObjectMapperWrapper(){
-        HashMap<String,Object> jackson = (HashMap<String, Object>) ((HashMap<String,Object>)Configuration.get("recorder")).get("jackson");
+        HashMap<String,Object> jackson = (HashMap<String, Object>) Configuration.get("recorder").asMap().get("jackson");
         if(jackson != null) {
             serializers = (List<HashMap<String, Object>>) jackson.get(Context.SERIALIZERS);
             //serializers = jackson.get(Context.SERIALIZERS);

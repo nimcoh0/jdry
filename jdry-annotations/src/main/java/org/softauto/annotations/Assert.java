@@ -19,7 +19,7 @@ public @interface Assert {
 
     String value() default "";
 
-    Step step() default @Step;
+    Step step() default @Step(protocol = "");
 
     String type() default "";
 

@@ -52,11 +52,11 @@ public class ListenerServerProviderImpl  {
 
     public ListenerServerProviderImpl initialize()  {
         try {
-            server = ServerBuilder.forPort(Integer.valueOf(Configuration.get(Context.LISTENER_PORT)))
+            server = ServerBuilder.forPort(Configuration.get(Context.LISTENER_PORT).asInteger())
                     .addService(AvroGrpcServer.createServiceDefinition(SerializerService.class, new ListenerServiceImpl()))
                     .build();
             server.start();
-            logger.info("listener server load successfully on port "+ Configuration.get(Context.LISTENER_PORT));
+            logger.info("listener server load successfully on port "+ Configuration.get(Context.LISTENER_PORT).asString());
         }catch (Exception e) {
             logger.error("start Listener server fail  ", e);
         }
