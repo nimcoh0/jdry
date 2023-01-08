@@ -38,4 +38,6 @@ public @interface Api {
     Publish[] publish() default @Publish;
 
     String callback() default "";
+
+    Consume[] consume() default @Consume;
 }

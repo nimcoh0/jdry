@@ -1,6 +1,7 @@
 package org.softauto.jaxrs.annotations;
 
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,9 +19,9 @@ public @interface JAXRS {
 
     HttpMethod httpMethod() default HttpMethod.NONE;
 
-    MediaType produce() default MediaType.NONE;
+    String produce() default MediaType.APPLICATION_JSON;
 
-    MediaType consume() default MediaType.NONE;
+    String consume() default MediaType.APPLICATION_JSON;
 
     String path() default "";
 
