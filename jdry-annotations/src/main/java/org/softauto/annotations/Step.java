@@ -27,5 +27,5 @@ public @interface Step {
 
     String callback() default "";
 
-    Consume[] consume() default @Consume;
+    String[] consume() default {};
 }

@@ -1,6 +1,7 @@
 package org.softauto.jaxrs.annotations;
 
 
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.lang.annotation.ElementType;
@@ -17,11 +18,11 @@ public @interface JAXRS {
 
     String[] headers() default {};
 
-    HttpMethod httpMethod() default HttpMethod.NONE;
+    String method() default javax.ws.rs.HttpMethod.GET;
 
-    String produce() default MediaType.APPLICATION_JSON;
+    String produces() default MediaType.APPLICATION_JSON;
 
-    String consume() default MediaType.APPLICATION_JSON;
+    String consumes() default MediaType.APPLICATION_JSON;
 
     String path() default "";
 
@@ -30,6 +31,8 @@ public @interface JAXRS {
     Authentication authentication() default @Authentication;
 
     Mode mode() default Mode.NONE;
+
+    String response() default "";
 
     //javax.ws.rs.core.Context UriInfo() default @javax.ws.rs.core.Context;
 

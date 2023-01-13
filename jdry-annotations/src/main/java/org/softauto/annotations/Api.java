@@ -35,9 +35,9 @@ public @interface Api {
 
     String[] group() default {};
 
-    Publish[] publish() default @Publish;
+    String[] publish() default {};
 
     String callback() default "";
 
-    Consume[] consume() default @Consume;
+    String[] consume() default {};
 }
