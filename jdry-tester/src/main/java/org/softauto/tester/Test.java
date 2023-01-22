@@ -19,6 +19,8 @@ public class Test {
 
     String id;
 
+
+
     public String getId() {
         return id;
     }
@@ -86,6 +88,8 @@ public class Test {
         ListenerObserver.getInstance().register(fqmn,func);
         return  new Listener().setFqmn(fqmn).setFunc(func);
     }
+
+
 
 
     /*

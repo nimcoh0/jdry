@@ -17,5 +17,5 @@ public @interface Before {
 
     String type() default "";
 
-    Parameter[] parameter() default {};
+    Parameter[] parameters() default {};
 }

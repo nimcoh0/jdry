@@ -16,16 +16,17 @@ public class Suite {
     //HashMap<String,Object> publishDataForTesting = new HashMap<>();
 
 
-    public void addPublish(String id, Object data){
+    public Suite addPublish(String id, Object data){
         //if(dataType.equals("DEFAULT_DATA")) {
             publish.put(id,data);
        //}
        // if(dataType.equals("DATA_FOR_TESTING")) {
           //  publishDataForTesting.put(id,data);
        // }
+        return this;
     }
 
-    public void addPublish(String id, String key, Object value){
+    public Suite addPublish(String id, String key, Object value){
        // if(dataType.equals("DEFAULT_DATA")) {
             HashMap<String ,Object> data = new HashMap<>();
             data.put(key,value);
@@ -36,6 +37,7 @@ public class Suite {
         //    data.put(key,value);
         //    publishDataForTesting.put(id,data);
        // }
+        return this;
     }
 
     public HashMap<String, Object> getPublish(String id){
@@ -58,6 +60,8 @@ public class Suite {
         }
         return null;
     }
+
+
 
     /*
     public HashMap<String, Object> getPublishDataForTesting(String id){

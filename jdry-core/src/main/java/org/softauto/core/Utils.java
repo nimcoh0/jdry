@@ -15,6 +15,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
 public class Utils {
@@ -318,6 +320,32 @@ public class Utils {
         builtInMap.put("void", Void.TYPE );
         builtInMap.put("short", Short.TYPE );
 
+    }
+
+    public static boolean isJson(String str){
+        try {
+            new ObjectMapper().readTree(str);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static  String getVar(String s){
+        if (s.toString().contains("${")) {
+            String key = null;
+            Pattern pattern = Pattern.compile("\\$\\{([^\\}]*)\\}");
+            key = pattern
+                    .matcher(s.toString())
+                    .results()
+                    .collect(Collectors.toList())
+                    .get(0)
+                    .group(1);
+            return key;
+            //return VariableResolver.setExpression("${" + key + "}").resolve().toString();
+            //s = VariableResolver.setExpression(exp.toString()).resolve().toString();
+        }
+        return s;
     }
 
 }
