@@ -19,6 +19,10 @@ public class EvulExp {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(EvulExp.class);
 
+    public Map<String, Object> getContexts() {
+        return contexts;
+    }
+
     public EvulExp setExp(ExpressionBuilder exp) {
         this.exp = exp;
         return this;
@@ -39,6 +43,8 @@ public class EvulExp {
         return this;
     }
 
+
+
     public synchronized <T> T evulExp (String exp)throws Exception{
         //logger.debug("evaluate "+exp +" using object context "+ ctx.getClass().getName());
         ExpressionParser parser = new SpelExpressionParser();
@@ -52,6 +58,9 @@ public class EvulExp {
         return res;
     }
 
+
+
+    /*
     public synchronized Class evulClass (String exp)throws Exception{
         //logger.debug("evaluate "+exp +" using object context "+ ctx.getClass().getName());
         ExpressionParser parser = new SpelExpressionParser();
@@ -61,6 +70,21 @@ public class EvulExp {
     }
 
 
+    public synchronized Object evulExp1 (String exp)throws Exception{
+        //logger.debug("evaluate "+exp +" using object context "+ ctx.getClass().getName());
+        ExpressionParser parser = new SpelExpressionParser();
+        StandardEvaluationContext itemContext = new StandardEvaluationContext(contexts);
+        if(itemContext == null){
+            throw new Exception("fail to evul " + exp );
+        }
+        Expression exp2 = parser.parseExpression(exp);
+        Object res =  exp2.getValue(itemContext,contexts);
+        logger.debug("evaluate "+exp +" to "+ res);
+        return res;
+    }
+
+
+     */
     public synchronized <T> T evulExp (String exp,T ctx)throws Exception{
         logger.debug("evaluate "+exp +" using object context "+ ctx.getClass().getName());
         ExpressionParser parser = new SpelExpressionParser();
@@ -73,6 +97,7 @@ public class EvulExp {
         logger.debug("evaluate "+exp +" to "+ res);
         return res;
     }
+
 
     /*
     public  Object evulExp1 (String exp,Object ctx)throws Exception{
@@ -139,6 +164,6 @@ public class EvulExp {
         }catch (Exception e){
             logger.error("fail evaluate expression ", e);
         }
-        return null;
+        return exp.getExpressions();
     }
 }
