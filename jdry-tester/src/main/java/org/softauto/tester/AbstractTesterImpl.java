@@ -46,6 +46,8 @@ public class AbstractTesterImpl {
 
     public AbstractTesterImpl(){
         try {
+            SecurityManager sm = new MySecurityManager();
+            System.setSecurityManager(sm);
            mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
             SimpleModule module = new SimpleModule();
             module.addDeserializer(String.class, new NullStringJsonDeserializer());

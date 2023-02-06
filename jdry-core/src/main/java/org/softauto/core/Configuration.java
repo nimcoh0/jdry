@@ -1,6 +1,8 @@
 package org.softauto.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,7 +19,9 @@ public class Configuration {
         this.result = result;
     }
 
-
+    public Object getResult() {
+        return result;
+    }
 
     public static void setConfiguration(HashMap<String,Object> configuration){
         try {
@@ -37,6 +41,16 @@ public class Configuration {
         }
         return null;
     }
+
+    public <T>  List<T> asList(){
+        List<Object> l = new ArrayList<>();
+        if(result instanceof ArrayList){
+            return (List<T>) result;
+        }
+        l.add(result);
+        return (List<T>) l;
+    }
+
 
     public HashMap<String,Object> asMap(){
         if(result instanceof Map){
@@ -63,7 +77,7 @@ public class Configuration {
     public  static Configuration get(String key){
         try {
             if (configuration.containsKey(key)) {
-                return new Configuration(configuration.get(key));
+                return  new Configuration(configuration.get(key));
             }
         }catch (Exception e){
             logger.error(e);

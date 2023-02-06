@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.softauto.serializer.HttpServletRequestWrapperSerializer;
+import org.softauto.serializer.ReaderToStringSerializer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -68,6 +70,11 @@ public class ObjectMapperWrapper {
                 JsonSerializer instance = (JsonSerializer) clazz.getConstructors()[0].newInstance();
                 userModule.addSerializer(type, instance);
             }
+            //ReaderToStringSerializer readerToStringSerializer = new ReaderToStringSerializer();
+            //userModule.addSerializer(java.io.Reader.class, readerToStringSerializer);
+           // HttpServletRequestWrapperSerializer httpServletRequestWrapperSerializer = new HttpServletRequestWrapperSerializer();
+           // userModule.addSerializer(javax.servlet.http.HttpServletRequestWrapper.class, httpServletRequestWrapperSerializer);
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
