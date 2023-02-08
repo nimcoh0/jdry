@@ -29,11 +29,11 @@ public class WsRsResponsSerializer extends StdSerializer<Response> {
             //jsonGenerator.writeStartObject();
             jsonGenerator.writeObject(hm);
         }else {
-            hm.put("status",response.getStatus());
-            hm.put("hasEntity",false);
-            hm.put("buffered",false);
-            hm.put("type",Integer.class);
-            jsonGenerator.writeObject(hm);
+            //hm.put("status",response.getStatus());
+            //hm.put("hasEntity",false);
+            //hm.put("buffered",false);
+            //hm.put("type",Integer.class);
+            jsonGenerator.writeObject(response.getStatus());
         }
         //jsonGenerator.writeEndObject();
     }
