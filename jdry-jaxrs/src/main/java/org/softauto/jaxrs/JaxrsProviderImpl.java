@@ -7,7 +7,8 @@ import org.softauto.core.CallbackToResponseStreamObserverAdpater;
 import org.softauto.core.Configuration;
 import org.softauto.core.ServiceLocator;
 import org.softauto.core.TestContext;
-import org.softauto.jaxrs.service.IStepDescriptor;
+import org.softauto.jaxrs.security.auth.basic.BasicStepDescriptorImpl;
+import org.softauto.jaxrs.security.auth.jwt.JwtStepDescriptorImpl;
 import org.softauto.jaxrs.service.RestService;
 import org.softauto.jaxrs.service.StepDefinition;
 import org.softauto.jaxrs.service.TestDefinition;
@@ -102,17 +103,29 @@ public class JaxrsProviderImpl implements Provider {
         try {
             if((Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS) != null) )   {
                 String name = Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS).toString();
-                Class c = Class.forName(name);//Thread.currentThread().getContextClassLoader().loadClass(fullClassName);
-                IStepDescriptor stepDescriptor = (IStepDescriptor) c.getConstructor().newInstance();
-                TestContext.put("stepDescriptor",stepDescriptor);
-            }else {
-                IStepDescriptor stepDescriptor = (IStepDescriptor) org.softauto.jaxrs.configuration.DefaultConfiguration.getConfiguration().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS);
-                TestContext.put("stepDescriptor",stepDescriptor);
+
+
+
+                //Class c = Class.forName(name);//Thread.currentThread().getContextClassLoader().loadClass(fullClassName);
+                //IStepDescriptor stepDescriptor = (IStepDescriptor) c.getConstructor().newInstance();
+                //TestContext.put("stepDescriptor",stepDescriptor);
+            //}else {
+                //IStepDescriptor stepDescriptor = (IStepDescriptor) org.softauto.jaxrs.configuration.DefaultConfiguration.getConfiguration().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS);
+                //TestContext.put("stepDescriptor",stepDescriptor);
             }
 
                 //Class suite = Class.forName(Configuration.get(Context.SUITE_CLASS_NAME));
                 //serviceDefinition = RestService.createServiceDefinition(suite);
                 //logger.debug("jaxrs plugin initialize successfully");
+
+            if(Configuration.get("jaxrs").asMap().get("auth").toString().equals("JWT")){
+                TestContext.put("stepDescriptor",new JwtStepDescriptorImpl());
+
+            }else {
+                TestContext.put("stepDescriptor",new BasicStepDescriptorImpl());
+
+            }
+
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -10,10 +10,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.core.Configuration;
-import org.softauto.core.Context;
-import org.softauto.core.Resolver;
-import org.softauto.core.Utils;
+import org.softauto.core.*;
 import org.softauto.deserializer.NullStringJsonDeserializer;
 import org.softauto.listener.ListenerServerProviderImpl;
 import org.softauto.plugin.ProviderManager;
@@ -59,6 +56,7 @@ public class AbstractTesterImpl {
            SystemState.getInstance().initialize();
            ListenerServerProviderImpl.getInstance().initialize().register();
            loadPlugins();
+
           // loadTestSuite();
         }catch (Exception e){
             logger.error("fail start listener ",e);

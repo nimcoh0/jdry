@@ -40,4 +40,16 @@ public @interface Api {
     String callback() default "";
 
     String[] consume() default {};
+
+    String returnType() default "";
+
+    String scenarioOrder() default "";
+
+    String order() default "";
+
+    String verifyId() default "";
+
+    //Expected expected() default @Expected();
+
+    //Result result() default @Result();
 }

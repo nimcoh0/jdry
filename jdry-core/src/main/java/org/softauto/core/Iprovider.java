@@ -1,6 +1,6 @@
 package org.softauto.core;
 
-public interface Iprovider<T> {
+public interface Iprovider<R,T> {
 
-    T apply(T t);
+    R apply(R result,T args);
 }

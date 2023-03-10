@@ -98,7 +98,7 @@ public class HttpServletRequestSerializer extends StdSerializer<HttpServletReque
         if(hm.size() > 0) {
             HashMap<String, Object> hm1 = new HashMap<>();
             hm1.put("javax.servlet.http.HttpServletRequest", hm);
-            hm1.put("type",HttpServletRequest.class);
+            hm1.put("realType",HttpServletRequest.class);
             jsonGenerator.writeObject(hm1);
             //jsonGenerator.writeObjectField("javax.servlet.http.HttpServletRequest", hm);
         }

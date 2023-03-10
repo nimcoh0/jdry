@@ -10,7 +10,9 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.FIELD,ElementType.LOCAL_VARIABLE,ElementType.PARAMETER,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Update {
+public @interface UpdateForTesting {
 
-    String provider() ;
+    String value() ;
+
+
 }

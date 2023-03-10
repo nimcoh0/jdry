@@ -5,6 +5,7 @@ package org.softauto.jaxrs.annotations;
 public enum Mode {
 
     AUTH,
+    FILTER,
     NONE;
 
     public static Mode fromString(String text) {

@@ -23,7 +23,7 @@ public class WsRsResponsSerializer extends StdSerializer<Response> {
         HashMap<String, Object> hm = new HashMap<>();
         if(response.hasEntity()) {
             Object entity = response.getEntity();
-            hm.put("type",response.getEntity().getClass());
+            hm.put("realType",response.getEntity().getClass());
             hm.put("entity",entity);
 
             //jsonGenerator.writeStartObject();

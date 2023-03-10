@@ -4,6 +4,7 @@ package org.softauto.jaxrs.service;
 
 import org.softauto.core.Utils;
 import org.softauto.jaxrs.JerseyHelper;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Cookie;
@@ -87,7 +88,7 @@ public class RestService {
 
  */
                 logger.debug("invoke GET for "+ uri);
-                return (T) new JerseyHelper(client).get(uri.toString(), produce.toString(), headers, returnType,cookie);
+                return (T) new JerseyHelper().setClient(client).get(uri.toString(), produce.toString(), headers, returnType,cookie);
             }catch (Exception e){
                 logger.error("fail invoke GET for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }
@@ -97,8 +98,10 @@ public class RestService {
 
     public static class POSTMethodHandler implements ServiceCaller.UnaryClass  {
 
+
+
         @Override
-        public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
+        public javax.ws.rs.core.Response invoke(IStepDescriptor stepDescriptor, Object[] args) {
             try {
                 stepDescriptor.setArgs(args);
                 MediaType produce = stepDescriptor.getConsume();
@@ -133,14 +136,19 @@ public class RestService {
                 //Entity<?> entity = org.softauto.jaxrs.Utils.buildEntity(produces,(Object[])args[0]);
                 logger.debug("invoke POST for "+ uri );
 
-
-                return (T)new JerseyHelper(client).post(uri.toString(), produce.toString(), headers,  returnType,entity,cookie);
-
+                javax.ws.rs.core.Response res = new JerseyHelper().setClient(client).post(uri.toString(), produce.toString(), headers, entity, cookie,returnType);
+                HashMap<String, Object> callOption = stepDescriptor.getCallOptions();
+                if (callOption.get("role") != null && callOption.get("role").toString().equals("AUTH")) {
+                   stepDescriptor.saveAuth(res);
+                }
+                return res;
             }catch (Exception e){
                 logger.error("fail invoke POST for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }
             return null;
         }
+
+
     }
 
     public static class PUTMethodHandler implements ServiceCaller.UnaryClass  {
@@ -181,7 +189,7 @@ public class RestService {
                 //URI uri =  channel.getUri();
                 //Entity<?> entity = org.softauto.jaxrs.Utils.buildEntity(produces,(Object[])args[0]);
                 logger.debug("invoke PUT for "+ uri + " with headers "+ headers.values() + " entity");
-                return (T)new JerseyHelper(client).put(uri.toString(), produce.toString(), headers,  returnType,entity,cookie);
+                return (T)new JerseyHelper().setClient(client).put(uri.toString(), produce.toString(), headers,  returnType,entity,cookie);
             }catch (Exception e){
                 logger.error("fail invoke PUT for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }
@@ -226,7 +234,7 @@ public class RestService {
 
                  */
                 logger.debug("invoke DELETE for "+ uri  );
-                return (T)new JerseyHelper(client).delete(uri.toString(), produce.toString(), headers,  returnType,cookie);
+                return (T)new JerseyHelper().setClient(client).delete(uri.toString(), produce.toString(), headers,  returnType,cookie);
             }catch (Exception e){
                 logger.error("fail invoke DELETE for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }

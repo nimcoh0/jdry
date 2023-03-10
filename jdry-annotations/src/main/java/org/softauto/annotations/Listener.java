@@ -30,4 +30,6 @@ public @interface Listener {
 
     Step step() default @Step(fqmn = "", expression = "", type = "", protocol = "");
 
+    String id() default "";
+
 }

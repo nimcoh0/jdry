@@ -51,7 +51,8 @@ public class EntityBuilder {
 
         public EntityBuilder build(){
             try{
-                if (produce != null && produce.toString().equals(MediaType.MULTIPART_FORM_DATA_TYPE)) {
+                if (produce != null && (produce.toString().equals(MediaType.MULTIPART_FORM_DATA_TYPE) || produce.toString().equals(MediaType.MULTIPART_FORM_DATA))) {
+
                     Form form = new Form();
                     for (int i = 0; i < args.length; i++) {
                         String json = null;

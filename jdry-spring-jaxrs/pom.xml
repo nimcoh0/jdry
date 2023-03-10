@@ -2,13 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+    <parent>
+        <artifactId>jdry2</artifactId>
         <groupId>org.softauto</groupId>
         <version>1.0-SNAPSHOT</version>
-
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jdry-jaxrs</artifactId>
+    <artifactId>jdry-spring-jaxrs</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -61,25 +62,22 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <!--dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
-        </dependency>
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
-        </dependency-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>5.2.16.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-jaxrs</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -97,7 +95,7 @@
                         </goals>
                         <configuration>
 
-                            <finalName>jdry2-jaxrs-1.0.0-SNAPSHOT</finalName>
+                            <finalName>jdry2-spring-jaxrs-1.0.0-SNAPSHOT</finalName>
 
                         </configuration>
                     </execution>

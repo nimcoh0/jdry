@@ -162,7 +162,7 @@ public class ContainerRequestSerializer extends StdSerializer<ContainerRequest> 
             if(hm.size() > 0) {
                 HashMap<String, Object> hm1 = new HashMap<>();
                 hm1.put("requestContext", hm);
-                hm1.put("type", ContainerRequest.class);
+                hm1.put("realType", ContainerRequest.class);
                 //jsonGenerator.writeObjectField("requestContext", hm);
                 jsonGenerator.writeObject(hm1);
 

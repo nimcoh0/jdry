@@ -5,7 +5,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.softauto.annotations.Update;
+import org.softauto.annotations.UpdateForTesting;
 import org.softauto.core.Iprovider;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -47,20 +47,20 @@ public class Listener {
 
 
     @Pointcut("@annotation(update)")
-    public void callAt(Update update) {
+    public void callAt(UpdateForTesting update) {
     }
 
     //@annotation(UpdateForTesting) && execution(* *(..))  && !within(org.softauto..*) ")
     //@Around("@annotation(UpdateForTesting) && execution(* *(..))  && !within(org.softauto..*) ")
     @Around("callAt(update)")
-    public synchronized Object captureUpdateProvider(org.aspectj.lang.ProceedingJoinPoint joinPoint, Update update){
+    public synchronized Object captureUpdateProvider(org.aspectj.lang.ProceedingJoinPoint joinPoint, UpdateForTesting update){
         Object o = null;
         try {
-            Class c = Class.forName(update.provider());
+            Class c = Class.forName(update.value());
             Constructor<?> ctor = c.getConstructor();
             Iprovider p = (Iprovider)ctor.newInstance();
             o = joinPoint.proceed();
-            o = p.apply(o);
+            o = p.apply(o,joinPoint.getArgs());
         }catch (Throwable e){
             e.printStackTrace();
         }

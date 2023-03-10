@@ -1,8 +1,12 @@
-package org.softauto.jaxrs.service;
+package org.softauto.jaxrs.security.auth.basic;
 
 import org.softauto.core.Configuration;
 import org.softauto.core.TestContext;
 import org.softauto.jaxrs.annotations.AuthenticationType;
+import org.softauto.jaxrs.service.ChannelDescriptor;
+import org.softauto.jaxrs.service.IStepDescriptor;
+import org.softauto.jaxrs.service.RestService;
+import org.softauto.jaxrs.service.ServiceCaller;
 import org.softauto.jaxrs.util.ChannelBuilder;
 import org.softauto.jaxrs.util.ClientBuilder;
 import org.softauto.jaxrs.util.EntityBuilder;
@@ -12,7 +16,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.*;
 import java.util.*;
 
-public class DefaultStepDescriptorImpl implements IStepDescriptor{
+public class BasicStepDescriptorImpl implements IStepDescriptor {
 
     HashMap<String,Object> callOptions;
 
@@ -32,8 +36,14 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
         this.callOptions = callOptions;
     }
 
+    public HashMap<String, Object> getCallOptions() {
+        return callOptions;
+    }
+
     public Cookie getCookie(){
-        return (Cookie) TestContext.get("sessionId");
+        if(TestContext.get("sessionId") != null)
+            return (Cookie) TestContext.get("sessionId");
+        return null;
     }
 
     public void setArgs(Object[] args) {
@@ -44,7 +54,9 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
         this.types = types;
     }
 
-
+    public void saveAuth(javax.ws.rs.core.Response res){
+        TestContext.put("sessionId", res.readEntity(String.class));
+    }
 
     public Map<String, Object> getProperties() {
         return callOptions.get("props") != null ? (Map<String, Object>) callOptions.get("props") : new HashMap<>();
@@ -101,6 +113,9 @@ public class DefaultStepDescriptorImpl implements IStepDescriptor{
 
     public Class getReturnType(){
         try {
+            if(callOptions.get("role") != null && callOptions.get("role").toString().equals("AUTH")){
+                return String.class;
+            }
             String s = callOptions.get("response").toString();
             Class c = Class.forName(s);
             return c;

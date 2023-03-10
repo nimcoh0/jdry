@@ -34,6 +34,8 @@ public interface IStepDescriptor {
 
     IStepDescriptor build();
 
+    HashMap<String, Object> getCallOptions();
+
    // void  setConfiguration(HashMap<String, Object> configuration);
 
     void setArgs(Object[] args);
@@ -48,6 +50,6 @@ public interface IStepDescriptor {
 
     void setCallOptions(HashMap<String,Object> callOptions);
 
-
+    void saveAuth(javax.ws.rs.core.Response res);
 
 }

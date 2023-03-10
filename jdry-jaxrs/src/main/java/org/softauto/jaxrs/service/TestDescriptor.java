@@ -4,7 +4,6 @@ package org.softauto.jaxrs.service;
 
 import org.softauto.core.Configuration;
 import org.softauto.core.TestContext;
-import org.softauto.core.Utils;
 
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
