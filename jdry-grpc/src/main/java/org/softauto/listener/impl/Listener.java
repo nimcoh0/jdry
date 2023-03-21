@@ -73,7 +73,7 @@ public class Listener {
 
 
 
-    @Before(value = ("@annotation(org.softauto.annotations.Listener) || @annotation(org.softauto.annotations.Verify)"))
+    @Before(value = ("@annotation(org.softauto.annotations.ListenerForTesting) || @annotation(org.softauto.annotations.VerifyForTesting)"))
     //@Before("execution(* *(..)) && !within(org.softauto..*)")
     public synchronized void captureAll(JoinPoint joinPoint){
         AtomicReference<String> fqmn = new AtomicReference();
@@ -115,7 +115,7 @@ public class Listener {
 
 
 
-    @AfterReturning(value = ("@annotation(org.softauto.annotations.Listener) || @annotation(org.softauto.annotations.Verify)"), returning="result")
+    @AfterReturning(value = ("@annotation(org.softauto.annotations.ListenerForTesting) || @annotation(org.softauto.annotations.VerifyForTesting)"), returning="result")
     //@AfterReturning(pointcut="execution(* *(..)) && !within(org.softauto..*)", returning="result")
     public synchronized   void returning(JoinPoint joinPoint,Object result) {
         try {

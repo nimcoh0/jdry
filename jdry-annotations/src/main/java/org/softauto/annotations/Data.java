@@ -12,6 +12,6 @@ public @interface Data {
    String value() default "";
    //String[] id() default {};
 
-   Parameter[] parameter() default {} ;
+   //Parameter[] parameter() default {} ;
 
 }

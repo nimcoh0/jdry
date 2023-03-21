@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD,ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Listener {
+public @interface ListenerForTesting {
     String description() default "";
 
-    ListenerMode mode() default ListenerMode.LISTENER;
+    //ListenerMode mode() default ListenerMode.LISTENER;
 
     //Mock mock() default @Mock(parameter = {});
 
@@ -24,11 +24,17 @@ public @interface Listener {
 
     //After after() default @After;
 
-    String type() default "";
+    //String type() default "";
 
-    String expression() default "";
+    //String expression() default "";
 
-    Step step() default @Step(fqmn = "", expression = "", type = "", protocol = "");
+    Before before() default @Before;
+
+    After after() default @After;
+
+    //StepForTesting step() default @StepForTesting(fqmn = "", expression = "", type = "", protocol = "");
+
+    //String stepId() default "";
 
     String id() default "";
 

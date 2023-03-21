@@ -11,7 +11,7 @@ public @interface Before {
 
     String value() default "";
 
-    Step step() default @Step(protocol = "");
+    Step step() default @Step;
 
     String description() default "";
 

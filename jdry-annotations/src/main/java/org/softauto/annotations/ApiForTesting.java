@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 
 @Target({ElementType.METHOD,ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Api {
+public @interface ApiForTesting {
 
     String description() default "";
 
@@ -29,13 +29,13 @@ public @interface Api {
 
     String id() default "";
 
-    StepMode mode() default StepMode.API;
+    //StepMode mode() default StepMode.API;
 
     Role role() default Role.NONE;
 
     String[] group() default {};
 
-    String[] publish() default {};
+    //String[] publish() default {};
 
     String callback() default "";
 
@@ -48,6 +48,8 @@ public @interface Api {
     String order() default "";
 
     String verifyId() default "";
+
+    String listenerId() default "";
 
     //Expected expected() default @Expected();
 

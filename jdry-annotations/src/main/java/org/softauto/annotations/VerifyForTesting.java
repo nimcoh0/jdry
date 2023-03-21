@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Verify {
+public @interface VerifyForTesting {
 
     String description() default "";
 
@@ -18,15 +18,17 @@ public @interface Verify {
 
     //VerifyType verifyType() default VerifyType.RESULT;
 
-    //Before before() default @Before;
+    Before before() default @Before;
 
-    //After after() default @After;
-    Step step() default @Step(fqmn = "", expression = "", type = "", protocol = "");
+    After after() default @After;
+    //StepForTesting step() default @StepForTesting(fqmn = "", expression = "", type = "", protocol = "");
 
-    String type() default "";
+    //String type() default "";
 
-    String expression() default "";
+    //String expression() default "";
 
     String id() default "";
+
+    //String stepId() default "";
 
 }

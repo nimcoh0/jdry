@@ -11,10 +11,11 @@ public @interface After {
 
     String value() default "";
 
-    Step step() default @Step(protocol = "");
+    //StepForTesting step() default @StepForTesting(protocol = "");
 
     String type() default "";
 
     String description() default "";
 
+    Step step() default @Step;
 }
