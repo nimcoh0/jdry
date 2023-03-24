@@ -324,7 +324,11 @@ public class Utils {
 
     public static boolean isJson(String str){
         try {
-            new ObjectMapper().readTree(str);
+            if(str.startsWith("{")) {
+                new ObjectMapper().readTree(str);
+            }else {
+                return false;
+            }
         } catch (Exception e) {
             return false;
         }

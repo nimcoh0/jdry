@@ -9,13 +9,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Before {
 
-    String value() default "";
+    //String value() default "";
 
-    Step step() default @Step;
+
 
     String description() default "";
 
-    String type() default "";
+    //String type() default "";
 
     Parameter[] parameters() default {};
 }

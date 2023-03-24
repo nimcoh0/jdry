@@ -41,7 +41,7 @@ public @interface ApiForTesting {
 
     String[] consume() default {};
 
-    String returnType() default "";
+    //String returnType() default "";
 
     String scenarioOrder() default "";
 

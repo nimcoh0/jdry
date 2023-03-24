@@ -18,4 +18,6 @@ public @interface Parameter {
     String type() default "";
 
     String id() default "";
+
+    Step step() default @Step;
 }

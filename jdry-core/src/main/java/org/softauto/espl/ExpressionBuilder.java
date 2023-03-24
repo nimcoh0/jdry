@@ -1,6 +1,9 @@
 package org.softauto.espl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.softauto.core.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +16,21 @@ public class ExpressionBuilder {
     public  Expression newExpression() { return new Expression();}
 
     public  ExpressionBuilder newExpression(String expression) {
-       Expression exp = new Expression();
-       exp.setContext(expression.substring(0,expression.indexOf(".")));
-       exp.setStatement(expression.substring(expression.indexOf(".")+1,expression.length()));
-       expressions.add(exp);
-       return this;
+        try {
+            Expression exp = new Expression();
+            String s = expression.contains(".") ? expression.substring(0,expression.indexOf(".")) : expression;
+            if(Utils.isJson(s)){
+                JsonNode node =  new ObjectMapper().readTree(s) ;
+                exp.setContext(node);
+            }else {
+                exp.setContext(s);
+            }
+            exp.setStatement(expression.contains(".") ? expression.substring(expression.indexOf(".")+1,expression.length()) : expression);
+            expressions.add(exp);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 
     public List<Expression> getExpressions() {
