@@ -12,7 +12,7 @@ public @interface VerifyForTesting {
 
     String description() default "";
 
-    Assert anAssert() default @Assert;
+    //Assert anAssert() default @Assert;
 
     //Assert Assert() default @Assert;
 

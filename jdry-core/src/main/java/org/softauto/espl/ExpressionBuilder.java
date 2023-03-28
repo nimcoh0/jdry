@@ -11,12 +11,18 @@ import java.util.List;
 public class ExpressionBuilder {
 
     static String operator;
+    String org;
     static List<Expression> expressions = new ArrayList<>();
+
+    public String getOrg() {
+        return org;
+    }
 
     public  Expression newExpression() { return new Expression();}
 
     public  ExpressionBuilder newExpression(String expression) {
         try {
+            org = expression;
             Expression exp = new Expression();
             String s = expression.contains(".") ? expression.substring(0,expression.indexOf(".")) : expression;
             if(Utils.isJson(s)){
