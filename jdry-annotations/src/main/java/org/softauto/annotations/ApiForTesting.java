@@ -33,13 +33,13 @@ public @interface ApiForTesting {
 
     Role role() default Role.NONE;
 
-    String[] group() default {};
+    //String[] group() default {};
 
     //String[] publish() default {};
 
     String callback() default "";
 
-    String[] consume() default {};
+    //String[] consume() default {};
 
     //String returnType() default "";
 
