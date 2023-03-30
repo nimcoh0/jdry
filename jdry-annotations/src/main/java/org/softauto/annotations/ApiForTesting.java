@@ -25,6 +25,8 @@ public @interface ApiForTesting {
 
     Assert anAssert() default @Assert;
 
+    Group[] group() default {};
+
     //Authentication authentication() default @Authentication;
 
     String id() default "";
@@ -43,13 +45,13 @@ public @interface ApiForTesting {
 
     //String returnType() default "";
 
-    String scenarioOrder() default "";
+    //String scenarioOrder() default "";
 
-    String order() default "";
+    //String order() default "";
 
     String verifyId() default "";
 
-    String listenerId() default "";
+    String[] listenerId() default {};
 
     //Expected expected() default @Expected();
 
