@@ -5,17 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.ANNOTATION_TYPE})
+@Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Before {
+public @interface ParamForTesting {
 
-    //String value() default "";
-
-
-
-    String description() default "";
-
-    //String type() default "";
-
-    Parameter[] parameters() default {};
+    String value();
 }

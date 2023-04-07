@@ -18,9 +18,9 @@ public @interface VerifyForTesting {
 
     //VerifyType verifyType() default VerifyType.RESULT;
 
-    Before before() default @Before;
+    String before() default "";
 
-    After after() default @After;
+    String after() default "";
     //StepForTesting step() default @StepForTesting(fqmn = "", expression = "", type = "", protocol = "");
 
     //String type() default "";
@@ -28,6 +28,8 @@ public @interface VerifyForTesting {
     //String expression() default "";
 
     String id() default "";
+
+    String callback() default "";
 
     //String stepId() default "";
 

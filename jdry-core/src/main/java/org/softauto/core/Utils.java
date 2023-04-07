@@ -5,9 +5,12 @@ package org.softauto.core;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.reflect.FieldUtils;
+
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Inet4Address;
@@ -350,6 +353,47 @@ public class Utils {
             //s = VariableResolver.setExpression(exp.toString()).resolve().toString();
         }
         return s;
+    }
+
+    public static Map ObjectToMap(Class c,Map map){
+        Field[] fields = c.getClass().getDeclaredFields();
+        try {
+            for (Field f : fields) {
+                String name = f.getName();
+                Object value = FieldUtils.readField(c, f.getName(), true);
+                if (value instanceof ArrayList) {
+                    for (Object o : (ArrayList) value) {
+                        ObjectToMap(o.getClass(),map);
+                    }
+                }else if(value instanceof Map) {
+                    for (Map.Entry entry : ((HashMap<?, ?>) value).entrySet()) {
+                        ObjectToMap(entry.getValue().getClass(),map);
+                    }
+                }
+                else {
+                    if (value != null && name != null)
+                        map.put(name, StringToObject(value));
+                }
+            }
+        } catch (IllegalAccessException e) {
+            logger.error("fail build Context ", e.getMessage());
+        }
+        return map;
+    }
+
+    public static Object StringToObject(Object str){
+        try {
+            String s = null;
+            if(!Utils.isJson(str.toString())){
+                s = new ObjectMapper().writeValueAsString(str);
+            }else {
+                s = str.toString();
+            }
+            return  new ObjectMapper().readTree(s);
+        } catch (JsonProcessingException e) {
+            logger.error("fail convert String to Object for  "+ str, e.getMessage());
+        }
+        return null;
     }
 
 }

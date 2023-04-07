@@ -19,13 +19,15 @@ public @interface ApiForTesting {
 
     //Assert Assert() default @Assert;
 
-    Before before() default @Before;
+    String[] before() default {};
 
-    After after() default @After;
+    String[] after() default {};
 
-    Assert anAssert() default @Assert;
+    String anAssert() default "";
 
-    Group[] group() default {};
+    String[] groups() default {};
+
+    //String assertType() default "AssertEquals";
 
     //Authentication authentication() default @Authentication;
 
@@ -51,7 +53,7 @@ public @interface ApiForTesting {
 
     String verifyId() default "";
 
-    String[] listenerId() default {};
+    //String[] listenerId() default {};
 
     //Expected expected() default @Expected();
 

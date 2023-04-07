@@ -28,14 +28,16 @@ public @interface ListenerForTesting {
 
     //String expression() default "";
 
-    Before before() default @Before;
+    //Before before() default @Before;
 
-    After after() default @After;
+    //After after() default @After;
 
     //StepForTesting step() default @StepForTesting(fqmn = "", expression = "", type = "", protocol = "");
 
     //String stepId() default "";
 
     String id() default "";
+
+    String callback() default "";
 
 }
