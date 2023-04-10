@@ -21,6 +21,15 @@ public class Espl {
     ExpressionParser parser = new SpelExpressionParser();
 
 
+    public Espl(){
+        try {
+            itemContext.setVariable("step",Functions.class.getDeclaredMethod("step", String.class));
+            itemContext.setVariable("listener",Functions.class.getDeclaredMethod("listener", String.class));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public Espl addProperty(String key,Object value){
         itemContext.setVariable(key,value);
         return this;
