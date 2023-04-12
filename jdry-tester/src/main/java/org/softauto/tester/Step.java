@@ -96,6 +96,9 @@ public class Step {
             return this;
         }
 
+        public void then(String expression)throws Exception{
+            future.handleResult(future.getResult());
+        }
 
 
         public <T> Step then(IListener o , CallFuture<T> future)throws Exception{

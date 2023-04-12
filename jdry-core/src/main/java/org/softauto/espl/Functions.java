@@ -42,29 +42,5 @@ public class Functions {
         return  result;
     }
 
-    private static String buildArgsString(MethodReference node){
-
-        for(int i=0;i<node.getChildCount();i++){
-            SpelNodeImpl child = (SpelNodeImpl) node.getChild(i);
-            node.getChild(i).toString();
-            node.getChild(i).toStringAST();
-            node.toStringAST();
-            node.toString();
-            if(child instanceof PropertyOrFieldReference){
-
-            }
-            if(child instanceof MethodReference){
-
-            }
-            if(child instanceof BooleanLiteral){
-
-            }
-        }
-        return null;
-    }
-
-    public static String listener(String expression){
-        return null;
-    }
 
 }
