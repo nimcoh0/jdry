@@ -18,14 +18,14 @@ public @interface VerifyForTesting {
 
     //VerifyType verifyType() default VerifyType.RESULT;
 
-    String before() default "";
+    //String before() default "";
 
-    String after() default "";
+    //String after() default "";
     //StepForTesting step() default @StepForTesting(fqmn = "", expression = "", type = "", protocol = "");
 
     //String type() default "";
 
-    //String expression() default "";
+    String expression() default "";
 
     String id() default "";
 

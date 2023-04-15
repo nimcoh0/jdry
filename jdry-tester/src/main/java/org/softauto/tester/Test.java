@@ -66,10 +66,10 @@ public class Test {
         return  new Listener().setFqmn(fqmn);
     }
 
-    public static Listener addListener(Function function,String phase,String fqmn, Class...types)throws Exception{
+    public static Listener addListener(Function function,String fqmn, Class...types)throws Exception{
         //SystemState.getInstance().addListener(fqmn,types);
         logger.debug("add Listener successfully "+ fqmn+ " types "+ Arrays.toString(types));
-        Exec func = new Exec(function,fqmn).setPhase(phase);
+        Exec func = new Exec(function,fqmn);
         ListenerObserver.getInstance().register(fqmn,func);
         return  new Listener().setFqmn(fqmn).setFunc(func);
     }
@@ -81,10 +81,10 @@ public class Test {
         return  new Listener().setFqmn(fqmn);
     }
 
-    public static Listener addListener(Function function,String phase,String fqmn,Object[] value, Class...types)throws Exception{
+    public static Listener addListener(Function function,String fqmn,Object[] value, Class...types)throws Exception{
         //SystemState.getInstance().addListener(fqmn,value,types);
         logger.debug("add Listener im mock mode successfully "+ fqmn+ " types "+ Arrays.toString(types));
-        Exec func = new Exec(function,fqmn).setPhase(phase);
+        Exec func = new Exec(function,fqmn);
         ListenerObserver.getInstance().register(fqmn,func);
         return  new Listener().setFqmn(fqmn).setFunc(func);
     }

@@ -39,8 +39,8 @@ public class ListenerServiceImpl implements SerializerService{
                 if (o != null) {
                     logger.debug("got message " + message.toJson());
                     Exec exec = (Exec) o;
-                    if(exec.getPhase().equals(message.getState()))
-                        methodResponse = exec.apply(message.getArgs());
+                    //if(exec.getPhase().equals(message.getState()))
+                    methodResponse = exec.apply(message.getArgs());
                     logger.debug("result of function " + methodResponse);
                     /*
                     methodResponse = message.getArgs();

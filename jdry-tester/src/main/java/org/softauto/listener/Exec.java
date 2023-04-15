@@ -10,17 +10,9 @@ public  class Exec implements Function {
     String key = null;
     Object result = null;
     boolean seen = false;
-    String phase;
+    //String phase;
 
 
-    public String getPhase() {
-        return phase;
-    }
-
-    public Exec setPhase(String phase) {
-        this.phase = phase;
-        return this;
-    }
 
     @Override
     public Object getResult(){

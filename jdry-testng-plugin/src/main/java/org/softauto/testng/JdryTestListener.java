@@ -10,6 +10,7 @@ import org.softauto.core.TestLifeCycle;
 import org.softauto.listener.ListenerObserver;
 import org.softauto.tester.SystemState;
 import org.testng.*;
+import org.testng.internal.ConstructorOrMethod;
 
 public class JdryTestListener implements ITestListener, IInvokedMethodListener {
 
@@ -86,12 +87,16 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-
+        //ConstructorOrMethod constructorOrMethod = method.getTestMethod().getConstructorOrMethod();
+        //Object[] p = testResult.getParameters();
+       // Object i = testResult.getInstance();
        // Assert.setContext(testResult.getTestContext(),method);
     }
 
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-
+        //ConstructorOrMethod constructorOrMethod = testResult.getMethod().getConstructorOrMethod();
+       // Object[] p = testResult.getParameters();
+        //Object i = testResult.getInstance();
     }
 }

@@ -1,8 +1,8 @@
 package org.softauto.tester;
 
 @FunctionalInterface
-public interface Func {
+public interface Func<T,R> {
 
-    <T,R> R apply(T t);
+    R apply(T t);
 
 }

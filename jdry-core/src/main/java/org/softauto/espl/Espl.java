@@ -24,7 +24,7 @@ public class Espl {
     public Espl(){
         try {
             itemContext.setVariable("step",Functions.class.getDeclaredMethod("step", String.class));
-            itemContext.setVariable("listener",Functions.class.getDeclaredMethod("listener", String.class));
+            //itemContext.setVariable("listener",Functions.class.getDeclaredMethod("listener", String.class));
         }catch (Exception e){
             e.printStackTrace();
         }
