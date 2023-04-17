@@ -24,7 +24,7 @@ public class WsRsResponsSerializer extends StdSerializer<Response> {
         if(response.hasEntity()) {
             Object entity = response.getEntity();
             hm.put("realType",response.getEntity().getClass());
-            hm.put("entity",entity);
+            hm.put("request",entity);
 
             //jsonGenerator.writeStartObject();
             jsonGenerator.writeObject(hm);
@@ -33,7 +33,10 @@ public class WsRsResponsSerializer extends StdSerializer<Response> {
             //hm.put("hasEntity",false);
             //hm.put("buffered",false);
             //hm.put("type",Integer.class);
-            jsonGenerator.writeObject(response.getStatus());
+            hm.put("realType",Integer.class);
+            hm.put("request",response.getStatus());
+            jsonGenerator.writeObject(hm);
+            //jsonGenerator.writeObject(response.getStatus());
         }
         //jsonGenerator.writeEndObject();
     }

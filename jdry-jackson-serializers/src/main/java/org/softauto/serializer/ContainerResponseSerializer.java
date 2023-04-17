@@ -29,7 +29,7 @@ public class ContainerResponseSerializer extends StdSerializer<ContainerResponse
         hm.put("isChunked", containerResponse.isChunked());
         hm.put("statue", containerResponse.getStatus());
         hm1.put("realType",containerResponse.getEntity().getClass());
-        hm1.put("response", hm);
+        hm1.put("request", hm);
         //hm.put("originalType","org.glassfish.jersey.server.ContainerResponse");
         //jsonGenerator.writeStartObject();
         jsonGenerator.writeObject(hm1);

@@ -50,8 +50,8 @@ public class HttpServletResponseSerializer extends StdSerializer<HttpServletResp
 
         //if(hm.size() > 0) {
             HashMap<String, Object> hm1 = new HashMap<>();
-            hm1.put("javax.servlet.http.HttpServletResponse", hm);
-            hm1.put("type",HttpServletResponse.class);
+            hm1.put("request", hm);
+            hm1.put("realType",HttpServletResponse.class);
             jsonGenerator.writeObject(hm1);
             //jsonGenerator.writeObjectField("javax.servlet.http.HttpServletRequest", hm);
         //}

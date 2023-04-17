@@ -23,14 +23,15 @@ public class Espl {
 
     public Espl(){
         try {
-            itemContext.setVariable("step",Functions.class.getDeclaredMethod("step", String.class));
+            //itemContext.setVariable("step",Functions.class.getDeclaredMethod("step", String.class));
             //itemContext.setVariable("listener",Functions.class.getDeclaredMethod("listener", String.class));
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public Espl addProperty(String key,Object value){
+
+    public Espl addProperty(String key, Object value){
         itemContext.setVariable(key,value);
         return this;
     }
@@ -54,25 +55,36 @@ public class Espl {
     }
 
     public Object  evaluate(String expression){
+       return evaluate(expression,itemContext);
+    }
+
+    public Object  evaluate(String expression,StandardEvaluationContext  itemContext){
         String exp = expression;
         try {
             if(expression.contains("${")){
-                BracketsUtils bracketsUtils = new BracketsUtils().setExpression(expression).setOpenBracketTag("${").setCloseBracketTag("}").analyze();
-                for(Map.Entry entry : bracketsUtils.getGroups().entrySet()){
-                    String block = (String) expression.toString().subSequence(Integer.valueOf(entry.getKey().toString()),Integer.valueOf(entry.getValue().toString()));
-                    String var = getVariable(block,"#");
-                    if(itemContext.lookupVariable(var) != null) {
-                        String s = parser.parseExpression(block, new TemplateParserContext()).getValue(itemContext).toString();
-                        exp = exp.replace(block, s);
-                    }
-                }
+                exp  = parser.parseExpression(expression, new TemplateParserContext()).getValue(itemContext).toString();
+            }else {
+                exp = parser.parseExpression(exp).getValue(itemContext).toString();
             }
+               // BracketsUtils bracketsUtils = new BracketsUtils().setExpression(expression).setOpenBracketTag("${").setCloseBracketTag("}").analyze();
+               // for(Map.Entry entry : bracketsUtils.getGroups().entrySet()){
+               //     String block = (String) expression.toString().subSequence(Integer.valueOf(entry.getKey().toString()),Integer.valueOf(entry.getValue().toString()));
+               //     String var = getVariable(block,"#");
+               //     if(itemContext.lookupVariable(var) != null) {
+
+                       // exp = exp.replace(block, s);
+         //           }
+         //       }
+           // }
+            /*
             if(exp.contains("#")) {
                 String var = getVariable(exp,"#");
                 if(itemContext.lookupVariable(var) != null) {
                     exp = parser.parseExpression(exp).getValue(itemContext).toString();
                 }
             }
+
+             */
         }catch (Exception e){
             return exp;
         }
