@@ -21,7 +21,7 @@ public @interface ApiForTesting {
 
     String[] before() default {};
 
-    String[] after() default {};
+    Expression[] after() default {};
 
     String anAssert() default "";
 

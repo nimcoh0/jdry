@@ -85,16 +85,15 @@ public class JerseyHelper {
         return t;
     }
 
-
-    public Response post(String url, String mediaType, MultivaluedMap<String, Object> headers,  Entity<?> entity,Cookie cookie,Class returnType)throws Exception{
-        //T t = null;
+                         //String url, String mediaType, MultivaluedMap<String, Object> headers, Class<T> response, Entity<?> entity,Cookie cookie
+    public <T> T post(String url, String mediaType, MultivaluedMap<String, Object> headers, Class<T> response, Entity<?> entity,Cookie cookie)throws Exception{
+        T t = null;
         Response res = null;
         try{
             WebTarget webTarget = client.target(url);
             res = webTarget.request(mediaType).headers(headers).cookie(cookie).post(entity);
             if (Response.Status.fromStatusCode(res.getStatus()).getFamily() == Response.Status.Family.SUCCESSFUL) {
                 logger.debug("post request successfully for url " + url + " status " + res.getStatusInfo());
-                /*
                 if (res.getCookies().get("JSESSIONID") != null) {
                         TestContext.put("sessionId", res.getCookies().get("JSESSIONID"));//((Cookie)res.getHeaders().get("Cookie").get(0)).getValue())
                 }
@@ -111,13 +110,12 @@ public class JerseyHelper {
                 t = (T)res;
             }
 
-                 */
-            }
+
         }catch(Exception e){
             logger.error("post request fail for url "+ url + " status "+ res.getStatusInfo(),e);
             throw new Exception(res.getStatusInfo().toString()) ;
         }
-        return res;
+        return t;
     }
 
     public <T> T delete(String url, String mediaType,   MultivaluedMap<String, Object> headers,Class<T> response,Cookie cookie)throws Exception{

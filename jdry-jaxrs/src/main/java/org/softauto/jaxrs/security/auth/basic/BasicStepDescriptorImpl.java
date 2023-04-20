@@ -113,9 +113,9 @@ public class BasicStepDescriptorImpl implements IStepDescriptor {
 
     public Class getReturnType(){
         try {
-            if(callOptions.get("role") != null && callOptions.get("role").toString().equals("AUTH")){
-                return String.class;
-            }
+            //if(callOptions.get("role") != null && callOptions.get("role").toString().equals("AUTH")){
+              //  return String.class;
+            //}
             String s = callOptions.get("response").toString();
             Class c = Class.forName(s);
             return c;

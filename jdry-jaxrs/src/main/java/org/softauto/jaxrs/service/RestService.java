@@ -101,7 +101,7 @@ public class RestService {
 
 
         @Override
-        public javax.ws.rs.core.Response invoke(IStepDescriptor stepDescriptor, Object[] args) {
+        public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
             try {
                 stepDescriptor.setArgs(args);
                 MediaType produce = stepDescriptor.getConsume();
@@ -135,13 +135,13 @@ public class RestService {
                  */
                 //Entity<?> entity = org.softauto.jaxrs.Utils.buildEntity(produces,(Object[])args[0]);
                 logger.debug("invoke POST for "+ uri );
-
-                javax.ws.rs.core.Response res = new JerseyHelper().setClient(client).post(uri.toString(), produce.toString(), headers, entity, cookie,returnType);
-                HashMap<String, Object> callOption = stepDescriptor.getCallOptions();
-                if (callOption.get("role") != null && callOption.get("role").toString().equals("AUTH")) {
-                   stepDescriptor.saveAuth(res);
-                }
-                return res;
+                //post(String url, String mediaType, MultivaluedMap<String, Object> headers, Class<T> response, Entity<?> entity,Cookie cookie
+                return (T)new JerseyHelper().setClient(client).post(uri.toString(), produce.toString(), headers, returnType,entity, cookie);
+                //HashMap<String, Object> callOption = stepDescriptor.getCallOptions();
+                //if (callOption.get("role") != null && callOption.get("role").toString().equals("AUTH")) {
+                   //stepDescriptor.saveAuth(res);
+                //}
+                //return res;
             }catch (Exception e){
                 logger.error("fail invoke POST for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }

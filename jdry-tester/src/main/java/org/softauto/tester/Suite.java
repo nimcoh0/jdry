@@ -41,14 +41,24 @@ public class Suite {
     }
 
     public HashMap<String, Object> getPublish(String id){
+        return getPublish(id,null);
+    }
+
+    public HashMap<String, Object> getPublish(String id,String element){
         try {
             Object obj = publish.getMap().get(id);
             if(obj instanceof ArrayList){
                 HashMap<String, Object> r = new HashMap<>();
                 List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) obj;
                 for(HashMap<String, Object> hm : list){
-                    for(Map.Entry entry : hm.entrySet()){
-                        r.put(entry.getKey().toString(),entry.getValue());
+                    for(Map.Entry entry : hm.entrySet()) {
+                        if (element != null) {
+                            if (entry.getKey().toString().equals(element)) {
+                                r.put(entry.getKey().toString(), entry.getValue());
+                            }
+                        }else {
+                            r.put(entry.getKey().toString(), entry.getValue());
+                        }
                     }
                 }
                 return r;
