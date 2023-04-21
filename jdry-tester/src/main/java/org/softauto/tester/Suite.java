@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.softauto.core.Multimap;
+import org.softauto.espl.Espl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class Suite {
     Multimap publish = new Multimap();
     //HashMap<String,Object> publishDataForTesting = new HashMap<>();
 
+    Espl espl = new Espl();
 
     public Suite addPublish(String id, Object data){
         //if(dataType.equals("DEFAULT_DATA")) {
@@ -44,7 +46,28 @@ public class Suite {
         return getPublish(id,null);
     }
 
-    public HashMap<String, Object> getPublish(String id,String element){
+    private Object resolve(Object o){
+        if(o instanceof ArrayList){
+            for(int i=0;i<((ArrayList)o).size();i++){
+                Object _o = resolve(((ArrayList)o).get(i));
+                ((ArrayList)o).set(i,_o);
+            }
+        }else if(o instanceof Map){
+            for(Map.Entry entry : ((Map<String,String>)o).entrySet()){
+                Object _o = resolve(entry.getValue());
+                ((Map<String,String>)o).put(entry.getKey().toString(),_o.toString());
+            }
+        }else {
+            o =  espl.evaluate(espl.evaluate(o.toString()).toString());
+            //if(o.toString().contains("getUri")){
+            //o =  espl.evaluate(o.toString());
+            //}
+        }
+        return o;
+    }
+
+
+    public Object getPublish(String id,String element){
         try {
             Object obj = publish.getMap().get(id);
             if(obj instanceof ArrayList){
@@ -53,11 +76,12 @@ public class Suite {
                 for(HashMap<String, Object> hm : list){
                     for(Map.Entry entry : hm.entrySet()) {
                         if (element != null) {
-                            if (entry.getKey().toString().equals(element)) {
-                                r.put(entry.getKey().toString(), entry.getValue());
+                            if (entry.getValue() instanceof Map) {
+                                espl.addProperties((Map<String, Object>) entry.getValue());
+                            } else {
+                                espl.addProperty(entry.getValue().getClass().getSimpleName(), entry.getValue());
                             }
-                        }else {
-                            r.put(entry.getKey().toString(), entry.getValue());
+                            return resolve(entry.getValue());
                         }
                     }
                 }
