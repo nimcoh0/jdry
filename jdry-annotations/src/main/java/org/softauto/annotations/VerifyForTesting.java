@@ -25,12 +25,14 @@ public @interface VerifyForTesting {
 
     //String type() default "";
 
-    Expression expression() default @Expression;
+    //Expression expression() default @Expression;
+
+    Expression after() default @Expression;
 
     String id() default "";
 
     String callback() default "";
 
-    //String stepId() default "";
+    String anAssert() default "";
 
 }

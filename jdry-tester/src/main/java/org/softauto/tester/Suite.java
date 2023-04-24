@@ -43,7 +43,7 @@ public class Suite {
     }
 
     public HashMap<String, Object> getPublish(String id){
-        return getPublish(id,null);
+        return (HashMap<String, Object>) getPublish(id,null);
     }
 
     private Object resolve(Object o){

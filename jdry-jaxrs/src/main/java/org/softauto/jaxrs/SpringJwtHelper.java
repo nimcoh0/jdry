@@ -11,6 +11,7 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.support.HttpRequestWrapper;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.ws.rs.client.Entity;
@@ -71,6 +72,15 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
         return response;
     }
 
+    public Object delete(String url, Object[] args)throws Exception{
+        try {
+            restTemplate.delete(url, args[0]);
+            return Response.ok();
+        } catch (RestClientException e) {
+            return Response.status(Response.Status.BAD_REQUEST.getStatusCode(),e.getMessage());
+        }
+    }
+
 
     public Object post(String url,  Object entity, Class returnType,Object[] args)throws Exception{
         Object response = null;
@@ -84,7 +94,7 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
             tokenInfo = restTemplate.postForEntity(url, loginRequest, JsonNode.class);
             setTokenInfo(tokenInfo.getBody());
             if(Response.Status.fromStatusCode(tokenInfo.getStatusCodeValue()).getFamily() == Response.Status.Family.SUCCESSFUL) {
-                response = tokenInfo;
+                response = tokenInfo.getBody();
             }else {
                 response = tokenInfo.getStatusCodeValue();
             }

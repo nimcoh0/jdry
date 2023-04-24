@@ -85,6 +85,22 @@ public class SpringRestService {
 
         @Override
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
+            try {
+                stepDescriptor.setArgs(args);
+                // MediaType produce = stepDescriptor.getProduce();
+                // Client client = stepDescriptor.getClient();
+                ChannelDescriptor channel = stepDescriptor.getChannel();
+                //MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
+
+                //Entity<?> entity = stepDescriptor.getEntity();
+                URI uri = channel.getUri();
+                // Cookie cookie = stepDescriptor.getCookie();
+                //Class returnType = stepDescriptor.getReturnType();
+                //logger.debug("invoke PUT for "+ uri + " with headers "+ headers.values() + " entity");
+                return (T)new SpringJwtHelper().delete(uri.toString(),args);
+            }catch (Exception e){
+                logger.error("fail invoke DELETE for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
+            }
             return null;
         }
     }

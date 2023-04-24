@@ -156,6 +156,7 @@ public  class Listener implements IListener {
     }
 
 
+
     public <T> Listener waitToResult(Function function, Handler<AsyncResult<T>> resultHandler)throws Exception{
         logger.debug("waitToResult "+ fqmn);
         FunctionAfter func = new FunctionAfter(function,fqmn);

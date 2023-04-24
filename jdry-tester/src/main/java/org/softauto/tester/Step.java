@@ -106,6 +106,16 @@ public class Step {
             return this;
         }
 
+        public <T> Step then(IListener o , Handler<AsyncResult<T>> resultHandler)throws Exception{
+            future.handleResult(future.getResult());
+            return this;
+        }
+
+        public <T> Step then(IListener o, CallFuture<T> future , Handler<AsyncResult<T>> resultHandler)throws Exception{
+            future.handleResult(future.getResult());
+            return this;
+        }
+
         public <T> Step then( CallFuture<T> future,IListener... o )throws Exception{
             future.handleResult(future.getResult());
             return this;

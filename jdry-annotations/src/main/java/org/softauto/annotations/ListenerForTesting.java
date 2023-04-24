@@ -26,7 +26,7 @@ public @interface ListenerForTesting {
 
     //String type() default "";
 
-    String expression() default "";
+    String value() default "";
 
     //Before before() default @Before;
 
