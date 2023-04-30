@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.core.*;
 import org.softauto.deserializer.NullStringJsonDeserializer;
+import org.softauto.espl.Espl;
 import org.softauto.listener.ListenerServerProviderImpl;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.ProviderScope;
@@ -38,7 +39,7 @@ public class AbstractTesterImpl {
 
     public Suite suite = new Suite();
 
-
+    public Espl espl = new Espl();
 
 
     public AbstractTesterImpl(){
@@ -88,7 +89,7 @@ public class AbstractTesterImpl {
 
 
 
-
+/*
     public HashMap<String,Object> margeCallOption(String dependencieId, HashMap<String,Object> callOption){
         HashMap<String,Object> dependenciePublish = suite.getPublish(dependencieId);
         JsonNode dependencieCallOption = (JsonNode) dependenciePublish.get("callOption");
@@ -112,6 +113,8 @@ public class AbstractTesterImpl {
         return callOption;
     }
 
+
+ */
     public JsonNode toJsonNode(Object o){
         try {
             if(o instanceof String && Utils.isJson(o.toString())){

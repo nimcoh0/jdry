@@ -5,6 +5,7 @@ import org.softauto.jaxrs.SpringJwtHelper;
 
 import javax.ws.rs.client.Entity;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.HashMap;
 
 public class SpringRestService {
@@ -45,6 +46,16 @@ public class SpringRestService {
 
         @Override
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
+            try {
+                stepDescriptor.setArgs(args);
+                ChannelDescriptor channel = stepDescriptor.getChannel();
+                URI uri = channel.getUri();
+
+                Class returnType = stepDescriptor.getReturnType();
+                return (T)new SpringJwtHelper().get(uri.toString(),  returnType);
+            }catch (Exception e){
+                logger.error("fail invoke get for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
+            }
             return null;
         }
     }
@@ -60,7 +71,7 @@ public class SpringRestService {
                 ChannelDescriptor channel = stepDescriptor.getChannel();
                 //MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
 
-                Entity<?> entity = stepDescriptor.getEntity();
+                Object entity = stepDescriptor.getEntity1();
                 URI uri = channel.getUri();
                // Cookie cookie = stepDescriptor.getCookie();
                 Class returnType = stepDescriptor.getReturnType();

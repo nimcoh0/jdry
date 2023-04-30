@@ -135,6 +135,11 @@ public class BasicStepDescriptorImpl implements IStepDescriptor {
         return EntityBuilder.newBuilder().setProduce(consume).setArgs(args).setArgsNames(argumentsNames).build().getEntity();
     }
 
+    @Override
+    public Object getEntity1() {
+        return null;
+    }
+
 
     public MediaType getProduce() {
         return produce = MediaType.valueOf(callOptions.get("produces").toString());

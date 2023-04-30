@@ -19,7 +19,7 @@ public @interface ApiForTesting {
 
     //Assert Assert() default @Assert;
 
-    String[] before() default {};
+    Expression[] before() default {};
 
     Expression[] after() default {};
 

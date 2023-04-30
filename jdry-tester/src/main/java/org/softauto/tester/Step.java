@@ -77,7 +77,7 @@ public class Step {
 
 
         public Step then(IListener o)throws Exception{
-            future.handleResult(future.getResult());
+            //future.handleResult(future.getResult());
             return this;
         }
 

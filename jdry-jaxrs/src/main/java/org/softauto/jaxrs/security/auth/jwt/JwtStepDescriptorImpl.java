@@ -3,6 +3,7 @@ package org.softauto.jaxrs.security.auth.jwt;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.softauto.core.Configuration;
 import org.softauto.jaxrs.security.auth.jwt.model.UserCredentials;
 import org.softauto.jaxrs.service.IStepDescriptor;
@@ -96,11 +97,47 @@ public class JwtStepDescriptorImpl implements IStepDescriptor {
     }
 
     public Entity getEntity(){
-        if (this.callOptions.get("role") != null && this.callOptions.get("role").toString().equals("AUTH")) {
-            UserCredentials credentials = buildCredentials(args[0].toString(), args[1].toString());
-            return Entity.entity(credentials, MediaType.APPLICATION_JSON);
+        try {
+            if (this.callOptions.get("role") != null && this.callOptions.get("role").toString().equals("AUTH")) {
+                UserCredentials credentials = buildCredentials(args[0].toString(), args[1].toString());
+                return Entity.entity(credentials, MediaType.APPLICATION_JSON);
+            }
+            int index = 0;
+            if(args.length > 1){
+              Map<?,?> m = (Map<?, ?>) callOptions.get("argumentRoles");
+              for(Map.Entry entry : m.entrySet() ){
+                  if(entry.getKey().equals("role") && entry.getValue().equals("ENTITY")){
+                      index = Integer.valueOf(m.get("index").toString());
+                  }
+              }
+            }
+            return Entity.entity(args[index], callOptions.get("produces").toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return Entity.entity(args, MediaType.APPLICATION_JSON);
+        return null;
+    }
+
+    public Object getEntity1(){
+        try {
+            if (this.callOptions.get("role") != null && this.callOptions.get("role").toString().equals("AUTH")) {
+                UserCredentials credentials = buildCredentials(args[0].toString(), args[1].toString());
+                return Entity.entity(credentials, MediaType.APPLICATION_JSON);
+            }
+            int index = 0;
+            if(args.length > 1){
+                Map<?,?> m = (Map<?, ?>) callOptions.get("argumentRoles");
+                for(Map.Entry entry : m.entrySet() ){
+                    if(entry.getKey().equals("role") && entry.getValue().equals("ENTITY")){
+                        index = Integer.valueOf(m.get("index").toString());
+                    }
+                }
+            }
+            return args[index];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

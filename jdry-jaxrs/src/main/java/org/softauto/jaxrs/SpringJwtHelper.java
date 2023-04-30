@@ -30,7 +30,7 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
     private static String token;
     private static String refreshToken;
     private static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
-    protected  String baseURL;
+    protected  String baseURL = "http://localhost:8080";
     private final ObjectMapper objectMapper = new ObjectMapper();
 
 
@@ -82,11 +82,19 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
     }
 
 
+    public Object get(String url,  Class returnType)throws Exception{
+        //Device foundDevice = doGet("/api/device/" + savedDevice.getId().getId().toString(), Device.class);
+        return   restTemplate.getForEntity(url, returnType);
+
+    }
+
+
+
     public Object post(String url,  Object entity, Class returnType,Object[] args)throws Exception{
         Object response = null;
         ResponseEntity<JsonNode> tokenInfo = null;
         if(token != null) {
-            response = restTemplate.postForEntity(url, args[0], returnType).getBody();
+            response = restTemplate.postForEntity(url, entity, returnType);
         }else {
             Map<String, String> loginRequest = new HashMap<>();
             loginRequest.put("username", args[0].toString());

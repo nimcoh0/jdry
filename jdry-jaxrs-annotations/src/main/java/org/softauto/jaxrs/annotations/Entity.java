@@ -1,19 +1,11 @@
-package org.softauto.annotations;
+package org.softauto.jaxrs.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.ANNOTATION_TYPE})
+@Target({ElementType.FIELD,ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Expression {
-
-    String value() default "";
-
-    String type() default "";
-
-    String name() default  "";
-
-
+public @interface Entity {
 }

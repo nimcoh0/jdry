@@ -1,29 +1,31 @@
 package org.softauto.espl;
 
-import org.apache.commons.lang3.StringUtils;
-import org.softauto.core.BracketsUtils;
-import org.springframework.expression.EvaluationContext;
+
+import org.softauto.core.Multimap;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
-import org.springframework.expression.spel.support.SimpleEvaluationContext;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class Espl {
 
     StandardEvaluationContext  itemContext = new StandardEvaluationContext();
     ExpressionParser parser = new SpelExpressionParser();
 
+    Multimap publish;
+
+    public Espl setPublish(Multimap publish) {
+        this.publish = publish;
+        return this;
+    }
 
     public Espl(){
         try {
-            //itemContext.setVariable("step",Functions.class.getDeclaredMethod("step", String.class));
+            EsplFunctions.setPublish(publish);
+            itemContext.setVariable("map", EsplFunctions.Map.class.getDeclaredMethod("map", String.class));
             //itemContext.setVariable("listener",Functions.class.getDeclaredMethod("listener", String.class));
         }catch (Exception e){
             e.printStackTrace();
