@@ -49,6 +49,27 @@ public class Suite {
     }
 
 
+    public Object findKey(String key){
+        try {
+            String root = new ObjectMapper().writeValueAsString((HashMap<String, Object>)publish.getMap());
+            JsonNode rootNode = new ObjectMapper().readTree(root);
+            return rootNode.findValue(key);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Object getPath(String path){
+        try {
+            String root = new ObjectMapper().writeValueAsString((HashMap<String, Object>)publish.getMap());
+            JsonNode rootNode = new ObjectMapper().readTree(root);
+            return rootNode.at(path);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     public Object getPublish(String id,String expression){

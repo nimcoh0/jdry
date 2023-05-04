@@ -11,7 +11,7 @@ public @interface ApiForTesting {
 
     String description() default "";
 
-    String protocol()  ;
+    String protocol()  default "RPC";
 
     //Class protocol() default RPC.class ;
 

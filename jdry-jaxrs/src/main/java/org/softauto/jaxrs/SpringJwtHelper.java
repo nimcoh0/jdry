@@ -94,7 +94,12 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
         Object response = null;
         ResponseEntity<JsonNode> tokenInfo = null;
         if(token != null) {
-            response = restTemplate.postForEntity(url, entity, returnType);
+            ResponseEntity response1 = restTemplate.postForEntity(url, entity, returnType);
+            if(response1.hasBody()){
+                return response1.getBody();
+            }else {
+                return response1.getStatusCode();
+            }
         }else {
             Map<String, String> loginRequest = new HashMap<>();
             loginRequest.put("username", args[0].toString());

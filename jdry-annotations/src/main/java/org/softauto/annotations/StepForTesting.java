@@ -21,7 +21,7 @@ public @interface StepForTesting {
 
     //String callOPtions() default "";
 
-    String protocol() ;
+    String protocol() default "RPC";
 
     String id() default "";
 

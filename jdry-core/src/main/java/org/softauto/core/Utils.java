@@ -5,6 +5,7 @@ package org.softauto.core;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.io.File;
@@ -394,6 +395,34 @@ public class Utils {
             logger.error("fail convert String to Object for  "+ str, e.getMessage());
         }
         return null;
+    }
+
+    public static String toObject( String clazz, String value ) {
+
+        String str = clazz.toLowerCase();
+        if(clazz.contains(".")){
+            str = clazz.substring(clazz.lastIndexOf(".")+1).toLowerCase();
+        }
+        if(value.endsWith(";")){
+            value = value.substring(0,value.length()-1);
+        }
+        if(NumberUtils.isCreatable(value)){
+            return value;
+        }
+        if(value.toLowerCase().equals("false") || value.toLowerCase().equals("true")){
+            return value;
+        }
+
+
+        if( str.equals("boolean") ) return "Boolean.parseBoolean("+ value +")";
+        if( str.equals("byte") ) return "Byte.parseByte("+ value +")";
+        if( str.equals("short") ) return "Short.parseShort("+ value +")";
+        if( str.equals("integer") ) return "Integer.parseInt("+ value + ")";
+        if( str.equals("long" ) ) return "Long.parseLong("+ value +")";
+        if( str.equals("float") ) return "Float.parseFloat(" +  value +")";
+        if( str.equals("double") ) return "Double.parseDouble("+ value + ")";
+        if( str.equals("string") ) return "String.valueOf("+ value + ")";
+        return value+";";
     }
 
 }

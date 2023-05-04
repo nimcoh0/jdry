@@ -56,6 +56,14 @@ public class Espl {
         return exp;
     }
 
+    public Object parse(String expression){
+        if(expression.contains("${")){
+            return parser.parseExpression(expression, new TemplateParserContext());
+        }else {
+            return parser.parseExpression(expression);
+        }
+    }
+
     public Object  evaluate(String expression){
        return evaluate(expression,itemContext);
     }
@@ -89,6 +97,9 @@ public class Espl {
              */
         }catch (Exception e){
             return exp;
+        }
+        if(!exp.contains("#") && exp.contains("'")){
+          exp =   exp.replace("'","\"");
         }
         return exp;
     }

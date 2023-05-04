@@ -23,13 +23,14 @@ import org.testng.ITestResult;
 import org.testng.annotations.BeforeMethod;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
 
 
-public class AbstractTesterImpl {
+public class AbstractTesterImpl extends Methods{
 
     private static final Logger logger = LogManager.getLogger(AbstractTesterImpl.class);
 
@@ -37,9 +38,10 @@ public class AbstractTesterImpl {
 
     public Test test;
 
-    public Suite suite = new Suite();
+    //public Suite suite = new Suite();
 
     public Espl espl = new Espl();
+
 
 
     public AbstractTesterImpl(){
