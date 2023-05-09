@@ -2,10 +2,14 @@ package org.softauto.espl;
 
 
 import org.softauto.core.Multimap;
+import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.common.CompositeStringExpression;
+import org.springframework.expression.spel.standard.SpelExpression;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -72,7 +76,18 @@ public class Espl {
         String exp = expression;
         try {
             if(expression.contains("${")){
-                exp  = parser.parseExpression(expression, new TemplateParserContext()).getValue(itemContext).toString();
+               CompositeStringExpression compositeStringExpression = (CompositeStringExpression) parser.parseExpression(expression, new TemplateParserContext());
+               for(Expression expression1 : compositeStringExpression.getExpressions()){
+                    if(expression1 instanceof SpelExpression){
+                      String str  = parser.parseExpression(expression1.getExpressionString(), new TemplateParserContext()).getValue(itemContext).toString();
+                      if(str.contains("#")) {
+                         exp = parser.parseExpression(str).getValue(itemContext).toString();
+                      }
+                      exp =   expression.replace("${"+expression1.getExpressionString()+"}",exp);
+
+                    }
+                }
+
             }else {
                 exp = parser.parseExpression(exp).getValue(itemContext).toString();
             }

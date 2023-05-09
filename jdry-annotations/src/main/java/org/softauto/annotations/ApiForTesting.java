@@ -1,5 +1,6 @@
 package org.softauto.annotations;
 
+import org.softauto.annotations.util.Policy;
 import org.softauto.annotations.util.Role;
 import org.softauto.annotations.util.StepMode;
 import java.lang.annotation.*;
@@ -52,6 +53,8 @@ public @interface ApiForTesting {
     //String order() default "";
 
     String verifyId() default "";
+
+    Policy policy() default Policy.ENABLE_UPDATE;
 
     //String[] listenerId() default {};
 

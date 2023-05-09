@@ -84,8 +84,12 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
 
     public Object get(String url,  Class returnType)throws Exception{
         //Device foundDevice = doGet("/api/device/" + savedDevice.getId().getId().toString(), Device.class);
-        return   restTemplate.getForEntity(url, returnType);
-
+        ResponseEntity response1 =  restTemplate.getForEntity(url, returnType);
+        if(response1.hasBody()){
+            return response1.getBody();
+        }else {
+            return response1.getStatusCode();
+        }
     }
 
 

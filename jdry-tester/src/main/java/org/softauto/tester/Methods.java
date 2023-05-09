@@ -20,12 +20,24 @@ public class Methods {
         return new Date().getTime();
     }
 
-    public Object consume(String key){
-        return suite.findKey(key);
+
+
+    public Object consume(String expression){
+        if(expression.contains("/")) {
+            return suite.getPublish(expression);
+        }else {
+            return suite.findKey(expression);
+        }
+        //return Utils.toObject(type,str);
     }
 
     public Object consume(String id,String expression,String type){
-        String str = suite.getPublish(id , expression ).toString();
-        return Utils.toObject(type,str);
+        return suite.getPublish(id , expression ).toString();
+        //return Utils.toObject(type,str);
+    }
+
+    public Object consume(String expression,String type){
+        return suite.getPath(expression ).toString();
+        //return Utils.toObject(type,str);
     }
 }
