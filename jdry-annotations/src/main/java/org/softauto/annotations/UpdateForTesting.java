@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UpdateForTesting {
 
-    String value() ;
+    String value() default "";
 
 
 }

@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InitializeForTesting {
 
-    String mode() default "INITIALIZE_IF_NOT_EXIST";
+    String value() default "INITIALIZE_IF_NOT_EXIST";
 
 
 }

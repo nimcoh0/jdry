@@ -40,7 +40,7 @@ public @interface ApiForTesting {
 
     //String[] group() default {};
 
-    //String[] publish() default {};
+    String publish_root_name() default "";
 
     String callback() default "";
 
