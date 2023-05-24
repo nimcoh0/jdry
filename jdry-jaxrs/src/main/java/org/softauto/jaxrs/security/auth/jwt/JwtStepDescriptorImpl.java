@@ -4,18 +4,27 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import org.glassfish.jersey.media.multipart.FormDataMultiPart;
+import org.glassfish.jersey.media.multipart.MultiPart;
+import org.glassfish.jersey.media.multipart.MultiPartMediaTypes;
 import org.softauto.core.Configuration;
 import org.softauto.jaxrs.security.auth.jwt.model.UserCredentials;
 import org.softauto.jaxrs.service.IStepDescriptor;
 import org.softauto.core.TestContext;
 import org.softauto.jaxrs.service.*;
 import org.softauto.jaxrs.util.ChannelBuilder;
+import org.softauto.jaxrs.util.EntityBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JwtStepDescriptorImpl implements IStepDescriptor {
@@ -121,19 +130,45 @@ public class JwtStepDescriptorImpl implements IStepDescriptor {
     public Object getEntity1(){
         try {
             if (this.callOptions.get("role") != null && this.callOptions.get("role").toString().equals("AUTH")) {
-                UserCredentials credentials = buildCredentials(args[0].toString(), args[1].toString());
-                return Entity.entity(credentials, MediaType.APPLICATION_JSON);
+                //UserCredentials credentials = buildCredentials(args[0].toString(), args[1].toString());
+                //return Entity.entity(args[0], MediaType.APPLICATION_JSON);
+                return args[0];
             }
+
             int index = 0;
             if(args.length > 1){
+                List<String> argumentsNames = (ArrayList)callOptions.get("argumentsNames");
+
+                MultiValueMap<String, Object> body  = new LinkedMultiValueMap<>();
+                for(int i=0;i<args.length;i++) {
+                    body.add(argumentsNames.get(i), args[i]);
+                }
+                MultiValueMap<String, String> headers =  new LinkedMultiValueMap<>();
+                HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity(body, headers);
+                return requestEntity;
+
+                /*
+                FormDataMultiPart multipart = new FormDataMultiPart();
+                for(int i=0;i<args.length;i++){
+                   multipart.bodyPart(args[i],MediaType.TEXT_PLAIN_TYPE);
+                }
+                return Entity.entity(multipart,multipart.getMediaType());
+
+                 */
+                //return EntityBuilder.newBuilder().setProduce(consume).setArgs(args).setArgsNames(argumentsNames).build().getEntity();
+                /*
                 Map<?,?> m = (Map<?, ?>) callOptions.get("argumentRoles");
                 for(Map.Entry entry : m.entrySet() ){
                     if(entry.getKey().equals("role") && entry.getValue().equals("ENTITY")){
                         index = Integer.valueOf(m.get("index").toString());
                     }
                 }
+
+                 */
             }
             return args[index];
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,9 +222,9 @@ public class JwtStepDescriptorImpl implements IStepDescriptor {
     @Override
     public Class getReturnType() {
         try {
-            if(callOptions.get("role") != null && callOptions.get("role").toString().equals("AUTH")){
-                return String.class;
-            }
+           // if(callOptions.get("role") != null && callOptions.get("role").toString().equals("AUTH")){
+            //    return String.class;
+           // }
 
             String s = callOptions.get("response").toString();
             Class c = Class.forName(s);

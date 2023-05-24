@@ -22,7 +22,7 @@ public class Suite {
 
     ObjectNode data = new ObjectMapper().createObjectNode();
 
-    Espl espl = new Espl().setPublish(publish);
+    Espl espl = Espl.reset().setPublish(publish);
 
 
     public Suite addPublish(ObjectNode data){

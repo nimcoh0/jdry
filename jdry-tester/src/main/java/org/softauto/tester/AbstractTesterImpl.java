@@ -40,7 +40,7 @@ public class AbstractTesterImpl extends Methods{
 
     //public Suite suite = new Suite();
 
-    public Espl espl = new Espl();
+    public Espl espl = Espl.reset();
 
 
 

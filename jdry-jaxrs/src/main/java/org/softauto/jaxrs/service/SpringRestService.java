@@ -4,6 +4,7 @@ import org.softauto.core.Utils;
 import org.softauto.jaxrs.SpringJwtHelper;
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -66,7 +67,7 @@ public class SpringRestService {
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
             try {
                 stepDescriptor.setArgs(args);
-               // MediaType produce = stepDescriptor.getProduce();
+                MediaType produce = stepDescriptor.getConsume();
                // Client client = stepDescriptor.getClient();
                 ChannelDescriptor channel = stepDescriptor.getChannel();
                 //MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
@@ -77,8 +78,9 @@ public class SpringRestService {
                 Class returnType = stepDescriptor.getReturnType();
                 //logger.debug("invoke PUT for "+ uri + " with headers "+ headers.values() + " entity");
                 return (T)new SpringJwtHelper().post(uri.toString(),  entity, returnType,args);
+                //return (T)new SpringJwtHelper().post(uri.toString(),  entity,args);
             }catch (Exception e){
-                logger.error("fail invoke PUT for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
+                logger.error("fail invoke POST for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
             }
             return null;
         }
@@ -88,6 +90,14 @@ public class SpringRestService {
 
         @Override
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
+            try {
+                stepDescriptor.setArgs(args);
+                ChannelDescriptor channel = stepDescriptor.getChannel();
+                URI uri = channel.getUri();
+                return (T)new SpringJwtHelper().put(uri.toString(),args);
+            } catch (Exception e) {
+                logger.error("fail invoke PUT for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);
+            }
             return null;
         }
     }

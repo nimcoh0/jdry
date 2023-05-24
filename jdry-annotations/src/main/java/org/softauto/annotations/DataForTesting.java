@@ -5,9 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ParamForTesting {
+public @interface DataForTesting {
 
     String value() ;
 }

@@ -244,8 +244,8 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
+                <artifactId>maven-shade-plugin1</artifactId>
+                <version>3.4.1</version>
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <filters>
@@ -256,6 +256,7 @@
                             </excludes>
                         </filter>
                     </filters>
+
                 </configuration>
                 <executions>
                     <execution>
@@ -273,8 +274,26 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
                                     <resource>META-INF/MANIFEST.MF</resource>
                                     <file>src/main/resources/META-INF/MANIFEST.MF</file>
+
                                 </transformer>
+
+                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+
+
+
                             </transformers>
+                            <relocations>
+                                <relocation>
+                                    <pattern>io.netty</pattern>
+                                    <shadedPattern>io.netty1</shadedPattern>
+
+                                </relocation>
+                                <relocation>
+                                    <pattern>io.grpc</pattern>
+                                    <shadedPattern>io.grpc1</shadedPattern>
+
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>

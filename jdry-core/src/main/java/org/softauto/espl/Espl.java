@@ -1,6 +1,7 @@
 package org.softauto.espl;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.softauto.core.Multimap;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -18,16 +19,28 @@ public class Espl {
 
     StandardEvaluationContext  itemContext = new StandardEvaluationContext();
     ExpressionParser parser = new SpelExpressionParser();
-
+    private static Espl espl;
     Multimap publish;
+
+    public static Espl getInstance(){
+        if(espl == null){
+            espl = new Espl();
+        }
+        return espl;
+    }
 
     public Espl setPublish(Multimap publish) {
         this.publish = publish;
         return this;
     }
 
-    public Espl(){
+    public Object getProperty(String name){
+        return itemContext.lookupVariable(name);
+    }
+
+    private Espl(){
         try {
+            //espl = this;
             EsplFunctions.setPublish(publish);
             itemContext.setVariable("map", EsplFunctions.Map.class.getDeclaredMethod("map", String.class));
             //itemContext.setVariable("listener",Functions.class.getDeclaredMethod("listener", String.class));
@@ -36,6 +49,9 @@ public class Espl {
         }
     }
 
+    public static Espl reset(){
+        return espl = new Espl();
+    }
 
     public Espl addProperty(String key, Object value){
         itemContext.setVariable(key,value);
@@ -76,7 +92,9 @@ public class Espl {
         String exp = expression;
         try {
             if(expression.contains("${")){
-               CompositeStringExpression compositeStringExpression = (CompositeStringExpression) parser.parseExpression(expression, new TemplateParserContext());
+               Object o =  parser.parseExpression(expression, new TemplateParserContext());
+               if(o instanceof CompositeStringExpression){
+               CompositeStringExpression compositeStringExpression = (CompositeStringExpression) o;
                for(Expression expression1 : compositeStringExpression.getExpressions()){
                     if(expression1 instanceof SpelExpression){
                       String str  = parser.parseExpression(expression1.getExpressionString(), new TemplateParserContext()).getValue(itemContext).toString();
@@ -87,9 +105,21 @@ public class Espl {
 
                     }
                 }
+               }else if(o instanceof SpelExpression){
+                   String str  = parser.parseExpression(((SpelExpression)o).getExpressionString(), new TemplateParserContext()).getValue(itemContext).toString();
+                   if(str.contains("#")) {
+                       exp = parser.parseExpression(str).getValue(itemContext).toString();
+                   }
+                   exp =   expression.replace("${"+((SpelExpression)o).getExpressionString()+"}",exp);
 
+               }
             }else {
-                exp = parser.parseExpression(exp).getValue(itemContext).toString();
+                Object exp1 = parser.parseExpression(exp).getValue(itemContext);
+                if(exp1 instanceof String){
+                    exp = exp1.toString();
+                }else {
+                   exp =  new ObjectMapper().writeValueAsString(exp1);
+                }
             }
                // BracketsUtils bracketsUtils = new BracketsUtils().setExpression(expression).setOpenBracketTag("${").setCloseBracketTag("}").analyze();
                // for(Map.Entry entry : bracketsUtils.getGroups().entrySet()){
@@ -120,5 +150,36 @@ public class Espl {
     }
 
 
+    public Object evaluateToObject(String expression) {
+        return this.evaluateToObject(expression, this.itemContext);
+    }
+
+    public Object  evaluateToObject(String expression,StandardEvaluationContext  itemContext){
+        Object exp = expression;
+        try {
+            if(expression.contains("${")){
+                CompositeStringExpression compositeStringExpression = (CompositeStringExpression) parser.parseExpression(expression, new TemplateParserContext());
+                for(Expression expression1 : compositeStringExpression.getExpressions()){
+                    if(expression1 instanceof SpelExpression){
+                        String str  = parser.parseExpression(expression1.getExpressionString(), new TemplateParserContext()).getValue(itemContext).toString();
+                        if(str.contains("#")) {
+                            exp = parser.parseExpression(str).getValue(itemContext);
+                        }
+
+
+                    }
+                }
+
+            }else {
+                return parser.parseExpression(exp.toString()).getValue(itemContext);
+
+            }
+
+        }catch (Exception e){
+            return exp;
+        }
+
+        return exp;
+    }
 
 }

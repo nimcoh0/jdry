@@ -56,6 +56,10 @@ public @interface ApiForTesting {
 
     Policy policy() default Policy.ENABLE_UPDATE;
 
+    String expected() default "";
+
+    //String tokenInfo() default "";
+
     //String[] listenerId() default {};
 
     //Expected expected() default @Expected();

@@ -1,9 +1,14 @@
 package org.softauto.jaxrs;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.message.internal.OutboundJaxrsResponse;
+import org.softauto.core.Configuration;
+import org.softauto.core.Context;
 import org.softauto.core.TestContext;
+
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,13 +34,17 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
     public static RestTemplate restTemplate =  new RestTemplate();
     private static String token;
     private static String refreshToken;
-    private static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
-    protected  String baseURL = "http://localhost:8080";
+    private static final String JWT_TOKEN_HEADER_PARAM_X = "X-Authorization";
+    private static final String JWT_TOKEN_HEADER_PARAM = "Authorization";
+    protected  String baseURL; //"http://localhost:8080";
     private final ObjectMapper objectMapper = new ObjectMapper();
 
 
     public SpringJwtHelper() {
-
+        String host = (Configuration.get("jaxrs").asMap().get("host").toString());
+        String port = (Configuration.get("jaxrs").asMap().get("port").toString());
+        String protocol = (Configuration.get("jaxrs").asMap().get("protocol").toString());
+        this.baseURL = protocol+"://"+host+":"+port;
     }
 
     public SpringJwtHelper(RestTemplate restTemplate, String baseURL) {
@@ -56,16 +65,35 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
         restTemplate.getInterceptors().add(this);
     }
 
+
+    private <T> void setTokenInfo(T tokenInfo) {
+        try {
+            String str = new ObjectMapper().writeValueAsString(tokenInfo);
+            JsonNode node =   new ObjectMapper().readTree(str);
+            if(str.contains("token")){
+                this.token = node.findValue("token").asText();
+            }
+            if(str.contains("refreshToken")){
+                this.refreshToken = node.findValue("refreshToken").asText();
+            }
+            restTemplate.getInterceptors().add(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] bytes, ClientHttpRequestExecution execution) throws IOException {
         HttpRequest wrapper = new HttpRequestWrapper(request);
         wrapper.getHeaders().set(JWT_TOKEN_HEADER_PARAM, "Bearer " + token);
+        wrapper.getHeaders().set(JWT_TOKEN_HEADER_PARAM_X, "Bearer " + token);
         ClientHttpResponse response = execution.execute(wrapper, bytes);
         if (response.getStatusCode() == HttpStatus.UNAUTHORIZED) {
             synchronized (this) {
                 restTemplate.getInterceptors().remove(this);
-                refreshToken();
+                //refreshToken();
                 wrapper.getHeaders().set(JWT_TOKEN_HEADER_PARAM, "Bearer " + token);
+                wrapper.getHeaders().set(JWT_TOKEN_HEADER_PARAM_X, "Bearer " + token);
                 return execution.execute(wrapper, bytes);
             }
         }
@@ -82,43 +110,56 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
     }
 
 
-    public Object get(String url,  Class returnType)throws Exception{
+    public <T> Object get(String url,  Class<T> returnType)throws Exception{
         //Device foundDevice = doGet("/api/device/" + savedDevice.getId().getId().toString(), Device.class);
         ResponseEntity response1 =  restTemplate.getForEntity(url, returnType);
         if(response1.hasBody()){
-            return response1.getBody();
+            return (T)response1.getBody();
         }else {
             return response1.getStatusCode();
         }
     }
 
+    public Object put(String url,  Object[] args)throws Exception{
+         restTemplate.put(url, args);
+         return Response.ok();
+    }
 
-
-    public Object post(String url,  Object entity, Class returnType,Object[] args)throws Exception{
-        Object response = null;
-        ResponseEntity<JsonNode> tokenInfo = null;
-        if(token != null) {
-            ResponseEntity response1 = restTemplate.postForEntity(url, entity, returnType);
-            if(response1.hasBody()){
-                return response1.getBody();
+    public <T> Object post(String url,  Object entity, Class<T> returnType,Object[] args)throws Exception{
+    //public <T> Object post(String url,  Object entity, Class<T> returnType,Object[] args)throws Exception{
+        //Object response = null;
+        //ResponseEntity<JsonNode> tokenInfo = null;
+        //if(token != null) {
+            ResponseEntity response = restTemplate.postForEntity(url, entity, returnType);
+            if(response.hasBody()){
+                T tokenInfo = (T) response.getBody();
+                setTokenInfo(tokenInfo);
+                return tokenInfo;
             }else {
-                return response1.getStatusCode();
+                return response.getStatusCode();
             }
+            /*
         }else {
-            Map<String, String> loginRequest = new HashMap<>();
-            loginRequest.put("username", args[0].toString());
-            loginRequest.put("password", args[1].toString());
-            tokenInfo = restTemplate.postForEntity(url, loginRequest, JsonNode.class);
+            Object credentials = args[0];
+
+            //loginRequest.put("username", args[0].toString());
+            //loginRequest.put("password", args[1].toString());
+            //tokenInfo = restTemplate.postForEntity(url, loginRequest, JsonNode.class);
+            tokenInfo = restTemplate.postForEntity(url, credentials, JsonNode.class);
             setTokenInfo(tokenInfo.getBody());
             if(Response.Status.fromStatusCode(tokenInfo.getStatusCodeValue()).getFamily() == Response.Status.Family.SUCCESSFUL) {
                 response = tokenInfo.getBody();
             }else {
                 response = tokenInfo.getStatusCodeValue();
             }
+
+
+             */
+
         }
 
-        return response;
-    }
+        //return response;
+    //}
 
 
     @Override
