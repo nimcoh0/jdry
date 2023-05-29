@@ -58,6 +58,8 @@ public @interface ApiForTesting {
 
     String expected() default "";
 
+    Credentials credentials() default @Credentials;
+
     //String tokenInfo() default "";
 
     //String[] listenerId() default {};

@@ -2,7 +2,7 @@ package org.softauto.espl;
 
 import org.springframework.expression.ParserContext;
 
-public class TemplateParserContext implements ParserContext {
+public class TemplateParserContextCompileTime implements ParserContext {
 
     public String getExpressionPrefix() {
         return "${";

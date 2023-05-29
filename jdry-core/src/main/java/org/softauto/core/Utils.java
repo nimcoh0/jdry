@@ -291,24 +291,8 @@ public class Utils {
        return builtInMap.get(clazz);
     }
 
-    public static boolean isPrimitive(String name){
-        if(PRIMITIVES.contains(name.toLowerCase())){
-            return true;
-        }
-        return false;
-    }
-
-    static final List<String> PRIMITIVES = new ArrayList<>();
-    static {
-        PRIMITIVES.add("string");
-        PRIMITIVES.add("bytes");
-        PRIMITIVES.add("int");
-        PRIMITIVES.add("long");
-        PRIMITIVES.add("float");
-        PRIMITIVES.add("double");
-        PRIMITIVES.add("boolean");
-        PRIMITIVES.add("null");
-        PRIMITIVES.add("void");
+    public static String javaEscape(String o) {
+        return o.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 
 
@@ -414,6 +398,67 @@ public class Utils {
         }
 
 
+        if( str.equals("boolean") ) return "Boolean.parseBoolean("+ value +".toString())";
+        if( str.equals("byte") ) return "Byte.parseByte("+ value +".toString())";
+        if( str.equals("short") ) return "Short.parseShort("+ value +".toString())";
+        if( str.equals("integer") ) return "Integer.parseInt("+ value + ".toString())";
+        if( str.equals("long" ) ) return "Long.parseLong("+ value +".toString())";
+        if( str.equals("float") ) return "Float.parseFloat(" +  value +".toString())";
+        if( str.equals("double") ) return "Double.parseDouble("+ value + ".toString())";
+        if( str.equals("string") ) return "String.valueOf("+ value + ")";
+        return "("+clazz+")"+value+";";
+    }
+
+
+    public static boolean isPrimitive(String type){
+        if(type != null) {
+            String name = null;
+            if (type.contains(".")) {
+                name = type.substring(type.lastIndexOf(".") + 1);
+            }else{
+                name = type;
+            }
+            if (PRIMITIVES.contains(name.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static final List<String> PRIMITIVES = new ArrayList<>();
+    static {
+        PRIMITIVES.add("string");
+        PRIMITIVES.add("bytes");
+        PRIMITIVES.add("int");
+        PRIMITIVES.add("integer");
+        PRIMITIVES.add("long");
+        PRIMITIVES.add("float");
+        PRIMITIVES.add("double");
+        PRIMITIVES.add("boolean");
+        PRIMITIVES.add("null");
+        PRIMITIVES.add("void");
+        PRIMITIVES.add("com.fasterxml.jackson.databind.node.IntNode");
+        PRIMITIVES.add("com.fasterxml.jackson.databind.node.NullNode");
+    }
+
+    /*
+    public static String toObject( String clazz, String value ) {
+
+        String str = clazz.toLowerCase();
+        if(clazz.contains(".")){
+            str = clazz.substring(clazz.lastIndexOf(".")+1).toLowerCase();
+        }
+        if(value.endsWith(";")){
+            value = value.substring(0,value.length()-1);
+        }
+        if(NumberUtils.isCreatable(value)){
+            return value;
+        }
+        if(value.toLowerCase().equals("false") || value.toLowerCase().equals("true")){
+            return value;
+        }
+
+
         if( str.equals("boolean") ) return "Boolean.parseBoolean("+ value +")";
         if( str.equals("byte") ) return "Byte.parseByte("+ value +")";
         if( str.equals("short") ) return "Short.parseShort("+ value +")";
@@ -424,5 +469,7 @@ public class Utils {
         if( str.equals("string") ) return "String.valueOf("+ value + ")";
         return value+";";
     }
+
+     */
 
 }
