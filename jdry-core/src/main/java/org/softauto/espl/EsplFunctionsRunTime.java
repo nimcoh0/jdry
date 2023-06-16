@@ -1,11 +1,15 @@
 package org.softauto.espl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.softauto.core.BracketsUtils;
 import org.softauto.core.Utils;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class EsplFunctionsRunTime extends AbstractEsplFunctions{
 
@@ -59,7 +63,9 @@ public class EsplFunctionsRunTime extends AbstractEsplFunctions{
         }
 
         public static String random(String type){
-            return Utils.toObject(type,"random(\""+type+"\")");
+          //String type = Espl.getInstance().getProperty("type").toString();
+          return Utils.toObject(type,"random(\""+type+"\")");
+
         }
     }
 
@@ -74,21 +80,47 @@ public class EsplFunctionsRunTime extends AbstractEsplFunctions{
             return expression;
         }
 
-
-        public static String consume(String expression){
-            Espl espl = Espl.getInstance();
-            String type = getExpressionType(expression);
-            expression = removeType(expression);
-            String str = "consume(\""  + expression +"\")";
-            boolean addPlus = false;
-            if(espl.getPropertyRunTime("addPlus") != null) {
-                addPlus = Boolean.valueOf(espl.getPropertyRunTime("addPlus").toString());
+        private static boolean hasLeftSide(String expression){
+            if(expression.startsWith("#consume") ){
+                return false;
             }
+            return true;
+        }
+
+        private static boolean hasRightSide(String expression,String content){
+            BracketsUtils bracketsUtils = new BracketsUtils().setExpression(expression).setOpenBracketTag("(").setCloseBracketTag(")");
+            LinkedHashMap<Integer, Integer> groups =  bracketsUtils.analyze().getGroups();
+            AtomicReference<Boolean> ref = new AtomicReference<>(false);
+            groups.forEach((k,v)->{
+                java.util.Map.Entry entry = bracketsUtils.getGroup(k,v);
+                String txt = bracketsUtils.getGroupLiteralText(entry);
+                if(txt.contains(content)){
+                    if(expression.length() > v){
+                        ref.set(true);
+                    }
+                }
+            });
+
+            return ref.get();
+        }
+
+        public static String consume(String type,String expression){
+            Espl espl = Espl.getInstance();
+            boolean hasLeft = false ;
+            boolean hasRight = false;
+            String str = "consume(\""  + expression +"\")";
+            if(espl.getPropertyRunTime("expression") != null) {
+                String exp = espl.getPropertyRunTime("expression").toString();
+                hasLeft = hasLeftSide(exp);
+                hasRight = hasRightSide(exp,"'"+type+"','"+expression+"'");
+            }
+            str = Utils.toObject(type, str.replace("'", "\""));
             if(type != null) {
-                if (addPlus ) {
-                    str = "\"+" + Utils.toObject(type, str.replace("'", "\"")) + "+\"";
-                } else {
-                    str = Utils.toObject(type, str.replace("'", "\""));
+                if (hasLeft ) {
+                    str = "\"+" + str;
+                }
+                if(hasRight) {
+                    str = str + "+\"";
                 }
             }
 

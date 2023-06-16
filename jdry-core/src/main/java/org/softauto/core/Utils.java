@@ -402,6 +402,7 @@ public class Utils {
         if( str.equals("byte") ) return "Byte.parseByte("+ value +".toString())";
         if( str.equals("short") ) return "Short.parseShort("+ value +".toString())";
         if( str.equals("integer") ) return "Integer.parseInt("+ value + ".toString())";
+        if( str.equals("int") ) return "Integer.parseInt("+ value + ".toString())";
         if( str.equals("long" ) ) return "Long.parseLong("+ value +".toString())";
         if( str.equals("float") ) return "Float.parseFloat(" +  value +".toString())";
         if( str.equals("double") ) return "Double.parseDouble("+ value + ".toString())";

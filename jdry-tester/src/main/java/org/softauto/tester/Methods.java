@@ -1,7 +1,10 @@
 package org.softauto.tester;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.google.common.base.Splitter;
+import org.softauto.core.ClassCloner;
 import org.softauto.core.Utils;
 import org.softauto.podam.ExtendPodamFactoryImpl;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -39,6 +42,11 @@ public class Methods {
             Class c = Class.forName(type,false,ClassLoader.getSystemClassLoader());
             PodamFactory factory = new ExtendPodamFactoryImpl().setAttributeValueMap(attributeMap);
             Object pojo = factory.manufacturePojo(c);
+            if (type.contains("userDto") || type.contains("UserDto")){
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+                return  objectMapper.writeValueAsString(pojo);
+            }
             return pojo;
             //return new ObjectMapper().writeValueAsString(pojo);
         } catch (Exception e) {
@@ -50,10 +58,21 @@ public class Methods {
 
     public  Object random(String type){
         try {
-            Class c = Class.forName(type,false,ClassLoader.getSystemClassLoader());
+            Class c = Class.forName(type, false, ClassLoader.getSystemClassLoader());
+            //new ClassCloner().clone(type).setannotationToFilter("com.fasterxml.jackson.annotation.JsonProperty").setCondition("#annotation.getMemberNames().contains('access')").build();
+            //new ClassCloner().clone(type);
+            //Class c =  Class.forName(type+"Clone",false,ClassLoader.getSystemClassLoader());
+            //Class c = Class.forName("Clone");
+            //Object o = c.getConstructors()[0].newInstance();
             PodamFactory factory = new ExtendPodamFactoryImpl();
             Object pojo = factory.manufacturePojo(c);
-            String str = new ObjectMapper().writeValueAsString(pojo);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+
+            String str = objectMapper.writeValueAsString(pojo);
+            if (type.contains("userDto") || type.contains("UserDto")){
+                return str;
+            }
             return new ObjectMapper().readValue(str,c);
         } catch (Exception e) {
             e.printStackTrace();

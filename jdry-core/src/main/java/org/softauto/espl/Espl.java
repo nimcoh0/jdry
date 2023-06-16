@@ -7,6 +7,7 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.CompositeStringExpression;
+import org.springframework.expression.common.LiteralExpression;
 import org.springframework.expression.spel.standard.SpelExpression;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -59,8 +60,8 @@ public class Espl {
             EsplFunctionsRunTime.setPublish(publish);
             runTimeItemContext.setVariable("map", EsplFunctionsRunTime.Map.class.getDeclaredMethod("map", String.class));
 
-            runTimeItemContext.setVariable("random", EsplFunctionsRunTime.Strategy.class.getDeclaredMethod("random",String.class));
-            runTimeItemContext.setVariable("consume", EsplFunctionsRunTime.Consume.class.getDeclaredMethod("consume",String.class));
+            runTimeItemContext.setVariable("random", EsplFunctionsRunTime.Strategy.class.getDeclaredMethod("random", String.class));
+            runTimeItemContext.setVariable("consume", EsplFunctionsRunTime.Consume.class.getDeclaredMethod("consume",String.class,String.class));
             //runTimeItemContext.setVariable("randomf", org.softauto.espl.EsplFunctions.Strategy.class.getDeclaredMethod("randomf",String.class));
             runTimeItemContext.setVariable("strategy", EsplFunctionsRunTime.Strategy.class.getDeclaredMethod("strategy",String.class));
             runTimeItemContext.setVariable("exclude", EsplFunctionsRunTime.Strategy.class.getDeclaredMethod("exclude",String.class));
@@ -148,6 +149,7 @@ public class Espl {
                     String str  = parser.parseExpression(expression1.getExpressionString(), context).getValue(itemContext).toString();
                     if(str.contains("#")) {
                         itemContext.setVariable("addPlus",true);
+                        itemContext.setVariable("expression",str);
                         exp = parser.parseExpression(str).getValue(itemContext).toString();
                         //itemContext.setVariable("expression",exp);
                     }
@@ -159,6 +161,7 @@ public class Espl {
             String str  = parser.parseExpression(((SpelExpression)o).getExpressionString(), context).getValue(itemContext).toString();
             if(str.contains("#")) {
                 itemContext.setVariable("addPlus",false);
+                itemContext.setVariable("expression",str);
                 exp = parser.parseExpression(str).getValue(itemContext).toString();
                 //itemContext.setVariable("expression",exp);
             }
@@ -182,6 +185,7 @@ public class Espl {
 
             }else {
                 compileTimeItemContext.setVariable("addPlus",false);
+                compileTimeItemContext.setVariable("expression",expression);
                 Object exp1 = parser.parseExpression(expression).getValue(compileTimeItemContext);
                 return exp1;
             }

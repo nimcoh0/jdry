@@ -67,7 +67,7 @@ public class SpringRestService {
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
             try {
                 stepDescriptor.setArgs(args);
-                MediaType produce = stepDescriptor.getConsume();
+                MediaType produce = stepDescriptor.getProduce();//.getConsume();
                // Client client = stepDescriptor.getClient();
                 ChannelDescriptor channel = stepDescriptor.getChannel();
                 //MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
@@ -77,7 +77,15 @@ public class SpringRestService {
                // Cookie cookie = stepDescriptor.getCookie();
                 Class returnType = stepDescriptor.getReturnType();
                 //logger.debug("invoke PUT for "+ uri + " with headers "+ headers.values() + " entity");
-                return (T)new SpringJwtHelper().post(uri.toString(),  entity, returnType,args);
+
+                if (stepDescriptor.getCallOptions().get("role") != null && stepDescriptor.getCallOptions().get("role").toString().equals("AUTH")) {
+                    return (T)new SpringJwtHelper().resetToken().post(uri.toString(),  entity, returnType,args);
+                }else {
+                    return (T)new SpringJwtHelper().post(uri.toString(),  entity, returnType,args);
+                }
+
+
+
                 //return (T)new SpringJwtHelper().post(uri.toString(),  entity,args);
             }catch (Exception e){
                 logger.error("fail invoke POST for uri "+ stepDescriptor.getChannel().getUri().getPath()+ " with args "+ Utils.result2String((Object[])args),e);

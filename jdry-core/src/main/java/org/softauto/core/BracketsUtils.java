@@ -136,12 +136,12 @@ public  class BracketsUtils {
        if(groups.size() >= groupNumber+1) {
            Map.Entry next = getGroup(groupNumber + 1);
            if(next != null) {
-               groupLiteralText = expression.substring(Integer.valueOf(group.getValue().toString()), Integer.valueOf(next.getKey().toString()));
+               groupLiteralText = expression.substring(Integer.valueOf(group.getKey().toString()), Integer.valueOf(next.getValue().toString()));
            }else {
-               groupLiteralText =  expression.substring(Integer.valueOf(group.getValue().toString()),expression.toString().length());
+               groupLiteralText =  expression.substring(Integer.valueOf(group.getKey().toString()),expression.toString().length());
            }
        }else {
-           groupLiteralText =  expression.substring(Integer.valueOf(group.getValue().toString()),expression.toString().length());
+           groupLiteralText =  expression.substring(Integer.valueOf(group.getKey().toString()),expression.toString().length());
        }
       if(groupLiteralText.endsWith("(") && groupLiteralText.contains(".")){
           groupLiteralText = groupLiteralText.substring(0,groupLiteralText.lastIndexOf("."));

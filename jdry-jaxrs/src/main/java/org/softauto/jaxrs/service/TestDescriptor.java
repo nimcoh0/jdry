@@ -13,7 +13,7 @@ public class TestDescriptor {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(TestDescriptor.class);
     // cache for service descriptors.
-    private static final ConcurrentMap<String, TestDescriptor> SERVICE_DESCRIPTORS = new ConcurrentHashMap<>();
+    private  static ConcurrentMap<String, TestDescriptor> SERVICE_DESCRIPTORS = new ConcurrentHashMap<>();
     private  String serviceName;
 
 
@@ -43,6 +43,7 @@ public class TestDescriptor {
 
  */
     public static TestDescriptor create(String stepName) {
+        SERVICE_DESCRIPTORS = new ConcurrentHashMap<>();
         String serviceName = stepName;
         return SERVICE_DESCRIPTORS.computeIfAbsent(serviceName, key -> new TestDescriptor(serviceName));
     }

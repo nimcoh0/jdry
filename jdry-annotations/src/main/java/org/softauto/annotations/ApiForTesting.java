@@ -4,6 +4,7 @@ import org.softauto.annotations.util.Policy;
 import org.softauto.annotations.util.Role;
 import org.softauto.annotations.util.StepMode;
 import java.lang.annotation.*;
+import java.lang.reflect.Method;
 
 
 @Target({ElementType.METHOD,ElementType.CONSTRUCTOR})

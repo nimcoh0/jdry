@@ -2,6 +2,7 @@ package org.softauto.jaxrs;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.message.internal.OutboundJaxrsResponse;
@@ -16,6 +17,7 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.support.HttpRequestWrapper;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -57,6 +59,13 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
         refreshTokenRequest.put("refreshToken", refreshToken);
         ResponseEntity<JsonNode> tokenInfo = restTemplate.postForEntity(baseURL + "/api/auth/token", refreshTokenRequest, JsonNode.class);
         setTokenInfo(tokenInfo.getBody());
+    }
+
+    public SpringJwtHelper resetToken(){
+        token = null;
+        refreshToken = null;
+        restTemplate =  new RestTemplate();
+        return this;
     }
 
     private void setTokenInfo(JsonNode tokenInfo) {
@@ -130,6 +139,11 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
         //Object response = null;
         //ResponseEntity<JsonNode> tokenInfo = null;
         //if(token != null) {
+
+
+            restTemplate.getMessageConverters().add( createMappingJacksonHttpMessageConverter());
+
+            //restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity response = restTemplate.postForEntity(url, entity, returnType);
             if(response.hasBody()){
                 T tokenInfo = (T) response.getBody();
@@ -161,6 +175,20 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
         //return response;
     //}
 
+    private MappingJackson2HttpMessageConverter createMappingJacksonHttpMessageConverter() {
+
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setObjectMapper(createObjectMapper());
+        return converter;
+    }
+
+    private ObjectMapper createObjectMapper() {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        //objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+        return objectMapper;
+    }
 
     @Override
     public void close() throws IOException {
