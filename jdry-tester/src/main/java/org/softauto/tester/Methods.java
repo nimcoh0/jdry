@@ -42,7 +42,7 @@ public class Methods {
             Class c = Class.forName(type,false,ClassLoader.getSystemClassLoader());
             PodamFactory factory = new ExtendPodamFactoryImpl().setAttributeValueMap(attributeMap);
             Object pojo = factory.manufacturePojo(c);
-            if (type.contains("userDto") || type.contains("UserDto")){
+            if (type.contains("userDto") || type.contains("UserDto") ){
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
                 return  objectMapper.writeValueAsString(pojo);
@@ -70,7 +70,7 @@ public class Methods {
             objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
 
             String str = objectMapper.writeValueAsString(pojo);
-            if (type.contains("userDto") || type.contains("UserDto")){
+            if (type.contains("userDto") || type.contains("UserDto") ){
                 return str;
             }
             return new ObjectMapper().readValue(str,c);

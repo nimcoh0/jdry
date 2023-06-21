@@ -9,6 +9,8 @@ public class Context {
     public final static String STEP_DESCRIPTOR_IMPL_CLASS = "step_descriptor_impl_class";
     public final static String SESSION = "session";
     public final static String AUTH = "auth";
+    public final static String BASE_URI = "base_uri";
+
 
 
 }
