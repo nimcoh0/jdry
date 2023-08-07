@@ -1,36 +1,27 @@
 package org.softauto.tester;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.core.*;
 import org.softauto.deserializer.NullStringJsonDeserializer;
 import org.softauto.espl.Espl;
+import org.softauto.functions.SpecialFunctions;
 import org.softauto.listener.ListenerServerProviderImpl;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.ProviderScope;
 import org.softauto.plugin.spi.PluginProvider;
-import org.testng.IInvokedMethod;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
 import org.testng.annotations.BeforeMethod;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.*;
 
 
-public class AbstractTesterImpl extends Methods{
+public class AbstractTesterImpl extends SpecialFunctions {
 
     private static final Logger logger = LogManager.getLogger(AbstractTesterImpl.class);
 

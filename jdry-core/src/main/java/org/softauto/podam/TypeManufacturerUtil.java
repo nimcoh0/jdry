@@ -4,6 +4,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softauto.annotations.DataForTesting;
+import org.softauto.annotations.JdryExclude;
+import org.softauto.annotations.JdryStrategy;
 import org.softauto.espl.Espl;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.ObjectStrategy;
@@ -68,16 +70,15 @@ public final class TypeManufacturerUtil {
             if (annotation instanceof PodamStrategyValue) {
                 PodamStrategyValue strategyAnnotation = (PodamStrategyValue) annotation;
                 return strategyAnnotation.value().newInstance();
-            }else if (annotation instanceof DataForTesting) {
-                DataForTesting strategyAnnotation = (DataForTesting) annotation;
-                Object o = espl.evaluateToObject(strategyAnnotation.value());
-                if(o instanceof AttributeStrategy){
-                   // if(((AttributeStrategy)o).getClass().getTypeName().equals("org.softauto.analyzer.services.strategies.ExcludeStrategy")){
-                      //  return null;
-                   // }
-                    return (AttributeStrategy)o;
+
+            }else if (annotation instanceof JdryStrategy) {
+                JdryStrategy strategyAnnotation = (JdryStrategy) annotation;
+                try {
+                    Class c = Class.forName(strategyAnnotation.value(),false,ClassLoader.getSystemClassLoader());
+                    return (AttributeStrategy) c.getConstructors()[0].newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                return null;
             }
 
 			/* Find real class out of proxy */

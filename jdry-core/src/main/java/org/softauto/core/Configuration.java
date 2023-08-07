@@ -36,24 +36,27 @@ public class Configuration {
     }
 
     public String asString(){
-        if(result instanceof String){
+        if(result !=null && result instanceof String){
             return result.toString();
         }
         return null;
     }
 
     public <T>  List<T> asList(){
-        List<Object> l = new ArrayList<>();
-        if(result instanceof ArrayList){
-            return (List<T>) result;
+        if(result !=null) {
+            List<Object> l = new ArrayList<>();
+            if (result instanceof ArrayList) {
+                return (List<T>) result;
+            }
+            l.add(result);
+            return (List<T>) l;
         }
-        l.add(result);
-        return (List<T>) l;
+        return null;
     }
 
 
     public HashMap<String,Object> asMap(){
-        if(result instanceof Map){
+        if(result !=null && result instanceof Map){
             return (HashMap<String,Object>)result;
         }
         return null;
@@ -65,11 +68,13 @@ public class Configuration {
     }
 
     public Integer asInteger(){
-        if(result instanceof String ) {
-            return Integer.valueOf(result.toString());
-        }
-        if(result instanceof Integer){
-            return (Integer)result;
+        if(result !=null) {
+            if (result instanceof String) {
+                return Integer.valueOf(result.toString());
+            }
+            if (result instanceof Integer) {
+                return (Integer) result;
+            }
         }
         return null;
     }
@@ -82,7 +87,18 @@ public class Configuration {
         }catch (Exception e){
             logger.error(e);
         }
-        return null;
+        return  new Configuration(null);
+    }
+
+    public  static boolean has(String key){
+        try {
+            if (configuration.containsKey(key)) {
+                return  true;
+            }
+        }catch (Exception e){
+            logger.error(e);
+        }
+        return  false;
     }
 
     /*

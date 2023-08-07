@@ -3,12 +3,17 @@ package org.softauto.core;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.*;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -312,7 +317,7 @@ public class Utils {
 
     public static boolean isJson(String str){
         try {
-            if(str.startsWith("{")) {
+            if(str.startsWith("{") || str.startsWith("[{")) {
                 new ObjectMapper().readTree(str);
             }else {
                 return false;
@@ -440,6 +445,76 @@ public class Utils {
         PRIMITIVES.add("void");
         PRIMITIVES.add("com.fasterxml.jackson.databind.node.IntNode");
         PRIMITIVES.add("com.fasterxml.jackson.databind.node.NullNode");
+    }
+
+
+    public static Object jsonNodeToJavaType(JsonNode jsonType) {
+        if (jsonType instanceof JsonNode && jsonType != MissingNode.getInstance()) {
+            if (jsonType instanceof IntNode) {
+                return jsonType.asInt();
+            }
+            if (jsonType instanceof TextNode) {
+                return jsonType.asText();
+            }
+            if (jsonType instanceof LongNode) {
+                return jsonType.asLong();
+            }
+            if (jsonType instanceof BooleanNode) {
+                return jsonType.asBoolean();
+            }
+            if (jsonType instanceof DoubleNode) {
+                return jsonType.asDouble();
+            }
+         }
+        return jsonType;
+    }
+
+    public static Map<?,?> propertiesToMap(Properties p){
+        return Maps.newHashMap(Maps.fromProperties(p));
+    }
+
+    public static Properties stringToProperties(String s){
+        try {
+            final Properties p = new Properties();
+            p.load(new StringReader(s));
+            return p;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String propertiesToString(Properties p){
+        return  p.entrySet()
+                .stream()
+                .map(e -> e.getKey() + "=" + e.getValue())
+                .collect(Collectors.joining(", "));
+
+    }
+
+
+    public static String getDefaultValueByType( String type ) {
+        if(type != null) {
+            String str = type.toLowerCase();
+            if (type.contains(".")) {
+                str = type.substring(type.lastIndexOf(".") + 1).toLowerCase();
+            }
+            if (str.equals("boolean"))
+                return "false";
+            if (str.equals("byte"))
+                return "null";
+            if (str.equals("short"))
+                return "-1";
+            if (str.equals("int"))
+                return "-1";
+            if (str.equals("long"))
+                return "-1L";
+            if (str.equals("float"))
+                return "-1.0";
+            if (str.equals("double"))
+                return "-1.0";
+        }
+        return null;
     }
 
     /*

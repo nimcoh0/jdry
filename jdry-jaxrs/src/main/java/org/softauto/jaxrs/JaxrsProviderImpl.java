@@ -69,6 +69,7 @@ public class JaxrsProviderImpl implements Provider {
                 CallbackToResponseStreamObserverAdpater observerAdpater = new CallbackToResponseStreamObserverAdpater(callback, null);
                 testDefinition = RestService.createTestDefinition(stepName,args,types,callOptions);
                 StepDefinition md = testDefinition.getStep(stepName);
+                //RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
                 RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
                 if (res != null) {
                     observerAdpater.onCompleted((RespT)res);

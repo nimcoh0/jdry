@@ -1,6 +1,7 @@
 package org.softauto.podam;
 
 import org.softauto.annotations.DataForTesting;
+import org.softauto.annotations.JdryExclude;
 import org.softauto.espl.Espl;
 import uk.co.jemos.podam.api.AbstractClassInfoStrategy;
 import uk.co.jemos.podam.api.ClassAttribute;
@@ -30,14 +31,14 @@ public class ExtendAbstractClassInfoStrategy extends AbstractClassInfoStrategy {
             Annotation[] annotations = classAttribute.getAttribute().getDeclaredAnnotations();
             if(annotations != null && annotations.length > 0) {
                 for (Annotation annotation : annotations) {
-                    if (annotation instanceof DataForTesting) {
-                        Object result = espl.addProperty("excludedFields", _excludedFields).evaluate(((DataForTesting) annotation).value());
-                        if (!_excludedFields.contains(classAttribute.getAttribute().getName())) {
-                            newAttributes.add(classAttribute);
+                    if(annotation instanceof JdryExclude){
+                        if(((JdryExclude) annotation).value() != null && !((JdryExclude) annotation).value().isEmpty()){
+                            _excludedFields.add(((JdryExclude) annotation).value());
+                        }else {
+                            _excludedFields.add(classAttribute.getName());
                         }
-
-                    } else {
-                        if (!this._excludedFields.contains(classAttribute.getAttribute().getName())) {
+                    }else {
+                        if (!_excludedFields.contains(classAttribute.getAttribute().getName())) {
                             newAttributes.add(classAttribute);
                         }
                     }

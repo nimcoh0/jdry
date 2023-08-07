@@ -1,5 +1,6 @@
 package org.softauto.jaxrs;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
@@ -141,10 +142,14 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
         //if(token != null) {
 
 
+        try {
             restTemplate.getMessageConverters().add( createMappingJacksonHttpMessageConverter());
 
             //restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            ResponseEntity response = restTemplate.postForEntity(url, entity, returnType);
+            ResponseEntity response = restTemplate.postForEntity(url, entity, Object.class);
+            //return response;
+            //ResponseEntity response = restTemplate.postForEntity(url, entity, returnType);
+
             if(response.hasBody()){
                 T tokenInfo = (T) response.getBody();
                 setTokenInfo(tokenInfo);
@@ -152,13 +157,18 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
             }else {
                 return response.getStatusCode();
             }
+
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
             /*
         }else {
             Object credentials = args[0];
 
             //loginRequest.put("username", args[0].toString());
             //loginRequest.put("password", args[1].toString());
-            //tokenInfo = restTemplate.postForEntity(url, loginRequest, JsonNode.class);
+            //tokenInfo = restTemplate.postForEntity (url, loginRequest, JsonNode.class);
             tokenInfo = restTemplate.postForEntity(url, credentials, JsonNode.class);
             setTokenInfo(tokenInfo.getBody());
             if(Response.Status.fromStatusCode(tokenInfo.getStatusCodeValue()).getFamily() == Response.Status.Family.SUCCESSFUL) {
@@ -169,7 +179,7 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
 
 
              */
-
+            return null;
         }
 
         //return response;
@@ -186,7 +196,8 @@ public class SpringJwtHelper implements ClientHttpRequestInterceptor, Closeable 
 
         ObjectMapper objectMapper = new ObjectMapper();
         //objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+        //objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return objectMapper;
     }
 

@@ -5,15 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.ANNOTATION_TYPE})
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Expression {
+public @interface Random {
 
-    String value() ;
-
-    String type() ;
-
-    String name() ;;
-
-
+    String[] value() default "";
 }

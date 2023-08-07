@@ -775,9 +775,9 @@ public class ExtendPodamFactoryImpl implements PodamFactory {
 		return pojo;
 	}
 
-	HashMap<String,String> attributeValueMap = new HashMap<>();
+	HashMap<String,Object> attributeValueMap = new HashMap<>();
 
-	public ExtendPodamFactoryImpl setAttributeValueMap(HashMap<String, String> attributeValueMap) {
+	public ExtendPodamFactoryImpl setAttributeValueMap(HashMap<String, Object> attributeValueMap) {
 		this.attributeValueMap = attributeValueMap;
 		return this;
 	}
@@ -844,8 +844,10 @@ public class ExtendPodamFactoryImpl implements PodamFactory {
 				String key = entry.getKey().toString();
 				String pkey = pojoClass.getName() + "." + attributeName;
 				if (key.equals(pkey)) {
-					Object o = Espl.getInstance().evaluate(entry.getValue().toString());
-					return attributeValue = o;
+					if(entry.getValue() instanceof String) {
+						return attributeValue = Espl.getInstance().evaluate(entry.getValue().toString());
+					}
+					return attributeValue = entry.getValue();
 				}
 			}
 		}

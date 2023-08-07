@@ -27,7 +27,7 @@ public @interface VerifyForTesting {
 
     //Expression expression() default @Expression;
 
-    Expression after() default @Expression;
+    Expression[] after() default {};
 
     String id() default "";
 

@@ -5,9 +5,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import org.softauto.core.Multimap;
+import org.softauto.core.Utils;
 import org.softauto.espl.Espl;
 
 import java.util.ArrayList;
@@ -109,11 +111,14 @@ public class Suite {
     }
 
 
-    public Object findKey(String key){
+    public <T> T findKey(String key){
         try {
-            //String root = new ObjectMapper().writeValueAsString((HashMap<String, Object>)publish.getMap());
-            //JsonNode rootNode = new ObjectMapper().readTree(root);
-            return data.findValue(key);
+            JsonNode r = data.findValue(key);
+            Object o = Utils.jsonNodeToJavaType(r);
+            if(o != null){
+                return (T)o;
+            }
+            return (T)r;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,12 +136,13 @@ public class Suite {
         return null;
     }
 
-    public Object getPublish(String expression){
+    public <T> T getPublish(String expression){
         JsonNode r = data.at(expression);
-        if(r instanceof TextNode){
-            return r.asText();
+        Object o = Utils.jsonNodeToJavaType(r);
+        if(o != null && !(o instanceof MissingNode)){
+            return (T)o;
         }
-        return r;
+        return null;
     }
 
 

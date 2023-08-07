@@ -267,15 +267,23 @@ public class JwtStepDescriptorImpl implements IStepDescriptor {
         return null;
     }
 
-    @Override
     public MediaType getProduce() {
-        return produce = MediaType.valueOf(callOptions.get("produces").toString());
+        if(callOptions.containsKey("produces") && callOptions.get("produces") != null && !callOptions.get("produces").toString().isEmpty()) {
+            return produce = MediaType.valueOf(callOptions.get("produces").toString());
+        }
+        return produce = MediaType.APPLICATION_JSON_TYPE;
     }
 
-    @Override
+
     public MediaType getConsume() {
-        return consume = MediaType.valueOf(callOptions.get("consumes").toString());
+        if(callOptions.containsKey("consumes") && callOptions.get("consumes") != null && !callOptions.get("consumes").toString().isEmpty()) {
+            return consume = MediaType.valueOf(callOptions.get("consumes").toString());
+        }
+        return produce = MediaType.APPLICATION_JSON_TYPE;
     }
+
+
+
 
     @Override
     public Map<String, Object> getProperties() {
