@@ -1,9 +1,8 @@
 package org.softauto.jaxrs.annotations;
 
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.MediaType;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,7 +17,7 @@ public @interface JAXRS {
 
     String[] headers() default {};
 
-    String method() default javax.ws.rs.HttpMethod.GET;
+    String method() default HttpMethod.GET;
 
     String produces() default MediaType.APPLICATION_JSON;
 

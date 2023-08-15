@@ -22,15 +22,15 @@ public class CallOptions implements org.softauto.core.CallOptions {
 
     public static class Builder {
 
-        javax.ws.rs.core.MultivaluedMap<String, Map<String,String>> parameters = new javax.ws.rs.core.MultivaluedHashMap();
-        javax.ws.rs.core.MultivaluedMap<String, Object> headers = new javax.ws.rs.core.MultivaluedHashMap<>();
-        javax.ws.rs.core.MediaType produce =  javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
-        javax.ws.rs.core.MediaType consume =  javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
+        jakarta.ws.rs.core.MultivaluedMap<String, Map<String,String>> parameters = new jakarta.ws.rs.core.MultivaluedHashMap();
+        jakarta.ws.rs.core.MultivaluedMap<String, Object> headers = new jakarta.ws.rs.core.MultivaluedHashMap<>();
+        jakarta.ws.rs.core.MediaType produce =  jakarta.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
+        jakarta.ws.rs.core.MediaType consume =  jakarta.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
         HashMap<String ,Object> properties = new HashMap<>();
         org.glassfish.jersey.client.authentication.HttpAuthenticationFeature feature  = null;
 
 
-        public Builder addParameters(javax.ws.rs.core.MultivaluedMap<String, Map<String,String>> parameters){
+        public Builder addParameters(jakarta.ws.rs.core.MultivaluedMap<String, Map<String,String>> parameters){
             this.parameters = parameters;
             return this;
         }
@@ -47,17 +47,17 @@ public class CallOptions implements org.softauto.core.CallOptions {
             return this;
         }
 
-        public Builder addHeaders(javax.ws.rs.core.MultivaluedMap<String, Object> headers){
+        public Builder addHeaders(jakarta.ws.rs.core.MultivaluedMap<String, Object> headers){
             this.headers = headers;
             return this;
         }
 
-        public Builder setProduce(javax.ws.rs.core.MediaType mediaType){
+        public Builder setProduce(jakarta.ws.rs.core.MediaType mediaType){
             this.produce = mediaType;
             return this;
         }
 
-        public Builder setConsume(javax.ws.rs.core.MediaType mediaType){
+        public Builder setConsume(jakarta.ws.rs.core.MediaType mediaType){
             this.consume = mediaType;
             return this;
         }

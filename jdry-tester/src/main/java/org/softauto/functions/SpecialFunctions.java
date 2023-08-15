@@ -34,15 +34,20 @@ public class SpecialFunctions {
 
     public Object retrieve(String name,String type){
         try {
-            JsonNode r = (JsonNode) suite.getPublish(name);
-            if(r instanceof JsonNode && r != MissingNode.getInstance()) {
-                Object javaType = Utils.jsonNodeToJavaType(r);
-                if (javaType == null) {
+            Object r = suite.getPublish(name,type);
+            if(r != null){
+                if(Utils.isPrimitive(type)){
+                    return r;
+                }else {
+                    //if(r instanceof JsonNode && r != MissingNode.getInstance()) {
+                    //Object javaType = Utils.jsonNodeToJavaType((JsonNode)r);
+                    //if (javaType == null) {
                     String s = new ObjectMapper().writeValueAsString(r);
                     Class<?> c = Class.forName(type);
                     return new ObjectMapper().readValue(s, c);
-                }else {
-                    return javaType;
+                    //}else {
+                    //   return javaType;
+                    //}
                 }
             }else {
                 return random(type);
@@ -138,6 +143,17 @@ public class SpecialFunctions {
 
 
      */
+    public <T> T consume(String expression,String type){
+        if(expression != null && !expression.isEmpty()) {
+            if (expression.contains("/")) {
+                return (T) suite.getPublish(expression,type);
+            } else {
+                return (T)suite.findKey(expression);
+            }
+        }
+        return null;
+    }
+
     public <T> T consume(String expression){
         if(expression != null && !expression.isEmpty()) {
             if (expression.contains("/")) {
@@ -148,6 +164,7 @@ public class SpecialFunctions {
         }
         return null;
     }
+
 
     public <T> T exec(String expression){
         if(expression != null && !expression.isEmpty()) {

@@ -1,5 +1,7 @@
 package org.softauto.jaxrs;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.softauto.core.TestContext;
 import org.softauto.jaxrs.util.Threadlocal;
@@ -15,15 +17,22 @@ import jakarta.ws.rs.core.Response;
 /**
  * Jersey helper
  */
-public class JerseyHelper {
+public class JerseyJwtHelper  {
 
     protected Client client = null;
 
-    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(JerseyHelper.class);
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(JerseyJwtHelper.class);
+    private String token;
+    private static String refreshToken;
+    private static final String JWT_TOKEN_HEADER_PARAM_X = "X-Authorization";
+    private static final String JWT_TOKEN_HEADER_PARAM = "Authorization";
 
 
 
-    public JerseyHelper setClient(Client client) {
+
+
+
+    public JerseyJwtHelper setClient(Client client) {
         this.client = client;
         return this;
     }
@@ -84,25 +93,55 @@ public class JerseyHelper {
     }
 
                          //String url, String mediaType, MultivaluedMap<String, Object> headers, Class<T> response, Entity<?> entity,Cookie cookie
-    public <T> T post(String url, String mediaType, MultivaluedMap<String, Object> headers, Class<T> response, Entity<?> entity,Cookie cookie,String scenarioId)throws Exception{
+    public <T> T post(String url, String mediaType, MultivaluedMap<String, Object> headers, Class<T> response, Entity<?> entity,Cookie cookie)throws Exception{
         T t = null;
         Response res = null;
         try{
-            Threadlocal.getInstance().add("scenarioId",scenarioId);
-            WebTarget webTarget = client.target(url);
-            
-            res = webTarget.request(mediaType).headers(headers).cookie(cookie).post(entity);
-            if (Response.Status.fromStatusCode(res.getStatus()).getFamily() == Response.Status.Family.SUCCESSFUL) {
-                logger.debug("post request successfully for url " + url + " status " + res.getStatusInfo());
-                //if (res.getCookies().get("JSESSIONID") != null) {
-                     //   TestContext.put("sessionId", res.getCookies().get("JSESSIONID"));//((Cookie)res.getHeaders().get("Cookie").get(0)).getValue())
-                //}
-                if(res.hasEntity()) {
-                        t = (T) res.readEntity(response);
+            Thread.currentThread().getId();
+            //WebTarget webTarget = client.target(url);
+
+            if(Threadlocal.getInstance().get("token") == null) {
+              //  ClientConfig clientConfig = new ClientConfig();
+               // clientConfig.register(ClientHttpRequestInterceptor.class);
+               // client = javax.ws.rs.client.ClientBuilder.newBuilder().withConfig(clientConfig).build();
+
+                //Threadlocal.getInstance().add("client",client);
+                WebTarget webTarget = client.target(url);
+                res = webTarget.request(mediaType).headers(headers).cookie(cookie).post(entity);
+                    if (Response.Status.fromStatusCode(res.getStatus()).getFamily() == Response.Status.Family.SUCCESSFUL) {
+                        logger.debug("post request successfully for url " + url + " status " + res.getStatusInfo());
+
+
+                        if (res.hasEntity()) {
+                                ///Object tokenInfo =  null;
+                               // if(Configuration.has("jaxrs") ) {
+                                   // HashMap<String,Object> conf = Configuration.get("jaxrs").asMap();
+                                   //if (conf.containsKey("unbox_response") && conf.containsKey("response_type")) {
+                                    //    expression = conf.get("unbox_response").toString();
+                                    //    String type = conf.get("response_type").toString();
+                                     //   clazz = Utils.typeToClass(type);
+                                     //   tokenInfo = Espl.getInstance().addProperty("response", res.readEntity(Object.class)).evaluate(expression, clazz);
+                                    //}
+                                //}
+                                setTokenInfo(res.readEntity(Object.class));
+                        }
                     }
                 }else {
-                    t = (T)res;
+                //Client client = (Client) Threadlocal.getInstance().get("client");
+                String token = (String) Threadlocal.getInstance().get("token");
+                WebTarget webTarget = client.target(url);
+                res = webTarget.request(mediaType).headers(headers).post(entity);
+                if (Response.Status.fromStatusCode(res.getStatus()).getFamily() == Response.Status.Family.SUCCESSFUL) {
+                    logger.debug("post request successfully for url " + url + " status " + res.getStatusInfo());
+                    if (res.hasEntity()) {
+                        //t = (T) Espl.getInstance().addProperty("response", res.readEntity(Object.class)).evaluate(expression, clazz);
+                        t = (T) res.readEntity(response);
+                    }
+                } else {
+                    t = (T) res;
                 }
+            }
+
         }catch(Exception e){
             logger.error("post request fail for url "+ url + " status "+ res.getStatusInfo(),e);
             throw new Exception(res.getStatusInfo().toString()) ;
@@ -137,4 +176,24 @@ public class JerseyHelper {
         }
         return t;
     }
+
+
+    public void setTokenInfo(Object tokenInfo) {
+        try {
+            String str = new ObjectMapper().writeValueAsString(tokenInfo);
+            JsonNode node =   new ObjectMapper().readTree(str);
+            if(str.contains("token")){
+                this.token = node.findValue("token").asText();
+                Threadlocal.getInstance().add("token",token);
+            }
+            if(str.contains("refreshToken")){
+                this.refreshToken = node.findValue("refreshToken").asText();
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

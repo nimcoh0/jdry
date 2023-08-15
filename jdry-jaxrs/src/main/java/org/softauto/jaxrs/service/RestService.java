@@ -4,17 +4,20 @@ package org.softauto.jaxrs.service;
 
 import org.softauto.core.Utils;
 import org.softauto.jaxrs.JerseyHelper;
+import org.softauto.jaxrs.JerseyJwtHelper;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.Cookie;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.net.URI;
 import java.util.HashMap;
 
 
 public class RestService {
+
+
 
     private static TestDefinition testDefinition = null;
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(RestService.class);
@@ -112,6 +115,7 @@ public class RestService {
                 URI uri = channel.getUri();
                 Cookie cookie = stepDescriptor.getCookie();
                 Class returnType = stepDescriptor.getReturnType();
+                String scenarioId = stepDescriptor.getScenarioId();
                 /*
                 Client client = ClientBuilder.newBuilder().setPassword(stepDescriptor.getAuthenticationPassword())
                         .setUsername(stepDescriptor.getAuthenticationUserName())
@@ -135,8 +139,9 @@ public class RestService {
                  */
                 //Entity<?> entity = org.softauto.jaxrs.Utils.buildEntity(produces,(Object[])args[0]);
                 logger.debug("invoke POST for "+ uri );
+
                 //post(String url, String mediaType, MultivaluedMap<String, Object> headers, Class<T> response, Entity<?> entity,Cookie cookie
-                return (T)new JerseyHelper().setClient(client).post(uri.toString(), produce.toString(), headers, returnType,entity, cookie);
+                return (T) new JerseyHelper().setClient(client).post(uri.toString(), produce.toString(), headers, returnType,entity, cookie,scenarioId);
                 //HashMap<String, Object> callOption = stepDescriptor.getCallOptions();
                 //if (callOption.get("role") != null && callOption.get("role").toString().equals("AUTH")) {
                    //stepDescriptor.saveAuth(res);

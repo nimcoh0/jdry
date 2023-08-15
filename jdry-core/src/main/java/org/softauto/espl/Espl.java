@@ -93,11 +93,35 @@ public class Espl {
     }
 
     public Object  evaluate(String expression){
-       Object o =  parser.parseExpression(expression,new TemplateParserContextCompileTime()).getValue(itemContext);
-       if(o instanceof String){
-           return o.toString().replace("'","\"");
-       }
-       return o;
+        Object o = null;
+        if(expression.contains("#")) {
+            if (expression.contains("${")) {
+                o = parser.parseExpression(expression, new TemplateParserContextCompileTime()).getValue(itemContext);
+            } else {
+                o = parser.parseExpression(expression).getValue(itemContext);
+            }
+            if (o instanceof String) {
+                return o.toString().replace("'", "\"");
+            }
+            return o;
+        }
+        return expression;
+    }
+
+    public Object  evaluate(String expression,Class type){
+        Object o = null;
+        if(expression.contains("#")) {
+            if (expression.contains("${")) {
+                o = parser.parseExpression(expression, new TemplateParserContextCompileTime()).getValue(itemContext,type);
+            } else {
+                o = parser.parseExpression(expression).getValue(itemContext,type);
+            }
+            if (o instanceof String) {
+                return o.toString().replace("'", "\"");
+            }
+            return o;
+        }
+        return expression;
     }
 
 }

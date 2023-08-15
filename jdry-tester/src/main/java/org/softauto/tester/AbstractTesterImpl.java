@@ -17,6 +17,7 @@ import org.softauto.plugin.ProviderScope;
 import org.softauto.plugin.spi.PluginProvider;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 
 import java.util.*;
 
@@ -33,20 +34,17 @@ public class AbstractTesterImpl extends SpecialFunctions {
 
     public Espl espl = Espl.reset();
 
-
+    public String scenarioId;
 
     public AbstractTesterImpl(){
         try {
-            SecurityManager sm = new MySecurityManager();
-            System.setSecurityManager(sm);
+           // SecurityManager sm = new MySecurityManager();
+           // System.setSecurityManager(sm);
            mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-            SimpleModule module = new SimpleModule();
-            module.addDeserializer(String.class, new NullStringJsonDeserializer());
-            mapper.registerModule(module);
-           //SimpleModule module = new SimpleModule();
-           //module.addDeserializer(NullNode.class, new JsonNodeDeserializer());
-           //mapper.registerModule(module);
-           Resolver.getInstance().clean();
+           SimpleModule module = new SimpleModule();
+           module.addDeserializer(String.class, new NullStringJsonDeserializer());
+           mapper.registerModule(module);
+           //Resolver.getInstance().clean();
            SystemState.getInstance().initialize();
            ListenerServerProviderImpl.getInstance().initialize().register();
            loadPlugins();
@@ -57,7 +55,12 @@ public class AbstractTesterImpl extends SpecialFunctions {
         }
     }
 
+    @BeforeTest
+    public void beforeScenario(ITestContext testContext) {
+        scenarioId = UUID.randomUUID().toString();
+        TestContext.addScenario(scenarioId);
 
+    }
 
     @BeforeMethod
     public void beforeMethod(ITestContext testContext){
@@ -82,32 +85,6 @@ public class AbstractTesterImpl extends SpecialFunctions {
 
 
 
-/*
-    public HashMap<String,Object> margeCallOption(String dependencieId, HashMap<String,Object> callOption){
-        HashMap<String,Object> dependenciePublish = suite.getPublish(dependencieId);
-        JsonNode dependencieCallOption = (JsonNode) dependenciePublish.get("callOption");
-        Map<String, Object> map = new ObjectMapper().convertValue(dependencieCallOption, new TypeReference<Map<String, Object>>() {});
-
-        for(Map.Entry entry : map.entrySet()) {
-            if (!callOption.containsKey(entry.getKey())) {
-                if (!ExcludeMargeCallOption.contains(entry.getValue().toString()))
-                    callOption.put(entry.getKey().toString(), entry.getValue());
-            }
-        }
-        for(Map.Entry entry : callOption.entrySet()) {
-            if(entry.getValue().toString().contains("${")){
-                String v = Utils.getVar(entry.getValue().toString());
-                String dependencieValue = map.get(v).toString();
-                String value = entry.getValue().toString().replace("${"+v+"}",dependencieValue);
-                callOption.put(v,value);
-            }
-        }
-
-        return callOption;
-    }
-
-
- */
     public JsonNode toJsonNode(Object o){
         try {
             if(o instanceof String && Utils.isJson(o.toString())){

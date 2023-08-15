@@ -120,6 +120,7 @@ public class JaxrsProviderImpl implements Provider {
                 //logger.debug("jaxrs plugin initialize successfully");
 
             if(Configuration.get("jaxrs").asMap().get("auth").toString().equals("JWT")){
+                //TestContext.put("stepDescriptor",new JwtStepDescriptorImpl());
                 TestContext.put("stepDescriptor",new JwtStepDescriptorImpl());
 
             }else {

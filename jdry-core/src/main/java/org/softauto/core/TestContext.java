@@ -1,12 +1,14 @@
 package org.softauto.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TestContext {
 
     static HashMap<String,Object> hm = new HashMap<>();
 
-
+    static HashMap<String,Scenario> scenarios = new HashMap<>();
 
     public static Object get(String name){
         return hm.get(name);
@@ -27,5 +29,13 @@ public class TestContext {
         return false;
     }
 
+    public static Scenario getScenario(String id){
+        return scenarios.get(id);
+    }
+
+    public static void addScenario(String id){
+        Scenario scenario = new Scenario();
+        scenarios.put(id,scenario);
+    }
 
 }

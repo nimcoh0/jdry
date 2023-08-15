@@ -469,6 +469,35 @@ public class Utils {
         return jsonType;
     }
 
+    public static Object jsonNodeToJavaType(JsonNode jsonType,String javaType){
+        try {
+            if(javaType != null) {
+                String name = null;
+                if (javaType.contains(".")) {
+                    name = javaType.substring(javaType.lastIndexOf(".") + 1);
+                } else {
+                    name = javaType;
+                }
+                if (name.equals("boolean")) return jsonType.asBoolean();
+                if (name.equals("byte")) return jsonType.binaryValue();
+                //if( javaType.equals("short") ) return jsonType.as;
+                if (name.equals("integer")) return Integer.valueOf(jsonType.asText());
+                if (name.equals("int")) return jsonType.asInt();
+                if (name.equals("long")) return jsonType.asLong();
+                if (name.equals("float")) return jsonType.floatValue();
+                if (name.equals("double")) return jsonType.asDouble();
+                if (name.equals("string")) return jsonType.asText();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonType;
+    }
+
+
+
+
+
     public static Map<?,?> propertiesToMap(Properties p){
         return Maps.newHashMap(Maps.fromProperties(p));
     }
@@ -548,4 +577,15 @@ public class Utils {
 
      */
 
+    public static Class typeToClass(String type){
+        try {
+            if(isPrimitive(type)){
+                return getPrimitiveClass(type);
+            }
+            return Class.forName(type,false,ClassLoader.getSystemClassLoader());
+        } catch (ClassNotFoundException e) {
+            logger.warn("fail retrieve class type "+type);
+        }
+        return null;
+    }
 }

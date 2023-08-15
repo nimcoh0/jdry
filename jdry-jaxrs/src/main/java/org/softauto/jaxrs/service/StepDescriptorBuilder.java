@@ -78,13 +78,14 @@ public class StepDescriptorBuilder {
 
 
         public StepDescriptorBuilder build(){
+            stepDescriptor.setCallOptions(callOptions);
             stepDescriptor.setArgs(args);
             //stepDescriptor.setConfiguration(configuration);
             stepDescriptor.setFullMethodName(name);
             stepDescriptor.setTypes(types);
             //stepDescriptor.setItem(item);
             //stepDescriptor.setTest(test);
-            stepDescriptor.setCallOptions(callOptions);
+
 
             return new StepDescriptorBuilder(stepDescriptor.build());
         }

@@ -3,7 +3,7 @@ package org.softauto.jaxrs.util;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.softauto.core.TestContext;
 
-import javax.ws.rs.client.Client;
+import jakarta.ws.rs.client.Client;
 import java.util.HashMap;
 
 public class ClientBuilder {
@@ -59,15 +59,15 @@ public class ClientBuilder {
 
 
         public ClientBuilder build(){
-            //if(TestContext.get("client") != null){
-               // client = (Client) TestContext.get("client");
-            //}else if(schema != null){
-                //if(schema.equals("basic")) {
+            //ClientConfig clientConfig = new ClientConfig();
+            //clientConfig.register(JacksonFeature.class);  // usually auto-discovered
+           // clientConfig.register(new ObjectMapperProvider());
+           // clientConfig.register(ClientHttpRequestInterceptor.class);
             if(username != null) {
                 HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(username, password);
-                client = javax.ws.rs.client.ClientBuilder.newBuilder().register(feature).build();
+                client = jakarta.ws.rs.client.ClientBuilder.newBuilder().register(feature).build();
             }else {
-                client = javax.ws.rs.client.ClientBuilder.newBuilder().build();
+                client = jakarta.ws.rs.client.ClientBuilder.newBuilder().build();
             }
                 //}
                 //if(schema.equals("WWW-Authenticate")) {
@@ -82,6 +82,9 @@ public class ClientBuilder {
                     client.property(k,v);
                 });
             }
+
+
+
             return new ClientBuilder(client);
         }
 

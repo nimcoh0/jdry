@@ -18,7 +18,6 @@ public class Step {
     CallFuture<Object> future = null;
     protected HashMap<String,Object> callOptions = null;
 
-
     public Step(){};
 
     public Step(CallOptions callOptions){
@@ -42,17 +41,32 @@ public class Step {
 
 
 
+    public Step(String fqmn, Object[] args, Class[] types, String transceiver, HashMap<String, Object> callOptions,String scenarioId)throws Exception{
+        future = new CallFuture<>();
+        logger.debug("invoking " +fqmn);
+        callOptions.put("scenarioId",scenarioId);
+        new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+        //new InvocationHandler().invoke(fqmn,args,types,transceiver,callOptions);
+    }
 
-    public Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions)throws Exception{
+    public Step(String fqmn, Object[] args, Class[] types, String transceiver, HashMap<String, Object> callOptions)throws Exception{
         future = new CallFuture<>();
         logger.debug("invoking " +fqmn);
         new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
         //new InvocationHandler().invoke(fqmn,args,types,transceiver,callOptions);
     }
 
-    public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions, CallFuture<T> future)throws Exception{
+    public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,String scenarioId, CallFuture<T> future)throws Exception{
         logger.debug("invoking " +fqmn);
+        callOptions.put("scenarioId",scenarioId);
         new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+    }
+
+    public Step(String fqmn, Object[] args, Class[] types, String transceiver,CallOptions callOptions,String scenarioId)throws Exception{
+        future = new CallFuture<>();
+        logger.debug("invoking " +fqmn);
+        callOptions.getOptions().put("scenarioId",scenarioId);
+        new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions.getOptions());
     }
 
     public Step(String fqmn, Object[] args, Class[] types, String transceiver,CallOptions callOptions)throws Exception{

@@ -1,10 +1,10 @@
 package org.softauto.jaxrs.service;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.Cookie;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +32,7 @@ public interface IStepDescriptor {
 
     Class getReturnType();
 
-   // boolean isSession();
+    String getScenarioId();
 
     IStepDescriptor build();
 
@@ -52,6 +52,6 @@ public interface IStepDescriptor {
 
     void setCallOptions(HashMap<String,Object> callOptions);
 
-    void saveAuth(javax.ws.rs.core.Response res);
+    void saveAuth(jakarta.ws.rs.core.Response res);
 
 }

@@ -19,8 +19,6 @@ public class Test {
 
     String id;
 
-
-
     public String getId() {
         return id;
     }
