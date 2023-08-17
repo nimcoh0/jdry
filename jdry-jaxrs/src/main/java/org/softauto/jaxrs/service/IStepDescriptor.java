@@ -18,8 +18,6 @@ public interface IStepDescriptor {
 
     Entity<?> getEntity();
 
-    Object getEntity1();
-
     MediaType getProduce();
 
     MediaType getConsume();

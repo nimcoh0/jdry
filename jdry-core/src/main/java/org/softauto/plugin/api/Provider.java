@@ -2,6 +2,7 @@ package org.softauto.plugin.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.grpc.ManagedChannel;
+//import org.softauto.core.CallFuture;
 import org.apache.avro.ipc.CallFuture;
 
 

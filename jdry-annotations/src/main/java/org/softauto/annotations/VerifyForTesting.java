@@ -12,21 +12,6 @@ public @interface VerifyForTesting {
 
     String description() default "";
 
-    //Assert anAssert() default @Assert;
-
-    //Assert Assert() default @Assert;
-
-    //VerifyType verifyType() default VerifyType.RESULT;
-
-    //String before() default "";
-
-    //String after() default "";
-    //StepForTesting step() default @StepForTesting(fqmn = "", expression = "", type = "", protocol = "");
-
-    //String type() default "";
-
-    //Expression expression() default @Expression;
-
     Expression[] after() default {};
 
     String id() default "";

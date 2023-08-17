@@ -2,10 +2,9 @@ package org.softauto.jaxrs;
 
 
 
-import org.softauto.plugin.ProviderScope;
+
 import org.softauto.plugin.api.Provider;
 import org.softauto.plugin.spi.PluginProvider;
-import org.softauto.plugin.spi.PluginTypes;
 
 public class JaxrsProvider implements PluginProvider {
 
@@ -30,13 +29,5 @@ public class JaxrsProvider implements PluginProvider {
         return "1.0";
     }
 
-    @Override
-    public PluginTypes getType() {
-        return PluginTypes.regular;
-    }
 
-    @Override
-    public ProviderScope scope() {
-        return ProviderScope.Tester;
-    }
 }

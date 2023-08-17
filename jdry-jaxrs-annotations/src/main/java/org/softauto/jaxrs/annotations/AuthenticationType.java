@@ -6,6 +6,7 @@ public enum AuthenticationType {
     DIGEST("DIGEST"),
     CERT("CERT"),
     OAUTH2("OAUTH2"),
+    JWT("JWT"),
     NONE("NONE");
 
     private AuthenticationType(String  value) {

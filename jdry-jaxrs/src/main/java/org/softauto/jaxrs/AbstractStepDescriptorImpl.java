@@ -1,25 +1,18 @@
-package org.softauto.jaxrs.security.auth;
+package org.softauto.jaxrs;
 
-import org.softauto.core.Configuration;
 import org.softauto.core.TestContext;
 import org.softauto.core.Utils;
 import org.softauto.jaxrs.service.ChannelDescriptor;
 import org.softauto.jaxrs.service.IStepDescriptor;
 import org.softauto.jaxrs.service.RestService;
 import org.softauto.jaxrs.service.ServiceCaller;
-import org.softauto.jaxrs.util.ChannelBuilder;
-import org.softauto.jaxrs.util.EntityBuilder;
-import org.softauto.jaxrs.util.Threadlocal;
-
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.Cookie;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedHashMap;
 import jakarta.ws.rs.core.MultivaluedMap;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
@@ -130,16 +123,16 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
         return this;
     }
 
+    public abstract Entity<?> getEntity();
+
+    /*
     public Entity<?> getEntity() {
         List<String> argumentsNames = (ArrayList)callOptions.get("argumentsNames");
         //Threadlocal.getInstance().add("argumentsNames", argumentsNames);
         return EntityBuilder.newBuilder().setCallOptions(callOptions).setProduce(consume).setArgs(args).setArgsNames(argumentsNames).build().getEntity();
     }
 
-    @Override
-    public Object getEntity1() {
-        return null;
-    }
+     */
 
 
     public MediaType getProduce() {

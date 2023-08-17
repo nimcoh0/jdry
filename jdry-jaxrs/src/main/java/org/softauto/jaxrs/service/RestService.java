@@ -4,8 +4,6 @@ package org.softauto.jaxrs.service;
 
 import org.softauto.core.Utils;
 import org.softauto.jaxrs.JerseyHelper;
-import org.softauto.jaxrs.JerseyJwtHelper;
-
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.Cookie;

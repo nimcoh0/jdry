@@ -6,8 +6,8 @@ package org.softauto.podam;
 import net.jcip.annotations.Immutable;
 import net.jcip.annotations.NotThreadSafe;
 import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.softauto.espl.Espl;
 import uk.co.jemos.podam.api.*;
 import uk.co.jemos.podam.api.DataProviderStrategy.Order;
@@ -44,7 +44,7 @@ public class ExtendPodamFactoryImpl implements PodamFactory {
 	private static final String MAP_CREATION_EXCEPTION_STR = "An exception occurred while creating a Map object";
 
     /** Application logger */
-	private static final Logger LOG = LoggerFactory.getLogger(ExtendPodamFactoryImpl.class);
+	private static final Logger LOG = LogManager.getLogger(ExtendPodamFactoryImpl.class);
 
 
 	// ------------------->> Instance / variables

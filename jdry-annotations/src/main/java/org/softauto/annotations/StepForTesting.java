@@ -11,23 +11,10 @@ public @interface StepForTesting {
 
     String description() default "";
 
-    //String fqmn() default "";
-
-    //String expression() default "";
-
-    //String type() default "";
-
-    //String returnType() default "";
-
-    //String callOPtions() default "";
-
     String protocol() default "RPC";
 
     String id() default "";
 
     String callback() default "";
 
-
-
-    //String[] consume() default {};
 }

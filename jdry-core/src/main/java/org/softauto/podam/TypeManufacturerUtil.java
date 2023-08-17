@@ -1,17 +1,14 @@
 package org.softauto.podam;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.softauto.annotations.DataForTesting;
-import org.softauto.annotations.JdryExclude;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.softauto.annotations.JdryStrategy;
 import org.softauto.espl.Espl;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.ObjectStrategy;
 import uk.co.jemos.podam.api.PodamUtils;
 import uk.co.jemos.podam.common.*;
-
 import javax.validation.Constraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,7 +30,7 @@ public final class TypeManufacturerUtil {
     static Espl espl = Espl.getInstance();
     
     /** The application logger */
-    private static final Logger LOG = LoggerFactory.getLogger(TypeManufacturerUtil.class);
+    private static final Logger LOG = LogManager.getLogger(TypeManufacturerUtil.class);
     
     /** Non instantiable. */
     private TypeManufacturerUtil() {

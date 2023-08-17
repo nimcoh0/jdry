@@ -1,10 +1,10 @@
 package org.softauto.grpc.client;
 
 
-import org.softauto.plugin.ProviderScope;
+
 import org.softauto.plugin.api.Provider;
 import org.softauto.plugin.spi.PluginProvider;
-import org.softauto.plugin.spi.PluginTypes;
+
 
 public class RpcProvider implements PluginProvider {
 
@@ -24,15 +24,6 @@ public class RpcProvider implements PluginProvider {
         return "GRPC-CLIENT";
     }
 
-    @Override
-    public PluginTypes getType() {
-        return PluginTypes.regular;
-    }
-
-    @Override
-    public ProviderScope scope() {
-        return ProviderScope.SUT;
-    }
 
     @Override
     public String getVersion() {

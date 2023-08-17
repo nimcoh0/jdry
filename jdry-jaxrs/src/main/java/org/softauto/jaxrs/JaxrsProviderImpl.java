@@ -6,14 +6,12 @@ import org.apache.avro.ipc.CallFuture;
 import org.softauto.core.CallbackToResponseStreamObserverAdpater;
 import org.softauto.core.Configuration;
 import org.softauto.core.ServiceLocator;
-import org.softauto.core.TestContext;
-import org.softauto.jaxrs.security.auth.basic.BasicStepDescriptorImpl;
-import org.softauto.jaxrs.security.auth.jwt.JwtStepDescriptorImpl;
 import org.softauto.jaxrs.service.RestService;
 import org.softauto.jaxrs.service.StepDefinition;
 import org.softauto.jaxrs.service.TestDefinition;
+import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.api.Provider;
-
+import org.softauto.plugin.spi.PluginProvider;
 import javax.lang.model.element.Element;
 import java.io.IOException;
 import java.util.HashMap;
@@ -63,7 +61,7 @@ public class JaxrsProviderImpl implements Provider {
     }
 
     @Override
-    public <RespT> void exec(String stepName, CallFuture<RespT> callback, ManagedChannel channel,Object[] args,Class[] types,HashMap<String,Object> callOptions) {
+    public <RespT> void exec(String stepName, CallFuture<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions) {
         try {
             executor.submit(()->{
                 CallbackToResponseStreamObserverAdpater observerAdpater = new CallbackToResponseStreamObserverAdpater(callback, null);
@@ -102,8 +100,8 @@ public class JaxrsProviderImpl implements Provider {
     @Override
     public Provider initialize() throws IOException {
         try {
-            if((Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS) != null) )   {
-                String name = Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS).toString();
+            //if((Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS) != null) )   {
+              //  String name = Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS).toString();
 
 
 
@@ -113,20 +111,22 @@ public class JaxrsProviderImpl implements Provider {
             //}else {
                 //IStepDescriptor stepDescriptor = (IStepDescriptor) org.softauto.jaxrs.configuration.DefaultConfiguration.getConfiguration().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS);
                 //TestContext.put("stepDescriptor",stepDescriptor);
-            }
+           // }
 
                 //Class suite = Class.forName(Configuration.get(Context.SUITE_CLASS_NAME));
                 //serviceDefinition = RestService.createServiceDefinition(suite);
                 //logger.debug("jaxrs plugin initialize successfully");
+            PluginProvider pluginProvider = ProviderManager.provider(Configuration.get("jaxrs").asMap().get("plugin").toString());
+            Provider provider = pluginProvider.create().initialize();
 
-            if(Configuration.get("jaxrs").asMap().get("auth").toString().equals("JWT")){
+            //if(Configuration.get("jaxrs").asMap().get("auth").toString().equals("JWT")){
                 //TestContext.put("stepDescriptor",new JwtStepDescriptorImpl());
-                TestContext.put("stepDescriptor",new JwtStepDescriptorImpl());
+             //   TestContext.put("stepDescriptor",provider.);
 
-            }else {
-                TestContext.put("stepDescriptor",new BasicStepDescriptorImpl());
+           // }else {
+              //  TestContext.put("stepDescriptor",new BasicStepDescriptorImpl());
 
-            }
+           // }
 
         }catch (Exception e){
             e.printStackTrace();

@@ -32,36 +32,6 @@ public class Utils {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Utils.class);
 
-
-    public static Object instanceClass(String absoluteClassPath){
-        try {
-                String name = absoluteClassPath.substring(absoluteClassPath.lastIndexOf("/") + 1);
-                String path = absoluteClassPath.substring(0, absoluteClassPath.lastIndexOf("/"));
-
-                URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[]{
-                        new URL(
-                                "file:///" + path
-                        )
-                });
-
-                Class clazz = urlClassLoader.loadClass(name);
-                return clazz.getConstructors()[0].newInstance();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
     /**
      * get local Machine Ip
      * @return
@@ -134,73 +104,17 @@ public class Utils {
         return new Class[0];
     }
 
-    /*
-    public static Object[] getConstructorDefaultValues(String fullClassName){
-        List<Object> defaultValues = new ArrayList<>();
-        try {
-            Class klazz = Class.forName(fullClassName);
-            Constructor<?>[] constructors = klazz.getConstructors();
-            for (Constructor constructor : constructors) {
-                Annotation[][] annotations = constructor.getParameterAnnotations();
-                for (int i = 0; i < annotations.length; i++) {
-                    for (int j = 0; j < annotations[i].length; j++) {
-                        if (annotations[i][j].annotationType().getName().equals("org.softauto.annotations.DefaultValue")) {
-                            String value = ((DefaultValue) annotations[i][j]).value();
-                            if(value.equals("null"))
-                                value = null;
-                            String name = constructor.getParameters()[i].getName();
-                            if (constructor.getParameters()[i].getAnnotation(DefaultValue.class).type() != null && !constructor.getParameters()[i].getAnnotation(DefaultValue.class).type().isEmpty()) {
-                                String type = constructor.getParameters()[i].getAnnotation(DefaultValue.class).type().toString();
-                                defaultValues.add(ObjectConverter.convert(value, constructor.getParameters()[i].getType(), type));
-                            } else {
-                                defaultValues.add(value);
-                            }
-                        }
-                    }
-                }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return defaultValues.toArray();
-    }
 
-
-
-    public static Class[] extractConstructorDefaultArgsTypes(String fullClassName){
-        try {
-            Class c = Class.forName(fullClassName);
-            Constructor[] constructors = c.getDeclaredConstructors();
-            for(Constructor constructor: constructors){
-                if(constructor.getParameters().length >0 &&  constructor.getParameters()[0].getAnnotation(DefaultValue.class) != null){
-                    return constructor.getParameterTypes();
-                }
-            }
-        }catch (Exception e){
-            logger.error("fail extract Args Types for "+fullClassName,e);
-        }
-        return new Class[0];
-    }
-
-     */
 
     public static String getFullClassName(String descriptor){
         return  descriptor.substring(0,descriptor.lastIndexOf("_")).replace("_",".");
     }
 
-    public static String getFullClassName2(String descriptor){
-        return  descriptor.substring(0,descriptor.lastIndexOf("_"));
-    }
 
     public static String getMethodName(String descriptor){
         return descriptor.substring(descriptor.lastIndexOf("_")+1,descriptor.length());
     }
 
-
-    public static String getClassName(String descriptor){
-        String str = getFullClassName2(descriptor);
-        return  str.substring(str.lastIndexOf("_")+1);
-    }
 
     public static String toString(Object obj){
         return ToStringBuilder.reflectionToString(obj, new MultipleRecursiveToStringStyle());
@@ -223,64 +137,8 @@ public class Utils {
         return "";
     }
 
-    public static Class getClazz(String path,String clazzName){
-        Class c = null;
-        try{
-            String localPath = path.substring(0,path.lastIndexOf("classes")+8);
-            String clazz = path.substring(path.lastIndexOf("classes") + 8, path.length()).replace("/", ".")+"."+clazzName;
-            //URLClassLoader sysloader = (URLClassLoader)ClassLoader.getSystemClassLoader();
-            URL[] urls = new URL[1];
-            urls[0] =(new File(localPath.trim()).toURL());
-            URLClassLoader urlClassLoader = createClassLoader(urls );
-            //addURL(new File(localPath).toURL(),sysloader);
-            c = (Class) urlClassLoader.loadClass(clazz );
-        }catch (ClassNotFoundException e){
-            logger.warn("class not found"+ path+"/"+clazzName);
-        }catch (Exception e){
-            logger.error("fail get class "+ path+"/"+clazzName,e);
-        }
-        return c;
-    }
 
-    protected static URLClassLoader createClassLoader(URL[] _urls ) throws Exception {
-        List<URL> urls = new ArrayList<>();
-        urls.addAll(Arrays.asList(_urls));
-        URLClassLoader uRLClassLoader =  new URLClassLoader(urls.toArray(new URL[0]), Thread.currentThread().getContextClassLoader());
-        Thread.currentThread().setContextClassLoader(uRLClassLoader);
-        return uRLClassLoader;
-    }
 
-    public static Class<?> getSubClass(Class<?>[] classes, String name){
-        for(Class<?> c : classes){
-            if(c.getName().equals(name)){
-                logger.debug("successfully found subclass for "+name);
-                return c;
-            }
-        }
-        logger.warn("subclass not found for "+name);
-        return null;
-    }
-
-    public static Method getMethod2(Object o, String fullMethodName, Class[] types)throws Exception{
-        try {
-            logger.debug("trying to find method " + fullMethodName +" with types "+ result2String(types)+ " on "+o.getClass().getName());
-            Method[] m = o.getClass().getMethods();
-            if (o instanceof Class<?>) {
-                Class c = (Class) o;
-                Method method = c.getMethod(getMethodName(fullMethodName), types);
-                logger.debug("found method " + fullMethodName);
-                return method;
-            }
-            Method method = o.getClass().getMethod(fullMethodName, types);
-            logger.debug("found method " + fullMethodName);
-            return method;
-        }catch (Exception e){
-            logger.warn("fail get method 2 "+ fullMethodName,e.getMessage());
-            return null;
-
-        }
-
-    }
 
     public static Class findClass(String fullClassName){
         try{
@@ -294,10 +152,6 @@ public class Utils {
 
     public static Class getPrimitiveClass(String clazz){
        return builtInMap.get(clazz);
-    }
-
-    public static String javaEscape(String o) {
-        return o.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 
 
@@ -328,92 +182,8 @@ public class Utils {
         return true;
     }
 
-    public static  String getVar(String s){
-        if (s.toString().contains("${")) {
-            String key = null;
-            Pattern pattern = Pattern.compile("\\$\\{([^\\}]*)\\}");
-            key = pattern
-                    .matcher(s.toString())
-                    .results()
-                    .collect(Collectors.toList())
-                    .get(0)
-                    .group(1);
-            return key;
-            //return VariableResolver.setExpression("${" + key + "}").resolve().toString();
-            //s = VariableResolver.setExpression(exp.toString()).resolve().toString();
-        }
-        return s;
-    }
-
-    public static Map ObjectToMap(Class c,Map map){
-        Field[] fields = c.getClass().getDeclaredFields();
-        try {
-            for (Field f : fields) {
-                String name = f.getName();
-                Object value = FieldUtils.readField(c, f.getName(), true);
-                if (value instanceof ArrayList) {
-                    for (Object o : (ArrayList) value) {
-                        ObjectToMap(o.getClass(),map);
-                    }
-                }else if(value instanceof Map) {
-                    for (Map.Entry entry : ((HashMap<?, ?>) value).entrySet()) {
-                        ObjectToMap(entry.getValue().getClass(),map);
-                    }
-                }
-                else {
-                    if (value != null && name != null)
-                        map.put(name, StringToObject(value));
-                }
-            }
-        } catch (IllegalAccessException e) {
-            logger.error("fail build Context ", e.getMessage());
-        }
-        return map;
-    }
-
-    public static Object StringToObject(Object str){
-        try {
-            String s = null;
-            if(!Utils.isJson(str.toString())){
-                s = new ObjectMapper().writeValueAsString(str);
-            }else {
-                s = str.toString();
-            }
-            return  new ObjectMapper().readTree(s);
-        } catch (JsonProcessingException e) {
-            logger.error("fail convert String to Object for  "+ str, e.getMessage());
-        }
-        return null;
-    }
-
-    public static String toObject( String clazz, String value ) {
-
-        String str = clazz.toLowerCase();
-        if(clazz.contains(".")){
-            str = clazz.substring(clazz.lastIndexOf(".")+1).toLowerCase();
-        }
-        if(value.endsWith(";")){
-            value = value.substring(0,value.length()-1);
-        }
-        if(NumberUtils.isCreatable(value)){
-            return value;
-        }
-        if(value.toLowerCase().equals("false") || value.toLowerCase().equals("true")){
-            return value;
-        }
 
 
-        if( str.equals("boolean") ) return "Boolean.parseBoolean("+ value +".toString())";
-        if( str.equals("byte") ) return "Byte.parseByte("+ value +".toString())";
-        if( str.equals("short") ) return "Short.parseShort("+ value +".toString())";
-        if( str.equals("integer") ) return "Integer.parseInt("+ value + ".toString())";
-        if( str.equals("int") ) return "Integer.parseInt("+ value + ".toString())";
-        if( str.equals("long" ) ) return "Long.parseLong("+ value +".toString())";
-        if( str.equals("float") ) return "Float.parseFloat(" +  value +".toString())";
-        if( str.equals("double") ) return "Double.parseDouble("+ value + ".toString())";
-        if( str.equals("string") ) return "String.valueOf("+ value + ")";
-        return "("+clazz+")"+value+";";
-    }
 
 
     public static boolean isPrimitive(String type){
@@ -498,94 +268,4 @@ public class Utils {
 
 
 
-    public static Map<?,?> propertiesToMap(Properties p){
-        return Maps.newHashMap(Maps.fromProperties(p));
-    }
-
-    public static Properties stringToProperties(String s){
-        try {
-            final Properties p = new Properties();
-            p.load(new StringReader(s));
-            return p;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static String propertiesToString(Properties p){
-        return  p.entrySet()
-                .stream()
-                .map(e -> e.getKey() + "=" + e.getValue())
-                .collect(Collectors.joining(", "));
-
-    }
-
-
-    public static String getDefaultValueByType( String type ) {
-        if(type != null) {
-            String str = type.toLowerCase();
-            if (type.contains(".")) {
-                str = type.substring(type.lastIndexOf(".") + 1).toLowerCase();
-            }
-            if (str.equals("boolean"))
-                return "false";
-            if (str.equals("byte"))
-                return "null";
-            if (str.equals("short"))
-                return "-1";
-            if (str.equals("int"))
-                return "-1";
-            if (str.equals("long"))
-                return "-1L";
-            if (str.equals("float"))
-                return "-1.0";
-            if (str.equals("double"))
-                return "-1.0";
-        }
-        return null;
-    }
-
-    /*
-    public static String toObject( String clazz, String value ) {
-
-        String str = clazz.toLowerCase();
-        if(clazz.contains(".")){
-            str = clazz.substring(clazz.lastIndexOf(".")+1).toLowerCase();
-        }
-        if(value.endsWith(";")){
-            value = value.substring(0,value.length()-1);
-        }
-        if(NumberUtils.isCreatable(value)){
-            return value;
-        }
-        if(value.toLowerCase().equals("false") || value.toLowerCase().equals("true")){
-            return value;
-        }
-
-
-        if( str.equals("boolean") ) return "Boolean.parseBoolean("+ value +")";
-        if( str.equals("byte") ) return "Byte.parseByte("+ value +")";
-        if( str.equals("short") ) return "Short.parseShort("+ value +")";
-        if( str.equals("integer") ) return "Integer.parseInt("+ value + ")";
-        if( str.equals("long" ) ) return "Long.parseLong("+ value +")";
-        if( str.equals("float") ) return "Float.parseFloat(" +  value +")";
-        if( str.equals("double") ) return "Double.parseDouble("+ value + ")";
-        if( str.equals("string") ) return "String.valueOf("+ value + ")";
-        return value+";";
-    }
-
-     */
-
-    public static Class typeToClass(String type){
-        try {
-            if(isPrimitive(type)){
-                return getPrimitiveClass(type);
-            }
-            return Class.forName(type,false,ClassLoader.getSystemClassLoader());
-        } catch (ClassNotFoundException e) {
-            logger.warn("fail retrieve class type "+type);
-        }
-        return null;
-    }
 }

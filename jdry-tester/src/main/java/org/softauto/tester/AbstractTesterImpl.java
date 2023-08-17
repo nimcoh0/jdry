@@ -13,7 +13,6 @@ import org.softauto.espl.Espl;
 import org.softauto.functions.SpecialFunctions;
 import org.softauto.listener.ListenerServerProviderImpl;
 import org.softauto.plugin.ProviderManager;
-import org.softauto.plugin.ProviderScope;
 import org.softauto.plugin.spi.PluginProvider;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
@@ -29,6 +28,8 @@ public class AbstractTesterImpl extends SpecialFunctions {
     public ObjectMapper mapper = new ObjectMapper();
 
     public Test test;
+
+    public String currentUser = null;
 
     //public Suite suite = new Suite();
 
@@ -62,6 +63,9 @@ public class AbstractTesterImpl extends SpecialFunctions {
 
     }
 
+
+
+
     @BeforeMethod
     public void beforeMethod(ITestContext testContext){
         test = new Test();
@@ -71,7 +75,7 @@ public class AbstractTesterImpl extends SpecialFunctions {
 
     public  void loadPlugins(){
         try {
-            for(PluginProvider provider : ProviderManager.providers(ProviderScope.Tester)){
+            for(PluginProvider provider : ProviderManager.providers()){
                   provider.create().initialize().register();
             }
         }catch (Exception e){

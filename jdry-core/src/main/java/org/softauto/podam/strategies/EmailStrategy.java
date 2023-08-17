@@ -1,6 +1,6 @@
 package org.softauto.podam.strategies;
 
-import uk.co.jemos.podam.api.PodamUtils;
+import org.softauto.podam.PodamUtils;
 import uk.co.jemos.podam.common.AttributeStrategy;
 
 public class EmailStrategy implements AttributeStrategy<String> {
@@ -10,7 +10,7 @@ public class EmailStrategy implements AttributeStrategy<String> {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 5; k++) {
-                    sb.append(PodamUtils.getNiceCharacter());
+                    sb.append(PodamUtils.getNiceCharacterWithOutNumbers());
                 }
                 if (j == 0) {
                     sb.append(".");
