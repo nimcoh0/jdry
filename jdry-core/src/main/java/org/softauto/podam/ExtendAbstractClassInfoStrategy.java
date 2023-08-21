@@ -1,13 +1,11 @@
 package org.softauto.podam;
 
-import org.softauto.annotations.DataForTesting;
 import org.softauto.annotations.JdryExclude;
 import org.softauto.espl.Espl;
 import uk.co.jemos.podam.api.AbstractClassInfoStrategy;
 import uk.co.jemos.podam.api.ClassAttribute;
 import uk.co.jemos.podam.api.ClassAttributeApprover;
 import uk.co.jemos.podam.api.ClassInfo;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.*;

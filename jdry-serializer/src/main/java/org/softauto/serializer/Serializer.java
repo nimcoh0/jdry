@@ -105,27 +105,7 @@ public class Serializer {
 
     }
 
-/*
-    public <T>void write(Message message,  CallFuture<T> callback) throws Exception {
-        try {
-            if(connectivityState.equals(ConnectivityState.READY) || connectivityState.equals(ConnectivityState.IDLE)) {
-                StreamObserver<Object> observerAdpater = new CallbackToResponseStreamObserverAdpater<>(callback, channel);
-                Object result = client.execute(message);
 
-
-                MethodDescriptor<Object[], Object> m = ServiceDescriptor.create(SerializerService.class).getMethod("execute", MethodDescriptor.MethodType.UNARY);
-                StreamObserver<Object> observerAdpater = new CallbackToResponseStreamObserverAdpater<>(callback, channel);
-                ClientCalls.asyncUnaryCall(channel.newCall(m, CallOptions.DEFAULT), new Object[]{message}, observerAdpater);
-                logger.debug("successfully execute message " + message.toJson());
-                logger.debug("callback value "+callback.getResult()+" get error "+callback.getError());
-            }
-        }catch (Exception e){
-            logger.error("fail execute async  message "+message.toJson(),e);
-        }
-    }
-
-
- */
 
 
 

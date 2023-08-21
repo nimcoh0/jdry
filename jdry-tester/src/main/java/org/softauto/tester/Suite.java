@@ -3,6 +3,7 @@ package org.softauto.tester;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.MissingNode;
@@ -34,27 +35,10 @@ public class Suite {
 
     public Suite addPublish(String name,Object data){
         try {
-            String str = new ObjectMapper().writeValueAsString(data);
-            Object o = new ObjectMapper().readTree(str);
-            if(o instanceof JsonNode){
-                this.data.set(name, (JsonNode) o);
-            }else {
-                JsonNode node = (ObjectNode) new ObjectMapper().readTree(str);
-                this.data.set(name,node);
-            }
-
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return this;
-    }
-
-    /*
-    public Suite addPublish(String name,Object data){
-        try {
-
-            String str = new ObjectMapper().writeValueAsString(data);
-            Object o = new ObjectMapper().readTree(str);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+            String str = objectMapper.writeValueAsString(data);
+            Object o = objectMapper.readTree(str);
             if(o instanceof JsonNode){
                 this.data.set(name, (JsonNode) o);
             }else {
@@ -69,11 +53,12 @@ public class Suite {
     }
 
 
-     */
     public Suite addPublish(Object data){
         try {
-            String str = new ObjectMapper().writeValueAsString(data);
-            ObjectNode node = (ObjectNode) new ObjectMapper().readTree(str);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+            String str = objectMapper.writeValueAsString(data);
+            ObjectNode node = (ObjectNode) objectMapper.readTree(str);
             this.data.setAll(node);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -83,8 +68,10 @@ public class Suite {
 
     public Suite addPublish(Multimap data){
         try {
-            String str = new ObjectMapper().writeValueAsString(data.getMap());
-            ObjectNode node = (ObjectNode) new ObjectMapper().readTree(str);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+            String str = objectMapper.writeValueAsString(data.getMap());
+            ObjectNode node = (ObjectNode) objectMapper.readTree(str);
             this.data.setAll(node);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -94,8 +81,10 @@ public class Suite {
 
     public Suite addPublish(Map<?,?> data){
         try {
-            String str = new ObjectMapper().writeValueAsString(data);
-            ObjectNode node = (ObjectNode) new ObjectMapper().readTree(str);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+            String str = objectMapper.writeValueAsString(data);
+            ObjectNode node = (ObjectNode) objectMapper.readTree(str);
             this.data.setAll(node);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -105,8 +94,10 @@ public class Suite {
 
     public Suite addPublish(List<?> data){
         try {
-            String str = new ObjectMapper().writeValueAsString(data);
-            ObjectNode node = (ObjectNode) new ObjectMapper().readTree(str);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+            String str = objectMapper.writeValueAsString(data);
+            ObjectNode node = (ObjectNode) objectMapper.readTree(str);
             this.data.setAll(node);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -114,14 +105,7 @@ public class Suite {
         return this;
     }
 
-    /*
-    public Suite addPublish(String id, Object data){
-            publish.put(id,data);
-            espl.addProperty(id,data);
-        return this;
-    }
 
-     */
 
     public Suite addPublish(String id, String key, Object value){
             HashMap<String ,Object> data = new HashMap<>();
@@ -162,9 +146,7 @@ public class Suite {
 
     public Object getPath(String path){
         try {
-            //String root = new ObjectMapper().writeValueAsString((HashMap<String, Object>)publish.getMap());
-            //JsonNode rootNode = new ObjectMapper().readTree(root);
-            return data.at(path);
+           return data.at(path);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -192,18 +174,20 @@ public class Suite {
 
     public Object getPublish(String id,String expression,String type){
         try {
-            String root = new ObjectMapper().writeValueAsString((HashMap<String, Object>)publish.getMap());
-            JsonNode rootNode = new ObjectMapper().readTree(root);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+            String root = objectMapper.writeValueAsString((HashMap<String, Object>)publish.getMap());
+            JsonNode rootNode = objectMapper.readTree(root);
             HashMap<String,Object> childNode = new HashMap<>();
             if(rootNode.get(id).isArray()) {
                 for (JsonNode node : (ArrayNode) rootNode.get(id)) {
-                    Map<String, Object> map = new ObjectMapper().convertValue(node, new TypeReference<Map<String, Object>>() {});
+                    Map<String, Object> map = objectMapper.convertValue(node, new TypeReference<Map<String, Object>>() {});
                     childNode.putAll(map);
                 }
             }
 
-            String str = new ObjectMapper().writeValueAsString(childNode);
-            JsonNode node = new ObjectMapper().readTree(str);
+            String str = objectMapper.writeValueAsString(childNode);
+            JsonNode node = objectMapper.readTree(str);
             JsonNode r = node.at(expression);
             if(r instanceof TextNode){
                 return node.at(expression).asText();

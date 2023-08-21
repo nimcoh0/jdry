@@ -10,9 +10,6 @@ public  class Exec implements Function {
     String key = null;
     Object result = null;
     boolean seen = false;
-    //String phase;
-
-
 
     @Override
     public Object getResult(){

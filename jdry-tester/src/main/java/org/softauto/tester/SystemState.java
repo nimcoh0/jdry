@@ -111,26 +111,5 @@ public class SystemState {
         return this;
     }
 
-    /*
-    public SystemState addListener(String fqmn,Class...types)throws Exception{
-        new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_addListener", new Object[]{fqmn,types}, new Class[]{String.class,Class[].class});
-        return this;
-    }
 
-    public SystemState addListener(String fqmn,Object[] value,Class...types)throws Exception{
-        new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_addListenerMock", new Object[]{fqmn,types,value}, new Class[]{String.class,Class[].class,Object[].class});
-        return this;
-    }
-
-    public SystemState resetListeners()throws Exception{
-        new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_resetListeners", new Object[]{}, new Class[]{});
-        return this;
-    }
-
-    public SystemState removeListener(String fqmn,Class...types)throws Exception{
-        new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_removeListener", new Object[]{fqmn,types}, new Class[]{String.class,Class[].class});
-        return this;
-    }
-
-     */
 }

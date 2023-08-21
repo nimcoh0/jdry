@@ -89,7 +89,6 @@ public class RpcProviderImpl  {
         }catch (Exception e){
             logger.error("fail exec rpc call "+ name, e);
         }
-        //return (RespT)result;
     }
 
     public <RespT> void exec(String name, CallFuture<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){

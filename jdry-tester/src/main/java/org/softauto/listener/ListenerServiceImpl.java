@@ -8,19 +8,12 @@ import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.*;
 import org.softauto.serializer.service.Message;
 import org.softauto.serializer.service.SerializerService;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
 public class ListenerServiceImpl implements SerializerService{
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerServiceImpl.class);
-
-
-
 
     @Override
     public synchronized Object execute(ByteBuffer mes) throws Exception {
@@ -35,10 +28,6 @@ public class ListenerServiceImpl implements SerializerService{
                 String json = new ObjectMapper().writeValueAsString(args[i]);
                 args[i] = new ObjectMapper().readValue(json,types[i]);
             }
-
-
-
-
             if (message.getDescriptor().equals("log") || message.getDescriptor().equals("logError")) {
                 printLog(message);
                 return null;
@@ -47,15 +36,6 @@ public class ListenerServiceImpl implements SerializerService{
                 logger.debug("execute message " + message.toJson());
                 Object o = ListenerObserver.getInstance().getLastChannel(message.getDescriptor());
                 if (o != null) {
-                    /*
-                    logger.debug("got message " + message.toJson());
-                    Exec exec = (Exec) o;
-                    //if(exec.getPhase().equals(message.getState()))
-                    methodResponse = exec.apply(message.getArgs());
-                    logger.debug("result of function " + methodResponse);
-
-                     */
-
                     methodResponse = message.getArgs();
                     if (o instanceof FunctionBefore) {
                         if (message.getState().equals(ListenerType.BEFORE.name())) {

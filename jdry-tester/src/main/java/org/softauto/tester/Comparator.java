@@ -104,31 +104,4 @@ public class Comparator<Object> {
 
 
 
-/*
-        @Test
-        public  void main() throws Exception {
-
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                mapper.addMixIn(Bar.class, PropertyFilterMixIn.class);
-
-                String[] ignorableFieldNames = {"id", "color"};
-                FilterProvider filters = new SimpleFilterProvider().addFilter("filter properties by name",
-                        SimpleBeanPropertyFilter.serializeAllExcept(ignorableFieldNames));
-                ObjectWriter writer = mapper.writer(filters);
-
-                System.out.println(writer.writeValueAsString(new Bar()));
-
-                //mapper.writeValueAsString(new Bar());
-                // output:
-                // {"name":"James","foo":{"size":"big","height":"tall"}}
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-
-        }
-    //}
-
-
- */
 }

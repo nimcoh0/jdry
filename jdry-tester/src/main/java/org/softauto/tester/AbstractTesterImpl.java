@@ -31,8 +31,6 @@ public class AbstractTesterImpl extends SpecialFunctions {
 
     public String currentUser = null;
 
-    //public Suite suite = new Suite();
-
     public Espl espl = Espl.reset();
 
     public String scenarioId;

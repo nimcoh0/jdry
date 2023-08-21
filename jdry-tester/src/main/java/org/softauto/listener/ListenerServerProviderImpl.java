@@ -2,40 +2,27 @@ package org.softauto.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import io.grpc.ManagedChannel;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.apache.avro.grpc.AvroGrpcServer;
-import org.apache.avro.ipc.CallFuture;
 import org.softauto.core.Configuration;
 import org.softauto.core.Context;
 import org.softauto.core.ServiceLocator;
 import org.softauto.serializer.service.SerializerService;
 
-import java.util.HashMap;
-
-
 public class ListenerServerProviderImpl  {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerServerProviderImpl.class);
+
     private static ListenerServerProviderImpl listenerProviderImpl = null;
+
     ObjectMapper objectMapper;
 
-
-
-
-    /**
-     * listener server
-     */
     Server server = null;
-
-
-
 
     private ListenerServerProviderImpl(){
         objectMapper = new ObjectMapper(new YAMLFactory());
     }
-
 
     public static ListenerServerProviderImpl getInstance(){
         if(listenerProviderImpl == null){
@@ -43,12 +30,6 @@ public class ListenerServerProviderImpl  {
          }
         return listenerProviderImpl;
     }
-
-
-
-
-
-
 
     public ListenerServerProviderImpl initialize()  {
         try {
@@ -72,14 +53,4 @@ public class ListenerServerProviderImpl  {
         ServiceLocator.getInstance().register("LISTENER-SERVER",server);
 
     }
-
-
-
-
-
-
-
-
-
-
 }

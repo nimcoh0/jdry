@@ -2,17 +2,9 @@ package org.softauto.espl;
 
 
 import org.softauto.core.Multimap;
-import org.softauto.core.Utils;
-import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.ParserContext;
-import org.springframework.expression.common.CompositeStringExpression;
-import org.springframework.expression.common.LiteralExpression;
-import org.springframework.expression.common.TemplateParserContext;
-import org.springframework.expression.spel.standard.SpelExpression;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
-
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +12,6 @@ import java.util.regex.Pattern;
 public class Espl {
 
     StandardEvaluationContext  itemContext = new StandardEvaluationContext();
-    //StandardEvaluationContext  runTimeItemContext = new StandardEvaluationContext();
     ExpressionParser parser = new SpelExpressionParser();
     private static Espl espl;
     Multimap publish;

@@ -78,7 +78,7 @@ public class RpcProviderImpl implements Provider {
         }catch (Exception e){
             logger.error("fail exec rpc call "+ name, e);
         }
-        //return (RespT)result;
+
     }
 
     public <RespT> void exec(String name, CallFuture<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){
@@ -120,8 +120,6 @@ public class RpcProviderImpl implements Provider {
                 messageType = MessageType.fromString(callOptions.get("messageType").toString()); 
             }
 
-
-            //Message message = Message.newBuilder().setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("classType",classType.name()).build();
             Message message = Message.newBuilder().setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("callOption",callOptions).build();
             result = serializer.write(message);
 

@@ -46,7 +46,7 @@ public class ListenerServiceImpl implements ListenerService {
 
     @Override
     public  void executeAfter(String methodName, Object[] args, Class[] types) throws Exception {
-        //Object result = null;
+
         try {
             if(Context.getTestState().equals(TestLifeCycle.START)) {
                 Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
@@ -62,7 +62,7 @@ public class ListenerServiceImpl implements ListenerService {
             logger.debug("send message "+methodName+" fail  ",e );
         }
         logger.debug("returning from executeAfter" );
-        //return result;
+
     }
 
 

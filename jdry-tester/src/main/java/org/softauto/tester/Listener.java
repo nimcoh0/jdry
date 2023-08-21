@@ -41,18 +41,6 @@ public  class Listener implements IListener {
         return this;
     }
 
-    /*
-    public <T> Listener waitTo( Handler<AsyncResult<T>> resultHandler)throws Exception{
-        FunctionAfter func = new FunctionAfter(resultHandler,fqmn);
-        ListenerObserver.getInstance().register(fqmn,func);
-        lock = func.getLock();
-        lock.await(timeOutInMin, TimeUnit.MINUTES);
-        resultHandler.handle(Future.handleResult((T)func.getResult()));
-        return this;
-    }
-
-     */
-
 
     public <T> Listener waitTo(Function function, Handler<AsyncResult<T>> resultHandler)throws Exception{
         FunctionBefore func = new FunctionBefore(function,fqmn);
@@ -126,24 +114,6 @@ public  class Listener implements IListener {
         result = func.getResult();
         return this;
     }
-
-    /*
-    public <T> Listener waitToResult(Function function, Handler<AsyncResult<T>> resultHandler)throws Exception{
-        logger.debug("waitToResult "+ fqmn);
-        FunctionAfter func = new FunctionAfter(function,fqmn);
-        ListenerObserver.getInstance().register(fqmn,func);
-        lock = func.getLock();
-        lock.await(timeOutInMin, TimeUnit.MINUTES);
-        resultHandler.handle(Future.handleResult((T)func.getResult()));
-        if(lock.getCount() > 0){
-            logger.error("done waitTo for "+ fqmn+" no call ");
-        }else {
-            logger.debug("done waitTo for " + fqmn);
-        }
-        return this;
-    }
-
-     */
 
 
     public <T> Listener waitToResult( Function function, CallFuture<T> future)throws Exception{

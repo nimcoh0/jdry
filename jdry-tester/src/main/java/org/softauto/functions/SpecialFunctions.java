@@ -1,21 +1,22 @@
 package org.softauto.functions;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.MissingNode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.softauto.core.Utils;
 import org.softauto.espl.Espl;
 import org.softauto.podam.ExtendPodamFactoryImpl;
 import org.softauto.tester.Comparator;
 import org.softauto.tester.Suite;
 import uk.co.jemos.podam.api.PodamFactory;
-
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+
 
 public class SpecialFunctions {
+
+    private static Logger logger = LogManager.getLogger(SpecialFunctions.class);
 
     public Suite suite = new Suite();
 
@@ -36,24 +37,20 @@ public class SpecialFunctions {
         try {
             Object r = suite.getPublish(name,type);
             if(r != null){
+                logger.debug(name + " found in cache ");
                 if(Utils.isPrimitive(type)){
                     return r;
                 }else {
-                    //if(r instanceof JsonNode && r != MissingNode.getInstance()) {
-                    //Object javaType = Utils.jsonNodeToJavaType((JsonNode)r);
-                    //if (javaType == null) {
                     String s = new ObjectMapper().writeValueAsString(r);
                     Class<?> c = Class.forName(type);
                     return new ObjectMapper().readValue(s, c);
-                    //}else {
-                    //   return javaType;
-                    //}
                 }
             }else {
+                logger.debug(name + " not found in cache ! creating random value");
                 return random(type);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("fail retrieve " + name,e);
         }
         return null;
     }
@@ -70,10 +67,11 @@ public class SpecialFunctions {
                 }
                 PodamFactory factory = new ExtendPodamFactoryImpl();
                 Object pojo = factory.manufacturePojo(c);
+                logger.debug("successfully create random value for " + type);
                 return pojo;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("fail create random value for  " + type,e);
         }
         return null;
     }
@@ -96,79 +94,69 @@ public class SpecialFunctions {
                 Class c = Class.forName(type, false, ClassLoader.getSystemClassLoader());
                 PodamFactory factory = new ExtendPodamFactoryImpl().setAttributeValueMap(attributeMap);
                 Object pojo = factory.manufacturePojo(c);
+                logger.debug("successfully create random value for " + type + " with attributes "+ Arrays.toString(keys));
                 return pojo;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("fail create random value for  " + type + " with attributes "+ Arrays.toString(keys),e);
         }
         return null;
     }
 
 
-    /*
-    public static Object random(String type,Object...attributes){
+    public <T> T consume(String expression,Class type){
         try {
-            if(type != null && !type.isEmpty()) {
-                HashMap<String, Object> attributeMap = new HashMap<>();
-                if (attributes != null && attributes.length > 0) {
-                    for (Object attribute : attributes) {
-                        if(attribute instanceof String) {
-                            Properties p = Utils.stringToProperties(attribute.toString());
-                            Map map = Utils.propertiesToMap(p);
-                            Map<String, String> newMap = new HashMap<>();
-                            map.forEach((k, v) -> {
-                                v = Espl.getInstance().evaluate(v.toString());
-                                newMap.put((type + "." + k).toString(), v.toString());
-                            });
-
-                            attributeMap.putAll(newMap);
-                        }else {
-                            Map<String, Object> newMap = new HashMap<>();
-                            newMap.put(attribute.getClass().getName(), attribute);
-                            attributeMap.putAll(newMap);
-                        }
-                    }
+            if(expression != null && !expression.isEmpty()) {
+                if (expression.contains("/")) {
+                    return (T) suite.getPublish(expression,type.getTypeName());
+                } else {
+                    return (T)suite.findKey(expression);
                 }
-
-                Class c = Class.forName(type, false, ClassLoader.getSystemClassLoader());
-                PodamFactory factory = new ExtendPodamFactoryImpl().setAttributeValueMap(attributeMap);
-                Object pojo = factory.manufacturePojo(c);
-                return pojo;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("fail consume " + expression,e);
         }
         return null;
     }
 
-
-     */
     public <T> T consume(String expression,String type){
-        if(expression != null && !expression.isEmpty()) {
-            if (expression.contains("/")) {
-                return (T) suite.getPublish(expression,type);
-            } else {
-                return (T)suite.findKey(expression);
+        try {
+            if(expression != null && !expression.isEmpty()) {
+                if (expression.contains("/")) {
+                    return (T) suite.getPublish(expression,type);
+                } else {
+                    return (T)suite.findKey(expression);
+                }
             }
+        } catch (Exception e) {
+            logger.error("fail consume " + expression,e);
         }
         return null;
     }
 
     public <T> T consume(String expression){
-        if(expression != null && !expression.isEmpty()) {
-            if (expression.contains("/")) {
-                return (T) suite.getPublish(expression);
-            } else {
-                return (T)suite.findKey(expression);
+        try {
+            if(expression != null && !expression.isEmpty()) {
+                if (expression.contains("/")) {
+                    return (T) suite.getPublish(expression);
+                } else {
+                    return (T)suite.findKey(expression);
+                }
             }
+        } catch (Exception e) {
+            logger.error("fail consume " + expression,e);
         }
         return null;
     }
 
 
     public <T> T exec(String expression){
-        if(expression != null && !expression.isEmpty()) {
-            return (T)Espl.getInstance().evaluate(expression);
+        try {
+            if(expression != null && !expression.isEmpty()) {
+                return (T)Espl.getInstance().evaluate(expression);
+            }
+        } catch (Exception e) {
+            logger.error("fail exec " + expression,e);
         }
         return null;
     }

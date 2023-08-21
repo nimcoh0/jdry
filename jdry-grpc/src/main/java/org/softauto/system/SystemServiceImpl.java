@@ -102,10 +102,9 @@ public class SystemServiceImpl {
         try {
             InjectorInitializer.getInstance().initialize();
             ListenerClientProviderImpl.getInstance().initialize().register();
-            //JvmProviderImpl.getInstance().initialize().register();
         }catch(Throwable e){
             logger.error("init fail ",e);
-            //System.exit(1);
+
         }
     }
 

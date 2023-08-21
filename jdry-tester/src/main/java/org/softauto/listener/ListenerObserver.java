@@ -17,7 +17,6 @@ public class ListenerObserver {
     public static ListenerObserver getInstance(){
         if(listenerObserver == null){
             listenerObserver =  new ListenerObserver();
-            //channels = new ArrayList<>();
         }
         return listenerObserver;
     }
