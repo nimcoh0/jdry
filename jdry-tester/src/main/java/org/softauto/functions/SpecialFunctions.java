@@ -36,7 +36,7 @@ public class SpecialFunctions {
     public Object retrieve(String name,String type){
         try {
             Object r = suite.getPublish(name,type);
-            if(r != null){
+            if(r != null && !r.toString().isEmpty()){
                 logger.debug(name + " found in cache ");
                 if(Utils.isPrimitive(type)){
                     return r;

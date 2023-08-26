@@ -151,7 +151,17 @@ public class Utils {
     }
 
     public static Class getPrimitiveClass(String clazz){
-       return builtInMap.get(clazz);
+        if(clazz != null) {
+            String name = null;
+            if (clazz.contains(".")) {
+                name = clazz.substring(clazz.lastIndexOf(".") + 1);
+            }else{
+                name = clazz;
+            }
+            return builtInMap.get(name.toLowerCase());
+        }
+
+       return null;
     }
 
 
@@ -166,6 +176,7 @@ public class Utils {
         builtInMap.put("byte", Byte.TYPE );
         builtInMap.put("void", Void.TYPE );
         builtInMap.put("short", Short.TYPE );
+        builtInMap.put("string", String.class );
 
     }
 

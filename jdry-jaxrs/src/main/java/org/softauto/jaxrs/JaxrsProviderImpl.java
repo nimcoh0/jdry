@@ -100,33 +100,10 @@ public class JaxrsProviderImpl implements Provider {
     @Override
     public Provider initialize() throws IOException {
         try {
-            //if((Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS) != null) )   {
-              //  String name = Configuration.get("jaxrs").asMap().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS).toString();
 
+           // PluginProvider pluginProvider = ProviderManager.provider(Configuration.get("jaxrs").asMap().get("plugin").toString());
+           // Provider provider = pluginProvider.create().initialize();
 
-
-                //Class c = Class.forName(name);//Thread.currentThread().getContextClassLoader().loadClass(fullClassName);
-                //IStepDescriptor stepDescriptor = (IStepDescriptor) c.getConstructor().newInstance();
-                //TestContext.put("stepDescriptor",stepDescriptor);
-            //}else {
-                //IStepDescriptor stepDescriptor = (IStepDescriptor) org.softauto.jaxrs.configuration.DefaultConfiguration.getConfiguration().get(org.softauto.jaxrs.configuration.Context.STEP_DESCRIPTOR_IMPL_CLASS);
-                //TestContext.put("stepDescriptor",stepDescriptor);
-           // }
-
-                //Class suite = Class.forName(Configuration.get(Context.SUITE_CLASS_NAME));
-                //serviceDefinition = RestService.createServiceDefinition(suite);
-                //logger.debug("jaxrs plugin initialize successfully");
-            PluginProvider pluginProvider = ProviderManager.provider(Configuration.get("jaxrs").asMap().get("plugin").toString());
-            Provider provider = pluginProvider.create().initialize();
-
-            //if(Configuration.get("jaxrs").asMap().get("auth").toString().equals("JWT")){
-                //TestContext.put("stepDescriptor",new JwtStepDescriptorImpl());
-             //   TestContext.put("stepDescriptor",provider.);
-
-           // }else {
-              //  TestContext.put("stepDescriptor",new BasicStepDescriptorImpl());
-
-           // }
 
         }catch (Exception e){
             e.printStackTrace();
