@@ -1,6 +1,7 @@
 package org.softauto.podam;
 
 
+import java.util.List;
 
 public class ExtendDefaultClassInfoStrategy extends ExtendAbstractClassInfoStrategy {
 
@@ -30,6 +31,10 @@ public class ExtendDefaultClassInfoStrategy extends ExtendAbstractClassInfoStrat
      */
     public static ExtendDefaultClassInfoStrategy getInstance() {
         return SINGLETON;
+    }
+
+    public void setExcludedFields(List<String> _excludedFields) {
+        this._excludedFields = _excludedFields;
     }
 
     /**

@@ -7,13 +7,9 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Random {
+public @interface JdryData {
 
-    String[] value() default "";
+    String value() default "org.softauto.podam.strategies.DataStrategy";
 
-    String[] data() default "";
-
-    String[] exclude() default "";
-
-    String[] consume() default "";
+    String expression();
 }

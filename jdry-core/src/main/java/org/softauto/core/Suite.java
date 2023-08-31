@@ -1,4 +1,4 @@
-package org.softauto.tester;
+package org.softauto.core;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -9,15 +9,12 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import org.softauto.core.Multimap;
-import org.softauto.core.Utils;
 import org.softauto.espl.Espl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Suite {
 
@@ -26,6 +23,18 @@ public class Suite {
     ObjectNode data = new ObjectMapper().createObjectNode();
 
     Espl espl = Espl.reset().setPublish(publish);
+
+
+    private static Suite suite = null;
+
+    public static Suite getInstance(){
+        if(suite == null){
+            suite = new Suite();
+        }
+        return suite;
+    }
+
+    private Suite(){}
 
 
     public Suite addPublish(ObjectNode data){

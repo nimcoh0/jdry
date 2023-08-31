@@ -7,18 +7,19 @@ import org.softauto.core.Utils;
 import org.softauto.espl.Espl;
 import org.softauto.podam.ExtendPodamFactoryImpl;
 import org.softauto.tester.Comparator;
-import org.softauto.tester.Suite;
+import org.softauto.core.Suite;
 import uk.co.jemos.podam.api.PodamFactory;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class SpecialFunctions {
 
     private static Logger logger = LogManager.getLogger(SpecialFunctions.class);
 
-    public Suite suite = new Suite();
+    public Suite suite = Suite.getInstance();
 
     public void setSuite(Suite suite) {
         this.suite = suite;
@@ -75,6 +76,35 @@ public class SpecialFunctions {
         }
         return null;
     }
+
+    public static Object random(String type,String[] excludes,String[] consumes,HashMap<String,Object> data){
+        try {
+            HashMap<String, Object> attributeMap = new HashMap<>();
+            if(type != null && !type.isEmpty()) {
+                /*
+                if(data != null && data.length >0){
+                    for(String json : data){
+                        Map<String,Object> map = new ObjectMapper().readValue(json, HashMap.class);
+                        attributeMap.putAll(map);
+                    }
+                }
+
+                 */
+
+                Class c = Class.forName(type, false, ClassLoader.getSystemClassLoader());
+                PodamFactory factory = new ExtendPodamFactoryImpl().setAttributeValueMap(data).setExcludedFields(Arrays.asList(excludes),c).setConsumeList(Arrays.asList(consumes));
+                Object pojo = factory.manufacturePojo(c);
+                logger.debug("successfully create random value for " + type );
+                return pojo;
+            }
+        } catch (Exception e) {
+            logger.error("fail create random value for  " + type ,e);
+        }
+        return null;
+    }
+
+
+
 
     public static Object random(String type,String[] keys,Object[] values){
         try {

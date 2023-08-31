@@ -22,7 +22,7 @@ public class InvocationHandler {
             logger.debug("invoke method " + methodName+ " using protocol "+ transceiver);
             provider.exec( methodName, callback,null,args,types,null);
             logger.debug("callback value  get error "+callback.getError());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
         }
 
@@ -36,7 +36,7 @@ public class InvocationHandler {
             logger.debug("invoke method " + methodName+ " using protocol "+ transceiver+ " call options "+ Arrays.toString(callOptions.entrySet().toArray()));
             provider.exec( methodName, callback,null,args,types,callOptions);
             logger.debug("callback value  get error "+callback.getError());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
         }
 
@@ -48,7 +48,7 @@ public class InvocationHandler {
             logger.debug("invoke method " + methodName+ " using protocol "+ transceiver+ " call options "+ Arrays.toString(callOptions.entrySet().toArray()));
             provider.exec( methodName, null,null,args,types,callOptions);
             //logger.debug("callback value  get error "+callback.getError());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
         }
 
@@ -64,7 +64,7 @@ public class InvocationHandler {
             Message message = Message.newBuilder().setDescriptor(methodName).setArgs(args).setTypes(types).build();
             t = serializer.write(message);
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
         }
         return t;

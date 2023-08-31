@@ -3,8 +3,11 @@ package org.softauto.podam;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.softauto.annotations.JdryConsume;
+import org.softauto.annotations.JdryData;
 import org.softauto.annotations.JdryStrategy;
 import org.softauto.espl.Espl;
+import uk.co.jemos.podam.api.ClassAttribute;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.ObjectStrategy;
 import uk.co.jemos.podam.api.PodamUtils;
@@ -57,7 +60,7 @@ public final class TypeManufacturerUtil {
      *         if attribute strategy cannot be instantiated
      */
     public static AttributeStrategy<?> findAttributeStrategy(DataProviderStrategy strategy,
-            List<Annotation> annotations, Class<?> attributeType)
+                                                             List<Annotation> annotations, Class<?> attributeType, String parameterName,HashMap<String, Object> attributeValueMap,List<String> consumeList)
             throws InstantiationException, IllegalAccessException {
 
         List<Annotation> localAnnotations = new ArrayList<Annotation>(annotations);
@@ -73,6 +76,35 @@ public final class TypeManufacturerUtil {
                 try {
                     Class c = Class.forName(strategyAnnotation.value(),false,ClassLoader.getSystemClassLoader());
                     return (AttributeStrategy) c.getConstructors()[0].newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if (annotation instanceof JdryConsume) {
+                JdryConsume strategyAnnotation = (JdryConsume) annotation;
+                try {
+                    Class c = Class.forName(strategyAnnotation.value(),false,ClassLoader.getSystemClassLoader());
+                    return (AttributeStrategy) c.getConstructor(new Class[]{java.lang.String.class,Class.class}).newInstance(new Object[]{parameterName,attributeType});
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if (annotation instanceof JdryData) {
+                JdryData strategyAnnotation = (JdryData) annotation;
+                try {
+                    Class c = Class.forName(strategyAnnotation.value(),false,ClassLoader.getSystemClassLoader());
+                    AttributeStrategy attributeStrategy =  (AttributeStrategy) c.getConstructor(new Class[]{java.lang.String.class,java.lang.String.class}).newInstance(new Object[]{strategyAnnotation.expression(),parameterName});
+                    HashMap<String, Object> map = (HashMap<String, Object>)attributeStrategy.getValue();
+                    attributeValueMap.putAll(map);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (consumeList.contains(parameterName)) {
+                try {
+                    Method method = JdryConsume.class.getDeclaredMethod("value");
+                    String value = (String) method.getDefaultValue();
+                    Class c = Class.forName(value, false, ClassLoader.getSystemClassLoader());
+                    return (AttributeStrategy) c.getConstructor(new Class[]{java.lang.String.class, Class.class}).newInstance(new Object[]{parameterName, attributeType});
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

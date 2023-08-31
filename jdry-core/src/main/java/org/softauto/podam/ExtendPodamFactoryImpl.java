@@ -646,7 +646,7 @@ public class ExtendPodamFactoryImpl implements PodamFactory {
 
 
 			AttributeStrategy<?> attributeStrategy
-					= TypeManufacturerUtil.findAttributeStrategy(strategy, pojoAttributeAnnotations, attributeType);
+					= TypeManufacturerUtil.findAttributeStrategy(strategy, pojoAttributeAnnotations, attributeType,attribute.getName(),attributeValueMap,consumeList);
 			if (null != attributeStrategy) {
 
 				LOG.debug("The attribute: " + attribute.getName()
@@ -775,7 +775,24 @@ public class ExtendPodamFactoryImpl implements PodamFactory {
 		return pojo;
 	}
 
+	List<String> consumeList = new ArrayList<>();
+
+	List<String> excludedFields = new ArrayList<>();
+
 	HashMap<String,Object> attributeValueMap = new HashMap<>();
+
+	public ExtendPodamFactoryImpl setExcludedFields(List<String> excludedFields,Class<?> pojoClass) {
+		//this.excludedFields = excludedFields;
+		for(String s : excludedFields) {
+			((ExtendAbstractClassInfoStrategy) classInfoStrategy).addExcludedField(pojoClass, s);
+		}
+		return this;
+	}
+
+	public ExtendPodamFactoryImpl setConsumeList(List<String> consumeList) {
+		this.consumeList = consumeList;
+		return this;
+	}
 
 	public ExtendPodamFactoryImpl setAttributeValueMap(HashMap<String, Object> attributeValueMap) {
 		this.attributeValueMap = attributeValueMap;
@@ -1807,7 +1824,7 @@ public class ExtendPodamFactoryImpl implements PodamFactory {
 			InvocationTargetException, ClassNotFoundException {
 
 		AttributeStrategy<?> attributeStrategy
-				= TypeManufacturerUtil.findAttributeStrategy(strategy, annotations, parameterType);
+				= TypeManufacturerUtil.findAttributeStrategy(strategy, annotations, parameterType,parameterName,attributeValueMap,consumeList);
 		if (null != attributeStrategy) {
 
 			LOG.debug("The parameter: " + genericType

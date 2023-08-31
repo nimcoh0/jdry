@@ -16,6 +16,7 @@ public class ExtendAbstractClassInfoStrategy extends AbstractClassInfoStrategy {
 
     List<String> _excludedFields = new ArrayList<>();
 
+
     public ClassInfo getClassInfo(Class<?> clazz,
                                   Set<Class<? extends Annotation>> excludeFieldAnnotations,
                                   Set<String> excludedFields,
@@ -25,6 +26,7 @@ public class ExtendAbstractClassInfoStrategy extends AbstractClassInfoStrategy {
         ClassInfo classInfo = super.getClassInfo(clazz,excludeFieldAnnotations,excludedFields,attributeApprover,extraMethods);
         Set<ClassAttribute> attributes = classInfo.getClassAttributes();
         Set<ClassAttribute> newAttributes = new HashSet<>();
+        _excludedFields.addAll(excludedFields);
         for(ClassAttribute classAttribute : attributes){
             Annotation[] annotations = classAttribute.getAttribute().getDeclaredAnnotations();
             if(annotations != null && annotations.length > 0) {

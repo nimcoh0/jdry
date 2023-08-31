@@ -79,7 +79,7 @@ public class JaxrsProviderImpl implements Provider {
                 logger.debug("successfully exec jaxrs call  "+  stepName);
 
             });
-        }catch (Exception e){
+        }catch (Throwable e){
             logger.error("exec jaxrs call  fail "+  stepName,e);
         }
     }
