@@ -132,6 +132,7 @@ public final class TypeManufacturerUtil {
 					/* We don't need to do anything for NotNull constraint */
                     iter.remove();
                 } else if (!NotNull.class.getPackage().equals(annotationClass.getPackage())) {
+                    iter.remove();
                     LOG.warn("Please, register AttributeStratergy for custom "
                             + "constraint {}, in DataProviderStrategy! Value "
                             + "will be left to null", annotation);

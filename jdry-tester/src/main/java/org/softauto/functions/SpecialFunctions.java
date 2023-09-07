@@ -3,11 +3,10 @@ package org.softauto.functions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.core.Utils;
+import org.softauto.core.*;
 import org.softauto.espl.Espl;
 import org.softauto.podam.ExtendPodamFactoryImpl;
 import org.softauto.tester.Comparator;
-import org.softauto.core.Suite;
 import uk.co.jemos.podam.api.PodamFactory;
 import java.util.Arrays;
 import java.util.Date;
@@ -19,11 +18,16 @@ public class SpecialFunctions {
 
     private static Logger logger = LogManager.getLogger(SpecialFunctions.class);
 
-    public Suite suite = Suite.getInstance();
+    public AbstractSuite suite ;
 
     public void setSuite(Suite suite) {
         this.suite = suite;
     }
+
+    public SpecialFunctions(){
+        //suite = (AbstractSuite)SuiteFactory.getSuite(Configuration.get(Context.CACHE_IMPL).asString());
+    }
+
 
     public boolean compare(Object expected, Object actual){
         return new Comparator().setExpected(expected).setActual(actual).compare();
@@ -36,7 +40,7 @@ public class SpecialFunctions {
 
     public Object retrieve(String name,String type){
         try {
-            Object r = suite.getPublish(name,type);
+            Object r = suite.getPublishParameter(name,type);
             if(r != null && !r.toString().isEmpty()){
                 logger.debug(name + " found in cache ");
                 if(Utils.isPrimitive(type)){
@@ -81,16 +85,6 @@ public class SpecialFunctions {
         try {
             HashMap<String, Object> attributeMap = new HashMap<>();
             if(type != null && !type.isEmpty()) {
-                /*
-                if(data != null && data.length >0){
-                    for(String json : data){
-                        Map<String,Object> map = new ObjectMapper().readValue(json, HashMap.class);
-                        attributeMap.putAll(map);
-                    }
-                }
-
-                 */
-
                 Class c = Class.forName(type, false, ClassLoader.getSystemClassLoader());
                 PodamFactory factory = new ExtendPodamFactoryImpl().setAttributeValueMap(data).setExcludedFields(Arrays.asList(excludes),c).setConsumeList(Arrays.asList(consumes));
                 Object pojo = factory.manufacturePojo(c);
@@ -105,7 +99,7 @@ public class SpecialFunctions {
 
 
 
-
+/*
     public static Object random(String type,String[] keys,Object[] values){
         try {
             if(type != null && !type.isEmpty()) {
@@ -134,11 +128,13 @@ public class SpecialFunctions {
     }
 
 
+ */
+
     public <T> T consume(String expression,Class type){
         try {
             if(expression != null && !expression.isEmpty()) {
                 if (expression.contains("/")) {
-                    return (T) suite.getPublish(expression,type.getTypeName());
+                    return (T) suite.getPublishParameter(expression,type.getTypeName());
                 } else {
                     return (T)suite.findKey(expression);
                 }
@@ -153,7 +149,7 @@ public class SpecialFunctions {
         try {
             if(expression != null && !expression.isEmpty()) {
                 if (expression.contains("/")) {
-                    return (T) suite.getPublish(expression,type);
+                    return (T) suite.getPublishParameter(expression,type);
                 } else {
                     return (T)suite.findKey(expression);
                 }
@@ -168,7 +164,7 @@ public class SpecialFunctions {
         try {
             if(expression != null && !expression.isEmpty()) {
                 if (expression.contains("/")) {
-                    return (T) suite.getPublish(expression);
+                    return (T) suite.getPublishParameter(expression);
                 } else {
                     return (T)suite.findKey(expression);
                 }

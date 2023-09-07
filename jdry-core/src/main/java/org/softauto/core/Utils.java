@@ -158,7 +158,7 @@ public class Utils {
             }else{
                 name = clazz;
             }
-            return builtInMap.get(name.toLowerCase());
+            return builtInMap.get(name);
         }
 
        return null;
@@ -174,9 +174,9 @@ public class Utils {
         builtInMap.put("boolean", Boolean.TYPE );
         builtInMap.put("char", Character.TYPE );
         builtInMap.put("byte", Byte.TYPE );
-        builtInMap.put("void", Void.TYPE );
+       // builtInMap.put("void", Void.TYPE );
         builtInMap.put("short", Short.TYPE );
-        builtInMap.put("string", String.class );
+       // builtInMap.put("string", String.class );
 
     }
 
@@ -205,7 +205,7 @@ public class Utils {
             }else{
                 name = type;
             }
-            if (PRIMITIVES.contains(name.toLowerCase())) {
+            if (PRIMITIVES.contains(name)) {
                 return true;
             }
         }
@@ -214,18 +214,18 @@ public class Utils {
 
     static final List<String> PRIMITIVES = new ArrayList<>();
     static {
-        PRIMITIVES.add("string");
+        //PRIMITIVES.add("string");
         PRIMITIVES.add("bytes");
         PRIMITIVES.add("int");
-        PRIMITIVES.add("integer");
+        //PRIMITIVES.add("integer");
         PRIMITIVES.add("long");
         PRIMITIVES.add("float");
         PRIMITIVES.add("double");
         PRIMITIVES.add("boolean");
-        PRIMITIVES.add("null");
-        PRIMITIVES.add("void");
-        PRIMITIVES.add("com.fasterxml.jackson.databind.node.IntNode");
-        PRIMITIVES.add("com.fasterxml.jackson.databind.node.NullNode");
+        //PRIMITIVES.add("null");
+       // PRIMITIVES.add("void");
+        //PRIMITIVES.add("com.fasterxml.jackson.databind.node.IntNode");
+        //PRIMITIVES.add("com.fasterxml.jackson.databind.node.NullNode");
     }
 
 
@@ -304,5 +304,18 @@ public class Utils {
         return value+";";
     }
 
+    public static String capitalizeFirstLetter(String str){
+        if(str != null && !str.isEmpty()) {
+            return str.toUpperCase().charAt(0) + str.substring(1, str.length());
+        }
+        return str;
+    }
+
+    public static String unCapitalizeFirstLetter(String str){
+        if(str != null && !str.isEmpty()) {
+            return str.toLowerCase().charAt(0) + str.substring(1, str.length());
+        }
+        return str;
+    }
 
 }

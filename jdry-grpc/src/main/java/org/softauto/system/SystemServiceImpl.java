@@ -49,7 +49,7 @@ public class SystemServiceImpl {
     public boolean startTest(String testname){
         Context.setTestState(TestLifeCycle.START);
         logger.info(" **************** start test "+ testname+ " ******************");
-        logger.info(TRACER," **************** start test "+ testname+ " ******************");
+        //logger.info(TRACER," **************** start test "+ testname+ " ******************");
         return true;
     }
 
@@ -65,7 +65,7 @@ public class SystemServiceImpl {
             String d = formatter.format(date);
             System.setProperty("logFilename", testname+"_"+d);
             logger.info(" **************** end test " + testname + " ******************");
-            logger.info(TRACER, " **************** end test " + testname + " ******************");
+            //logger.info(TRACER, " **************** end test " + testname + " ******************");
             logger.info(TRACER, "roll test");
 
         }catch (Exception e){

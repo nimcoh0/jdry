@@ -33,6 +33,8 @@ public @interface JAXRS {
 
     String response() default "";
 
+    String mapping() default "";
+
     //javax.ws.rs.core.Context UriInfo() default @javax.ws.rs.core.Context;
 
 }

@@ -1,6 +1,7 @@
 package org.softauto.podam.strategies;
 
 import org.softauto.core.Suite;
+import org.softauto.core.SuiteFactory;
 import uk.co.jemos.podam.common.AttributeStrategy;
 
 public class ConsumeStrategy implements AttributeStrategy<Object> {
@@ -16,6 +17,6 @@ public class ConsumeStrategy implements AttributeStrategy<Object> {
 
     @Override
     public Object getValue() {
-        return Suite.getInstance().getPublish("/"+attribute,type.getTypeName());
+        return SuiteFactory.getSuite().getPublish("/"+attribute,type.getTypeName());
     }
 }

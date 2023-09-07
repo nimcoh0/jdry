@@ -1,5 +1,6 @@
 package org.softauto.jaxrs;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.softauto.core.TestContext;
 import org.softauto.jaxrs.util.Threadlocal;
@@ -10,6 +11,9 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Cookie;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -32,7 +36,9 @@ public class JerseyHelper {
         T t = null;
         Response res = null;
         try{
-            res = client.target(url).request(mediaType).headers(headers).cookie(cookie).get();
+            //res = client.target(url).request(mediaType).headers(headers).cookie(cookie).get();
+            WebTarget webTarget = this.client.target(url);
+            res = webTarget.request(mediaType).headers(headers).cookie(cookie).get();
             if (Response.Status.fromStatusCode(res.getStatus()).getFamily() == Response.Status.Family.SUCCESSFUL) {
                 logger.debug("get request successfully for url "+ url + " status "+ res.getStatusInfo());
                 TestContext.put("sessionId", res.getCookies().get("JSESSIONID"));
@@ -98,7 +104,7 @@ public class JerseyHelper {
                      //   TestContext.put("sessionId", res.getCookies().get("JSESSIONID"));//((Cookie)res.getHeaders().get("Cookie").get(0)).getValue())
                 //}
                 if(res.hasEntity()) {
-                        t = (T) res.readEntity(response);
+                      t = (T) res.readEntity(response);
                     }
                 }else {
                     t = (T)res;

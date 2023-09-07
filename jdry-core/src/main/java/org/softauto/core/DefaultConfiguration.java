@@ -30,6 +30,9 @@ public class DefaultConfiguration {
         configuration.put(Context.PASSWORD_FIELD,"password");
         configuration.put(Context.EMAIL_FIELD,"email");
         configuration.put(Context.TEST_LIB, "C:/work/myprojects/java/WebServiceTestsAuto/target/test-classes/tests/TestLib.class");
+        configuration.put(Context.CACHE_IMPL,"org.softauto.core.Suite");
+        configuration.put(Context.ENTITY_NAME_POSTFIX,"");
+        configuration.put(Context.ENTITY_NAME_PREFIX,"");
     }
 
     public static HashMap<String,Object> getConfiguration() {

@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Expression {
 
-    String value() ;
+    String value() default "";
 
-    String type() ;
+    String type() default "";
 
     String name() default "";
 

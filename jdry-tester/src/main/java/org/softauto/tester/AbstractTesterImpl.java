@@ -47,7 +47,7 @@ public class AbstractTesterImpl extends SpecialFunctions {
            SystemState.getInstance().initialize();
            ListenerServerProviderImpl.getInstance().initialize().register();
            loadPlugins();
-
+           suite = (AbstractSuite)SuiteFactory.getSuite(Configuration.get(Context.CACHE_IMPL).asString());
           // loadTestSuite();
         }catch (Exception e){
             logger.error("fail start listener ",e);

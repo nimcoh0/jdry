@@ -32,6 +32,13 @@ public class HttpServletRequestSerializer extends StdSerializer<HttpServletReque
         super(t);
     }
 
+
+    @Override
+    public void wrapAndThrow(SerializerProvider provider, Throwable t, Object bean, String fieldName) throws IOException {
+        return;
+    }
+
+
     private HashMap<String,Object> getHeaders(HttpServletRequest httpServletRequest){
         HashMap<String,Object> headers = new HashMap<>();
         Enumeration enumeration = httpServletRequest.getHeaderNames();
@@ -63,6 +70,8 @@ public class HttpServletRequestSerializer extends StdSerializer<HttpServletReque
     @Override
     public void serialize(HttpServletRequest httpServletRequest, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         HashMap<String, Object> hm = new HashMap<>();
+        //ServletRequest s =((HttpServletRequestWrapper)httpServletRequest).getRequest();
+
        // byte[] cachedBody;
         //String requestStr = IOUtils.toString(httpServletRequest.getInputStream());
         //InputStream inputStream = httpServletRequest.getInputStream();
@@ -93,7 +102,7 @@ public class HttpServletRequestSerializer extends StdSerializer<HttpServletReque
         //InputStream inputStream = httpServletRequest.getInputStream();
         //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         //ServletInputStream servletInputStream = httpServletRequest.getInputStream();
-
+        //((HttpServletRequestWrapper)httpServletRequest).setRequest(s);
         //jsonGenerator.writeStartObject();
         if(hm.size() > 0) {
             HashMap<String, Object> hm1 = new HashMap<>();
@@ -102,6 +111,7 @@ public class HttpServletRequestSerializer extends StdSerializer<HttpServletReque
             jsonGenerator.writeObject(hm1);
             //jsonGenerator.writeObjectField("javax.servlet.http.HttpServletRequest", hm);
         }
+
         //jsonGenerator.writeEndObject();
     }
 }

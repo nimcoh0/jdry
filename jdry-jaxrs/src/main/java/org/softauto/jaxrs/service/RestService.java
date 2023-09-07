@@ -104,6 +104,7 @@ public class RestService {
         @Override
         public <T> T invoke(IStepDescriptor stepDescriptor, Object[] args) {
             try {
+                String scenarioId = stepDescriptor.getScenarioId();
                 stepDescriptor.setArgs(args);
                 MediaType produce = stepDescriptor.getConsume();
                 Client client = stepDescriptor.getClient();
@@ -113,7 +114,7 @@ public class RestService {
                 URI uri = channel.getUri();
                 Cookie cookie = stepDescriptor.getCookie();
                 Class returnType = stepDescriptor.getReturnType();
-                String scenarioId = stepDescriptor.getScenarioId();
+                //String scenarioId = stepDescriptor.getScenarioId();
                 /*
                 Client client = ClientBuilder.newBuilder().setPassword(stepDescriptor.getAuthenticationPassword())
                         .setUsername(stepDescriptor.getAuthenticationUserName())

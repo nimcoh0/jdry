@@ -62,7 +62,9 @@ public class Context {
     public final static String PLUGINS = "plugins";
     public final static String PLUGIN = "plugin";
     public final static String TEST_LIB = "test_lib";
-
+    public final static String CACHE_IMPL = "cache_impl";
+    public final static String ENTITY_NAME_POSTFIX = "entity_name_postfix";
+    public final static String ENTITY_NAME_PREFIX = "entity_name_prefix";
     //public final static String LOG4J2_SOCKET_TCP_SERVER_PORT = "log4j2_socket_tcp_server_port";
     public static TestLifeCycle TestState = TestLifeCycle.NONE;
 

@@ -34,7 +34,7 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
     protected String scenarioId;
 
     public String getScenarioId() {
-        return callOptions.get("scenarioId").toString();
+        return scenarioId = callOptions.get("scenarioId").toString();
     }
 
     public void setCallOptions(HashMap<String,Object> callOptions) {
@@ -99,9 +99,9 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
 
     public abstract ChannelDescriptor getChannel();
 
-    public MultivaluedMap<String, Object> getHeaders() {
-        return callOptions.get("headers") != null ? (MultivaluedMap<String, Object>) callOptions.get("headers") : new MultivaluedHashMap<>();
-    }
+    public abstract MultivaluedMap<String, Object> getHeaders();
+
+
 
     public Class getReturnType(){
         try {

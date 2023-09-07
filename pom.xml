@@ -22,39 +22,41 @@
         <!--module>jdry-local</module-->
         <module>jdry-serializer</module>
         <module>jdry-grpc-client</module>
+        <module>jdry-jax-rs-plugin</module>
+        <module>jdry-web-spring-plugin</module>
         <!--module>jdry-spring-jaxrs</module-->
         <!--module>jdry-listener</module-->
         <!--module>jdry-injector</module-->
     </modules>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.32.Final</version>
+            <version>4.1.97.Final</version>
         </dependency>
 
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty</artifactId>
-            <version>1.18.0</version>
+            <version>1.56.1</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
-            <version>1.18.0</version>
+            <version>1.56.1</version>
             <scope>compile</scope>
 
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-core</artifactId>
-            <version>1.18.0</version>
+            <version>1.56.1</version>
         </dependency>
 
         <dependency>
