@@ -120,6 +120,46 @@ public class Configuration {
         configuration.put(key,value);
     }
 
+    public  static boolean contains(String key){
+        try {
+            for(Map.Entry entry : configuration.entrySet()){
+                if(entry.getKey().toString().contains(key)){
+                    return true;
+                }
+            }
+        }catch (Exception e){
+            logger.error("",e);
+        }
+        return  false;
+    }
 
+    public  static Object getKey(String key){
+        try {
+            for(Map.Entry entry : configuration.entrySet()){
+                if(entry.getKey().toString().contains(key)){
+                    return entry.getValue();
+                }
+            }
+
+        }catch (Exception e){
+            logger.error("",e);
+        }
+        return null;
+    }
+
+    public  static List<Object> getKeyList(String key){
+        List<Object> o = new ArrayList<>();
+        try {
+            for(Map.Entry entry : configuration.entrySet()){
+                if(entry.getKey().toString().contains(key)){
+                    o.add(entry.getValue());
+                }
+            }
+
+        }catch (Exception e){
+            logger.error("",e);
+        }
+        return o;
+    }
 
 }

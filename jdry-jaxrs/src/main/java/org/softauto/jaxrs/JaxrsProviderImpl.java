@@ -2,7 +2,9 @@ package org.softauto.jaxrs;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.grpc.ManagedChannel;
+import jakarta.ws.rs.core.Response;
 import org.apache.avro.ipc.CallFuture;
+import org.apache.commons.lang3.ClassUtils;
 import org.softauto.core.CallbackToResponseStreamObserverAdpater;
 import org.softauto.core.Configuration;
 import org.softauto.core.ServiceLocator;
@@ -64,22 +66,32 @@ public class JaxrsProviderImpl implements Provider {
     public <RespT> void exec(String stepName, CallFuture<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions) {
         try {
             executor.submit(()->{
-                CallbackToResponseStreamObserverAdpater observerAdpater = new CallbackToResponseStreamObserverAdpater(callback, null);
-                testDefinition = RestService.createTestDefinition(stepName,args,types,callOptions);
-                StepDefinition md = testDefinition.getStep(stepName);
-                //RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
-                RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
-                if (res != null) {
-                    observerAdpater.onCompleted((RespT)res);
-                } else {
-                    observerAdpater.onError(new RuntimeException("Stream got cancelled"));
+                try {
+                    CallbackToResponseStreamObserverAdpater observerAdpater = new CallbackToResponseStreamObserverAdpater(callback, null);
+                    testDefinition = RestService.createTestDefinition(stepName,args,types,callOptions);
+                    StepDefinition md = testDefinition.getStep(stepName);
+                    //RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
+                    RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
+                    if (((Response)res).getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL) {
+                        if(((Response)res).hasEntity()) {
+                            Class c = ClassUtils.getClass(callOptions.get("response").toString());
+                            observerAdpater.onCompleted(((Response)res).readEntity(c));
+                            //observerAdpater.onCompleted(((Response)res).getEntity());
+                        }else {
+                            observerAdpater.onCompleted((RespT) res);
+                        }
+                    } else {
+                        observerAdpater.onError(new RuntimeException(((Response)res).getStatusInfo().getReasonPhrase()));
+                    }
+
+
+                    logger.debug("successfully exec jaxrs call  "+  stepName);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
 
-
-                logger.debug("successfully exec jaxrs call  "+  stepName);
-
             });
-        }catch (Throwable e){
+        }catch (Exception e){
             logger.error("exec jaxrs call  fail "+  stepName,e);
         }
     }

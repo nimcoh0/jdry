@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import org.apache.commons.lang3.StringUtils;
 import org.softauto.espl.Espl;
 
 import java.util.ArrayList;
@@ -34,6 +35,25 @@ public abstract class AbstractSuite {
         return this;
     }
 
+    private void save(String name,JsonNode data){
+        String path = "";
+        ObjectNode node = this.data;
+        if(name.contains("/")) {
+            String[] strArray = StringUtils.split(name, "/");
+            for(int i=0;i<strArray.length-1;i++){
+                ObjectNode node1 = new ObjectMapper().createObjectNode();
+                node.put(strArray[i],node1);
+                node = (ObjectNode) node.get(strArray[i]);
+                path = path +"/" + strArray[i] ;
+            }
+            //ObjectNode n = (ObjectNode) this.data.at(path);
+            node.put(strArray[strArray.length-1],data);
+        }else {
+            this.data.set(name.toLowerCase(), data);
+        }
+    }
+
+
     public AbstractSuite addPublish(String name,Object data){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -41,10 +61,12 @@ public abstract class AbstractSuite {
             String str = objectMapper.writeValueAsString(data);
             Object o = objectMapper.readTree(str);
             if(o instanceof JsonNode){
-                this.data.set(name.toLowerCase(), (JsonNode) o);
+                save(name.toLowerCase(),(JsonNode) o);
+               // this.data.set(name.toLowerCase(), (JsonNode) o);
             }else {
                 JsonNode node = (ObjectNode) new ObjectMapper().readTree(str);
-                this.data.set(name.toLowerCase(),node);
+                //this.data.set(name.toLowerCase(),node);
+                save(name.toLowerCase(), node);
             }
 
         } catch (JsonProcessingException e) {
