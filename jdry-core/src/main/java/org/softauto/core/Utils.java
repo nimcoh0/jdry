@@ -78,10 +78,12 @@ public class Utils {
         List<Object> objs = new ArrayList<>();
         try {
             List<String> args = (List<String>) callOption.get("constructor");
-            for(int i=0;i<args.size();i++){
-               String s = new ObjectMapper().writeValueAsString(args.get(i));
-               Object o =  new ObjectMapper().readValue(s,types[i]);
-               objs.add(o);
+            if(args != null && args.size() > 0) {
+                for (int i = 0; i < args.size(); i++) {
+                    String s = new ObjectMapper().writeValueAsString(args.get(i));
+                    Object o = new ObjectMapper().readValue(s, types[i]);
+                    objs.add(o);
+                }
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();

@@ -1,6 +1,7 @@
 package org.softauto.listener;
 
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
@@ -15,18 +16,25 @@ public class ListenerServiceImpl implements SerializerService{
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerServiceImpl.class);
 
+    ObjectMapper objectMapper;
+
+    public ListenerServiceImpl(){
+        objectMapper =  new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
     @Override
     public synchronized Object execute(ByteBuffer mes) throws Exception {
         Object methodResponse = null;
         String newContent = new String(mes.array(), StandardCharsets.UTF_8);
-        Message message = new ObjectMapper().readValue(newContent,Message.class);
+        Message message = objectMapper.readValue(newContent,Message.class);
 
         try {
             Object[] args = message.getArgs();
             Class[] types = message.getTypes();
             for(int i=0;i<args.length;i++){
-                String json = new ObjectMapper().writeValueAsString(args[i]);
-                args[i] = new ObjectMapper().readValue(json,types[i]);
+                String json = objectMapper.writeValueAsString(args[i]);
+                args[i] = objectMapper.readValue(json,types[i]);
             }
             if (message.getDescriptor().equals("log") || message.getDescriptor().equals("logError")) {
                 printLog(message);
@@ -37,20 +45,20 @@ public class ListenerServiceImpl implements SerializerService{
                 Object o = ListenerObserver.getInstance().getLastChannel(message.getDescriptor());
                 if (o != null) {
                     methodResponse = message.getArgs();
-                    if (o instanceof FunctionBefore) {
+                    if (o instanceof Exec) {
                         if (message.getState().equals(ListenerType.BEFORE.name())) {
                             logger.debug("got message Before " + message.toJson());
-                            methodResponse = ((FunctionBefore) o).apply(message.getArgs());
+                            methodResponse = ((Exec) o).apply(message.getArgs());
                             logger.debug("result of function Before " + methodResponse);
                         }
                     }
-                    if (o instanceof FunctionAfter) {
+                    if (o instanceof Exec) {
                         if (message.getState().equals(ListenerType.AFTER.name())) {
                             logger.debug("got message After " + message.toJson());
                             if (message.getArgs().length == 1) {
-                                methodResponse = ((FunctionAfter) o).apply(message.getArgs()[0]);
+                                methodResponse = ((Exec) o).apply(message.getArgs()[0]);
                             } else {
-                                methodResponse = ((FunctionAfter) o).apply(message.getArgs());
+                                methodResponse = ((Exec) o).apply(message.getArgs());
                             }
                             logger.debug("result of function After " + methodResponse);
                         }
@@ -58,13 +66,13 @@ public class ListenerServiceImpl implements SerializerService{
 
 
                 }else {
-                    byte[] m = new ObjectMapper().writeValueAsBytes(message.getArgs());
+                    byte[] m = objectMapper.writeValueAsBytes(message.getArgs());
                     ByteBuffer byteBuffer = ByteBuffer.wrap(m);
                     return byteBuffer;
 
                 }
             }else {
-                byte[] m = new ObjectMapper().writeValueAsBytes(message.getArgs());
+                byte[] m = objectMapper.writeValueAsBytes(message.getArgs());
                 ByteBuffer byteBuffer = ByteBuffer.wrap(m);
                 return byteBuffer;
 
@@ -72,7 +80,7 @@ public class ListenerServiceImpl implements SerializerService{
         } catch(Exception e){
             logger.error("fail invoke method " + message.getDescriptor(), e);
         }
-        byte[] m = new ObjectMapper().writeValueAsBytes(methodResponse);
+        byte[] m = objectMapper.writeValueAsBytes(methodResponse);
         ByteBuffer byteBuffer = ByteBuffer.wrap(m);
         return byteBuffer;
     }

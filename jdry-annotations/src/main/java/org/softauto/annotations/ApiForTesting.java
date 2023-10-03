@@ -24,7 +24,7 @@ public @interface ApiForTesting {
 
     Publish[] publish() default {};
 
-    String callback() default "";
+    CallBack callback() default @CallBack;
 
     String returnType() default "";
 
