@@ -34,7 +34,10 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
     protected String scenarioId;
 
     public String getScenarioId() {
-        return scenarioId = callOptions.get("scenarioId").toString();
+        if(callOptions.containsKey("scenarioId")) {
+            return scenarioId = callOptions.get("scenarioId").toString();
+        }
+       return TestContext.getScenarioKey();
     }
 
     public void setCallOptions(HashMap<String,Object> callOptions) {
@@ -49,7 +52,8 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
 
     public void setArgs(Object[] args) {
         this.args = args;
-        TestContext.getScenario(callOptions.get("scenarioId").toString()).addProperty("args", args);
+
+        TestContext.getScenario(callOptions.containsKey("scenarioId") ? callOptions.get("scenarioId").toString() : null).addProperty("args", args);
         //Threadlocal.getInstance().add("args", args);
     }
 

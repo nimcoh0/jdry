@@ -1,18 +1,19 @@
 package org.softauto.grpc.client;
 
+
 import com.fasterxml.jackson.databind.JsonNode;
 import io.grpc.ManagedChannel;
-import org.apache.avro.ipc.CallFuture;
 import org.softauto.core.ClassType;
 import org.softauto.core.ServiceLocator;
 import org.softauto.plugin.api.Provider;
 import org.softauto.serializer.Serializer;
 import org.softauto.serializer.service.Message;
 import org.softauto.serializer.service.MessageType;
-
 import javax.lang.model.element.Element;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * grpc server impl
@@ -22,6 +23,9 @@ public class RpcProviderImpl implements Provider {
 
     private static RpcProviderImpl rpcProviderImpl = null;
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(RpcProviderImpl.class);
+
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+
 
     /** default listener host **/
     String host = "localhost";
@@ -71,37 +75,9 @@ public class RpcProviderImpl implements Provider {
         return null;
     }
 
-    public void  exec(String name,  ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){
-        Object result = null;
-        try {
-            doExec(name,  channel,  args,  types,  callOptions);
-        }catch (Exception e){
-            logger.error("fail exec rpc call "+ name, e);
-        }
 
-    }
 
-    public <RespT> void exec(String name, CallFuture<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){
-        Object result = null;
-        try {
-            result = doExec(name,  channel,  args,  types,  callOptions);
-        }catch (Exception e){
-            logger.error("fail exec rpc call "+ name, e);
-        }
-        callback.handleResult((RespT) result);
-        logger.debug("callback value "+callback.getResult()+" get error "+callback.getError());
-    }
-
-    /**
-     * @// TODO: 21/11/2022 define callOptions for Step in test
-     * @param name
-     * @param channel
-     * @param args
-     * @param types
-     * @param callOptions
-     * @return
-     */
-    private Object doExec(String name,  ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){
+    public <RespT> void exec(String name, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){
         Object result = null;
         try {
             logger.debug("exec rpc call "+ name);
@@ -117,7 +93,35 @@ public class RpcProviderImpl implements Provider {
                 classType = ClassType.fromString(callOptions.get("classType").toString());
             }
             if(callOptions != null  && callOptions.containsKey("messageType")) {
-                messageType = MessageType.fromString(callOptions.get("messageType").toString()); 
+                messageType = MessageType.fromString(callOptions.get("messageType").toString());
+            }
+
+            Message message = Message.newBuilder().setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("callOption",callOptions).build();
+            serializer.write(message,callback);
+
+        }catch (Exception e){
+            logger.error("fail exec rpc call "+ name, e);
+        }
+    }
+
+
+    public <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){
+        Object result = null;
+        try {
+            logger.debug("exec rpc call "+ name);
+            Serializer serializer;
+            if(channel != null) {
+                serializer = new Serializer().setChannel(channel);
+            }else {
+                serializer = new Serializer().setHost(host).setPort(port).build();
+            }
+            ClassType classType = ClassType.NONE;
+            MessageType messageType = MessageType.METHOD;
+            if(callOptions != null  && callOptions.containsKey("classType")) {
+                classType = ClassType.fromString(callOptions.get("classType").toString());
+            }
+            if(callOptions != null  && callOptions.containsKey("messageType")) {
+                messageType = MessageType.fromString(callOptions.get("messageType").toString());
             }
 
             Message message = Message.newBuilder().setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("callOption",callOptions).build();
@@ -128,7 +132,5 @@ public class RpcProviderImpl implements Provider {
         }
         return result;
     }
-
-
 
 }

@@ -29,7 +29,15 @@ public class TestContext {
         return false;
     }
 
+    public static String getScenarioKey(){
+           return   scenarios.keySet().toArray(new String[1])[0].toString();
+    }
+
     public static Scenario getScenario(String id){
+        if(id == null){
+          String key =   scenarios.keySet().toArray(new String[1])[0].toString();
+          return scenarios.values().toArray(new Scenario[1])[0];
+        }
         return scenarios.get(id);
     }
 

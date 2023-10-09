@@ -18,7 +18,14 @@ public class Step {
     CallFuture<Object> future = null;
     protected HashMap<String,Object> callOptions = null;
 
+    Object result;
+
     public Step(){};
+
+    public Step setResult(Object result) {
+        this.result = result;
+        return this;
+    }
 
     public Step(CallOptions callOptions){
         this.callOptions = callOptions.getOptions();
@@ -26,14 +33,18 @@ public class Step {
 
     public <T> T get_Result() throws Exception{
             try {
+                if (future != null) {
+                    if (!future.isDone()) {
+                        logger.debug("waiting to future to be done");
+                        future.await();
+                    }
+                    logger.debug("successfully get_Result() ");
+                    return (T) future.get();
+                }else {
+                    return (T)result;
+                }
 
-               if(!future.isDone()) {
-                  logger.debug("waiting to future to be done");
-                  future.await();
-               }
-                logger.debug("successfully get_Result() ");
-                return (T)future.get();
-             }catch (Exception e){
+            }catch (Exception e){
                  logger.error("fail get_Result() "+ e);
                  throw new Exception("fail get_Result() "+ e);
              }
@@ -59,6 +70,11 @@ public class Step {
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,String scenarioId, CallFuture<T> future)throws Exception{
         logger.debug("invoking " +fqmn);
         callOptions.put("scenarioId",scenarioId);
+        new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+    }
+
+    public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions, org.apache.avro.ipc.Callback<T> future)throws Exception{
+        logger.debug("invoking " +fqmn);
         new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
     }
 
@@ -144,5 +160,12 @@ public class Step {
             future.handleResult(future.getResult());
             return this;
         }
+
+    public void Step(String fqmn, Object[] args, Class[] types, String transceiver, HashMap<String, Object> callOptions, String scenarioId) throws Exception {
+        this.future = new CallFuture();
+        logger.debug("invoking " + fqmn);
+        callOptions.put("scenarioId", scenarioId);
+        (new InvocationHandler()).invoke(fqmn, args, types, this.future, transceiver, callOptions);
+    }
 
 }

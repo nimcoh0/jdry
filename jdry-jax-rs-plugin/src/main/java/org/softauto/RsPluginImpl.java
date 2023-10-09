@@ -1,6 +1,7 @@
 package org.softauto;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.grpc.ManagedChannel;
 import org.softauto.auth.basic.BasicStepDescriptorImpl;
 import org.softauto.auth.jwt.JwtStepDescriptorImpl;
 import org.softauto.auth.none.NoneStepDescriptorImpl;
@@ -62,7 +63,12 @@ public class RsPluginImpl implements Provider {
     }
 
     @Override
-    public <RespT> void exec(String name, org.apache.avro.ipc.CallFuture<RespT> callback, io.grpc.ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions) {
+    public <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions) {
+        return null;
+    }
+
+    @Override
+    public <RespT> void exec(String name, org.apache.avro.ipc.Callback<RespT> callback, io.grpc.ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions) {
 
     }
 

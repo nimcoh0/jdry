@@ -30,12 +30,12 @@ public class InvocationHandler {
 
 
 
-    public  void invoke(String methodName, Object[] args, Class[] types, CallFuture callback, String transceiver, HashMap<String,Object> callOptions)  {
+    public  void invoke(String methodName, Object[] args, Class[] types, org.apache.avro.ipc.Callback callback, String transceiver, HashMap<String,Object> callOptions)  {
         try {
             Provider provider = ProviderManager.provider(transceiver).create();
             logger.debug("invoke method " + methodName+ " using protocol "+ transceiver+ " call options "+ Arrays.toString(callOptions.entrySet().toArray()));
             provider.exec( methodName, callback,null,args,types,callOptions);
-            logger.debug("callback value  get error "+callback.getError());
+            //logger.debug("callback value  get error "+callback.getError());
         } catch (Throwable e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
         }
@@ -56,18 +56,18 @@ public class InvocationHandler {
 
     public <T> T invoke(String methodName, Object[] args, Class[] types)  throws Exception{
         CallFuture<T> future = new CallFuture<>();
-        T t = null;
+        //T t = null;
         try {
             String host = Configuration.get(Context.SERIALIZER_HOST).asString();
             int port = Configuration.get(Context.SERIALIZER_PORT).asInteger();
             Serializer serializer = new Serializer().setHost(host).setPort(port).build();
             Message message = Message.newBuilder().setDescriptor(methodName).setArgs(args).setTypes(types).build();
-            t = serializer.write(message);
+            return (T) serializer.write(message);
 
         } catch (Throwable e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
         }
-        return t;
+        return null;
     }
 
 

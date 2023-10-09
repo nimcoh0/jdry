@@ -62,12 +62,13 @@ public class Serializer {
         return this;
     }
 
-    public <T> T write(Message message) throws Exception {
+    public <T> Object write(Message message) throws Exception {
         Object result = null;
         try {
             if(connectivityState.equals(ConnectivityState.READY) || connectivityState.equals(ConnectivityState.IDLE)) {
                 byte[] m = new ObjectMapper().writeValueAsBytes(message);
                 ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+                //clientOneWay.execute(byteBuffer,future);
                 ByteBuffer res = (ByteBuffer) clientOneWay.execute(byteBuffer);
                 String newContent = new String(res.array(), StandardCharsets.UTF_8);
                 result =  new ObjectMapper().readValue(newContent,Object.class);
@@ -83,7 +84,7 @@ public class Serializer {
     }
 
 
-    public <T> void write(Message message,CallFuture<Object> callback) throws Exception {
+    public <RespT> void write(Message message,org.apache.avro.ipc.Callback<RespT> callback) throws Exception {
         Object result = null;
         try {
             if(connectivityState.equals(ConnectivityState.READY) || connectivityState.equals(ConnectivityState.IDLE)) {
@@ -91,9 +92,9 @@ public class Serializer {
                 ByteBuffer byteBuffer = ByteBuffer.wrap(m);
 
                 clientTwoWay.execute(byteBuffer,callback);
-                String newContent = new String(((ByteBuffer)callback.getResult()).array(), StandardCharsets.UTF_8);
-                result =  new ObjectMapper().readValue(newContent,Object.class);
-                callback.handleResult((T)result);
+                //String newContent = new String(((ByteBuffer)callback.getResult()).array(), StandardCharsets.UTF_8);
+                //result =  new ObjectMapper().readValue(newContent,Object.class);
+                //callback.handleResult((T)result);
                 logger.debug("successfully execute message " + message.toJson());
             }
         }catch (Exception e){
@@ -101,7 +102,7 @@ public class Serializer {
         }finally {
             channel.shutdown();
         }
-        logger.debug("result "+(T)result);
+        //logger.debug("result "+(T)result);
 
     }
 

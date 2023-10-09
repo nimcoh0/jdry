@@ -1,6 +1,5 @@
 package org.softauto.annotations;
 
-import org.softauto.annotations.util.Role;
 import java.lang.annotation.*;
 
 
@@ -20,7 +19,7 @@ public @interface ApiForTesting {
 
     String id() default "";
 
-    Role role() default Role.NONE;
+    //Role role() default Role.NONE;
 
     Publish[] publish() default {};
 

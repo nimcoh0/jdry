@@ -12,9 +12,8 @@ public interface SerializerService {
 
   Object execute(ByteBuffer message) throws Exception;
 
-
   public interface Callback extends SerializerService {
     public static final Protocol PROTOCOL = SerializerService.PROTOCOL;
-    void execute(ByteBuffer message, CallFuture<Object> callback) throws Exception;
+    <RespT> void execute(ByteBuffer message, org.apache.avro.ipc.Callback<RespT> callback) throws Exception;
   }
 }

@@ -14,13 +14,7 @@ public class ServiceCaller {
     }
 
     public static  class Call implements CallerHandler {
-        //private final requestMethod method;
-
-
-        //Call(requestMethod method) {
-         //   this.method = method;
-
-        //}
+        
         @Override
         public <T> T startCall(IStepDescriptor stepDescriptor, Object[] args) {
             try {

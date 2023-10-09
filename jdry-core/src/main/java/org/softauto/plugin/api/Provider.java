@@ -50,13 +50,8 @@ public interface Provider {
       */
      Provider iface(Class iface);
 
-     /**
-      * execute this plugin protocol request
-      * @param name
-      * @param args
-      * @param callback
-      * @param <RespT>
-      */
+
      //<RespT> void exec(String name, org.softauto.serializer.CallFuture<RespT> callback, ManagedChannel channel,Object...args);
-     <RespT> void exec(String name, CallFuture<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions);
+     <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions);
+     <RespT> void exec(String name, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions);
 }

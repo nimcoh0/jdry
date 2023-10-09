@@ -5,9 +5,6 @@ import org.apache.logging.log4j.MarkerManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.softauto.annotations.UpdateForTesting;
-import org.softauto.core.Iprovider;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -82,7 +79,7 @@ public class Listener {
 
 
 
-
+/*
     @AfterReturning(value = ("@annotation(org.softauto.annotations.VerifyForTesting)"), returning="result")
     public synchronized   void returning(JoinPoint joinPoint,Object result) {
         try {
@@ -119,5 +116,7 @@ public class Listener {
         }
     }
 
+
+ */
 
 }

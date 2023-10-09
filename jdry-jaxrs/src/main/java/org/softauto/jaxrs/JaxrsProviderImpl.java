@@ -46,6 +46,10 @@ public class JaxrsProviderImpl implements Provider {
         return this;
     }
 
+    @Override
+    public <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions) {
+        return null;
+    }
 
 
     public static JaxrsProviderImpl getInstance(){
@@ -63,7 +67,7 @@ public class JaxrsProviderImpl implements Provider {
     }
 
     @Override
-    public <RespT> void exec(String stepName, CallFuture<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions) {
+    public <RespT> void exec(String stepName, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions) {
         try {
             executor.submit(()->{
                 try {
@@ -75,8 +79,8 @@ public class JaxrsProviderImpl implements Provider {
                     if (((Response)res).getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL) {
                         if(((Response)res).hasEntity()) {
                             Class c = ClassUtils.getClass(callOptions.get("response").toString());
-                            observerAdpater.onCompleted(((Response)res).readEntity(c));
-                            //observerAdpater.onCompleted(((Response)res).getEntity());
+                            //observerAdpater.onCompleted(((Response)res).readEntity(c));
+                            observerAdpater.onCompleted(((Response)res).getEntity());
                         }else {
                             observerAdpater.onCompleted((RespT) res);
                         }

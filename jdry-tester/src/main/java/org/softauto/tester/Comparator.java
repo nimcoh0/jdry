@@ -52,6 +52,7 @@ public class Comparator<Object> {
             Class c = clazz.getSuperclass();
             ignoreList.addAll(getIgnorableFieldNames(c));
         }
+        /*
         Field[] fileds = clazz.getDeclaredFields();
         for(Field field : fileds){
            field.setAccessible(true);
@@ -59,6 +60,8 @@ public class Comparator<Object> {
                ignoreList.add(field.getName());
            }
         }
+
+         */
         return ignoreList;
     }
 
