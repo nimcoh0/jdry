@@ -45,24 +45,24 @@ public class ListenerServiceImpl implements SerializerService{
                 Object o = ListenerObserver.getInstance().getLastChannel(message.getDescriptor());
                 if (o != null) {
                     methodResponse = message.getArgs();
-                    if (o instanceof Exec) {
+                    //if (o instanceof Exec) {
                         if (message.getState().equals(ListenerType.BEFORE.name())) {
                             logger.debug("got message Before " + message.toJson());
-                            methodResponse = ((Exec) o).apply(message.getArgs());
+                            methodResponse = ((org.softauto.listener.Function) o).apply(message.getArgs());
                             logger.debug("result of function Before " + methodResponse);
                         }
-                    }
-                    if (o instanceof Exec) {
+                    //}
+                    //if (o instanceof Exec) {
                         if (message.getState().equals(ListenerType.AFTER.name())) {
                             logger.debug("got message After " + message.toJson());
                             if (message.getArgs().length == 1) {
-                                methodResponse = ((Exec) o).apply(message.getArgs()[0]);
+                                methodResponse = ((org.softauto.listener.Function) o).apply(message.getArgs()[0]);
                             } else {
-                                methodResponse = ((Exec) o).apply(message.getArgs());
+                                methodResponse = ((org.softauto.listener.Function) o).apply(message.getArgs());
                             }
                             logger.debug("result of function After " + methodResponse);
                         }
-                    }
+                    //}
 
 
                 }else {

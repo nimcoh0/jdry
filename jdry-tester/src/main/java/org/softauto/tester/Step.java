@@ -9,7 +9,11 @@ import org.apache.avro.ipc.CallFuture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.core.*;
+import org.softauto.listener.ListenerObserver;
+
 import java.util.HashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 
 public class Step {
@@ -166,6 +170,20 @@ public class Step {
         logger.debug("invoking " + fqmn);
         callOptions.put("scenarioId", scenarioId);
         (new InvocationHandler()).invoke(fqmn, args, types, this.future, transceiver, callOptions);
+    }
+
+    public static long timeOutInMin = 3;
+
+    public void waitTo(Listener listener ,org.softauto.listener.Function  func,Handler<AsyncResult<Object>> resultHandler)throws Exception{
+        CountDownLatch lock = new CountDownLatch(1);
+
+
+
+        ListenerObserver.getInstance().register(listener.fqmn,func);
+
+        lock.await(timeOutInMin, TimeUnit.MINUTES);
+        resultHandler.handle(Future.handleResult(func.getResult()));
+        //return this;
     }
 
 }

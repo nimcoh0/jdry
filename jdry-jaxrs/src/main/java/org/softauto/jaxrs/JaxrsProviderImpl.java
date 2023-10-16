@@ -79,8 +79,8 @@ public class JaxrsProviderImpl implements Provider {
                     if (((Response)res).getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL) {
                         if(((Response)res).hasEntity()) {
                             Class c = ClassUtils.getClass(callOptions.get("response").toString());
-                            //observerAdpater.onCompleted(((Response)res).readEntity(c));
-                            observerAdpater.onCompleted(((Response)res).getEntity());
+                            observerAdpater.onCompleted(((Response)res).readEntity(c));
+                            //observerAdpater.onCompleted(((Response)res).getEntity());
                         }else {
                             observerAdpater.onCompleted((RespT) res);
                         }

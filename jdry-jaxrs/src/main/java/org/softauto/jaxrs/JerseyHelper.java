@@ -106,7 +106,7 @@ public class JerseyHelper {
             WebTarget webTarget = client.target(url);
 
             res = webTarget.request(mediaType).headers(headers).cookie(cookie).post(entity);
-
+            //res.readEntity(response);
             /*
             if (Response.Status.fromStatusCode(res.getStatus()).getFamily() == Response.Status.Family.SUCCESSFUL) {
                 logger.debug("post request successfully for url " + url + " status " + res.getStatusInfo());

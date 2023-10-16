@@ -3,8 +3,10 @@ package org.softauto.tester;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -14,10 +16,16 @@ public class ListenerService {
 
     public Object listeners;
 
+    public List<String> listenerNames = new ArrayList<>();
+
     public static ListenerService.ServiceInvocationHandler serviceInvocationHandler;
 
     public Object getListeners() {
         return listeners;
+    }
+
+    public List<String> getListenerNames() {
+        return listenerNames;
     }
 
     public ListenerService.ServiceInvocationHandler getServiceInvocationHandler() {
@@ -29,7 +37,8 @@ public class ListenerService {
     }
 
     public ListenerService()  {
-
+        listenerNames.add("aa");
+        listenerNames.add("bb");
     }
 
     public ListenerService(Class<?> iface) {
