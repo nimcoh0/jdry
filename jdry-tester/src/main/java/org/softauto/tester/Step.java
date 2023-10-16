@@ -174,15 +174,15 @@ public class Step {
 
     public static long timeOutInMin = 3;
 
-    public void waitTo(Listener listener ,org.softauto.listener.Function  func,Handler<AsyncResult<Object>> resultHandler)throws Exception{
+    public void waitTo(Listener listener ,Handler<AsyncResult<Object>> resultHandler)throws Exception{
         CountDownLatch lock = new CountDownLatch(1);
 
 
 
-        ListenerObserver.getInstance().register(listener.fqmn,func);
+        ListenerObserver.getInstance().register(listener.fqmn,listener.getFunc());
 
         lock.await(timeOutInMin, TimeUnit.MINUTES);
-        resultHandler.handle(Future.handleResult(func.getResult()));
+        //resultHandler.handle(Future.handleResult(func.));
         //return this;
     }
 
