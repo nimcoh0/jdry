@@ -5,10 +5,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
-import jakarta.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 
-public class MultivaluedMapDeserializer extends JsonDeserializer<jakarta.ws.rs.core.MultivaluedMap> {
+public class MultivaluedMapDeserializer extends JsonDeserializer<javax.ws.rs.core.MultivaluedMap> {
 
 
     @Override
