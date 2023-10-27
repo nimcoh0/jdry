@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Main-Class: org.softauto.analyzer.core.Main
+Permissions: all-permission
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+[ {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "io.mincong.shop.rest.PingResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "type" : "java.lang.String",
+        "value" : "ping"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "childes" : [ ]
+} ]

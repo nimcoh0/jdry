@@ -1,0 +1,4250 @@
+[ {
+  "name" : "getSingle",
+  "namespce" : "org.traccar.api.BaseObjectResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "{id}",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/PathParam;" : {
+      "value" : "id",
+      "type" : "java.lang.String",
+      "index" : 0
+    }
+  },
+  "parametersTypes" : [ "long" ],
+  "argumentsNames" : [ "id" ],
+  "id" : 27713,
+  "type" : "method",
+  "returnType" : "org.traccar.model.BaseModel",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : true,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "add",
+  "namespce" : "org.traccar.api.BaseObjectResource",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "publish" : {
+        "name" : "id",
+        "type" : "java.lang.Integer",
+        "value" : "entity.getId()"
+      }
+    },
+    "Ljavax/ws/rs/POST;" : { }
+  },
+  "parametersTypes" : [ "org.traccar.model.BaseModel" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27714,
+  "type" : "method",
+  "returnType" : "org.traccar.model.BaseModel",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : true,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "update",
+  "namespce" : "org.traccar.api.BaseObjectResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "{id}",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/PUT;" : { }
+  },
+  "parametersTypes" : [ "org.traccar.model.BaseModel" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27715,
+  "type" : "method",
+  "returnType" : "org.traccar.model.BaseModel",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : true,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "update" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "remove",
+  "namespce" : "org.traccar.api.BaseObjectResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "{id}",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/DELETE;" : { },
+    "Lorg/softauto/annotations/Consume;" : {
+      "index" : 0
+    },
+    "Ljavax/ws/rs/PathParam;" : {
+      "value" : "id",
+      "type" : "java.lang.String",
+      "index" : 0
+    }
+  },
+  "parametersTypes" : [ "long" ],
+  "argumentsNames" : [ "id" ],
+  "id" : 27716,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : true,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "delete" : "java.lang.Class"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.ExtendedObjectResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "all",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "userId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 3
+    }, {
+      "value" : "refresh",
+      "type" : "java.lang.String",
+      "index" : 4
+    } ]
+  },
+  "parametersTypes" : [ "boolean", "long", "long", "long", "boolean" ],
+  "argumentsNames" : [ "all", "userId", "groupId", "deviceId", "refresh" ],
+  "id" : 27747,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "test",
+  "namespce" : "org.traccar.api.resource.AttributeResource",
+  "annotations" : {
+    "Ljavax/ws/rs/POST;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "test",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "attributes/computed",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "long", "org.traccar.model.Attribute" ],
+  "argumentsNames" : [ "deviceId", "entity" ],
+  "id" : 27756,
+  "type" : "method",
+  "returnType" : "java.lang.Boolean",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "add",
+  "namespce" : "org.traccar.api.resource.AttributeResource",
+  "annotations" : {
+    "Ljavax/ws/rs/POST;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "attributes/computed",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.model.Attribute" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27757,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ {
+    "name" : "add",
+    "namespce" : "org.traccar.api.BaseObjectResource",
+    "annotations" : {
+      "Lorg/softauto/annotations/ApiForTesting;" : {
+        "publish" : {
+          "name" : "id",
+          "type" : "java.lang.Integer",
+          "value" : "entity.getId()"
+        }
+      },
+      "Ljavax/ws/rs/POST;" : { }
+    },
+    "parametersTypes" : [ "org.traccar.model.BaseModel" ],
+    "argumentsNames" : [ "entity" ],
+    "id" : 27714,
+    "type" : "method",
+    "returnType" : "javax.ws.rs.core.Response",
+    "classInfo" : {
+      "hasParameters" : true,
+      "entity" : false,
+      "interface" : false,
+      "enum" : false,
+      "static" : false,
+      "public" : true,
+      "protected" : false,
+      "final" : false,
+      "abstract" : false,
+      "private" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "javaLibraryClass" : false,
+      "innerClass" : false
+    },
+    "modifier" : 0,
+    "crudToSubject" : [ ],
+    "childes" : [ ]
+  } ]
+}, {
+  "name" : "update",
+  "namespce" : "org.traccar.api.resource.AttributeResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "{id}",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/PUT;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "attributes/computed",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.model.Attribute" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27758,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "update" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ {
+    "name" : "update",
+    "namespce" : "org.traccar.api.BaseObjectResource",
+    "annotations" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "{id}",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/PUT;" : { }
+    },
+    "parametersTypes" : [ "org.traccar.model.BaseModel" ],
+    "argumentsNames" : [ "entity" ],
+    "id" : 27715,
+    "type" : "method",
+    "returnType" : "javax.ws.rs.core.Response",
+    "classInfo" : {
+      "hasParameters" : true,
+      "entity" : false,
+      "interface" : false,
+      "enum" : false,
+      "static" : false,
+      "public" : true,
+      "protected" : false,
+      "final" : false,
+      "abstract" : false,
+      "private" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "javaLibraryClass" : false,
+      "innerClass" : false
+    },
+    "modifier" : 0,
+    "crudToSubject" : [ ],
+    "childes" : [ ]
+  } ]
+}, {
+  "name" : "remove",
+  "namespce" : "org.traccar.api.resource.AttributeResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "{id}",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/DELETE;" : { },
+    "Ljavax/ws/rs/PathParam;" : {
+      "value" : "id",
+      "type" : "java.lang.String",
+      "index" : 0
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "attributes/computed",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "long" ],
+  "argumentsNames" : [ "id" ],
+  "id" : 27759,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "delete" : "java.lang.Class"
+  } ],
+  "childes" : [ {
+    "name" : "remove",
+    "namespce" : "org.traccar.api.BaseObjectResource",
+    "annotations" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "{id}",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/DELETE;" : { },
+      "Lorg/softauto/annotations/Consume;" : {
+        "index" : 0
+      },
+      "Ljavax/ws/rs/PathParam;" : {
+        "value" : "id",
+        "type" : "java.lang.String",
+        "index" : 0
+      }
+    },
+    "parametersTypes" : [ "long" ],
+    "argumentsNames" : [ "id" ],
+    "id" : 27716,
+    "type" : "method",
+    "returnType" : "javax.ws.rs.core.Response",
+    "classInfo" : {
+      "hasParameters" : true,
+      "entity" : false,
+      "interface" : false,
+      "enum" : false,
+      "static" : false,
+      "public" : true,
+      "protected" : false,
+      "final" : false,
+      "abstract" : false,
+      "private" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "javaLibraryClass" : false,
+      "innerClass" : false
+    },
+    "modifier" : 0,
+    "crudToSubject" : [ ],
+    "childes" : [ ]
+  } ]
+}, {
+  "name" : "update",
+  "namespce" : "org.traccar.api.resource.AttributeResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "{id}",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/PUT;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "attributes/computed",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.model.BaseModel" ],
+  "argumentsNames" : [ "l1" ],
+  "id" : 27760,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "update" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ {
+    "name" : "update",
+    "namespce" : "org.traccar.api.resource.AttributeResource",
+    "annotations" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "{id}",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/PUT;" : { },
+      "class" : {
+        "Ljavax/ws/rs/Path;" : {
+          "value" : "attributes/computed",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Consumes;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        }
+      }
+    },
+    "parametersTypes" : [ "org.traccar.model.Attribute" ],
+    "argumentsNames" : [ "entity" ],
+    "id" : 27758,
+    "type" : "method",
+    "returnType" : "javax.ws.rs.core.Response",
+    "classInfo" : {
+      "hasParameters" : true,
+      "entity" : false,
+      "interface" : false,
+      "enum" : false,
+      "static" : false,
+      "public" : true,
+      "protected" : false,
+      "final" : false,
+      "abstract" : false,
+      "private" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "javaLibraryClass" : false,
+      "innerClass" : false
+    },
+    "modifier" : 0,
+    "crudToSubject" : [ ],
+    "childes" : [ {
+      "name" : "update",
+      "namespce" : "org.traccar.api.BaseObjectResource",
+      "annotations" : {
+        "Ljavax/ws/rs/Path;" : {
+          "value" : "{id}",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/PUT;" : { }
+      },
+      "parametersTypes" : [ "org.traccar.model.BaseModel" ],
+      "argumentsNames" : [ "entity" ],
+      "id" : 27715,
+      "type" : "method",
+      "returnType" : "javax.ws.rs.core.Response",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
+      },
+      "modifier" : 0,
+      "crudToSubject" : [ ],
+      "childes" : [ ]
+    } ]
+  } ]
+}, {
+  "name" : "add",
+  "namespce" : "org.traccar.api.resource.AttributeResource",
+  "annotations" : {
+    "Ljavax/ws/rs/POST;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "attributes/computed",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.model.BaseModel" ],
+  "argumentsNames" : [ "l1" ],
+  "id" : 27761,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ {
+    "name" : "add",
+    "namespce" : "org.traccar.api.resource.AttributeResource",
+    "annotations" : {
+      "Ljavax/ws/rs/POST;" : { },
+      "class" : {
+        "Ljavax/ws/rs/Path;" : {
+          "value" : "attributes/computed",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Consumes;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        }
+      }
+    },
+    "parametersTypes" : [ "org.traccar.model.Attribute" ],
+    "argumentsNames" : [ "entity" ],
+    "id" : 27757,
+    "type" : "method",
+    "returnType" : "javax.ws.rs.core.Response",
+    "classInfo" : {
+      "hasParameters" : true,
+      "entity" : false,
+      "interface" : false,
+      "enum" : false,
+      "static" : false,
+      "public" : true,
+      "protected" : false,
+      "final" : false,
+      "abstract" : false,
+      "private" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "javaLibraryClass" : false,
+      "innerClass" : false
+    },
+    "modifier" : 0,
+    "crudToSubject" : [ ],
+    "childes" : [ {
+      "name" : "add",
+      "namespce" : "org.traccar.api.BaseObjectResource",
+      "annotations" : {
+        "Lorg/softauto/annotations/ApiForTesting;" : {
+          "publish" : {
+            "name" : "id",
+            "type" : "java.lang.Integer",
+            "value" : "entity.getId()"
+          }
+        },
+        "Ljavax/ws/rs/POST;" : { }
+      },
+      "parametersTypes" : [ "org.traccar.model.BaseModel" ],
+      "argumentsNames" : [ "entity" ],
+      "id" : 27714,
+      "type" : "method",
+      "returnType" : "javax.ws.rs.core.Response",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
+      },
+      "modifier" : 0,
+      "crudToSubject" : [ ],
+      "childes" : [ ]
+    } ]
+  } ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.ExtendedObjectResource" : { },
+    "org.traccar.api.resource.AttributeResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "attributes/computed",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.SimpleObjectResource" : { },
+    "org.traccar.api.resource.CalendarResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "calendars",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.resource.CommandResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "send",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "commands",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "long" ],
+  "argumentsNames" : [ "deviceId" ],
+  "id" : 27766,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "send",
+  "namespce" : "org.traccar.api.resource.CommandResource",
+  "annotations" : {
+    "Ljavax/ws/rs/POST;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "send",
+      "type" : "java.lang.String"
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "commands",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.model.Command" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27767,
+  "type" : "method",
+  "returnType" : "org.traccar.model.Command",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.resource.CommandResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "types",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "protocol",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "textChannel",
+      "type" : "java.lang.String",
+      "index" : 2
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "commands",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "long", "java.lang.String", "boolean" ],
+  "argumentsNames" : [ "deviceId", "protocol", "textChannel" ],
+  "id" : 27768,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.ExtendedObjectResource" : { },
+    "org.traccar.api.resource.CommandResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "commands",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.resource.DeviceResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "all",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "userId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "uniqueId",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "id",
+      "type" : "java.lang.String",
+      "index" : 3
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "devices",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "boolean", "long", "java.util.List", "java.util.List" ],
+  "argumentsNames" : [ "all", "userId", "uniqueIds", "deviceIds" ],
+  "id" : 27770,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "updateAccumulators",
+  "namespce" : "org.traccar.api.resource.DeviceResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "{id}/accumulators",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/PUT;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "devices",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.model.DeviceAccumulators" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27771,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.resource.DeviceResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "devices",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.ExtendedObjectResource" : { },
+    "org.traccar.api.resource.DriverResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "drivers",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.resource.EventResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "{id}",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/PathParam;" : {
+      "value" : "id",
+      "type" : "java.lang.String",
+      "index" : 0
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "events",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "long" ],
+  "argumentsNames" : [ "id" ],
+  "id" : 27774,
+  "type" : "method",
+  "returnType" : "org.traccar.model.Event",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "read" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.resource.EventResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "events",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.ExtendedObjectResource" : { },
+    "org.traccar.api.resource.GeofenceResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "geofences",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.SimpleObjectResource" : { },
+    "org.traccar.api.resource.GroupResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "groups",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.ExtendedObjectResource" : { },
+    "org.traccar.api.resource.MaintenanceResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "maintenance",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.resource.NotificationResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "types",
+      "type" : "java.lang.String"
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "notifications",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 27779,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : false,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getNotificators",
+  "namespce" : "org.traccar.api.resource.NotificationResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "notificators",
+      "type" : "java.lang.String"
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "notifications",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 27780,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : false,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "testMessage",
+  "namespce" : "org.traccar.api.resource.NotificationResource",
+  "annotations" : {
+    "Ljavax/ws/rs/POST;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "test",
+      "type" : "java.lang.String"
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "notifications",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 27781,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "testMessage",
+  "namespce" : "org.traccar.api.resource.NotificationResource",
+  "annotations" : {
+    "Ljavax/ws/rs/POST;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "test/{notificator}",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/PathParam;" : {
+      "value" : "notificator",
+      "type" : "java.lang.String",
+      "index" : 0
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "notifications",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "argumentsNames" : [ "notificator" ],
+  "id" : 27782,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.ExtendedObjectResource" : { },
+    "org.traccar.api.resource.NotificationResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "notifications",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "add",
+  "namespce" : "org.traccar.api.resource.PermissionsResource",
+  "annotations" : {
+    "Ljavax/ws/rs/POST;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "permissions",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.LinkedHashMap" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27785,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "remove",
+  "namespce" : "org.traccar.api.resource.PermissionsResource",
+  "annotations" : {
+    "Ljavax/ws/rs/DELETE;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "permissions",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.LinkedHashMap" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27786,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.resource.PermissionsResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "permissions",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getJson",
+  "namespce" : "org.traccar.api.resource.PositionResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "id",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 3
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "positions",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "long", "java.util.List", "java.util.Date", "java.util.Date" ],
+  "argumentsNames" : [ "deviceId", "positionIds", "from", "to" ],
+  "id" : 27788,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "read" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.resource.PositionResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "positions",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getRoute",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "route",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 3
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.Date", "java.util.Date" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "from", "to" ],
+  "id" : 27792,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getRouteExcel",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "route",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 3
+    }, {
+      "value" : "mail",
+      "type" : "java.lang.String",
+      "index" : 4
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.Date", "java.util.Date", "boolean" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "from", "to", "mail" ],
+  "id" : 27793,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "getEvents",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "events",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "type",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 3
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 4
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.List", "java.util.Date", "java.util.Date" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "types", "from", "to" ],
+  "id" : 27794,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getEventsExcel",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "events",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "type",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 3
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 4
+    }, {
+      "value" : "mail",
+      "type" : "java.lang.String",
+      "index" : 5
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.List", "java.util.Date", "java.util.Date", "boolean" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "types", "from", "to", "mail" ],
+  "id" : 27795,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "getSummary",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "summary",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 3
+    }, {
+      "value" : "daily",
+      "type" : "java.lang.String",
+      "index" : 4
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.Date", "java.util.Date", "boolean" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "from", "to", "daily" ],
+  "id" : 27796,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getSummaryExcel",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "summary",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 3
+    }, {
+      "value" : "daily",
+      "type" : "java.lang.String",
+      "index" : 4
+    }, {
+      "value" : "mail",
+      "type" : "java.lang.String",
+      "index" : 5
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.Date", "java.util.Date", "boolean", "boolean" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "from", "to", "daily", "mail" ],
+  "id" : 27797,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "getTrips",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "trips",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : "application/json",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 3
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.Date", "java.util.Date" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "from", "to" ],
+  "id" : 27798,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getTripsExcel",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "trips",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 3
+    }, {
+      "value" : "mail",
+      "type" : "java.lang.String",
+      "index" : 4
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.Date", "java.util.Date", "boolean" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "from", "to", "mail" ],
+  "id" : 27799,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "getStops",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "stops",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : "application/json",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 3
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.Date", "java.util.Date" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "from", "to" ],
+  "id" : 27800,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getStopsExcel",
+  "namespce" : "org.traccar.api.resource.ReportResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "stops",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "deviceId",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "groupId",
+      "type" : "java.lang.String",
+      "index" : 1
+    }, {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 2
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 3
+    }, {
+      "value" : "mail",
+      "type" : "java.lang.String",
+      "index" : 4
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.List", "java.util.List", "java.util.Date", "java.util.Date", "boolean" ],
+  "argumentsNames" : [ "deviceIds", "groupIds", "from", "to", "mail" ],
+  "id" : 27801,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.resource.ReportResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "reports",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.resource.ServerResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : {
+      "value" : "force",
+      "type" : "java.lang.String",
+      "index" : 0
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "server",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "boolean" ],
+  "argumentsNames" : [ "force" ],
+  "id" : 27840,
+  "type" : "method",
+  "returnType" : "org.traccar.model.Server",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "update",
+  "namespce" : "org.traccar.api.resource.ServerResource",
+  "annotations" : {
+    "Ljavax/ws/rs/PUT;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "server",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.model.Server" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27841,
+  "type" : "method",
+  "returnType" : "org.traccar.model.Server",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "update" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "geocode",
+  "namespce" : "org.traccar.api.resource.ServerResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "geocode",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "latitude",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "longitude",
+      "type" : "java.lang.String",
+      "index" : 1
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "server",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "double", "double" ],
+  "argumentsNames" : [ "latitude", "longitude" ],
+  "id" : 27842,
+  "type" : "method",
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.resource.ServerResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "server",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.resource.SessionResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : {
+      "value" : "token",
+      "type" : "java.lang.String",
+      "index" : 0
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "session",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/x-www-form-urlencoded",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "argumentsNames" : [ "token" ],
+  "id" : 27844,
+  "type" : "method",
+  "returnType" : "org.traccar.model.User",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "add",
+  "namespce" : "org.traccar.api.resource.SessionResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/POST;" : { },
+    "Ljavax/ws/rs/FormParam;" : [ {
+      "value" : "email",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "password",
+      "type" : "java.lang.String",
+      "index" : 1
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "session",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/x-www-form-urlencoded",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
+  "argumentsNames" : [ "email", "password" ],
+  "id" : 27845,
+  "type" : "method",
+  "returnType" : "org.traccar.model.User",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "remove",
+  "namespce" : "org.traccar.api.resource.SessionResource",
+  "annotations" : {
+    "Ljavax/ws/rs/DELETE;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "session",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/x-www-form-urlencoded",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 27846,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.resource.SessionResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "session",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/x-www-form-urlencoded",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.resource.StatisticsResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "from",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "to",
+      "type" : "java.lang.String",
+      "index" : 1
+    } ],
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "statistics",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "java.util.Date", "java.util.Date" ],
+  "argumentsNames" : [ "from", "to" ],
+  "id" : 27850,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.resource.StatisticsResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "statistics",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "blabla",
+  "namespce" : "org.traccar.api.resource.t1",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "blabla",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "aa",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 27852,
+  "type" : "method",
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : false,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.resource.t2" : { },
+    "org.traccar.api.resource.t1" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "aa",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "blabla1",
+  "namespce" : "org.traccar.api.resource.t2",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "blabla2",
+      "type" : "java.lang.String"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 27854,
+  "type" : "method",
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : false,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.resource.UserResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : {
+      "value" : "userId",
+      "type" : "java.lang.String",
+      "index" : 0
+    },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "users",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "long" ],
+  "argumentsNames" : [ "userId" ],
+  "id" : 27856,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "add",
+  "namespce" : "org.traccar.api.resource.UserResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/POST;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "users",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.model.User" ],
+  "argumentsNames" : [ "entity" ],
+  "id" : 27857,
+  "type" : "method",
+  "returnType" : "org.traccar.model.User",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : "add",
+  "namespce" : "org.traccar.api.resource.UserResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/POST;" : { },
+    "class" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "users",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.model.BaseModel" ],
+  "argumentsNames" : [ "l1" ],
+  "id" : 27859,
+  "type" : "method",
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ {
+    "name" : "add",
+    "namespce" : "org.traccar.api.resource.UserResource",
+    "annotations" : {
+      "Ljavax/annotation/security/PermitAll;" : { },
+      "Ljavax/ws/rs/POST;" : { },
+      "class" : {
+        "Ljavax/ws/rs/Path;" : {
+          "value" : "users",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Consumes;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        }
+      }
+    },
+    "parametersTypes" : [ "org.traccar.model.User" ],
+    "argumentsNames" : [ "entity" ],
+    "id" : 27857,
+    "type" : "method",
+    "returnType" : "javax.ws.rs.core.Response",
+    "classInfo" : {
+      "hasParameters" : true,
+      "entity" : false,
+      "interface" : false,
+      "enum" : false,
+      "static" : false,
+      "public" : true,
+      "protected" : false,
+      "final" : false,
+      "abstract" : false,
+      "private" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "javaLibraryClass" : false,
+      "innerClass" : false
+    },
+    "modifier" : 0,
+    "crudToSubject" : [ ],
+    "childes" : [ ]
+  } ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.api.BaseResource" : { },
+    "org.traccar.api.BaseObjectResource" : { },
+    "org.traccar.api.resource.UserResource" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "users",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      },
+      "Ljavax/ws/rs/Consumes;" : {
+        "value" : "application/json",
+        "type" : "java.lang.String"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "get",
+  "namespce" : "org.traccar.api.SimpleObjectResource",
+  "annotations" : {
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : [ {
+      "value" : "all",
+      "type" : "java.lang.String",
+      "index" : 0
+    }, {
+      "value" : "userId",
+      "type" : "java.lang.String",
+      "index" : 1
+    } ]
+  },
+  "parametersTypes" : [ "boolean", "long" ],
+  "argumentsNames" : [ "all", "userId" ],
+  "id" : 27764,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getGroups",
+  "namespce" : "org.traccar.database.GroupTree",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "RPC",
+      "type" : "java.lang.String"
+    }
+  },
+  "parametersTypes" : [ "long" ],
+  "argumentsNames" : [ "groupId" ],
+  "id" : 7669,
+  "type" : "method",
+  "returnType" : "java.util.Collection",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "sendMessage",
+  "namespce" : "org.traccar.database.MailManager",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "RPC",
+      "type" : "java.lang.String"
+    }
+  },
+  "parametersTypes" : [ "long", "java.lang.String", "java.lang.String" ],
+  "argumentsNames" : [ "userId", "subject", "body" ],
+  "id" : 4975,
+  "type" : "method",
+  "returnType" : "void",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : true,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ {
+    "name" : "sendMessage",
+    "namespce" : "org.traccar.database.MailManager",
+    "annotations" : {
+      "Lorg/softauto/annotations/ApiForTesting;" : {
+        "protocol" : "RPC",
+        "type" : "java.lang.String"
+      }
+    },
+    "parametersTypes" : [ "long", "java.lang.String", "java.lang.String", "javax.mail.internet.MimeBodyPart" ],
+    "argumentsNames" : [ "userId", "subject", "body", "attachment" ],
+    "id" : 4976,
+    "type" : "method",
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "entity" : false,
+      "interface" : false,
+      "enum" : false,
+      "static" : false,
+      "public" : true,
+      "protected" : false,
+      "final" : true,
+      "abstract" : false,
+      "private" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "javaLibraryClass" : false,
+      "innerClass" : false
+    },
+    "modifier" : 0,
+    "crudToSubject" : [ ],
+    "childes" : [ ]
+  } ]
+}, {
+  "name" : "sendMessage",
+  "namespce" : "org.traccar.database.MailManager",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "RPC",
+      "type" : "java.lang.String"
+    }
+  },
+  "parametersTypes" : [ "long", "java.lang.String", "java.lang.String", "javax.mail.internet.MimeBodyPart" ],
+  "argumentsNames" : [ "userId", "subject", "body", "attachment" ],
+  "id" : 4976,
+  "type" : "method",
+  "returnType" : "void",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : true,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "org.traccar.model.BaseModel"
+  } ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Attribute" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Calendar" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.CellTower" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { },
+      "Lcom/fasterxml/jackson/annotation/JsonInclude;" : {
+        "value" : "NON_NULL",
+        "type" : "java.lang.Enum"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Message" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Command" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { },
+      "Lcom/fasterxml/jackson/annotation/JsonIgnoreProperties;" : {
+        "ignoreUnknown" : 1,
+        "type" : "java.lang.Integer"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.GroupedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Device" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.DeviceAccumulators" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.DeviceState" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Driver" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Message" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Event" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ScheduledModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Geofence" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.GroupedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Group" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.GroupedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Maintenance" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.User" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ManagedUser" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Message" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.Network" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { },
+      "Lcom/fasterxml/jackson/annotation/JsonInclude;" : {
+        "value" : "NON_NULL",
+        "type" : "java.lang.Enum"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ScheduledModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Notification" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.Permission" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Message" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Position" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ScheduledModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Server" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { },
+      "Lcom/fasterxml/jackson/annotation/JsonIgnoreProperties;" : {
+        "ignoreUnknown" : 1,
+        "type" : "java.lang.Integer"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.Statistics" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.Typed" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.BaseModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.ExtendedModel" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    },
+    "org.traccar.model.User" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : null,
+  "namespce" : null,
+  "annotations" : {
+    "org.traccar.model.WifiAccessPoint" : {
+      "Lorg/softauto/annotations/EntityForTesting;" : { },
+      "Lcom/fasterxml/jackson/annotation/JsonInclude;" : {
+        "value" : "NON_NULL",
+        "type" : "java.lang.Enum"
+      }
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 0,
+  "type" : "clazz",
+  "returnType" : null,
+  "classInfo" : null,
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "getSpeedLimit",
+  "namespce" : "org.traccar.speedlimit.OverpassSpeedLimitProvider",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "callback" : {
+        "name" : "callback",
+        "type" : "java.lang.Double",
+        "enabledAssert" : 0,
+        "onSuccess" : {
+          "parameters" : "double speedLimit",
+          "type" : "java.lang.String",
+          "expression" : "org.junit.Assert.assertEquals(52.1, speedLimit, 0.1);",
+          "returnType" : "void"
+        },
+        "onFailure" : {
+          "parameters" : "Throwable e",
+          "type" : "java.lang.String",
+          "expression" : "org.junit.Assert.fail();",
+          "returnType" : "void"
+        }
+      },
+      "protocol" : "RPC",
+      "type" : "java.lang.String"
+    },
+    "Lorg/softauto/annotations/DataForTesting;" : {
+      "file" : "C:\\work\\myprojects\\java\\traccar-4.12\\src\\test\\resources\\speedLimit.csv",
+      "type" : "java.lang.String"
+    }
+  },
+  "parametersTypes" : [ "double", "double", "org.traccar.speedlimit.SpeedLimitProvider$SpeedLimitProviderCallback" ],
+  "argumentsNames" : [ "latitude", "longitude", "callback" ],
+  "id" : 5103,
+  "type" : "method",
+  "returnType" : "void",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "<init>",
+  "namespce" : "org.traccar.speedlimit.SpeedLimitException",
+  "annotations" : {
+    "constructor" : {
+      "Lorg/softauto/annotations/ListenerForTesting;" : { }
+    }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "argumentsNames" : [ "message" ],
+  "id" : 9892,
+  "type" : "method",
+  "returnType" : "org.traccar.speedlimit.SpeedLimitException",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+}, {
+  "name" : "<init>",
+  "namespce" : "org.traccar.WebDataHandler",
+  "annotations" : {
+    "constructor" : {
+      "Lorg/softauto/annotations/ApiForTesting;" : { },
+      "Ljavax/inject/Inject;" : { }
+    },
+    "class" : {
+      "Lio/netty/channel/ChannelHandler$Sharable;" : { }
+    }
+  },
+  "parametersTypes" : [ "org.traccar.config.Config", "org.traccar.database.IdentityManager", "com.fasterxml.jackson.databind.ObjectMapper", "javax.ws.rs.client.Client" ],
+  "argumentsNames" : [ "config", "identityManager", "objectMapper", "client" ],
+  "id" : 5220,
+  "type" : "method",
+  "returnType" : "org.traccar.WebDataHandler",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
+} ]

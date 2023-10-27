@@ -1,0 +1,10 @@
+---
+serialize:
+  - "T(org.softauto.compiler.Utils).isPrimitive(#type) ? null : 'new ObjectMapper().writeValueAsString('+#expression.toString()+');'"
+validate_return_type:
+  - "#type != 'void' && #type != 'Void' && #type != 'null' ? true : false"
+deserialize:
+  - "T(org.softauto.compiler.Utils).isPrimitive(#type) ? #type +' ' +#name + ' = ('+   #type +  ')' + #expression : #type +' ' +#name + ' = ('+   #type +  ') new ObjectMapper().readValue('+#var+','+#type+'.class);'"
+
+
+  #if($after.getType() != "Void" && $after.getType() != "void" && $after.getType() != "null" && !$after.getType().equals("java.lang.String")&& !$after.getType().equals("String"))

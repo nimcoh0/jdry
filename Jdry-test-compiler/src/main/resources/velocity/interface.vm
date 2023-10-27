@@ -1,0 +1,46 @@
+#if ($suite.getNamespace())
+package $this.mangle($suite.getNamespace());
+#end
+
+public interface $this.mangle($suite.getName()+"Service") {
+
+#foreach ($test in $suite.getTests())
+#set ($name = $test.getFullName())
+#set ($response = $test.getApi().getResponse().getType())
+org.softauto.tester.Step ${this.mangle($name)}(##
+#foreach ($p in $test.getApi().getRequest().getArguments())##
+#*      *#$p.getType() $p.getName()#if ($foreach.hasNext), #end ##
+#end
+) throws Exception;
+
+#end
+public interface Callback extends $this.mangle($suite.getName()+"Service") {
+#foreach ($test in $suite.getTests())
+#set ($name = $test.getFullName())
+#set ($response = $test.getApi().getResponse().getType())
+org.softauto.tester.Step  ${this.mangle($name)}(##
+#foreach ($e in $test.getApi().getRequest().getArguments())
+#*      *#$e.getType() $e.getName()#if ($foreach.hasNext), #end
+#end
+#if($this.isPrimitive($response))
+#if($test.getApi().getRequest().getArguments().size() > 0)
+  ,org.softauto.core.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
+#else
+  org.softauto.core.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
+#end
+#else
+#if($test.getApi().getRequest().getArguments().size() > 0)
+ ,org.softauto.core.CallFuture<$response> callback) throws java.io.IOException;
+#else
+  org.softauto.core.CallFuture<$response> callback) throws java.io.IOException;
+#end
+#end
+
+#end
+
+    }
+}
+
+
+
+

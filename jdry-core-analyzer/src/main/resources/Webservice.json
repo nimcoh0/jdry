@@ -1,0 +1,2712 @@
+[ {
+  "method" : "getHelloGreeting",
+  "namespce" : "com.baeldung.jersey.client.JerseyClient",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "RPC"
+    }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21487,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "createClient",
+    "namespce" : "com.baeldung.jersey.client.JerseyClient",
+    "annotations" : {
+      "Lorg/softauto/annotations/ApiForTesting;" : {
+        "protocol" : "RPC"
+      }
+    },
+    "parametersTypes" : [ ],
+    "id" : 21490,
+    "returnType" : "javax.ws.rs.client.Client",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+}, {
+  "method" : "getHiGreeting",
+  "namespce" : "com.baeldung.jersey.client.JerseyClient",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "RPC"
+    }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21488,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "createClient",
+    "namespce" : "com.baeldung.jersey.client.JerseyClient",
+    "annotations" : {
+      "Lorg/softauto/annotations/ApiForTesting;" : {
+        "protocol" : "RPC"
+      }
+    },
+    "parametersTypes" : [ ],
+    "id" : 21490,
+    "returnType" : "javax.ws.rs.client.Client",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+}, {
+  "method" : "getCustomGreeting",
+  "namespce" : "com.baeldung.jersey.client.JerseyClient",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "RPC"
+    }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21489,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "createClient",
+    "namespce" : "com.baeldung.jersey.client.JerseyClient",
+    "annotations" : {
+      "Lorg/softauto/annotations/ApiForTesting;" : {
+        "protocol" : "RPC"
+      }
+    },
+    "parametersTypes" : [ ],
+    "id" : 21490,
+    "returnType" : "javax.ws.rs.client.Client",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+}, {
+  "method" : "createClient",
+  "namespce" : "com.baeldung.jersey.client.JerseyClient",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "RPC"
+    }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21490,
+  "returnType" : "javax.ws.rs.client.Client",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "basicAuthenticationAtClientLevel",
+  "namespce" : "com.baeldung.jersey.client.JerseyClientHeaders",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : { }
+  },
+  "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
+  "id" : 21494,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "basicAuthenticationAtRequestLevel",
+  "namespce" : "com.baeldung.jersey.client.JerseyClientHeaders",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : { }
+  },
+  "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
+  "id" : 21495,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "getHeadersBack",
+  "namespce" : "com.baeldung.jersey.server.EchoHeaders",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/echo-headers"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21519,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "echoHeaders",
+    "namespce" : "com.baeldung.jersey.server.EchoHeaders",
+    "annotations" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "/echo-headers"
+      }
+    },
+    "parametersTypes" : [ ],
+    "id" : 21522,
+    "returnType" : "javax.ws.rs.core.Response",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "bootstrap$",
+      "namespce" : "com.baeldung.jersey.server.EchoHeaders$lambda_echoHeaders_1__48",
+      "annotations" : { },
+      "parametersTypes" : [ "javax.ws.rs.core.Response$ResponseBuilder" ],
+      "id" : 32625,
+      "returnType" : "java.util.function.BiConsumer",
+      "classInfo" : {
+        "hasParameters" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ {
+        "method" : "<init>",
+        "namespce" : "com.baeldung.jersey.server.EchoHeaders$lambda_echoHeaders_1__48",
+        "annotations" : { },
+        "parametersTypes" : [ "javax.ws.rs.core.Response$ResponseBuilder" ],
+        "id" : 32626,
+        "returnType" : "void",
+        "classInfo" : {
+          "hasParameters" : true,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "abstract" : false,
+          "innerClass" : false,
+          "final" : true,
+          "javaLibraryClass" : false,
+          "interface" : false,
+          "enum" : false,
+          "protected" : false,
+          "public" : true,
+          "static" : false,
+          "private" : false
+        },
+        "childes" : [ ]
+      } ]
+    } ]
+  } ]
+}, {
+  "method" : "getHeadersBackFromDigestAuthentication",
+  "namespce" : "com.baeldung.jersey.server.EchoHeaders",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/echo-headers"
+    },
+    "Ljavax/annotation/security/RolesAllowed;" : {
+      "value" : [ "ADMIN" ]
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21520,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "echoHeaders",
+    "namespce" : "com.baeldung.jersey.server.EchoHeaders",
+    "annotations" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "/echo-headers"
+      }
+    },
+    "parametersTypes" : [ ],
+    "id" : 21522,
+    "returnType" : "javax.ws.rs.core.Response",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "bootstrap$",
+      "namespce" : "com.baeldung.jersey.server.EchoHeaders$lambda_echoHeaders_1__48",
+      "annotations" : { },
+      "parametersTypes" : [ "javax.ws.rs.core.Response$ResponseBuilder" ],
+      "id" : 32625,
+      "returnType" : "java.util.function.BiConsumer",
+      "classInfo" : {
+        "hasParameters" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ {
+        "method" : "<init>",
+        "namespce" : "com.baeldung.jersey.server.EchoHeaders$lambda_echoHeaders_1__48",
+        "annotations" : { },
+        "parametersTypes" : [ "javax.ws.rs.core.Response$ResponseBuilder" ],
+        "id" : 32626,
+        "returnType" : "void",
+        "classInfo" : {
+          "hasParameters" : true,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "abstract" : false,
+          "innerClass" : false,
+          "final" : true,
+          "javaLibraryClass" : false,
+          "interface" : false,
+          "enum" : false,
+          "protected" : false,
+          "public" : true,
+          "static" : false,
+          "private" : false
+        },
+        "childes" : [ ]
+      } ]
+    } ]
+  } ]
+}, {
+  "method" : "getServerSentEvents",
+  "namespce" : "com.baeldung.jersey.server.EchoHeaders",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/echo-headers"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/core/Context;" : [ { }, { } ]
+  },
+  "parametersTypes" : [ "javax.ws.rs.sse.SseEventSink", "javax.ws.rs.sse.Sse" ],
+  "id" : 21521,
+  "returnType" : "void",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "getHelloGreeting",
+  "namespce" : "com.baeldung.jersey.server.Greetings",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/greetings"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Lcom/baeldung/jersey/server/config/HelloBinding;" : { }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21540,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "getHiGreeting",
+  "namespce" : "com.baeldung.jersey.server.Greetings",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/greetings"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21541,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "getCustomGreeting",
+  "namespce" : "com.baeldung.jersey.server.Greetings",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/greetings"
+    },
+    "Ljavax/ws/rs/POST;" : { },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21542,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "readCookieParam",
+  "namespce" : "com.baeldung.jersey.server.Items",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "items"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/CookieParam;" : {
+      "value" : "cookieParamToRead"
+    }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21557,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "readHeaderParam",
+  "namespce" : "com.baeldung.jersey.server.Items",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "items"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/HeaderParam;" : {
+      "value" : "headerParamToRead"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21558,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "readPathParam",
+  "namespce" : "com.baeldung.jersey.server.Items",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "items"
+    },
+    "Ljavax/ws/rs/PathParam;" : {
+      "value" : "pathParamToRead"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21559,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "readQueryParam",
+  "namespce" : "com.baeldung.jersey.server.Items",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "items"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/QueryParam;" : {
+      "value" : "queryParamToRead"
+    }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21560,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "readFormParam",
+  "namespce" : "com.baeldung.jersey.server.Items",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "items"
+    },
+    "Ljavax/ws/rs/POST;" : { },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/FormParam;" : {
+      "value" : "formParamToRead"
+    }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21561,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "readMatrixParam",
+  "namespce" : "com.baeldung.jersey.server.Items",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "items"
+    },
+    "Ljavax/ws/rs/MatrixParam;" : {
+      "value" : "matrixParamToRead"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21562,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "readBeanParam",
+  "namespce" : "com.baeldung.jersey.server.Items",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "items"
+    },
+    "Ljavax/ws/rs/BeanParam;" : { },
+    "Ljavax/ws/rs/POST;" : { },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    }
+  },
+  "parametersTypes" : [ "com.baeldung.jersey.server.ItemParam" ],
+  "id" : 21563,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "toString",
+    "namespce" : "com.baeldung.jersey.server.ItemParam",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21555,
+    "returnType" : "java.lang.String",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+}, {
+  "method" : "getOkResponse",
+  "namespce" : "com.baeldung.jersey.server.Responder",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/response"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21597,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "getNOkTextResponse",
+  "namespce" : "com.baeldung.jersey.server.Responder",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/response"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21598,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "getTextResponseTypeDefined",
+  "namespce" : "com.baeldung.jersey.server.Responder",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/response"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21599,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "getTextResponseTypeAnnotated",
+  "namespce" : "com.baeldung.jersey.server.Responder",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/response"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "text/plain" ]
+    }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21600,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "getPojoResponse",
+  "namespce" : "com.baeldung.jersey.server.Responder",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/response"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21601,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "<init>",
+    "namespce" : "com.baeldung.jersey.server.model.Person",
+    "annotations" : {
+      "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+        "value" : "Nepal"
+      }, {
+        "value" : "Abh"
+      } ]
+    },
+    "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
+    "id" : 21582,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+}, {
+  "method" : "getJsonResponse",
+  "namespce" : "com.baeldung.jersey.server.Responder",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/response"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21602,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "sayXMLHello",
+  "namespce" : "com.baeldung.jersey.server.Responder",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/response"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "text/xml" ]
+    }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21603,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "sayHtmlHello",
+  "namespce" : "com.baeldung.jersey.server.Responder",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/response"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "text/html" ]
+    }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21604,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "getAllFruit",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Lorg/glassfish/jersey/server/mvc/Template;" : {
+      "name" : "/all.ftl"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ],
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "text/html" ]
+    }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21608,
+  "returnType" : "java.util.Map",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "<init>",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
+    "id" : 21565,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+}, {
+  "method" : "getFruitByName",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Ljavax/ws/rs/PathParam;" : {
+      "value" : "name"
+    },
+    "Lorg/glassfish/jersey/server/mvc/Template;" : {
+      "name" : "/named.ftl"
+    },
+    "Lorg/glassfish/jersey/server/mvc/ErrorTemplate;" : {
+      "name" : "/error.ftl"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ],
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "text/html" ]
+    }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21609,
+  "returnType" : "java.lang.String",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ ]
+}, {
+  "method" : "createFruit",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Ljavax/ws/rs/POST;" : { },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/Consumes;" : {
+      "value" : [ "application/x-www-form-urlencoded" ]
+    },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ],
+    "Ljavax/validation/constraints/NotNull;" : [ {
+      "message" : "Fruit colour must not be null"
+    }, {
+      "message" : "Fruit name must not be null"
+    } ],
+    "Ljavax/ws/rs/FormParam;" : [ {
+      "value" : "colour"
+    }, {
+      "value" : "name"
+    } ]
+  },
+  "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
+  "id" : 21610,
+  "returnType" : "void",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "<clinit>",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21980,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "<init>",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : { },
+      "parametersTypes" : [ ],
+      "id" : 24863,
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  }, {
+    "method" : "<init>",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
+    "id" : 21565,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "storeFruit",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+    "id" : 21976,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "getName",
+      "namespce" : "com.baeldung.jersey.server.model.Fruit",
+      "annotations" : {
+        "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+      },
+      "parametersTypes" : [ ],
+      "id" : 21568,
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  } ]
+}, {
+  "method" : "updateFruit",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/Consumes;" : {
+      "value" : [ "application/x-www-form-urlencoded" ]
+    },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ],
+    "Lcom/baeldung/jersey/server/constraints/SerialNumber;" : { },
+    "Ljavax/ws/rs/FormParam;" : {
+      "value" : "serial"
+    },
+    "Ljavax/ws/rs/PUT;" : { }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21611,
+  "returnType" : "void",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "<clinit>",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21980,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "<init>",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : { },
+      "parametersTypes" : [ ],
+      "id" : 24863,
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  }, {
+    "method" : "setSerial",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ "java.lang.String" ],
+    "id" : 21576,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "<init>",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ ],
+    "id" : 21564,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "storeFruit",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+    "id" : 21976,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "getName",
+      "namespce" : "com.baeldung.jersey.server.model.Fruit",
+      "annotations" : {
+        "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+      },
+      "parametersTypes" : [ ],
+      "id" : 21568,
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  } ]
+}, {
+  "method" : "createFruit",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Ljavax/ws/rs/POST;" : { },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/Consumes;" : {
+      "value" : [ "application/json" ]
+    },
+    "Ljavax/validation/Valid;" : { },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ]
+  },
+  "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+  "id" : 21612,
+  "returnType" : "void",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "<clinit>",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21980,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "<init>",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : { },
+      "parametersTypes" : [ ],
+      "id" : 24863,
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  }, {
+    "method" : "storeFruit",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+    "id" : 21976,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "getName",
+      "namespce" : "com.baeldung.jersey.server.model.Fruit",
+      "annotations" : {
+        "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+      },
+      "parametersTypes" : [ ],
+      "id" : 21568,
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  } ]
+}, {
+  "method" : "createNewFruit",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Ljavax/ws/rs/POST;" : { },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS",
+      "id" : "123",
+      "after" : {
+        "expression" : "((HashMap<String,Object>)${result}.get(\"sdf\")).get(\"name\").toString()",
+        "type" : "java.lang.String"
+      }
+    },
+    "Ljavax/ws/rs/Consumes;" : {
+      "value" : [ "application/json" ]
+    },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ],
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "application/json" ]
+    }
+  },
+  "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+  "id" : 21613,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "<clinit>",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21980,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "<init>",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : { },
+      "parametersTypes" : [ ],
+      "id" : 24863,
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  }, {
+    "method" : "storeFruit1",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+    "id" : 21977,
+    "returnType" : "java.util.Map",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "setFruitss",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : { },
+      "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+      "id" : 24865,
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    }, {
+      "method" : "getName",
+      "namespce" : "com.baeldung.jersey.server.model.Fruit",
+      "annotations" : {
+        "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+      },
+      "parametersTypes" : [ ],
+      "id" : 21568,
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  }, {
+    "method" : "<init>",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21975,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "bbName",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ "java.lang.String" ],
+    "id" : 21570,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+}, {
+  "method" : "createNewFruit1",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Ljavax/ws/rs/POST;" : { },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS",
+      "id" : "123",
+      "after" : {
+        "step" : {
+          "expression" : "${result}",
+          "fqmn" : "getName",
+          "type" : "Map",
+          "returnType" : "java.lang.String"
+        }
+      }
+    },
+    "Ljavax/ws/rs/Consumes;" : {
+      "value" : [ "application/json" ]
+    },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ],
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "application/json" ]
+    }
+  },
+  "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+  "id" : 21614,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "<clinit>",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21980,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "<init>",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : { },
+      "parametersTypes" : [ ],
+      "id" : 24863,
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  }, {
+    "method" : "storeFruit1",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+    "id" : 21977,
+    "returnType" : "java.util.Map",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "setFruitss",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : { },
+      "parametersTypes" : [ "com.baeldung.jersey.server.model.Fruit" ],
+      "id" : 24865,
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    }, {
+      "method" : "getName",
+      "namespce" : "com.baeldung.jersey.server.model.Fruit",
+      "annotations" : {
+        "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+      },
+      "parametersTypes" : [ ],
+      "id" : 21568,
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  }, {
+    "method" : "<init>",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21975,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "bbName",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ "java.lang.String" ],
+    "id" : 21570,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "getAllFruit",
+    "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+    "annotations" : {
+      "Ljavax/ws/rs/Path;" : {
+        "value" : "/fruit"
+      },
+      "Lorg/glassfish/jersey/server/mvc/Template;" : {
+        "name" : "/all.ftl"
+      },
+      "Lorg/softauto/annotations/ApiForTesting;" : {
+        "protocol" : "JAXRS"
+      },
+      "Ljavax/ws/rs/GET;" : { },
+      "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+        "value" : "bbbbb"
+      }, {
+        "value" : "aaaaa"
+      } ],
+      "Ljavax/ws/rs/Produces;" : {
+        "value" : [ "text/html" ]
+      }
+    },
+    "parametersTypes" : [ ],
+    "id" : 21608,
+    "returnType" : "java.util.Map",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "<init>",
+      "namespce" : "com.baeldung.jersey.server.model.Fruit",
+      "annotations" : {
+        "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+      },
+      "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
+      "id" : 21565,
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  } ]
+}, {
+  "method" : "findFruitByName1",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Ljavax/ws/rs/PathParam;" : [ {
+      "value" : "fruits"
+    }, {
+      "value" : "name"
+    } ],
+    "Lorg/softauto/annotations/DataForTesting;" : {
+      "parameter" : [ {
+        "expression" : "context.getAttribute('${123}').toString()",
+        "index" : 1,
+        "type" : ""
+      } ]
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS",
+      "dependencies" : [ "${123}" ]
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ],
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "application/json" ]
+    }
+  },
+  "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
+  "id" : 21615,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "setWeight",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ "java.lang.Integer" ],
+    "id" : 21574,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "bbName",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ "java.lang.String" ],
+    "id" : 21570,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "<init>",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ ],
+    "id" : 21564,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+}, {
+  "method" : "findFruitByName",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/annotation/security/PermitAll;" : { },
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Ljavax/ws/rs/PathParam;" : {
+      "value" : "name"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS",
+      "dependencies" : [ "${123}" ]
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ],
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "application/json" ]
+    }
+  },
+  "parametersTypes" : [ "java.lang.String" ],
+  "id" : 21616,
+  "returnType" : "javax.ws.rs.core.Response",
+  "classInfo" : {
+    "hasParameters" : true,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "<clinit>",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21980,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "<init>",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : { },
+      "parametersTypes" : [ ],
+      "id" : 24863,
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    } ]
+  }, {
+    "method" : "findByName",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : {
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "expression" : "\"aa\"",
+        "type" : "java.lang.String"
+      }
+    },
+    "parametersTypes" : [ "java.lang.String" ],
+    "id" : 21978,
+    "returnType" : "com.baeldung.jersey.server.model.Fruit",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ {
+      "method" : "getFruitss",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : {
+        "Lorg/softauto/annotations/VerifyForTesting;" : {
+          "step" : {
+            "expression" : "${result}",
+            "fqmn" : "com.baeldung.jersey.server.rest.MyFruit.parseFruitName",
+            "type" : "com.baeldung.jersey.server.model.Fruit",
+            "returnType" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "id" : 24864,
+      "returnType" : "com.baeldung.jersey.server.model.Fruit",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    }, {
+      "method" : "forMock",
+      "namespce" : "com.baeldung.jersey.server.rest.MyFruit",
+      "annotations" : { },
+      "parametersTypes" : [ "java.lang.String" ],
+      "id" : 24866,
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ ]
+    }, {
+      "method" : "bootstrap$",
+      "namespce" : "com.baeldung.jersey.service.SimpleStorageService$lambda_findByName_0__49",
+      "annotations" : { },
+      "parametersTypes" : [ ],
+      "id" : 32631,
+      "returnType" : "java.util.function.Function",
+      "classInfo" : {
+        "hasParameters" : true,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "abstract" : false,
+        "innerClass" : false,
+        "final" : false,
+        "javaLibraryClass" : false,
+        "interface" : false,
+        "enum" : false,
+        "protected" : false,
+        "public" : true,
+        "static" : false,
+        "private" : false
+      },
+      "childes" : [ {
+        "method" : "<init>",
+        "namespce" : "com.baeldung.jersey.service.SimpleStorageService$lambda_findByName_0__49",
+        "annotations" : { },
+        "parametersTypes" : [ ],
+        "id" : 32632,
+        "returnType" : "void",
+        "classInfo" : {
+          "hasParameters" : false,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "abstract" : false,
+          "innerClass" : false,
+          "final" : true,
+          "javaLibraryClass" : false,
+          "interface" : false,
+          "enum" : false,
+          "protected" : false,
+          "public" : true,
+          "static" : false,
+          "private" : false
+        },
+        "childes" : [ ]
+      } ]
+    } ]
+  }, {
+    "method" : "<init>",
+    "namespce" : "com.baeldung.jersey.service.SimpleStorageService",
+    "annotations" : { },
+    "parametersTypes" : [ ],
+    "id" : 21975,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+}, {
+  "method" : "exception",
+  "namespce" : "com.baeldung.jersey.server.rest.FruitResource",
+  "annotations" : {
+    "Ljavax/ws/rs/Path;" : {
+      "value" : "/fruit"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : {
+      "protocol" : "JAXRS"
+    },
+    "Ljavax/ws/rs/GET;" : { },
+    "Ljavax/validation/Valid;" : { },
+    "Lorg/softauto/annotations/DefaultValueForTesting;" : [ {
+      "value" : "bbbbb"
+    }, {
+      "value" : "aaaaa"
+    } ],
+    "Ljavax/ws/rs/Produces;" : {
+      "value" : [ "text/html" ]
+    }
+  },
+  "parametersTypes" : [ ],
+  "id" : 21617,
+  "returnType" : "com.baeldung.jersey.server.model.Fruit",
+  "classInfo" : {
+    "hasParameters" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "abstract" : false,
+    "innerClass" : false,
+    "final" : false,
+    "javaLibraryClass" : false,
+    "interface" : false,
+    "enum" : false,
+    "protected" : false,
+    "public" : true,
+    "static" : false,
+    "private" : false
+  },
+  "childes" : [ {
+    "method" : "<init>",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ ],
+    "id" : 21564,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "setColour",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ "java.lang.String" ],
+    "id" : 21571,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  }, {
+    "method" : "setName",
+    "namespce" : "com.baeldung.jersey.server.model.Fruit",
+    "annotations" : {
+      "Ljavax/xml/bind/annotation/XmlRootElement;" : { }
+    },
+    "parametersTypes" : [ "java.lang.String" ],
+    "id" : 21569,
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : false,
+      "applicationClass" : true,
+      "libraryClass" : false,
+      "abstract" : false,
+      "innerClass" : false,
+      "final" : false,
+      "javaLibraryClass" : false,
+      "interface" : false,
+      "enum" : false,
+      "protected" : false,
+      "public" : true,
+      "static" : false,
+      "private" : false
+    },
+    "childes" : [ ]
+  } ]
+} ]
