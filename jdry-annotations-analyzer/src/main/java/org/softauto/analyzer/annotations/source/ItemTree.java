@@ -5,9 +5,7 @@ public interface ItemTree extends Tree {
 
     ListenerTree getListenerTree();
 
-    ApiTree getApiTree();
 
-    PluginTree getPluginTree();
 
 
 

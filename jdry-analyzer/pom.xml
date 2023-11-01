@@ -32,11 +32,11 @@
             <artifactId>jdry-base-analyzer</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-annotations-analyzer</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency-->
+        </dependency>
 
 
     </dependencies>

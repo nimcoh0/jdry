@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.softauto.annotations.ListenerType;
 import org.softauto.core.*;
 import org.softauto.serializer.service.Message;
 import org.softauto.serializer.service.SerializerService;
@@ -50,6 +51,9 @@ public class ListenerServiceImpl implements SerializerService{
                             logger.debug("got message Before " + message.toJson());
                             methodResponse = ((org.softauto.listener.Function) o).apply(message.getArgs());
                             logger.debug("result of function Before " + methodResponse);
+                            byte[] m = objectMapper.writeValueAsBytes(methodResponse);
+                            ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+                            return byteBuffer;
                         }
                     //}
                     //if (o instanceof Exec) {
@@ -66,23 +70,24 @@ public class ListenerServiceImpl implements SerializerService{
 
 
                 }else {
-                    byte[] m = objectMapper.writeValueAsBytes(message.getArgs());
-                    ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-                    return byteBuffer;
+                    // byte[] m = objectMapper.writeValueAsBytes(message.getArgs());
+                    //ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+                   // return byteBuffer;
 
                 }
             }else {
-                byte[] m = objectMapper.writeValueAsBytes(message.getArgs());
-                ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-                return byteBuffer;
+               // byte[] m = objectMapper.writeValueAsBytes(message.getArgs());
+               // ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+              //  return byteBuffer;
 
             }
         } catch(Exception e){
             logger.error("fail invoke method " + message.getDescriptor(), e);
         }
-        byte[] m = objectMapper.writeValueAsBytes(methodResponse);
-        ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-        return byteBuffer;
+       // byte[] m = objectMapper.writeValueAsBytes(methodResponse);
+      //  ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+       // return byteBuffer;
+        return null;
     }
 
 

@@ -5,6 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.core.*;
 import org.softauto.listener.*;
+import org.softauto.service.ListenerService;
+
 import java.util.function.Function;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -16,12 +18,19 @@ public  class Listener implements IListener {
     private static Logger logger = LogManager.getLogger(Listener.class);
     public static long timeOutInMin = 3;
     CountDownLatch lock = new CountDownLatch(0);
-    String fqmn;
+    public String fqmn;
     Object result;
     Exec func;
+    Class[] types;
 
+    public Class[] getTypes() {
+        return types;
+    }
 
-
+    public Listener setTypes(Class[] types) {
+        this.types = types;
+        return this;
+    }
 
     public Exec getFunc() {
         return func;
@@ -43,7 +52,7 @@ public  class Listener implements IListener {
 
 
     public <T> Listener waitTo(Function function, Handler<AsyncResult<T>> resultHandler)throws Exception{
-        FunctionBefore func = new FunctionBefore(function,fqmn);
+        Exec func = new Exec(function,fqmn);
         ListenerObserver.getInstance().register(fqmn,func);
         lock = func.getLock();
         lock.await(timeOutInMin, TimeUnit.MINUTES);
@@ -51,17 +60,22 @@ public  class Listener implements IListener {
         return this;
     }
 
+
+
     public <T> Listener waitTo(Handler<AsyncResult<T>> resultHandler)throws Exception{
+        Exec func = new Exec(fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
         lock = func.getLock();
         lock.await(timeOutInMin, TimeUnit.MINUTES);
         resultHandler.handle(Future.handleResult((T)func.getResult()));
         return this;
     }
 
+
     public <T> Listener waitTo(Function function, CallFuture<T> future)throws Exception{
         logger.debug("waitTo "+ fqmn);
 
-        FunctionBefore func = new FunctionBefore(function,fqmn);
+        Exec func = new Exec(function,fqmn);
         ListenerObserver.getInstance().register(fqmn,func);
         lock = func.getLock();
         lock.await(timeOutInMin, TimeUnit.MINUTES);
@@ -76,6 +90,9 @@ public  class Listener implements IListener {
 
     public <T> Listener waitTo( CallFuture<T> future)throws Exception{
         logger.debug("waitTo "+ fqmn);
+
+        Exec func = new Exec(fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
         lock = func.getLock();
         lock.await(timeOutInMin, TimeUnit.MINUTES);
         if(lock.getCount() > 0){
@@ -87,9 +104,10 @@ public  class Listener implements IListener {
         return this;
     }
 
+
     public Listener waitTo(Function function)throws Exception{
         logger.debug("waitTo "+ fqmn);
-        FunctionBefore func = new FunctionBefore(function,fqmn);
+        Exec func = new Exec(function,fqmn);
         ListenerObserver.getInstance().register(fqmn,func);
         lock = func.getLock();
         lock.await(timeOutInMin, TimeUnit.MINUTES);
@@ -104,6 +122,8 @@ public  class Listener implements IListener {
 
     public Listener waitTo()throws Exception{
         logger.debug("waitTo "+ fqmn);
+        Exec func = new Exec(fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
         lock = func.getLock();
         lock.await(timeOutInMin, TimeUnit.MINUTES);
         if(lock.getCount() > 0){
@@ -115,63 +135,16 @@ public  class Listener implements IListener {
         return this;
     }
 
+    public org.softauto.tester.Listener register(Function function) throws Exception {
+        ListenerObserver.getInstance().register(fqmn,function);
+        return this;
+    }
 
-    public <T> Listener waitToResult( Function function, CallFuture<T> future)throws Exception{
-        logger.debug("waitToResult "+ fqmn);
-        FunctionAfter func = new FunctionAfter(function,fqmn);
+    public org.softauto.tester.Listener register() throws Exception {
         ListenerObserver.getInstance().register(fqmn,func);
-        lock = func.getLock();
-        lock.await(timeOutInMin, TimeUnit.MINUTES);
-        future.handleResult((T)func.getResult());
-        if(lock.getCount() > 0){
-            logger.error("done waitTo for "+ fqmn+" no call ");
-        }else {
-            logger.debug("done waitTo for " + fqmn);
-        }
-        return this;
-    }
-
-    public <T> Listener waitToResult(  CallFuture<T> future)throws Exception{
-        logger.debug("waitToResult "+ fqmn);
-        lock = func.getLock();
-        lock.await(timeOutInMin, TimeUnit.MINUTES);
-        future.handleResult((T)func.getResult());
-        if(lock.getCount() > 0){
-            logger.error("done waitTo for "+ fqmn+" no call ");
-        }else {
-            logger.debug("done waitTo for " + fqmn);
-        }
         return this;
     }
 
 
-
-    public Listener waitToResult(Function function, Handler<AsyncResult<Object>> resultHandler)throws Exception{
-        logger.debug("waitToResult "+ fqmn);
-        FunctionAfter func = new FunctionAfter(function,fqmn);
-        ListenerObserver.getInstance().register(fqmn,func);
-        lock = func.getLock();
-        lock.await(timeOutInMin, TimeUnit.MINUTES);
-        resultHandler.handle(Future.handleResult((Object)func.getResult()));
-        if(lock.getCount() > 0){
-            logger.error("done waitTo for "+ fqmn+" no call ");
-        }else {
-            logger.debug("done waitTo for " + fqmn);
-        }
-        return this;
-    }
-
-    public <T> Listener waitToResult( Handler<AsyncResult<T>> resultHandler)throws Exception{
-        logger.debug("waitToResult "+ fqmn);
-        lock = func.getLock();
-        lock.await(timeOutInMin, TimeUnit.MINUTES);
-        resultHandler.handle(Future.handleResult((T)func.getResult()));
-        if(lock.getCount() > 0){
-            logger.error("done waitTo for "+ fqmn+" no call ");
-        }else {
-            logger.debug("done waitTo for " + fqmn);
-        }
-        return this;
-    }
 
 }

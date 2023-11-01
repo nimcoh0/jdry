@@ -10,12 +10,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD,ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ListenerForTesting {
-    String description() default "";
 
-    String value() default "";
-
-    String id() default "";
-
-    String callback() default "";
+    ListenerType type() default ListenerType.NONE;
 
 }

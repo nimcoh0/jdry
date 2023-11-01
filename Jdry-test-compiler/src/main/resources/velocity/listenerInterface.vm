@@ -6,8 +6,7 @@ public interface $this.mangle($suite.getName()+"ListenerService") {
 
 #foreach ($listener in $suite.getListeners())
 #set ($name = $listener.getFullName())
-#set ($response = $listener.getResponse().getType())
-$response ${this.mangle($name)}(##
+org.softauto.tester.Listener ${this.mangle($name)}(##
 #foreach ($p in $listener.getRequest().getArguments())##
 #*      *#$p.getType() $p.getName()#if ($foreach.hasNext), #end ##
 #end

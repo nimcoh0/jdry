@@ -33,8 +33,8 @@ public class TreeScanner {
     }
 
     public TreeScanner() {
-        //suite.setName(Configuration.get(Context.SCHEMA_NAME).asString());
-        //suite.setNamespace(Configuration.get(Context.FILE_NAMESPACE).asString());
+        suite.setName(Configuration.get(Context.SCHEMA_NAME).asString());
+        suite.setNamespace(Configuration.get(Context.FILE_NAMESPACE).asString());
         //logger.debug("running TreeScanner for " + suite.getName());
         ApiDataProvider apiDataProvider = ApiDataProvider.getInstance().initialize();
         List<GenericItem> trees = apiDataProvider.getTrees();
@@ -49,18 +49,32 @@ public class TreeScanner {
             if (tree.getType().equals("method"))
                 new TreeImpl(suite).walkOnTree(tree, new TreeVisitor() {
 
-                    @Override
-                    public Item visitBase(GenericItem tree) {
-                        logger.debug(" ***** analyze  meta phase for " + tree.getName() + " ***** ");
-                        PluginProvider pluginProvider = ProviderManager.provider("Base");
-                        if (pluginProvider != null) {
-                            Provider provider = pluginProvider.create();
-                            return (Item) provider.Analyze(tree, null, null);
-                        }
-                        return null;
-                    }
+                            @Override
+                            public Item visitBase(GenericItem tree) {
+                                logger.debug(" ***** analyze  meta phase for " + tree.getName() + " ***** ");
+                                PluginProvider pluginProvider = ProviderManager.provider("Base");
+                                if (pluginProvider != null) {
+                                    Provider provider = pluginProvider.create();
+                                    return (Item) provider.Analyze(tree, null, null);
+                                }
+                                return null;
+                            }
 
 
+                            @Override
+                            public Item visitJdryAnnotations(Item item) {
+                                logger.debug("***** analyze  Jdry Annotations phase for " + tree.getName() + "  ***** ");
+                                PluginProvider pluginProvider = ProviderManager.provider("JdryAnnotations");
+                                if (pluginProvider != null) {
+                                    Provider provider = pluginProvider.create();
+                                    return (Item) provider.Analyze(tree, item, null);
+                                }
+                                return item;
+                            }
+
+
+
+                    /*
                     @Override
                     public Item visitJdryAnnotations(Item item) {
                         logger.debug("***** analyze  Jdry Annotations phase for " + tree.getName() + "  ***** ");
@@ -132,7 +146,10 @@ public class TreeScanner {
                         }
                         return item;
                     }
+
+                     */
                 });
         }
+        new TreeImpl(suite).findProtocols();
     }
 }

@@ -1,8 +1,8 @@
 package org.softauto.listener.manager;
 
+import org.softauto.annotations.ListenerType;
 import org.softauto.core.Configuration;
 import org.softauto.core.Context;
-import org.softauto.core.ListenerType;
 import org.softauto.core.TestLifeCycle;
 import org.softauto.listener.ListenerService;
 import org.softauto.serializer.Serializer;

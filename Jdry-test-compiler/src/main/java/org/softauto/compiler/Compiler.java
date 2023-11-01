@@ -172,6 +172,10 @@ public class Compiler {
         compileInterface(new File[] { src }, dest);
     }
 
+    public static void compileProtocols(File src, File dest) throws IOException {
+        compileProtocol(new File[] { src }, dest);
+    }
+
     public static void compileListenerInterface(File src, File dest) throws IOException {
         compileListenerInterface(new File[] { src }, dest);
     }
@@ -201,6 +205,17 @@ public class Compiler {
 
     }
 
+    public static void compileProtocol(File[] srcFiles, File dest) throws IOException {
+        for (File src : srcFiles) {
+            Suite suite = Suite.parse(src);
+            Compiler compiler = new Compiler(suite);
+            compiler.compileToProtocol(src, dest);
+            logger.debug("compile successfully " + src.getName());
+        }
+
+    }
+
+
     public static void compileListenerInterface(File[] srcFiles, File dest) throws IOException {
         for (File src : srcFiles) {
             Suite suite = Suite.parse(src);
@@ -228,6 +243,13 @@ public class Compiler {
             compileListenerInterface(suite).writeToDestination(src, dst);
         }
     }
+
+    public void compileToProtocol(File src, File dst) throws IOException {
+        if (suite != null) {
+            compileProtocol(suite).writeToDestination(src, dst);
+        }
+    }
+
 
     private String renderTemplate(String templateName, VelocityContext context) {
         Template template;
@@ -301,6 +323,24 @@ public class Compiler {
         return outputFile;
     }
 
+    OutputFile compileProtocol(Suite suite) {
+        VelocityContext context = new VelocityContext();
+        context.put("suite", suite);
+        context.put("this", this);
+        for (Object velocityTool : additionalVelocityTools) {
+            String toolName = velocityTool.getClass().getSimpleName().toLowerCase();
+            context.put(toolName, velocityTool);
+        }
+        String out = renderTemplate(templateDir + "protocols.vm", context);
+
+        OutputFile outputFile = new OutputFile();
+        String mangledName = mangle("Protocols");
+        outputFile.path = makePath(mangledName, suite.getNamespace());
+        outputFile.contents = out;
+        outputFile.outputCharacterEncoding = outputCharacterEncoding;
+        logger.debug("write output to " + outputFile);
+        return outputFile;
+    }
 
 
     // package private for testing purposes
@@ -325,6 +365,7 @@ public class Compiler {
         //compileSuite(new File(args[0]), new File(args[1]));
         compileInterface(new File(args[0]), new File(args[1]));
         compileListenerInterface(new File(args[0]), new File(args[1]));
+        compileProtocols(new File(args[0]), new File(args[1]));
         logger.debug("input file "+ args[0]);
         logger.debug("output file "+ args[1]);
         logger.info("tests compile finsh successfully");

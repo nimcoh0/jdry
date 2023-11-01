@@ -1,11 +1,17 @@
 package org.softauto.listener.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.softauto.annotations.ListenerType;
+
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
@@ -42,35 +48,67 @@ public class Listener {
 
     }
 
+    private Object[] castToOrgType(Object[] args, Class[] types){
+        try {
+            for(int i=0;i<args.length;i++){
+                String json = new ObjectMapper().writeValueAsString(args[i]);
+                args[i] = new ObjectMapper().readValue(json,types[i]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return args;
+    }
 
+    private Object[] getRef(AtomicReference<Object[]> ref){
+      if(ref.get() instanceof Object[]){
+          if(ref.get()[0] instanceof ArrayList){
+              return ((ArrayList)ref.get()[0]).toArray();
+          }
+          return (Object[]) ref.get()[0];
+      }
+      return ref.get();
+    }
 
-
-    @Before(value = ("@annotation(org.softauto.annotations.ListenerForTesting) "))
-    public synchronized void captureAll(JoinPoint joinPoint){
+    //@Before("execution(* *(..)) && @annotation(org.softauto.annotations.ListenerForTesting)")
+    //@Before(value = ("@annotation(org.softauto.annotations.ListenerForTesting) "))
+    @Around(value = "@annotation(org.softauto.annotations.ListenerForTesting)")
+    public synchronized Object captureAll(ProceedingJoinPoint joinPoint){
+        Object o = null;
         AtomicReference<String> fqmn = new AtomicReference();
         try {
-            if(serviceImpl != null) {
+            if(serviceImpl != null && joinPoint.getKind().equals(JoinPoint.METHOD_CALL)) {
                 Method method = serviceImpl.getClass().getDeclaredMethod("executeBefore", new Class[]{String.class, Object[].class, Class[].class});
                 MethodSignature sig = (MethodSignature) joinPoint.getSignature();
                 fqmn.set(Utils.buildMethodFQMN(sig.getName(), sig.getDeclaringType().getName()));
                 AtomicReference<Object[]> ref = new AtomicReference();
+                if(sig.getMethod().getAnnotation(org.softauto.annotations.ListenerForTesting.class) != null ) {
+                    org.softauto.annotations.ListenerForTesting annotation = sig.getMethod().getAnnotation(org.softauto.annotations.ListenerForTesting.class);
+                    if(annotation.type().toString().equals(ListenerType.BEFORE.name())) {
+                        try {
 
-                    try {
-
-                        logger.debug("invoke listener on " + serviceImpl + " fqmn: " + fqmn.get() + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
-                        method.setAccessible(true);
-                        ref.set((Object[]) method.invoke(serviceImpl, new Object[]{fqmn.get(), Utils.getArgs(joinPoint.getArgs()), Utils.getTypes(sig.getMethod().getParameterTypes())}));
-
-                    } catch (Exception e) {
-                        logger.error("send message " + fqmn.get() + " fail  ", e);
+                            logger.debug("invoke listener on " + serviceImpl + " fqmn: " + fqmn.get() + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
+                            method.setAccessible(true);
+                            ref.set((Object[]) method.invoke(serviceImpl, new Object[]{fqmn.get(), Utils.getArgs(joinPoint.getArgs()), Utils.getTypes(sig.getMethod().getParameterTypes())}));
+                            Object[] args = getRef(ref);
+                            args = castToOrgType(args,sig.getMethod().getParameterTypes());
+                            o = joinPoint.proceed(args);
+                        } catch (Exception e) {
+                            logger.error("send message " + fqmn.get() + " fail  ", e);
+                        }
+                    }else {
+                        o = joinPoint.proceed();
                     }
-
-
+                }else {
+                    o = joinPoint.proceed();
+                }
+            }else {
+                o = joinPoint.proceed();
             }
         } catch (Throwable e) {
             logger.error("capture message "+fqmn.get()+" fail  ",e );
         }
-
+        return o;
 
     }
 
@@ -79,8 +117,8 @@ public class Listener {
 
 
 
-/*
-    @AfterReturning(value = ("@annotation(org.softauto.annotations.VerifyForTesting)"), returning="result")
+    @AfterReturning(pointcut = "execution(* *(..))  && @annotation(org.softauto.annotations.ListenerForTesting)  ", returning = "result")
+    //@AfterReturning(value = ("@annotation(org.softauto.annotations.ListenerForTesting)"), returning="result")
     public synchronized   void returning(JoinPoint joinPoint,Object result) {
         try {
             if(serviceImpl != null) {
@@ -89,27 +127,33 @@ public class Listener {
                 MethodSignature sig = (MethodSignature) joinPoint.getSignature();
                 Thread currentThread = Thread.currentThread();
                 String fqmn = Utils.buildMethodFQMN(sig.getName(), sig.getDeclaringType().getName());
-               if (!sig.getMethod().getReturnType().getName().equals("void")) {
-                                try {
+                if(sig.getMethod().getAnnotation(org.softauto.annotations.ListenerForTesting.class) != null ) {
+                    org.softauto.annotations.ListenerForTesting annotation = sig.getMethod().getAnnotation(org.softauto.annotations.ListenerForTesting.class);
+                    if (annotation.type().toString().equals(ListenerType.AFTER.name())) {
 
-                                    logger.debug("invoke returning listener on "+serviceImpl+ " fqmn:" + fqmn + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
-                                    method.setAccessible(true);
-                                    method.invoke(serviceImpl, new Object[]{fqmn, new Object[]{result}, new Class[]{sig.getMethod().getReturnType()}});
-
-                                } catch (Exception e) {
-                                    logger.error("sendResult returning fail for " + fqmn , e);
-                                }
-
-                    } else {
+                        if (!sig.getMethod().getReturnType().getName().equals("void")) {
                             try {
 
-                                logger.debug("invoke returning listener on "+serviceImpl+ " fqmn:" + fqmn + " args:" + org.softauto.core.Utils.result2String(joinPoint.getArgs()) + " types:" + org.softauto.core.Utils.result2String(sig.getMethod().getParameterTypes()));
+                                logger.debug("invoke returning listener on " + serviceImpl + " fqmn:" + fqmn + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
                                 method.setAccessible(true);
-                                method.invoke(serviceImpl, new Object[]{fqmn , Utils.getArgs(joinPoint.getArgs()), Utils.getTypes(sig.getMethod().getParameterTypes())});
+                                method.invoke(serviceImpl, new Object[]{fqmn, new Object[]{result}, new Class[]{sig.getMethod().getReturnType()}});
+
                             } catch (Exception e) {
-                                logger.error("sendResult returning fail for " + fqmn , e);
+                                logger.error("sendResult returning fail for " + fqmn, e);
                             }
+
+                        } else {
+                            try {
+
+                                logger.debug("invoke returning listener on " + serviceImpl + " fqmn:" + fqmn + " args:" + org.softauto.core.Utils.result2String(joinPoint.getArgs()) + " types:" + org.softauto.core.Utils.result2String(sig.getMethod().getParameterTypes()));
+                                method.setAccessible(true);
+                                method.invoke(serviceImpl, new Object[]{fqmn, Utils.getArgs(joinPoint.getArgs()), Utils.getTypes(sig.getMethod().getParameterTypes())});
+                            } catch (Exception e) {
+                                logger.error("sendResult returning fail for " + fqmn, e);
+                            }
+                        }
                     }
+                }
              }
         }catch (Exception e){
             e.printStackTrace();
@@ -117,6 +161,6 @@ public class Listener {
     }
 
 
- */
+
 
 }

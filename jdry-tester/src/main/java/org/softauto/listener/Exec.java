@@ -25,6 +25,13 @@ public  class Exec implements Function {
         logger.debug("init function after for "+ key);
     }
 
+    public Exec(String key){
+        lock = new CountDownLatch(1);
+        this.key = key;
+        seen = false;
+        logger.debug("init function before for "+ key);
+    }
+
     @Override
     public CountDownLatch getLock(){
         return lock;
@@ -35,7 +42,11 @@ public  class Exec implements Function {
     public Object apply(Object o){
         try {
             if(!seen) {
-                this.result = func.apply(o);
+                if(func != null) {
+                    this.result = func.apply(o);
+                }else {
+                    this.result = o;
+                }
                 logger.debug("apply function After result  " + result);
                 seen = true;
             }else{

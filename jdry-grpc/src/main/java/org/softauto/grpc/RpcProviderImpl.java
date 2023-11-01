@@ -61,12 +61,17 @@ public class RpcProviderImpl  {
         return this;
     }
 
+
+
+
     public RpcProviderImpl initialize() throws IOException {
         try {
             server = ServerBuilder.forPort(port)
                     .addService(AvroGrpcServer.createServiceDefinition(SerializerService.class, new SerializerServiceImpl()))
+                    //.addService(AvroGrpcServer.createServiceDefinition(SerializerService.Callback.class, new SerializerServiceImpl()))
                     .build();
             server.start();
+            //server.getServices();
             logger.info("Grpc Server load successfully on port "+port);
         }catch (Exception e){
             logger.fatal("fail to start Serializer server ", e);

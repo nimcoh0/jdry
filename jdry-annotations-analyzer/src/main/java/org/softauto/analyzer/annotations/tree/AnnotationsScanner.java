@@ -38,64 +38,17 @@ public  class AnnotationsScanner<R,T,D>  implements TreeVisitor<R,T,D> {
 
 
 
-    @Override
-    public R visitPlugin(PluginTree plugin, T t, D d, R r) {
-        return r;
-    }
-
-    @Override
-    public R visitAssert(AssertTree anAssert, T t, D d, R r) {
-        return r;
-    }
-
-    @Override
-    public R visitTest(TestTree test, T t, D d, R r) {
-        return null;
-    }
-
-    @Override
-    public R visitData(DataTree dataTree, T t, D d, R r) {
-        return null;
-    }
-
 
     @Override
     public R visitListener(ListenerTree listener, T t, D d, R r) {
       return r;
     }
 
-    @Override
-    public R visitCallBack(CallBackTree callBack, T t, D d, R r) {
-        return r;
-    }
 
-
-
-    @Override
-    public R visitAfter(AfterTree after, T t, D d, R r) {
-       return r;
-    }
-
-    @Override
-    public R visitApi(ApiTree api, T t, D d, R r) {
-        scan(api.getCallBackTree(), t, d, r);
-        scanAndReduce(api.getAfterTree(), t, d, r);
-        scanAndReduce(api.getClassTypeTree(), t, d, r);
-        return r;
-    }
-
-
-    @Override
-    public R visitClassType(ClassTypeTree classType, T t, D d, R r) {
-        return r;
-    }
 
     @Override
     public R visitItem(ItemTree item, T t, D d, R r) {
-        r = scan(item.getPluginTree(), t, d, r);
-        r = scanAndReduce(item.getApiTree(), t, d, r);
-        r = scanAndReduce(item.getListenerTree(),  t, d, r);
-
+        r = scan(item.getListenerTree(),  t, d, r);
         return r;
     }
 

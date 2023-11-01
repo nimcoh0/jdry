@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 
-public class SerializerServiceImpl implements SerializerService,SerializerService.Callback{
+public class SerializerServiceImpl implements SerializerService{
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(SerializerServiceImpl.class);
     Injector injector = null;
@@ -29,6 +29,8 @@ public class SerializerServiceImpl implements SerializerService,SerializerServic
         injector = new Injector();
     }
 
+
+/*
     @Override
     public <RespT> void execute(ByteBuffer mess, org.apache.avro.ipc.Callback<RespT> callback) throws Exception {
         Object methodResponse = null;
@@ -78,6 +80,7 @@ public class SerializerServiceImpl implements SerializerService,SerializerServic
             logger.debug("successfully invoke "+message.getDescriptor()+ " with args "+ Utils.result2String(message.getArgs())+ " on " +serviceImpl.getClass().getName());
 
         }catch (Exception e){
+            methodResponse = e;
             e.printStackTrace();
         }
 
@@ -85,6 +88,10 @@ public class SerializerServiceImpl implements SerializerService,SerializerServic
         ByteBuffer byteBuffer = ByteBuffer.wrap(m);
         callback.handleResult((RespT) byteBuffer);
     }
+
+
+ */
+
 
     /*
     @Override
@@ -144,6 +151,7 @@ public class SerializerServiceImpl implements SerializerService,SerializerServic
             logger.debug("successfully invoke "+message.getDescriptor()+ " with args "+ Utils.result2String(message.getArgs())+ " on " +serviceImpl.getClass().getName());
 
         }catch (Exception e){
+            methodResponse = e;
             e.printStackTrace();
         }
 
@@ -169,6 +177,8 @@ public class SerializerServiceImpl implements SerializerService,SerializerServic
         }
         return args;
     }
+
+
 
 /*
     private Object doExecute(ByteBuffer mes) throws Exception {

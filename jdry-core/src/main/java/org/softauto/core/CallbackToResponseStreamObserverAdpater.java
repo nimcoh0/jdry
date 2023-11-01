@@ -8,17 +8,17 @@ import org.apache.avro.ipc.CallFuture;
 import java.io.Serializable;
 
 public class CallbackToResponseStreamObserverAdpater<T> implements StreamObserver<Object>, Serializable {
-    private final org.apache.avro.ipc.Callback<T> callback;
+    private org.apache.avro.ipc.Callback<Object> callback;
     private ManagedChannel channel;
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(CallbackToResponseStreamObserverAdpater.class);
 
 
-    public CallbackToResponseStreamObserverAdpater(org.apache.avro.ipc.Callback<T> callback, ManagedChannel channel) {
+    public CallbackToResponseStreamObserverAdpater(org.apache.avro.ipc.Callback<Object> callback, ManagedChannel channel) {
         this.callback = callback;
         this.channel = channel;
     }
 
-    
+
 
     @Override
     public void onNext(Object value) {

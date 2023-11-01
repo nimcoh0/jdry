@@ -24,7 +24,7 @@
         <module>jdry-analyzer</module>
         <module>jdry-analyzer-model</module>
         <module>jdry-base-analyzer</module>
-        <!--module>jdry-annotations-analyzer</module-->
+        <module>jdry-annotations-analyzer</module>
         <module>jdry-core-analyzer</module>
         <!--module>jdry-jax-rs-analyzer</module-->
         <!--module>jdry-web-spring-analyzer</module-->

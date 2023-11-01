@@ -10,17 +10,9 @@ public interface Tree extends Phase {
     public enum Kind {
 
 
-        ASSERTS(AssertTree.class),
-        PLUGIN(PluginTree.class),
-        TEST(TestTree.class),
-        DATA(DataTree.class),
         LISTENER(ListenerTree.class),
-        AFTER(AfterTree.class),
-        API(ApiTree.class),
-        ITEM(ItemTree.class),
-        CALLBACK(CallBackTree.class),
-        EXPECTED(ExpectedTree.class),
-        CLASSTYPE(ClassTypeTree.class);
+        ITEM(ItemTree.class);
+
 
 
 

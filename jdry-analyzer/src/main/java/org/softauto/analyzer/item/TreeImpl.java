@@ -3,12 +3,14 @@ package org.softauto.analyzer.item;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.analyzer.core.Main;
+import org.softauto.analyzer.core.rules.ProtocolRules;
 import org.softauto.analyzer.model.Item;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.analyzer.model.listener.Listener;
 import org.softauto.analyzer.model.suite.Suite;
 import org.softauto.analyzer.model.test.Test;
 
+import java.util.List;
 
 
 public class TreeImpl implements Tree {
@@ -21,20 +23,26 @@ public class TreeImpl implements Tree {
         this.suite = suite;
     }
 
+    public void findProtocols(){
+        List<String> protocols = new ProtocolRules().getProtocols();
+        suite.setProtocols(protocols);
+    }
+
+
     @Override
     public TreeImpl walkOnTree(GenericItem tree, TreeVisitor visitor) {
 
         Item item = visitor.visitBase(tree);
 
-        item = visitor.visitNameRecognition(item);
+        //item = visitor.visitNameRecognition(item);
 
         item = visitor.visitJdryAnnotations(item);
 
-        item = visitor.visitDataGenerator(item);
+        //item = visitor.visitDataGenerator(item);
 
-        item = visitor.visitDataRecorder(item);
+        //item = visitor.visitDataRecorder(item);
 
-        item = visitor.visitPublish(item);
+       // item = visitor.visitPublish(item);
 
 
 

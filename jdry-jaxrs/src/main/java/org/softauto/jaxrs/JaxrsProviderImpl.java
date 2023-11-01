@@ -47,7 +47,34 @@ public class JaxrsProviderImpl implements Provider {
     }
 
     @Override
-    public <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions) {
+    public <RespT> Object exec(String stepName, ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions) {
+        try {
+            //executor.submit(()->{
+                try {
+                    testDefinition = RestService.createTestDefinition(stepName,args,types,callOptions);
+                    StepDefinition md = testDefinition.getStep(stepName);
+                    RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
+                    if (((Response)res).getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL) {
+                        if(((Response)res).hasEntity()) {
+                            Class c = ClassUtils.getClass(callOptions.get("response").toString());
+                            return ((Response)res).readEntity(c);
+                        }else {
+                            return (RespT) res;
+                        }
+                    } else {
+                        new RuntimeException(((Response)res).getStatusInfo().getReasonPhrase());
+                    }
+
+
+                    logger.debug("successfully exec jaxrs call  "+  stepName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            //});
+        }catch (Exception e){
+            logger.error("exec jaxrs call  fail "+  stepName,e);
+        }
         return null;
     }
 

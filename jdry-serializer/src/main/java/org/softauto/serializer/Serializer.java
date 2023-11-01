@@ -3,10 +3,11 @@ package org.softauto.serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.grpc.*;
-import org.apache.avro.grpc.AvroGrpcClient;
+
 import org.apache.avro.ipc.CallFuture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.softauto.serializer.grpc.AvroGrpcClient;
 import org.softauto.serializer.service.Message;
 import org.softauto.serializer.service.SerializerService;
 import java.nio.ByteBuffer;
@@ -49,7 +50,7 @@ public class Serializer {
     public Serializer setChannel(ManagedChannel channel) {
         this.channel = channel;
         connectivityState = this.channel.getState(true);
-        this.clientOneWay = (SerializerService)AvroGrpcClient.create(this.channel, SerializerService.class);
+        this.clientOneWay = (SerializerService) AvroGrpcClient.create(this.channel, SerializerService.class);
         return this;
     }
 
@@ -69,9 +70,9 @@ public class Serializer {
                 byte[] m = new ObjectMapper().writeValueAsBytes(message);
                 ByteBuffer byteBuffer = ByteBuffer.wrap(m);
                 //clientOneWay.execute(byteBuffer,future);
-                ByteBuffer res = (ByteBuffer) clientOneWay.execute(byteBuffer);
-                String newContent = new String(res.array(), StandardCharsets.UTF_8);
-                result =  new ObjectMapper().readValue(newContent,Object.class);
+                result =  clientOneWay.execute(byteBuffer);
+                //String newContent = new String(res.array(), StandardCharsets.UTF_8);
+                //result =  new ObjectMapper().readValue(newContent,Object.class);
                 logger.debug("successfully execute message " + message.toJson());
             }
         }catch (Exception e){
@@ -90,17 +91,14 @@ public class Serializer {
             if(connectivityState.equals(ConnectivityState.READY) || connectivityState.equals(ConnectivityState.IDLE)) {
                 byte[] m = new ObjectMapper().writeValueAsBytes(message);
                 ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-
                 clientTwoWay.execute(byteBuffer,callback);
-                //String newContent = new String(((ByteBuffer)callback.getResult()).array(), StandardCharsets.UTF_8);
-                //result =  new ObjectMapper().readValue(newContent,Object.class);
-                //callback.handleResult((T)result);
+
                 logger.debug("successfully execute message " + message.toJson());
             }
         }catch (Exception e){
             logger.error("fail execute sync message "+ message.toJson(),e);
         }finally {
-            channel.shutdown();
+           // channel.shutdown();
         }
         //logger.debug("result "+(T)result);
 

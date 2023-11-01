@@ -24,15 +24,15 @@ org.softauto.tester.Step  ${this.mangle($name)}(##
 #end
 #if($this.isPrimitive($response))
 #if($test.getApi().getRequest().getArguments().size() > 0)
-  ,org.softauto.core.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
+  ,org.apache.avro.ipc.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
 #else
-  org.softauto.core.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
+  org.apache.avro.ipc.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
 #end
 #else
 #if($test.getApi().getRequest().getArguments().size() > 0)
- ,org.softauto.core.CallFuture<$response> callback) throws java.io.IOException;
+ ,org.apache.avro.ipc.CallFuture<$response> callback) throws java.io.IOException;
 #else
-  org.softauto.core.CallFuture<$response> callback) throws java.io.IOException;
+  org.apache.avro.ipc.CallFuture<$response> callback) throws java.io.IOException;
 #end
 #end
 

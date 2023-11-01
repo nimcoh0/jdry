@@ -8,19 +8,9 @@
       "unit" : "MILLIS",
       "type" : "java.lang.Enum"
     },
-    "Lorg/softauto/annotations/ApiForTesting;" : {
-      "after" : {
-        "value" : "((HashMap)${#result}.get('data')).get('id')",
-        "type" : "int",
-        "name" : "companyId"
-      }
-    },
     "Lorg/springframework/web/bind/annotation/PostMapping;" : {
       "value" : "/saveCompany",
       "type" : "java.lang.String"
-    },
-    "Lorg/softauto/annotations/Random;" : {
-      "index" : 0
     },
     "Lorg/springframework/web/bind/annotation/RequestBody;" : {
       "index" : 0
@@ -37,7 +27,7 @@
   "argumentsNames" : [ "companyDto" ],
   "id" : 17728,
   "type" : "method",
-  "returnType" : "java.lang.Integer",
+  "returnType" : "int",
   "classInfo" : {
     "hasParameters" : true,
     "entity" : false,
@@ -49,10 +39,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -66,7 +56,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -88,10 +80,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -138,10 +130,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -153,7 +145,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -175,10 +169,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -227,10 +221,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -242,7 +236,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -264,10 +260,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -317,10 +313,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -336,7 +332,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -358,10 +356,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -411,10 +409,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -426,7 +424,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -448,10 +448,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -500,10 +500,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -513,7 +513,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -535,10 +537,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -560,11 +562,6 @@
     },
     "Lorg/springframework/web/bind/annotation/RequestParam;" : {
       "index" : 0
-    },
-    "Lorg/softauto/annotations/Random;" : {
-      "data" : "{\"relatedAccountType\" : \"com.iot.infrastructure.constants.IotConstants.AccountTypes.valueOf(\\\"ADMIN\\\")\"}",
-      "type" : "java.lang.String",
-      "index" : 1
     },
     "Lorg/springframework/web/bind/annotation/RequestBody;" : {
       "index" : 1
@@ -593,10 +590,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -610,7 +607,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -632,10 +631,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -684,10 +683,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -699,7 +698,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -721,10 +722,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -774,10 +775,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -789,7 +790,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -811,10 +814,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -863,10 +866,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -876,7 +879,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -898,10 +903,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -948,10 +953,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -961,7 +966,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -983,10 +990,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1035,10 +1042,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1048,7 +1055,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1070,10 +1079,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1139,10 +1148,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1152,7 +1161,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1174,10 +1185,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1221,10 +1232,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -1232,7 +1243,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1254,10 +1267,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1304,10 +1317,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1319,7 +1332,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1341,10 +1356,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1388,10 +1403,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -1399,7 +1414,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1421,10 +1438,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1471,10 +1488,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1486,7 +1503,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1508,10 +1527,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1530,13 +1549,6 @@
     "Lorg/springframework/web/bind/annotation/PostMapping;" : {
       "value" : "/createCustomerUser",
       "type" : "java.lang.String"
-    },
-    "Lorg/softauto/annotations/Random;" : {
-      "data" : "{\"accountType\":\"com.iot.infrastructure.constants.IotConstants.AccountTypes.valueOf(\\\"ADMIN\\\")\"}",
-      "exclude" : "companyId",
-      "consume" : "customerId",
-      "type" : "java.lang.String",
-      "index" : 0
     },
     "Lorg/springframework/web/bind/annotation/RequestBody;" : {
       "index" : 0
@@ -1565,10 +1577,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1584,7 +1596,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1606,10 +1620,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1656,10 +1670,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1669,7 +1683,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1691,10 +1707,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1739,10 +1755,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1752,7 +1768,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1774,10 +1792,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1824,10 +1842,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -1835,7 +1853,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1857,10 +1877,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -1879,11 +1899,6 @@
     "Lorg/springframework/web/bind/annotation/PostMapping;" : {
       "value" : "/saveCustomerRole",
       "type" : "java.lang.String"
-    },
-    "Lorg/softauto/annotations/Random;" : {
-      "data" : "{\"relatedAccountType\" : \"com.iot.infrastructure.constants.IotConstants.AccountTypes.valueOf(\\\"ADMIN\\\")\"}",
-      "type" : "java.lang.String",
-      "index" : 0
     },
     "Lorg/springframework/web/bind/annotation/RequestBody;" : {
       "index" : 0
@@ -1912,10 +1927,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1931,7 +1946,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -1953,10 +1970,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2000,10 +2017,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -2013,7 +2030,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2035,10 +2054,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2098,10 +2117,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -2116,20 +2135,9 @@
       "unit" : "MILLIS",
       "type" : "java.lang.Enum"
     },
-    "Lorg/softauto/annotations/ApiForTesting;" : {
-      "after" : {
-        "type" : "java.util.HashMap",
-        "value" : "${#result}.get('data')"
-      }
-    },
     "Lorg/springframework/web/bind/annotation/PostMapping;" : {
       "value" : "/systemLogin",
       "type" : "java.lang.String"
-    },
-    "Lorg/softauto/annotations/DataForTesting;" : {
-      "value" : "{\"email\":\"system@system.com\",\"password\":\"system\"}",
-      "type" : "java.lang.String",
-      "index" : 0
     },
     "Lorg/springframework/web/bind/annotation/RequestBody;" : {
       "index" : 0
@@ -2158,10 +2166,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -2169,7 +2177,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2191,10 +2201,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2210,20 +2220,9 @@
       "unit" : "MILLIS",
       "type" : "java.lang.Enum"
     },
-    "Lorg/softauto/annotations/ApiForTesting;" : {
-      "after" : {
-        "type" : "java.util.HashMap",
-        "value" : "${#result}.get('data')"
-      }
-    },
     "Lorg/springframework/web/bind/annotation/PostMapping;" : {
       "value" : "/adminLogin",
       "type" : "java.lang.String"
-    },
-    "Lorg/softauto/annotations/DataForTesting;" : {
-      "value" : "{\"email\":\"@{consume(\"/email\").toString()}\",\"password\":\"123456\"}",
-      "type" : "java.lang.String",
-      "index" : 0
     },
     "Lorg/springframework/web/bind/annotation/RequestBody;" : {
       "index" : 0
@@ -2252,10 +2251,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -2263,7 +2262,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2285,10 +2286,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2308,11 +2309,6 @@
     "Lorg/springframework/web/bind/annotation/PostMapping;" : {
       "value" : "/iotLogin",
       "type" : "java.lang.String"
-    },
-    "Lorg/softauto/annotations/DataForTesting;" : {
-      "value" : "{\"email\":\"admin@admin.com\",\"password\":\"admin123\"}",
-      "type" : "java.lang.String",
-      "index" : 0
     },
     "Lorg/springframework/web/bind/annotation/RequestBody;" : {
       "index" : 0
@@ -2341,10 +2337,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -2352,7 +2348,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2374,10 +2372,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2437,10 +2435,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -2448,7 +2446,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2470,10 +2470,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2546,10 +2546,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -2561,7 +2561,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2583,10 +2585,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2637,10 +2639,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -2652,7 +2654,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2674,10 +2678,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2728,10 +2732,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -2739,7 +2743,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2761,10 +2767,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2812,10 +2818,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -2823,7 +2829,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2845,10 +2853,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2899,10 +2907,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -2912,7 +2920,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -2934,10 +2944,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -2988,10 +2998,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -2999,7 +3009,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3021,10 +3033,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3066,10 +3078,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -3077,7 +3089,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3099,10 +3113,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3175,10 +3189,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -3188,7 +3202,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3210,10 +3226,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3223,13 +3239,6 @@
   "name" : "createCustomerOwner",
   "namespce" : "com.iot.backend.api.controllers.SystemController",
   "annotations" : {
-    "Lorg/softauto/annotations/ApiForTesting;" : {
-      "publish" : {
-        "name" : "email",
-        "type" : "java.lang.String",
-        "value" : "${#result}"
-      }
-    },
     "Lcom/iot/backend/infrastructure/logs/Log;" : {
       "showArgs" : 1,
       "showResult" : 1,
@@ -3242,11 +3251,6 @@
     },
     "Lorg/springframework/web/bind/annotation/RequestParam;" : {
       "index" : 0
-    },
-    "Lorg/softauto/annotations/Random;" : {
-      "data" : "{\"accountType\":\"com.iot.infrastructure.constants.IotConstants.AccountTypes.valueOf(\\\"ADMIN\\\")\",\"password\" : \"java.lang.String.valueOf(123456)\"}",
-      "type" : "java.lang.String",
-      "index" : 1
     },
     "Lorg/springframework/web/bind/annotation/RequestBody;" : {
       "index" : 1
@@ -3275,10 +3279,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -3290,7 +3294,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3312,10 +3318,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3364,10 +3370,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -3377,7 +3383,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3399,10 +3407,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3446,10 +3454,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -3457,7 +3465,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3479,10 +3489,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3529,10 +3539,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -3542,7 +3552,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3564,10 +3576,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3611,10 +3623,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -3622,7 +3634,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3644,10 +3658,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3691,10 +3705,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -3702,7 +3716,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3724,10 +3740,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3774,10 +3790,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -3787,7 +3803,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3809,10 +3827,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3862,10 +3880,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -3875,7 +3893,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3897,10 +3917,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -3949,10 +3969,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -3960,7 +3980,9 @@
     "name" : "handleException",
     "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
     "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { },
+      "Lorg/softauto/annotations/ListenerForTesting;" : {
+        "type" : "BEFORE"
+      },
       "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
         "value" : "Ljava/lang/Exception;",
         "type" : "java.lang.Class"
@@ -3982,10 +4004,10 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -4002,81 +4024,6 @@
         "value" : "/api/v1/iot/system",
         "type" : "java.lang.String"
       }
-    }
-  },
-  "parametersTypes" : [ ],
-  "argumentsNames" : [ ],
-  "id" : 0,
-  "type" : "clazz",
-  "returnType" : null,
-  "classInfo" : null,
-  "modifier" : 0,
-  "crudToSubject" : [ ],
-  "childes" : [ ]
-}, {
-  "name" : null,
-  "namespce" : null,
-  "annotations" : {
-    "com.iot.infrastructure.dtos.BaseDTO" : { },
-    "com.iot.backend.implementations.auth.dtos.BaseUserDto" : { },
-    "com.iot.backend.implementations.auth.dtos.UserDto" : {
-      "Lorg/softauto/annotations/EntityForTesting;" : { }
-    }
-  },
-  "parametersTypes" : [ ],
-  "argumentsNames" : [ ],
-  "id" : 0,
-  "type" : "clazz",
-  "returnType" : null,
-  "classInfo" : null,
-  "modifier" : 0,
-  "crudToSubject" : [ ],
-  "childes" : [ ]
-}, {
-  "name" : null,
-  "namespce" : null,
-  "annotations" : {
-    "com.iot.infrastructure.dtos.BaseDTO" : { },
-    "com.iot.backend.implementations.companies.dtos.BaseCompanyDto" : { },
-    "com.iot.backend.implementations.companies.dtos.CompanyDto" : {
-      "Lorg/softauto/annotations/EntityForTesting;" : { }
-    }
-  },
-  "parametersTypes" : [ ],
-  "argumentsNames" : [ ],
-  "id" : 0,
-  "type" : "clazz",
-  "returnType" : null,
-  "classInfo" : null,
-  "modifier" : 0,
-  "crudToSubject" : [ ],
-  "childes" : [ ]
-}, {
-  "name" : null,
-  "namespce" : null,
-  "annotations" : {
-    "com.iot.infrastructure.dtos.BaseDTO" : { },
-    "com.iot.backend.implementations.customers.dtos.CustomerDto" : {
-      "Lorg/softauto/annotations/EntityForTesting;" : { }
-    }
-  },
-  "parametersTypes" : [ ],
-  "argumentsNames" : [ ],
-  "id" : 0,
-  "type" : "clazz",
-  "returnType" : null,
-  "classInfo" : null,
-  "modifier" : 0,
-  "crudToSubject" : [ ],
-  "childes" : [ ]
-}, {
-  "name" : null,
-  "namespce" : null,
-  "annotations" : {
-    "com.iot.infrastructure.dtos.BaseDTO" : { },
-    "com.iot.backend.implementations.devices.dtos.BaseDeviceDto" : { },
-    "com.iot.backend.implementations.devices.dtos.DeviceDto" : {
-      "Lorg/softauto/annotations/EntityForTesting;" : { }
     }
   },
   "parametersTypes" : [ ],
@@ -4116,10 +4063,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -4147,10 +4094,78 @@
       "final" : false,
       "abstract" : false,
       "private" : false,
-      "applicationClass" : true,
-      "libraryClass" : false,
+      "javaLibraryClass" : false,
       "innerClass" : false,
-      "javaLibraryClass" : false
+      "applicationClass" : true,
+      "libraryClass" : false
+    },
+    "modifier" : 0,
+    "crudToSubject" : [ ],
+    "childes" : [ ]
+  } ]
+}, {
+  "name" : "createCustomer",
+  "namespce" : "com.iot.backend.implementations.system.bridges.SystemBridge",
+  "annotations" : {
+    "Lorg/softauto/annotations/ApiForTesting;" : { },
+    "Lcom/iot/backend/infrastructure/logs/Log;" : {
+      "showArgs" : 1,
+      "showResult" : 1,
+      "unit" : "MILLIS",
+      "type" : "java.lang.Enum"
+    }
+  },
+  "parametersTypes" : [ "com.iot.backend.implementations.customers.dtos.CustomerDto" ],
+  "argumentsNames" : [ "customer" ],
+  "id" : 3104,
+  "type" : "method",
+  "returnType" : "int",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "javaLibraryClass" : false,
+    "innerClass" : false,
+    "applicationClass" : true,
+    "libraryClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ {
+    "create" : "com.iot.backend.implementations.customers.dtos.CustomerDto"
+  } ],
+  "childes" : [ {
+    "name" : "handleException",
+    "namespce" : "com.iot.infrastructure.db.bridges.BaseBridge",
+    "annotations" : {
+      "Lorg/softauto/annotations/ListenerForTesting;" : { }
+    },
+    "parametersTypes" : [ "java.lang.Exception", "java.lang.String" ],
+    "argumentsNames" : [ "e", "message" ],
+    "id" : 6007,
+    "type" : "method",
+    "returnType" : "void",
+    "classInfo" : {
+      "hasParameters" : true,
+      "entity" : false,
+      "interface" : false,
+      "enum" : false,
+      "static" : false,
+      "public" : true,
+      "protected" : false,
+      "final" : false,
+      "abstract" : false,
+      "private" : false,
+      "javaLibraryClass" : false,
+      "innerClass" : false,
+      "applicationClass" : true,
+      "libraryClass" : false
     },
     "modifier" : 0,
     "crudToSubject" : [ ],
@@ -4160,7 +4175,9 @@
   "name" : "handleException",
   "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
   "annotations" : {
-    "Lorg/softauto/annotations/ListenerForTesting;" : { },
+    "Lorg/softauto/annotations/ListenerForTesting;" : {
+      "type" : "BEFORE"
+    },
     "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
       "value" : "Ljava/lang/Exception;",
       "type" : "java.lang.Class"
@@ -4182,49 +4199,11 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
-  "modifier" : 0,
-  "crudToSubject" : [ ],
-  "childes" : [ ]
-}, {
-  "name" : null,
-  "namespce" : null,
-  "annotations" : {
-    "com.iot.infrastructure.dtos.BaseDTO" : { },
-    "com.iot.backend.infrastructure.module.BaseModuleDto" : { },
-    "com.iot.backend.infrastructure.module.ModuleDto" : {
-      "Lorg/softauto/annotations/EntityForTesting;" : { }
-    }
-  },
-  "parametersTypes" : [ ],
-  "argumentsNames" : [ ],
-  "id" : 0,
-  "type" : "clazz",
-  "returnType" : null,
-  "classInfo" : null,
-  "modifier" : 0,
-  "crudToSubject" : [ ],
-  "childes" : [ ]
-}, {
-  "name" : null,
-  "namespce" : null,
-  "annotations" : {
-    "com.iot.infrastructure.dtos.BaseDTO" : { },
-    "com.iot.backend.infrastructure.role.BaseRoleDto" : { },
-    "com.iot.backend.infrastructure.role.RoleDto" : {
-      "Lorg/softauto/annotations/EntityForTesting;" : { }
-    }
-  },
-  "parametersTypes" : [ ],
-  "argumentsNames" : [ ],
-  "id" : 0,
-  "type" : "clazz",
-  "returnType" : null,
-  "classInfo" : null,
   "modifier" : 0,
   "crudToSubject" : [ ],
   "childes" : [ ]
@@ -4250,10 +4229,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "applicationClass" : true,
-    "libraryClass" : false,
+    "javaLibraryClass" : false,
     "innerClass" : false,
-    "javaLibraryClass" : false
+    "applicationClass" : true,
+    "libraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],

@@ -25,6 +25,7 @@ public class Suite implements Cloneable, Serializable {
 
     private LinkedList<Test> tests = new LinkedList<>();
 
+    private List<String> protocols = new ArrayList<>();
 
     private LinkedList<Scenario> scenarios = new LinkedList<>();
 
@@ -39,6 +40,14 @@ public class Suite implements Cloneable, Serializable {
     private static Test loginTest;
 
     private static HashMap<String,List<String>> classListOfMethodsAnnotationSummery = new HashMap<>();
+
+    public List<String> getProtocols() {
+        return protocols;
+    }
+
+    public void setProtocols(List<String> protocols) {
+        this.protocols = protocols;
+    }
 
     public static HashMap<String, List<String>> getClassListOfMethodsAnnotationSummery() {
         return classListOfMethodsAnnotationSummery;
@@ -160,6 +169,14 @@ public class Suite implements Cloneable, Serializable {
         return null;
     }
 
+    public boolean isListenerExist(Listener listener){
+        for(Listener listener1 : listeners){
+            if(listener1.getFullName().equals(listener.getFullName())){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public List<Listener> getListeners() {
         return listeners;
@@ -170,7 +187,9 @@ public class Suite implements Cloneable, Serializable {
     }
 
     public void addListener(Listener listener) {
-        this.listeners.add(listener);
+        if(!isListenerExist(listener)) {
+            this.listeners.add(listener);
+        }
     }
 
 
@@ -217,11 +236,21 @@ public class Suite implements Cloneable, Serializable {
             parseTests((ArrayNode)readTree.get("tests"));
 
             parseListeners((ArrayNode)readTree.get("listeners"));
+            parseProtocols((ArrayNode)readTree.get("protocols"));
             parseScenarios((ArrayNode)readTree.get("scenarios"));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+    private void parseProtocols(ArrayNode arrayNode){
+       for(JsonNode node : arrayNode){
+           parseProtocol(node);
+       }
+    }
+
+    private void parseProtocol(JsonNode node){
+        protocols.add(node.asText());
     }
 
     private void parseScenarios(ArrayNode arrayNode){

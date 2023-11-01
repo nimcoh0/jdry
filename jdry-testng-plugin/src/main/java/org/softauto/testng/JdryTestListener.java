@@ -3,14 +3,12 @@ package org.softauto.testng;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
-import org.softauto.core.Assert;
 import org.softauto.core.Context;
 import org.softauto.core.TestContext;
 import org.softauto.core.TestLifeCycle;
 import org.softauto.listener.ListenerObserver;
-import org.softauto.tester.SystemState;
+import org.softauto.system.SystemState;
 import org.testng.*;
-import org.testng.internal.ConstructorOrMethod;
 
 public class JdryTestListener implements ITestListener, IInvokedMethodListener {
 

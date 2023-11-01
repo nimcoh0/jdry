@@ -9,12 +9,12 @@ public abstract class TreeVisitor {
 
     public abstract Item visitJdryAnnotations(Item item);
 
-    public abstract Item visitDataGenerator(Item item);
+    //public abstract Item visitDataGenerator(Item item);
 
-    public abstract Item visitDataRecorder(Item item);
+    //public abstract Item visitDataRecorder(Item item);
 
-    public abstract Item visitPublish(Item item);
+    //public abstract Item visitPublish(Item item);
 
-    public abstract Item visitNameRecognition(Item item);
+   //public abstract Item visitNameRecognition(Item item);
 
 }

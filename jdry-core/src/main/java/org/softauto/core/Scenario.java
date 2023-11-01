@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Scenario {
 
-    String id;
+    String id ;
 
     HashMap<String,Object> properties = new HashMap<>();
 

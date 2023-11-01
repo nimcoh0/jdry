@@ -5,15 +5,24 @@
  */
 package org.softauto.tester;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.avro.ipc.CallFuture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.core.*;
+import org.softauto.espl.Espl;
 import org.softauto.listener.ListenerObserver;
+import org.softauto.service.Client;
+import org.softauto.service.StepService;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 
 public class Step {
@@ -22,7 +31,22 @@ public class Step {
     CallFuture<Object> future = null;
     protected HashMap<String,Object> callOptions = null;
 
+    org.apache.avro.ipc.Callback<Object> callback;
+
     Object result;
+
+    String transceiver;
+
+    String fqmn;
+
+    Object[] args;
+
+    Class[] types;
+
+
+
+
+
 
     public Step(){};
 
@@ -30,6 +54,17 @@ public class Step {
         this.result = result;
         return this;
     }
+
+    public Step setCallOptions(HashMap<String, Object> callOptions) {
+        this.callOptions = callOptions;
+        return this;
+    }
+
+    public Step setTransceiver(String transceiver) {
+        this.transceiver = transceiver;
+        return this;
+    }
+
 
     public Step(CallOptions callOptions){
         this.callOptions = callOptions.getOptions();
@@ -61,15 +96,16 @@ public class Step {
         logger.debug("invoking " +fqmn);
         callOptions.put("scenarioId",scenarioId);
         new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
-        //new InvocationHandler().invoke(fqmn,args,types,transceiver,callOptions);
     }
 
+    /*
     public Step(String fqmn, Object[] args, Class[] types, String transceiver, HashMap<String, Object> callOptions)throws Exception{
         future = new CallFuture<>();
         logger.debug("invoking " +fqmn);
         new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
-        //new InvocationHandler().invoke(fqmn,args,types,transceiver,callOptions);
     }
+
+     */
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,String scenarioId, CallFuture<T> future)throws Exception{
         logger.debug("invoking " +fqmn);
@@ -77,9 +113,57 @@ public class Step {
         new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
     }
 
+    /*
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions, org.apache.avro.ipc.Callback<T> future)throws Exception{
         logger.debug("invoking " +fqmn);
         new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+    }
+
+     */
+
+
+    public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,org.apache.avro.ipc.Callback<Object> future)throws Exception{
+        logger.debug("invoking " +fqmn);
+        this.fqmn = fqmn;
+        this.args = args;
+        this.types = types;
+        this.callback = future;
+        //new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+    }
+
+    public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions)throws Exception{
+        logger.debug("invoking " +fqmn);
+        this.fqmn = fqmn;
+        this.args = args;
+        this.types = types;
+        //this.callback = future;
+        //new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+    }
+
+    public <RespT> Step invoke() throws Exception {
+        if(this.callback == null) {
+            result = new InvocationHandler().invoke(fqmn, args, types, transceiver, callOptions);
+        }else {
+            new InvocationHandler().invoke(fqmn, args, types,callback, transceiver, callOptions);
+            /*
+            if(((CallFuture)callback).getResult() != null) {
+                String newContent = new String(((ByteBuffer) ((CallFuture) callback).getResult()).array(), StandardCharsets.UTF_8);
+                result =  new ObjectMapper().readValue(newContent,Object.class);
+                callback.handleResult( result);
+            }
+
+             */
+            //String newContent = new String(((ByteBuffer)((CallFuture)callback).getResult()).array(), StandardCharsets.UTF_8);
+            //result =  new ObjectMapper().readValue(newContent,Object.class);
+        }
+
+      //Object o = new StepService().setCallOptions(callOptions).setTransceiver(transceiver).invokeUnaryMethod(fqmn,types,args);
+      //System.out.println(o);
+      return this;
+      //CallFuture<Object> callFuture = new CallFuture<>();
+      //new InvocationHandler().invoke(fqmn,args,types,callFuture,transceiver,callOptions);
+      //return callFuture.get();
+     // return   new Step(fqmn, args, types, transceiver, callOptions, callback);
     }
 
     public Step(String fqmn, Object[] args, Class[] types, String transceiver,CallOptions callOptions,String scenarioId)throws Exception{
@@ -111,7 +195,6 @@ public class Step {
 
 
         public Step then(IListener o)throws Exception{
-            //future.handleResult(future.getResult());
             return this;
         }
 
@@ -120,70 +203,27 @@ public class Step {
             return this;
         }
 
-        public Step then(IStep o)throws Exception{
-            future.handleResult(future.getResult());
-            return this;
-        }
-
-        public Step then(IStep... o)throws Exception{
-            future.handleResult(future.getResult());
-            return this;
-        }
 
         public void then(String expression)throws Exception{
-            future.handleResult(future.getResult());
+            Object result = Espl.getInstance().evaluate(expression);
+            future.handleResult(result);
         }
 
-
-        public <T> Step then(IListener o , CallFuture<T> future)throws Exception{
-            future.handleResult(future.getResult());
-            return this;
+        public void then(Supplier supplier)throws Exception{
+            future.handleResult(supplier.get());
         }
 
-        public <T> Step then(IListener o , Handler<AsyncResult<T>> resultHandler)throws Exception{
-            future.handleResult(future.getResult());
-            return this;
+        public void then(Consumer consumer,Object value)throws Exception{
+            consumer.accept(value);
+            future.handleResult("ok");
         }
 
-        public <T> Step then(IListener o, CallFuture<T> future , Handler<AsyncResult<T>> resultHandler)throws Exception{
-            future.handleResult(future.getResult());
-            return this;
+        public void then(Function function,Object value)throws Exception{
+            future.handleResult(function.apply(value));
         }
-
-        public <T> Step then( CallFuture<T> future,IListener... o )throws Exception{
-            future.handleResult(future.getResult());
-            return this;
-        }
-
-        public <T> Step then(IStep o , CallFuture<T> future)throws Exception{
-            future.handleResult(future.getResult());
-            return this;
-        }
-
-        public <T> Step then(CallFuture<T> future,IStep... o )throws Exception{
-            future.handleResult(future.getResult());
-            return this;
-        }
-
-    public void Step(String fqmn, Object[] args, Class[] types, String transceiver, HashMap<String, Object> callOptions, String scenarioId) throws Exception {
-        this.future = new CallFuture();
-        logger.debug("invoking " + fqmn);
-        callOptions.put("scenarioId", scenarioId);
-        (new InvocationHandler()).invoke(fqmn, args, types, this.future, transceiver, callOptions);
-    }
 
     public static long timeOutInMin = 3;
 
-    public void waitTo(Listener listener ,Handler<AsyncResult<Object>> resultHandler)throws Exception{
-        CountDownLatch lock = new CountDownLatch(1);
 
-
-
-        ListenerObserver.getInstance().register(listener.fqmn,listener.getFunc());
-
-        lock.await(timeOutInMin, TimeUnit.MINUTES);
-        //resultHandler.handle(Future.handleResult(func.));
-        //return this;
-    }
 
 }
