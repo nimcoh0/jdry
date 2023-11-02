@@ -60,14 +60,14 @@ public class Listener {
         return args;
     }
 
-    private Object[] getRef(AtomicReference<Object[]> ref){
-      if(ref.get() instanceof Object[]){
-          if(ref.get()[0] instanceof ArrayList){
-              return ((ArrayList)ref.get()[0]).toArray();
+    private Object[] getArgs(Object[] args){
+      if(args instanceof Object[]){
+          if(args[0] instanceof ArrayList){
+              return ((ArrayList)args[0]).toArray();
           }
-          return (Object[]) ref.get()[0];
+          return (Object[]) args[0];
       }
-      return ref.get();
+      return args;
     }
 
     //@Before("execution(* *(..)) && @annotation(org.softauto.annotations.ListenerForTesting)")
@@ -77,11 +77,11 @@ public class Listener {
         Object o = null;
         AtomicReference<String> fqmn = new AtomicReference();
         try {
-            if(serviceImpl != null && joinPoint.getKind().equals(JoinPoint.METHOD_CALL)) {
+            if(serviceImpl != null && joinPoint.getKind().equals(JoinPoint.METHOD_CALL)) { //&& joinPoint.getKind().equals(JoinPoint.METHOD_CALL)
                 Method method = serviceImpl.getClass().getDeclaredMethod("executeBefore", new Class[]{String.class, Object[].class, Class[].class});
                 MethodSignature sig = (MethodSignature) joinPoint.getSignature();
                 fqmn.set(Utils.buildMethodFQMN(sig.getName(), sig.getDeclaringType().getName()));
-                AtomicReference<Object[]> ref = new AtomicReference();
+                AtomicReference<Object[]> ref = new AtomicReference(null);
                 if(sig.getMethod().getAnnotation(org.softauto.annotations.ListenerForTesting.class) != null ) {
                     org.softauto.annotations.ListenerForTesting annotation = sig.getMethod().getAnnotation(org.softauto.annotations.ListenerForTesting.class);
                     if(annotation.type().toString().equals(ListenerType.BEFORE.name())) {
@@ -89,8 +89,14 @@ public class Listener {
 
                             logger.debug("invoke listener on " + serviceImpl + " fqmn: " + fqmn.get() + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
                             method.setAccessible(true);
-                            ref.set((Object[]) method.invoke(serviceImpl, new Object[]{fqmn.get(), Utils.getArgs(joinPoint.getArgs()), Utils.getTypes(sig.getMethod().getParameterTypes())}));
-                            Object[] args = getRef(ref);
+                            Object[] args = null;
+                            synchronized (this) {
+                                while (args == null)
+                                    args = (Object[]) method.invoke(serviceImpl, new Object[]{fqmn.get(), Utils.getArgs(joinPoint.getArgs()), Utils.getTypes(sig.getMethod().getParameterTypes())});
+
+                            }
+
+                            args = getArgs(args);
                             args = castToOrgType(args,sig.getMethod().getParameterTypes());
                             o = joinPoint.proceed(args);
                         } catch (Exception e) {

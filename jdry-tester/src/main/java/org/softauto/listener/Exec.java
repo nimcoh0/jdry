@@ -1,6 +1,12 @@
 package org.softauto.listener;
 
+import org.softauto.core.AsyncResult;
+import org.softauto.core.Future;
+import org.softauto.core.Handler;
+
+
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public  class Exec implements Function {
 
@@ -15,6 +21,7 @@ public  class Exec implements Function {
     public Object getResult(){
         return result;
     }
+
 
 
     public Exec(java.util.function.Function o, String key){
@@ -52,6 +59,7 @@ public  class Exec implements Function {
             }else{
                 logger.debug("message was already execute "+ key);
             }
+
         }catch (Exception e){
             logger.error("fail apply ",e);
         }finally {

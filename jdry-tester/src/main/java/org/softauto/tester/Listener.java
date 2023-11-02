@@ -61,18 +61,28 @@ public  class Listener implements IListener {
     }
 
 
-
     public <T> Listener waitTo(Handler<AsyncResult<T>> resultHandler)throws Exception{
-        Exec func = new Exec(fqmn);
+        java.util.function.Function<Object,Object> ff = new java.util.function.Function<Object,Object>() {
+
+            @Override
+            public Object apply(Object  f) {
+                try{
+                    resultHandler.handle(Future.handleResult((T) f));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                return f;
+            }
+        };
+        Exec func = new Exec(ff,fqmn);
         ListenerObserver.getInstance().register(fqmn,func);
         lock = func.getLock();
         lock.await(timeOutInMin, TimeUnit.MINUTES);
-        resultHandler.handle(Future.handleResult((T)func.getResult()));
         return this;
     }
 
 
-    public <T> Listener waitTo(Function function, CallFuture<T> future)throws Exception{
+    public synchronized <T> Listener waitTo(Function function, CallFuture<T> future)throws Exception{
         logger.debug("waitTo "+ fqmn);
 
         Exec func = new Exec(function,fqmn);
@@ -88,7 +98,7 @@ public  class Listener implements IListener {
         return this;
     }
 
-    public <T> Listener waitTo( CallFuture<T> future)throws Exception{
+    public  <T> Listener waitTo( CallFuture<T> future)throws Exception{
         logger.debug("waitTo "+ fqmn);
 
         Exec func = new Exec(fqmn);
