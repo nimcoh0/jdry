@@ -45,6 +45,8 @@ public class Test implements Item {
 
     private String subject;
 
+    private TestState state;
+
     private List<HashMap<String, String>> crud = new ArrayList<>();
 
     public List<HashMap<String, String>> getCrud() {

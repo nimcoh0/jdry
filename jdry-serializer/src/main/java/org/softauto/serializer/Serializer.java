@@ -78,11 +78,13 @@ public class Serializer {
         }catch (Exception e){
             logger.error("fail execute sync message "+ message.toJson(),e);
         }finally {
-            channel.shutdown();
+           channel.shutdown();
         }
         logger.debug("result "+(T)result);
         return (T)result;
     }
+
+
 
 
     public <RespT> void write(Message message,org.apache.avro.ipc.Callback<RespT> callback) throws Exception {

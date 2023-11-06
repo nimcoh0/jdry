@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.softauto.analyzer.model.scenario.Scenario;
 import org.softauto.core.*;
 import org.softauto.deserializer.NullStringJsonDeserializer;
 import org.softauto.espl.Espl;
@@ -28,7 +29,10 @@ public class AbstractTesterImpl  {
 
     public ObjectMapper mapper = new ObjectMapper();
 
+    public Scenario scenario;
     //public Test test;
+
+    //private static TestContext jdryTestContext = new TestContext();
 
     public String currentUser = null;
 
@@ -50,10 +54,24 @@ public class AbstractTesterImpl  {
         }
     }
 
+
+
+    public Scenario getScenario() {
+        return scenario;
+    }
+
+    public void setScenario(Scenario scenario) {
+        this.scenario = scenario;
+    }
+
     @BeforeTest
     public void beforeScenario(ITestContext testContext) {
         scenarioId = UUID.randomUUID().toString();
-        TestContext.addScenario(scenarioId);
+        scenario = new Scenario();
+        scenario.setId(scenarioId);
+        scenario.setSuiteName(testContext.getSuite().getName());
+        scenario.setState(ScenarioState.RUN.name());
+        TestContext.setScenario(scenario);
     }
 
         @BeforeMethod

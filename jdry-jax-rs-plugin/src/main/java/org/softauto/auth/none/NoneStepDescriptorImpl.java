@@ -22,8 +22,8 @@ public class NoneStepDescriptorImpl extends AbstractStepDescriptorImpl {
 
     @Override
     public Cookie getCookie(){
-        if(TestContext.getScenario(callOptions.get("scenarioId").toString()).getProperty("JSESSIONID") != null){
-          return (Cookie) TestContext.getScenario(callOptions.get("scenarioId").toString()).getProperty("JSESSIONID");
+        if(TestContext.getScenario().getProperty("JSESSIONID") != null){
+          return (Cookie) TestContext.getScenario().getProperty("JSESSIONID");
         }
         return null;
     }
@@ -63,7 +63,7 @@ public class NoneStepDescriptorImpl extends AbstractStepDescriptorImpl {
     public MultivaluedMap<String, Object> getHeaders() {
         MultivaluedMap<String, Object> mm = new MultivaluedHashMap<>();
 
-        if(TestContext.getScenario(scenarioId) != null ) {
+        if(TestContext.getScenario() != null ) {
             mm.add("scenarioId", scenarioId);
         }
 

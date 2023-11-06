@@ -4,7 +4,13 @@ package org.softauto.service;
 import org.apache.avro.AvroRemoteException;
 import org.apache.avro.ipc.CallFuture;
 import org.apache.avro.ipc.Callback;
+import org.softauto.core.ScenarioState;
+import org.softauto.core.TestContext;
+import org.softauto.core.TestLifeCycle;
 import org.softauto.tester.Step;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+
 import java.lang.reflect.*;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,6 +23,8 @@ public class Client {
     private Object tests;
 
     private Class<?> iface;
+
+
 
     private HashMap<String,Object> callOptions = new HashMap<>();
 
@@ -43,6 +51,8 @@ public class Client {
     public Client(Class<?> iface) {
         this.iface = iface;
     }
+
+
 
     public Client build(){
         ServiceInvocationHandler serviceInvocationHandler = new ServiceInvocationHandler(iface).setCallOptions(callOptions).setTransceiver(transceiver);
@@ -82,18 +92,27 @@ public class Client {
 
 
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args) {
+        public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
             try {
                 if (args == null) {
                     args = new Object[]{};
                 }
                 logger.debug("invoke method " + method.getName() + " with args " + Arrays.toString(args));
                 //return new Step(method.getName(), args, method.getParameterTypes(), transceiver, callOptions);
-                return   invokeUnaryMethod(method, args);
+                if(TestContext.getScenario().getState().equals(ScenarioState.RUN.name())) {
+                    return invokeUnaryMethod(method, args);
+                }else {
+                    //Client.testResult.setStatus(ITestResult.SKIP);
+                   // Reporter.getCurrentTestResult().setStatus(ITestResult.SKIP);
+                    TestContext.setTestState(TestLifeCycle.SKIP);
+                    logger.debug("step skip due test status  " + TestContext.getScenario().getState() +" on "+TestContext.getScenario().getProperty("method"));
+                    throw new Exception("step skip due test status  " + TestContext.getScenario().getState() +" on "+TestContext.getScenario().getProperty("method"));
+                }
             } catch (Exception e) {
                 logger.error("fail invoke method " + method.getName() + " with args " + Arrays.toString(args), e);
+                throw new Exception(e);
             }
-            return null;
+            //return null;
             //return new Step().setResult(result);
             //return this;
         }

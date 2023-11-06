@@ -3,6 +3,7 @@ package org.softauto.analyzer.model.scenario;
 import org.softauto.analyzer.model.test.Test;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Scenario implements Cloneable, Serializable {
@@ -16,6 +17,39 @@ public class Scenario implements Cloneable, Serializable {
     String namespace;
 
     String suiteName;
+
+    String state;
+
+
+
+    HashMap<String,Object> properties = new HashMap<>();
+
+    public HashMap<String, Object> getProperties() {
+        return properties;
+    }
+
+    public Object getProperty(String key) {
+        if(properties.containsKey(key)){
+           return properties.get(key);
+        }
+        return null;
+    }
+
+    public void setProperties(HashMap<String, Object> properties) {
+        this.properties = properties;
+    }
+
+    public void addProperty(String key,Object value) {
+        this.properties.put(key,value);
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public LinkedList<String> getTests() {
         return tests;

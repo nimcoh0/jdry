@@ -4,11 +4,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.softauto.core.Context;
+import org.softauto.core.ScenarioState;
 import org.softauto.core.TestContext;
 import org.softauto.core.TestLifeCycle;
 import org.softauto.listener.ListenerObserver;
 import org.softauto.system.SystemState;
 import org.testng.*;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class JdryTestListener implements ITestListener, IInvokedMethodListener {
 
@@ -17,7 +21,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
     @Override
     public void onTestStart(ITestResult result) {
         try {
-            Context.setTestState(TestLifeCycle.START);
+            TestContext.setTestState(TestLifeCycle.START);
             if(SystemState.getInstance().startTest(result.getName())){
                 logger.debug("successfully start test " + result.getName());
                 } else {
@@ -36,8 +40,10 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
+        TestContext.getScenario().setState(ScenarioState.FAIL.name());
         logger.debug(result.getName()+" fail",result.getThrowable());
     }
+
 
     @Override
     public void onTestSkipped(ITestResult result) {
@@ -59,13 +65,14 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
     @Override
     public void onFinish(ITestContext context) {
         try {
-            Context.setTestState(TestLifeCycle.STOP);
+            TestContext.setTestState(TestLifeCycle.STOP);
             if(SystemState.getInstance().endTest(context.getName())){
                     logger.debug("successfully end test ");
                 } else {
                     logger.error("fail end test" );
                 }
             ListenerObserver.getInstance().reset();
+
             //ListenerServerProviderImpl.getInstance().shutdown();
             //if(SystemState.getInstance().shutdown()){
                   // logger.debug("successfully shutdown ");
@@ -73,10 +80,10 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
                    // logger.error("fail shutdown ");
                // }
 
-            final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-            final Configuration config = ctx.getConfiguration();
-            config.getRootLogger().removeAppender("console");
-            ctx.updateLoggers();
+            final org.apache.logging.log4j.spi.LoggerContext ctx = (org.apache.logging.log4j.spi.LoggerContext) LogManager.getContext(false);
+            //final Configuration config = ctx.getConfiguration();
+            //config.getRootLogger().removeAppender("console");
+            //ctx.updateLoggers();
         }catch (Exception e){
             logger.error("fail onFinish ",e);
         }
@@ -92,9 +99,38 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
     }
 
     @Override
-    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+    public void afterInvocation(IInvokedMethod method, ITestResult arg0) {
+
+
         //ConstructorOrMethod constructorOrMethod = testResult.getMethod().getConstructorOrMethod();
        // Object[] p = testResult.getParameters();
         //Object i = testResult.getInstance();
+
+
+        if (arg0.getMethod().isTest()) {
+            //Change Failed to Skipped based on exception text
+            if (arg0.getStatus() == ITestResult.FAILURE) {
+                if (arg0.getThrowable() != null) {
+                    if (arg0.getThrowable().getStackTrace() != null) {
+                        StringWriter sw = new StringWriter();
+                        arg0.getThrowable().printStackTrace(new PrintWriter(sw));
+                        //if (sw.toString().contains("visible")) {
+                            ITestContext tc = Reporter.getCurrentTestResult().getTestContext();
+                            tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
+                            //tc.getFailedTests().getAllMethods().remove(Reporter.getCurrentTestResult().getMethod());
+                            //Reporter.getCurrentTestResult().setStatus(ITestResult.SKIP);
+                            //tc.getSkippedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
+                        //}
+                    }
+                }
+            }
+            if (TestContext.getTestState().equals(TestLifeCycle.SKIP) ) {
+                arg0.setStatus(ITestResult.FAILURE);
+                ITestContext tc = Reporter.getCurrentTestResult().getTestContext();
+                tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
+                //tc.getSkippedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
+            }
+        }
+
     }
 }

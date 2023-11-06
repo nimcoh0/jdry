@@ -61,12 +61,14 @@ public class Listener {
     }
 
     private Object[] getArgs(Object[] args){
-      if(args instanceof Object[]){
-          if(args[0] instanceof ArrayList){
-              return ((ArrayList)args[0]).toArray();
-          }
-          return (Object[]) args[0];
-      }
+        if(args != null && args.length > 0) {
+            if (args instanceof Object[]) {
+                if (args[0] instanceof ArrayList) {
+                    return ((ArrayList) args[0]).toArray();
+                }
+                return (Object[]) args[0];
+            }
+        }
       return args;
     }
 
@@ -167,6 +169,24 @@ public class Listener {
     }
 
 
-
+    @AfterThrowing(value = "execution(* *(..))", throwing = "ee")
+    public synchronized   void captureException(JoinPoint joinPoint,Throwable ee) {
+        try {
+            if (serviceImpl != null) {
+                Method method = serviceImpl.getClass().getDeclaredMethod("executeException", new Class[]{String.class, Object[].class, Class[].class});
+                MethodSignature sig = (MethodSignature) joinPoint.getSignature();
+                String fqmn = Utils.buildMethodFQMN(sig.getName(), sig.getDeclaringType().getName());
+                try {
+                    logger.debug("invoke Exception on " + serviceImpl + " fqmn:" + fqmn + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
+                    method.setAccessible(true);
+                    method.invoke(serviceImpl, new Object[]{fqmn, new Object[]{ee}, new Class[]{Throwable.class}});
+                } catch (Exception e) {
+                    logger.error("send Exception  for " + fqmn, e);
+                }
+            }
+        } catch (NoSuchMethodException ex) {
+            ex.printStackTrace();
+        }
+    }
 
 }

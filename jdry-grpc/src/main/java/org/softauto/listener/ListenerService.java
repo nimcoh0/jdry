@@ -6,4 +6,6 @@ public interface ListenerService {
 
     void executeAfter(String methodName, Object[] args, Class[] types) throws Exception;
 
+    Object executeException(String methodName, Object[] args, Class[] types) throws Exception ;
+
 }

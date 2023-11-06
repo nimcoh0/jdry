@@ -3,6 +3,7 @@ package org.softauto.listener.manager;
 import org.softauto.annotations.ListenerType;
 import org.softauto.core.Configuration;
 import org.softauto.core.Context;
+import org.softauto.core.TestContext;
 import org.softauto.core.TestLifeCycle;
 import org.softauto.listener.ListenerService;
 import org.softauto.serializer.Serializer;
@@ -18,7 +19,7 @@ public class ListenerServiceImpl implements ListenerService {
     public Object[] executeBefore(String methodName, Object[] args, Class[] types) throws Exception {
         Object result = null;
         try {
-            if(Context.getTestState().equals(TestLifeCycle.START)) {
+            if(TestContext.getTestState().equals(TestLifeCycle.START)) {
                 Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
                 Message message = Message.newBuilder().setState(ListenerType.BEFORE.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build();
                 result = serializer.write(message);
@@ -48,7 +49,7 @@ public class ListenerServiceImpl implements ListenerService {
     public  void executeAfter(String methodName, Object[] args, Class[] types) throws Exception {
 
         try {
-            if(Context.getTestState().equals(TestLifeCycle.START)) {
+            if(TestContext.getTestState().equals(TestLifeCycle.START)) {
                 Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
                 Message message = Message.newBuilder().setState(ListenerType.AFTER.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build();
                 serializer.write(message);
@@ -65,6 +66,25 @@ public class ListenerServiceImpl implements ListenerService {
 
     }
 
+    @Override
+    public  Object executeException(String methodName, Object[] args, Class[] types) throws Exception {
+        Object result = null;
+        try {
+            if(TestContext.getTestState().equals(TestLifeCycle.START)) {
+                Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
+                Message message = Message.newBuilder().setState("Exception").setDescriptor(methodName).setArgs(args).setTypes(types).build();
+                result = serializer.write(message);
+                logger.debug("send message successfully " + methodName);
+            }
+        } catch (Exception e) {
+            if (e.getCause().toString().contains("UNAVAILABLE")) {
+                logger.debug("fail on UNAVAILABLE ", e);
 
+            }
+            logger.debug("send message "+methodName+" fail  ",e );
+        }
+        logger.debug("returning from Exception" );
+        return result;
+    }
 
 }

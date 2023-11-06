@@ -82,7 +82,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.6.0</version>
+            <version>6.11</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -108,12 +108,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-jackson-serializers</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -129,6 +129,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-analyzer-model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <!--dependency>
             <groupId>org.javassist</groupId>

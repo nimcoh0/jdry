@@ -12,6 +12,7 @@ public interface SerializerService {
 
   Object execute(ByteBuffer message) throws Exception;
 
+
   @SuppressWarnings("all")
   public interface Callback extends SerializerService {
     public static final Protocol PROTOCOL = SerializerService.PROTOCOL;

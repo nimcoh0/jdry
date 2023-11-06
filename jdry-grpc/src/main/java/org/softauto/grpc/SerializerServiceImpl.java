@@ -160,6 +160,7 @@ public class SerializerServiceImpl implements SerializerService{
         return byteBuffer;
     }
 
+
     private Object[] buildArgs(Message message){
         Object[] args = new Object[message.getArgs().length];
         try {

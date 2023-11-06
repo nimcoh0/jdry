@@ -25,7 +25,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.companies.dtos.BaseCompanyDto" ],
   "argumentsNames" : [ "companyDto" ],
-  "id" : 17728,
+  "id" : 17729,
   "type" : "method",
   "returnType" : "int",
   "classInfo" : {
@@ -39,10 +39,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -52,43 +52,7 @@
   }, {
     "create" : "com.iot.backend.implementations.companies.dtos.BaseCompanyDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getCompany",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -116,7 +80,7 @@
   },
   "parametersTypes" : [ "int" ],
   "argumentsNames" : [ "companyId" ],
-  "id" : 17729,
+  "id" : 17730,
   "type" : "method",
   "returnType" : "com.iot.backend.implementations.companies.decorators.CompanyDecorator",
   "classInfo" : {
@@ -130,10 +94,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -141,43 +105,7 @@
   }, {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getCompanyUser",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -207,7 +135,7 @@
   },
   "parametersTypes" : [ "int", "java.lang.String" ],
   "argumentsNames" : [ "companyId", "userId" ],
-  "id" : 17730,
+  "id" : 17731,
   "type" : "method",
   "returnType" : "com.iot.backend.implementations.auth.dtos.UserDto",
   "classInfo" : {
@@ -221,10 +149,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -232,43 +160,7 @@
   }, {
     "read" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "createCompanyUser",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -299,7 +191,7 @@
   },
   "parametersTypes" : [ "int", "com.iot.backend.implementations.auth.dtos.UserDto" ],
   "argumentsNames" : [ "companyId", "userDto" ],
-  "id" : 17731,
+  "id" : 17732,
   "type" : "method",
   "returnType" : "com.iot.backend.implementations.auth.dtos.UserDto",
   "classInfo" : {
@@ -313,10 +205,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -328,43 +220,7 @@
   }, {
     "read" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "updateCompanyUser",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -395,7 +251,7 @@
   },
   "parametersTypes" : [ "int", "com.iot.backend.implementations.auth.dtos.UserDto" ],
   "argumentsNames" : [ "companyId", "userDto" ],
-  "id" : 17732,
+  "id" : 17733,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -409,10 +265,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -420,43 +276,7 @@
   }, {
     "update" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "deleteCompanyUser",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -486,7 +306,7 @@
   },
   "parametersTypes" : [ "int", "java.lang.String" ],
   "argumentsNames" : [ "companyId", "userId" ],
-  "id" : 17733,
+  "id" : 17734,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -500,52 +320,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "saveCompanyRole",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -576,7 +360,7 @@
   },
   "parametersTypes" : [ "int", "com.iot.backend.infrastructure.role.RoleDto" ],
   "argumentsNames" : [ "companyId", "roleDto" ],
-  "id" : 17734,
+  "id" : 17735,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.role.RoleDto",
   "classInfo" : {
@@ -590,10 +374,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -603,43 +387,7 @@
   }, {
     "create" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "addCompanyModule",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -669,7 +417,7 @@
   },
   "parametersTypes" : [ "int", "com.iot.backend.implementations.permissions.enums.IotModules" ],
   "argumentsNames" : [ "companyId", "moduleId" ],
-  "id" : 17735,
+  "id" : 17736,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -683,10 +431,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -694,43 +442,7 @@
   }, {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "updateCompanyModules",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -761,7 +473,7 @@
   },
   "parametersTypes" : [ "int", "java.util.List" ],
   "argumentsNames" : [ "companyId", "moduleDtos" ],
-  "id" : 17736,
+  "id" : 17737,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -775,10 +487,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -786,43 +498,7 @@
   }, {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "deleteCompanyModule",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -852,7 +528,7 @@
   },
   "parametersTypes" : [ "int", "com.iot.backend.implementations.permissions.enums.IotModules" ],
   "argumentsNames" : [ "companyId", "moduleId" ],
-  "id" : 17737,
+  "id" : 17738,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -866,52 +542,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "loginAdminCompany",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -939,7 +579,7 @@
   },
   "parametersTypes" : [ "int", "jakarta.servlet.http.HttpServletResponse" ],
   "argumentsNames" : [ "companyId", "response" ],
-  "id" : 17738,
+  "id" : 17739,
   "type" : "method",
   "returnType" : "void",
   "classInfo" : {
@@ -953,52 +593,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "deleteCompanyRole",
   "namespce" : "com.iot.backend.api.controllers.admin.CompanyController",
@@ -1028,7 +632,7 @@
   },
   "parametersTypes" : [ "int", "int" ],
   "argumentsNames" : [ "companyId", "roleId" ],
-  "id" : 17739,
+  "id" : 17740,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -1042,52 +646,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : null,
   "namespce" : null,
@@ -1134,7 +702,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17881,
+  "id" : 17882,
   "type" : "method",
   "returnType" : "com.iot.backend.implementations.customers.dtos.CustomerDto",
   "classInfo" : {
@@ -1148,52 +716,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "read" : "com.iot.backend.implementations.customers.dtos.CustomerDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getAllCompanies",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -1218,7 +750,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17882,
+  "id" : 17883,
   "type" : "method",
   "returnType" : "java.util.List",
   "classInfo" : {
@@ -1232,50 +764,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "updateCustomer",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -1303,7 +799,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.customers.dtos.CustomerDto" ],
   "argumentsNames" : [ "customerDto" ],
-  "id" : 17883,
+  "id" : 17884,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -1317,10 +813,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1328,43 +824,7 @@
   }, {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getCustomerUsers",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -1389,7 +849,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17884,
+  "id" : 17885,
   "type" : "method",
   "returnType" : "java.util.List",
   "classInfo" : {
@@ -1403,50 +863,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getCustomerUser",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -1474,7 +898,7 @@
   },
   "parametersTypes" : [ "java.lang.String" ],
   "argumentsNames" : [ "userEmail" ],
-  "id" : 17885,
+  "id" : 17886,
   "type" : "method",
   "returnType" : "com.iot.backend.implementations.auth.dtos.UserDto",
   "classInfo" : {
@@ -1488,10 +912,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1499,43 +923,7 @@
   }, {
     "read" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "createCustomerUser",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -1563,7 +951,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.auth.dtos.UserDto" ],
   "argumentsNames" : [ "userDto" ],
-  "id" : 17886,
+  "id" : 17887,
   "type" : "method",
   "returnType" : "com.iot.backend.implementations.auth.dtos.UserDto",
   "classInfo" : {
@@ -1577,10 +965,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1592,43 +980,7 @@
   }, {
     "read" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "updateCustomerUser",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -1656,7 +1008,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.auth.dtos.UserDto" ],
   "argumentsNames" : [ "userDto" ],
-  "id" : 17887,
+  "id" : 17888,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -1670,52 +1022,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "update" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getCustomerRoles",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -1741,7 +1057,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17888,
+  "id" : 17889,
   "type" : "method",
   "returnType" : "java.util.List",
   "classInfo" : {
@@ -1755,52 +1071,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "deleteCustomerRole",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -1828,7 +1108,7 @@
   },
   "parametersTypes" : [ "int" ],
   "argumentsNames" : [ "roleId" ],
-  "id" : 17889,
+  "id" : 17890,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -1842,50 +1122,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "saveCustomerRole",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -1913,7 +1157,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.infrastructure.role.RoleDto" ],
   "argumentsNames" : [ "roleDto" ],
-  "id" : 17890,
+  "id" : 17891,
   "type" : "method",
   "returnType" : "int",
   "classInfo" : {
@@ -1927,10 +1171,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -1942,43 +1186,7 @@
   }, {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getCustomerModules",
   "namespce" : "com.iot.backend.api.controllers.admin.CustomerController",
@@ -2003,7 +1211,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17891,
+  "id" : 17892,
   "type" : "method",
   "returnType" : "java.util.List",
   "classInfo" : {
@@ -2017,52 +1225,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "read" : "com.iot.backend.infrastructure.role.RoleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : null,
   "namespce" : null,
@@ -2103,7 +1275,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17943,
+  "id" : 17944,
   "type" : "method",
   "returnType" : "org.springframework.http.ResponseEntity",
   "classInfo" : {
@@ -2117,10 +1289,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
@@ -2152,91 +1324,6 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.auth.dtos.LoginCredentialsDto" ],
   "argumentsNames" : [ "body" ],
-  "id" : 17944,
-  "type" : "method",
-  "returnType" : "com.iot.backend.infrastructure.response.GenericResponse",
-  "classInfo" : {
-    "hasParameters" : true,
-    "entity" : false,
-    "interface" : false,
-    "enum" : false,
-    "static" : false,
-    "public" : true,
-    "protected" : false,
-    "final" : false,
-    "abstract" : false,
-    "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
-    "applicationClass" : true,
-    "libraryClass" : false
-  },
-  "modifier" : 0,
-  "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
-}, {
-  "name" : "adminLogin",
-  "namespce" : "com.iot.backend.api.controllers.AuthController",
-  "annotations" : {
-    "Lcom/iot/backend/infrastructure/logs/Log;" : {
-      "showArgs" : 1,
-      "showResult" : 1,
-      "unit" : "MILLIS",
-      "type" : "java.lang.Enum"
-    },
-    "Lorg/springframework/web/bind/annotation/PostMapping;" : {
-      "value" : "/adminLogin",
-      "type" : "java.lang.String"
-    },
-    "Lorg/springframework/web/bind/annotation/RequestBody;" : {
-      "index" : 0
-    },
-    "class" : {
-      "Lorg/springframework/web/bind/annotation/RestController;" : { },
-      "Lorg/springframework/web/bind/annotation/RequestMapping;" : {
-        "value" : "/api/v1/auth",
-        "type" : "java.lang.String"
-      }
-    }
-  },
-  "parametersTypes" : [ "com.iot.backend.implementations.auth.dtos.LoginCredentialsDto" ],
-  "argumentsNames" : [ "body" ],
   "id" : 17945,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.GenericResponse",
@@ -2251,52 +1338,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
-  "name" : "iotLogin",
+  "name" : "adminLogin",
   "namespce" : "com.iot.backend.api.controllers.AuthController",
   "annotations" : {
     "Lcom/iot/backend/infrastructure/logs/Log;" : {
@@ -2305,9 +1356,8 @@
       "unit" : "MILLIS",
       "type" : "java.lang.Enum"
     },
-    "Lorg/softauto/annotations/ApiForTesting;" : { },
     "Lorg/springframework/web/bind/annotation/PostMapping;" : {
-      "value" : "/iotLogin",
+      "value" : "/adminLogin",
       "type" : "java.lang.String"
     },
     "Lorg/springframework/web/bind/annotation/RequestBody;" : {
@@ -2337,50 +1387,64 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
+  "childes" : [ ]
+}, {
+  "name" : "iotLogin",
+  "namespce" : "com.iot.backend.api.controllers.AuthController",
+  "annotations" : {
+    "Lcom/iot/backend/infrastructure/logs/Log;" : {
+      "showArgs" : 1,
+      "showResult" : 1,
+      "unit" : "MILLIS",
+      "type" : "java.lang.Enum"
+    },
+    "Lorg/softauto/annotations/ApiForTesting;" : { },
+    "Lorg/springframework/web/bind/annotation/PostMapping;" : {
+      "value" : "/iotLogin",
+      "type" : "java.lang.String"
+    },
+    "Lorg/springframework/web/bind/annotation/RequestBody;" : {
+      "index" : 0
+    },
+    "class" : {
+      "Lorg/springframework/web/bind/annotation/RestController;" : { },
+      "Lorg/springframework/web/bind/annotation/RequestMapping;" : {
+        "value" : "/api/v1/auth",
+        "type" : "java.lang.String"
       }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+    }
+  },
+  "parametersTypes" : [ "com.iot.backend.implementations.auth.dtos.LoginCredentialsDto" ],
+  "argumentsNames" : [ "body" ],
+  "id" : 17947,
+  "type" : "method",
+  "returnType" : "com.iot.backend.infrastructure.response.GenericResponse",
+  "classInfo" : {
+    "hasParameters" : true,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
 }, {
   "name" : null,
   "namespce" : null,
@@ -2421,7 +1485,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17948,
+  "id" : 17949,
   "type" : "method",
   "returnType" : "com.iot.backend.implementations.auth.dtos.UserDto",
   "classInfo" : {
@@ -2435,50 +1499,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : null,
   "namespce" : null,
@@ -2532,7 +1560,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.devices.dtos.DeviceDto" ],
   "argumentsNames" : [ "deviceDto" ],
-  "id" : 17950,
+  "id" : 17951,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -2546,10 +1574,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -2557,43 +1585,7 @@
   }, {
     "create" : "com.iot.backend.implementations.devices.dtos.DeviceDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "updateDevice",
   "namespce" : "com.iot.backend.api.controllers.iot.DeviceController",
@@ -2625,7 +1617,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.devices.dtos.DeviceDto" ],
   "argumentsNames" : [ "deviceDto" ],
-  "id" : 17951,
+  "id" : 17952,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -2639,10 +1631,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -2650,43 +1642,7 @@
   }, {
     "update" : "com.iot.backend.implementations.devices.dtos.DeviceDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "updateDeviceLocation",
   "namespce" : "com.iot.backend.api.controllers.iot.DeviceController",
@@ -2718,7 +1674,7 @@
   },
   "parametersTypes" : [ "com.iot.infrastructure.dtos.DeviceLocationData" ],
   "argumentsNames" : [ "deviceData" ],
-  "id" : 17952,
+  "id" : 17953,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -2732,50 +1688,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getAllDevices",
   "namespce" : "com.iot.backend.api.controllers.iot.DeviceController",
@@ -2804,7 +1724,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17953,
+  "id" : 17954,
   "type" : "method",
   "returnType" : "java.util.List",
   "classInfo" : {
@@ -2818,50 +1738,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getDevice",
   "namespce" : "com.iot.backend.api.controllers.iot.DeviceController",
@@ -2893,7 +1777,7 @@
   },
   "parametersTypes" : [ "java.lang.String" ],
   "argumentsNames" : [ "deviceId" ],
-  "id" : 17954,
+  "id" : 17955,
   "type" : "method",
   "returnType" : "com.iot.backend.implementations.devices.dtos.DeviceDto",
   "classInfo" : {
@@ -2907,52 +1791,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "read" : "com.iot.backend.implementations.devices.dtos.DeviceDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "deleteDevice",
   "namespce" : "com.iot.backend.api.controllers.iot.DeviceController",
@@ -2984,7 +1832,7 @@
   },
   "parametersTypes" : [ "java.lang.String" ],
   "argumentsNames" : [ "deviceId" ],
-  "id" : 17955,
+  "id" : 17956,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -2998,50 +1846,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getUserInfo",
   "namespce" : "com.iot.backend.api.controllers.iot.DeviceController",
@@ -3064,7 +1876,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17956,
+  "id" : 17957,
   "type" : "method",
   "returnType" : "com.iot.backend.implementations.auth.dtos.UserDto",
   "classInfo" : {
@@ -3078,50 +1890,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : null,
   "namespce" : null,
@@ -3175,7 +1951,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.customers.dtos.CustomerDto" ],
   "argumentsNames" : [ "customerDto" ],
-  "id" : 17973,
+  "id" : 17974,
   "type" : "method",
   "returnType" : "int",
   "classInfo" : {
@@ -3189,52 +1965,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "create" : "com.iot.backend.implementations.customers.dtos.CustomerDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "createCustomerOwner",
   "namespce" : "com.iot.backend.api.controllers.SystemController",
@@ -3265,7 +2005,7 @@
   },
   "parametersTypes" : [ "int", "com.iot.backend.implementations.auth.dtos.UserDto" ],
   "argumentsNames" : [ "customerId", "customerOwner" ],
-  "id" : 17974,
+  "id" : 17975,
   "type" : "method",
   "returnType" : "java.lang.String",
   "classInfo" : {
@@ -3279,10 +2019,10 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
@@ -3290,43 +2030,7 @@
   }, {
     "create" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "addCustomerModule",
   "namespce" : "com.iot.backend.api.controllers.SystemController",
@@ -3356,7 +2060,7 @@
   },
   "parametersTypes" : [ "int", "com.iot.backend.implementations.permissions.enums.IotModules" ],
   "argumentsNames" : [ "customerId", "moduleId" ],
-  "id" : 17975,
+  "id" : 17976,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -3370,52 +2074,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "create" : null
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "test",
   "namespce" : "com.iot.backend.api.controllers.SystemController",
@@ -3440,7 +2108,7 @@
   },
   "parametersTypes" : [ ],
   "argumentsNames" : [ ],
-  "id" : 17976,
+  "id" : 17977,
   "type" : "method",
   "returnType" : "org.springframework.http.ResponseEntity",
   "classInfo" : {
@@ -3454,50 +2122,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "createSystemUser",
   "namespce" : "com.iot.backend.api.controllers.SystemController",
@@ -3525,7 +2157,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.auth.dtos.UserDto" ],
   "argumentsNames" : [ "userDto" ],
-  "id" : 17977,
+  "id" : 17978,
   "type" : "method",
   "returnType" : "java.lang.String",
   "classInfo" : {
@@ -3539,52 +2171,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "create" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "getUsers",
   "namespce" : "com.iot.backend.api.controllers.SystemController",
@@ -3597,88 +2193,6 @@
     },
     "Lorg/springframework/web/bind/annotation/PostMapping;" : {
       "value" : "/getUsers",
-      "type" : "java.lang.String"
-    },
-    "class" : {
-      "Lorg/springframework/web/bind/annotation/RestController;" : { },
-      "Lorg/springframework/web/bind/annotation/RequestMapping;" : {
-        "value" : "/api/v1/iot/system",
-        "type" : "java.lang.String"
-      }
-    }
-  },
-  "parametersTypes" : [ ],
-  "argumentsNames" : [ ],
-  "id" : 17978,
-  "type" : "method",
-  "returnType" : "java.util.List",
-  "classInfo" : {
-    "hasParameters" : false,
-    "entity" : false,
-    "interface" : false,
-    "enum" : false,
-    "static" : false,
-    "public" : true,
-    "protected" : false,
-    "final" : false,
-    "abstract" : false,
-    "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
-    "applicationClass" : true,
-    "libraryClass" : false
-  },
-  "modifier" : 0,
-  "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
-}, {
-  "name" : "getCustomers",
-  "namespce" : "com.iot.backend.api.controllers.SystemController",
-  "annotations" : {
-    "Lcom/iot/backend/infrastructure/logs/Log;" : {
-      "showArgs" : 1,
-      "showResult" : 1,
-      "unit" : "MILLIS",
-      "type" : "java.lang.Enum"
-    },
-    "Lorg/springframework/web/bind/annotation/PostMapping;" : {
-      "value" : "/getCustomers",
       "type" : "java.lang.String"
     },
     "class" : {
@@ -3705,50 +2219,60 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
+  "childes" : [ ]
+}, {
+  "name" : "getCustomers",
+  "namespce" : "com.iot.backend.api.controllers.SystemController",
+  "annotations" : {
+    "Lcom/iot/backend/infrastructure/logs/Log;" : {
+      "showArgs" : 1,
+      "showResult" : 1,
+      "unit" : "MILLIS",
+      "type" : "java.lang.Enum"
+    },
+    "Lorg/springframework/web/bind/annotation/PostMapping;" : {
+      "value" : "/getCustomers",
+      "type" : "java.lang.String"
+    },
+    "class" : {
+      "Lorg/springframework/web/bind/annotation/RestController;" : { },
+      "Lorg/springframework/web/bind/annotation/RequestMapping;" : {
+        "value" : "/api/v1/iot/system",
+        "type" : "java.lang.String"
       }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : false,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+    }
+  },
+  "parametersTypes" : [ ],
+  "argumentsNames" : [ ],
+  "id" : 17980,
+  "type" : "method",
+  "returnType" : "java.util.List",
+  "classInfo" : {
+    "hasParameters" : false,
+    "entity" : false,
+    "interface" : false,
+    "enum" : false,
+    "static" : false,
+    "public" : true,
+    "protected" : false,
+    "final" : false,
+    "abstract" : false,
+    "private" : false,
+    "applicationClass" : true,
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
+  },
+  "modifier" : 0,
+  "crudToSubject" : [ ],
+  "childes" : [ ]
 }, {
   "name" : "updateSystemUser",
   "namespce" : "com.iot.backend.api.controllers.SystemController",
@@ -3776,7 +2300,7 @@
   },
   "parametersTypes" : [ "com.iot.backend.implementations.auth.dtos.UserDto" ],
   "argumentsNames" : [ "userDto" ],
-  "id" : 17980,
+  "id" : 17981,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -3790,52 +2314,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "update" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "updateCustomerOwner",
   "namespce" : "com.iot.backend.api.controllers.SystemController",
@@ -3866,7 +2354,7 @@
   },
   "parametersTypes" : [ "int", "com.iot.backend.implementations.auth.dtos.UserDto" ],
   "argumentsNames" : [ "customerId", "userDto" ],
-  "id" : 17981,
+  "id" : 17982,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -3880,52 +2368,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "update" : "com.iot.backend.implementations.auth.dtos.UserDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "removeSession",
   "namespce" : "com.iot.backend.api.controllers.SystemController",
@@ -3955,7 +2407,7 @@
   },
   "parametersTypes" : [ "java.lang.String", "java.lang.String" ],
   "argumentsNames" : [ "email", "imei" ],
-  "id" : 17982,
+  "id" : 17983,
   "type" : "method",
   "returnType" : "com.iot.backend.infrastructure.response.BaseResponse",
   "classInfo" : {
@@ -3969,50 +2421,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : {
-        "type" : "BEFORE"
-      },
-      "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-        "value" : "Ljava/lang/Exception;",
-        "type" : "java.lang.Class"
-      }
-    },
-    "parametersTypes" : [ "java.lang.Exception" ],
-    "argumentsNames" : [ "ex" ],
-    "id" : 17741,
-    "type" : "method",
-    "returnType" : "org.springframework.http.ResponseEntity",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : null,
   "namespce" : null,
@@ -4063,46 +2479,16 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "create" : "com.iot.backend.infrastructure.module.ModuleDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.infrastructure.db.bridges.BaseBridge",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { }
-    },
-    "parametersTypes" : [ "java.lang.Exception", "java.lang.String" ],
-    "argumentsNames" : [ "e", "message" ],
-    "id" : 6007,
-    "type" : "method",
-    "returnType" : "void",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
+  "childes" : [ ]
 }, {
   "name" : "createCustomer",
   "namespce" : "com.iot.backend.implementations.system.bridges.SystemBridge",
@@ -4131,91 +2517,31 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
   "crudToSubject" : [ {
     "create" : "com.iot.backend.implementations.customers.dtos.CustomerDto"
   } ],
-  "childes" : [ {
-    "name" : "handleException",
-    "namespce" : "com.iot.infrastructure.db.bridges.BaseBridge",
-    "annotations" : {
-      "Lorg/softauto/annotations/ListenerForTesting;" : { }
-    },
-    "parametersTypes" : [ "java.lang.Exception", "java.lang.String" ],
-    "argumentsNames" : [ "e", "message" ],
-    "id" : 6007,
-    "type" : "method",
-    "returnType" : "void",
-    "classInfo" : {
-      "hasParameters" : true,
-      "entity" : false,
-      "interface" : false,
-      "enum" : false,
-      "static" : false,
-      "public" : true,
-      "protected" : false,
-      "final" : false,
-      "abstract" : false,
-      "private" : false,
-      "javaLibraryClass" : false,
-      "innerClass" : false,
-      "applicationClass" : true,
-      "libraryClass" : false
-    },
-    "modifier" : 0,
-    "crudToSubject" : [ ],
-    "childes" : [ ]
-  } ]
-}, {
-  "name" : "handleException",
-  "namespce" : "com.iot.backend.infrastructure.controllers.BaseController",
-  "annotations" : {
-    "Lorg/softauto/annotations/ListenerForTesting;" : {
-      "type" : "BEFORE"
-    },
-    "Lorg/springframework/web/bind/annotation/ExceptionHandler;" : {
-      "value" : "Ljava/lang/Exception;",
-      "type" : "java.lang.Class"
-    }
-  },
-  "parametersTypes" : [ "java.lang.Exception" ],
-  "argumentsNames" : [ "ex" ],
-  "id" : 17741,
-  "type" : "method",
-  "returnType" : "org.springframework.http.ResponseEntity",
-  "classInfo" : {
-    "hasParameters" : true,
-    "entity" : false,
-    "interface" : false,
-    "enum" : false,
-    "static" : false,
-    "public" : true,
-    "protected" : false,
-    "final" : false,
-    "abstract" : false,
-    "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
-    "applicationClass" : true,
-    "libraryClass" : false
-  },
-  "modifier" : 0,
-  "crudToSubject" : [ ],
   "childes" : [ ]
 }, {
-  "name" : "handleException",
-  "namespce" : "com.iot.infrastructure.db.bridges.BaseBridge",
+  "name" : "createCustomer1",
+  "namespce" : "com.iot.backend.implementations.system.bridges.SystemBridge",
   "annotations" : {
-    "Lorg/softauto/annotations/ListenerForTesting;" : { }
+    "Lorg/softauto/annotations/ApiForTesting;" : { },
+    "Lcom/iot/backend/infrastructure/logs/Log;" : {
+      "showArgs" : 1,
+      "showResult" : 1,
+      "unit" : "MILLIS",
+      "type" : "java.lang.Enum"
+    }
   },
-  "parametersTypes" : [ "java.lang.Exception", "java.lang.String" ],
-  "argumentsNames" : [ "e", "message" ],
-  "id" : 6007,
+  "parametersTypes" : [ "com.iot.backend.implementations.customers.dtos.CustomerDto" ],
+  "argumentsNames" : [ "customer" ],
+  "id" : 3105,
   "type" : "method",
   "returnType" : "void",
   "classInfo" : {
@@ -4229,12 +2555,14 @@
     "final" : false,
     "abstract" : false,
     "private" : false,
-    "javaLibraryClass" : false,
-    "innerClass" : false,
     "applicationClass" : true,
-    "libraryClass" : false
+    "libraryClass" : false,
+    "innerClass" : false,
+    "javaLibraryClass" : false
   },
   "modifier" : 0,
-  "crudToSubject" : [ ],
+  "crudToSubject" : [ {
+    "create" : "com.iot.backend.implementations.customers.dtos.CustomerDto"
+  } ],
   "childes" : [ ]
 } ]

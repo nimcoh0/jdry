@@ -23,7 +23,7 @@ public class RequestServerReaderInterceptor implements ReaderInterceptor {
             JsonNode node =   new ObjectMapper().readTree(body);
             String token = node.findValue("token").asText();
             String scenarioId = Threadlocal.getInstance().get("scenarioId").toString();
-            TestContext.getScenario(scenarioId).addProperty("token",token);
+            TestContext.getScenario().addProperty("token",token);
         }
         context.setInputStream(new ByteArrayInputStream(body.getBytes()));
         return context.proceed();

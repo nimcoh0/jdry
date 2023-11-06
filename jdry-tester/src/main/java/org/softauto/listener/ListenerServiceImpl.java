@@ -13,7 +13,7 @@ import org.softauto.serializer.service.SerializerService;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
-public class ListenerServiceImpl implements SerializerService{
+public class ListenerServiceImpl implements SerializerService {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerServiceImpl.class);
 
@@ -24,7 +24,7 @@ public class ListenerServiceImpl implements SerializerService{
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    @Override
+    //@Override
     public synchronized Object execute(ByteBuffer mes) throws Exception {
         Object methodResponse = null;
         String newContent = new String(mes.array(), StandardCharsets.UTF_8);
@@ -41,7 +41,7 @@ public class ListenerServiceImpl implements SerializerService{
                 printLog(message);
                 return null;
             }
-            if (Context.getTestState().equals(TestLifeCycle.START)) {
+            if (TestContext.getTestState().equals(TestLifeCycle.START)) {
                 logger.debug("execute message " + message.toJson());
                 Object o = ListenerObserver.getInstance().getLastChannel(message.getDescriptor());
                 if (o != null) {
@@ -51,9 +51,9 @@ public class ListenerServiceImpl implements SerializerService{
                             logger.debug("got message Before " + message.toJson());
                             methodResponse = ((org.softauto.listener.Function) o).apply(message.getArgs());
                             logger.debug("result of function Before " + methodResponse);
-                            byte[] m = objectMapper.writeValueAsBytes(methodResponse);
-                            ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-                            return byteBuffer;
+                            //byte[] m = objectMapper.writeValueAsBytes(methodResponse);
+                            //ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+                            //return byteBuffer;
                         }
                     //}
                     //if (o instanceof Exec) {
@@ -66,13 +66,23 @@ public class ListenerServiceImpl implements SerializerService{
                             }
                             logger.debug("result of function After " + methodResponse);
                         }
+
+
                     //}
 
 
                 }else {
-                    // byte[] m = objectMapper.writeValueAsBytes(message.getArgs());
-                    //ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-                   // return byteBuffer;
+                    if (message.getState().equals("Exception")) {
+                        logger.debug("got message Exception " + message.toJson());
+                        if (message.getArgs().length == 1) {
+                            TestContext.getScenario().setState(ScenarioState.FAIL.name());
+                            TestContext.getScenario().addProperty("method",message.getDescriptor());
+                            logger.error("scenario fail and throw exception",(Throwable) args[0]);
+                            methodResponse = "";
+                            //throw new Exception((Throwable)args[0]);
+                        }
+                        logger.debug("result of function After " + methodResponse);
+                    }
 
                 }
             }else {
@@ -83,11 +93,12 @@ public class ListenerServiceImpl implements SerializerService{
             }
         } catch(Exception e){
             logger.error("fail invoke method " + message.getDescriptor(), e);
+            //throw (e);
         }
-       // byte[] m = objectMapper.writeValueAsBytes(methodResponse);
-      //  ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-       // return byteBuffer;
-        return null;
+        byte[] m = objectMapper.writeValueAsBytes(methodResponse);
+        ByteBuffer byteBuffer = ByteBuffer.wrap(m);
+        return byteBuffer;
+        //return "ok";
     }
 
 

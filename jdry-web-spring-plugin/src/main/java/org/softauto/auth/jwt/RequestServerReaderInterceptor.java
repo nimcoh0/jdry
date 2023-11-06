@@ -26,7 +26,7 @@ public class RequestServerReaderInterceptor implements ReaderInterceptor {
             //if(!TestContext.has(scenarioId) ) {
                //TestContext.addScenario(scenarioId);
             //}
-            TestContext.getScenario(scenarioId).addProperty("token",token);
+            TestContext.getScenario().addProperty("token",token);
         }
         context.setInputStream(new ByteArrayInputStream(body.getBytes()));
         return context.proceed();

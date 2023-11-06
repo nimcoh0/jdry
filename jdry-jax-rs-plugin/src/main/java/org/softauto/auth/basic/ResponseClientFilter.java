@@ -14,7 +14,7 @@ public class ResponseClientFilter implements ClientResponseFilter {
     public void filter(ClientRequestContext requestContext, ClientResponseContext responseContext) throws IOException {
         if(responseContext.getCookies().get("JSESSIONID") != null){
             String scenarioId = Threadlocal.getInstance().get("scenarioId").toString();
-            TestContext.getScenario(scenarioId).addProperty("JSESSIONID",responseContext.getCookies().get("JSESSIONID"));
+            TestContext.getScenario().addProperty("JSESSIONID",responseContext.getCookies().get("JSESSIONID"));
             //Threadlocal.getInstance().add("JSESSIONID",responseContext.getCookies().get("JSESSIONID"));
         }
     }

@@ -23,8 +23,8 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
 
     @Override
     public Cookie getCookie(){
-        if(TestContext.getScenario(callOptions.get("scenarioId").toString()).getProperty("JSESSIONID") != null){
-          return (Cookie) TestContext.getScenario(callOptions.get("scenarioId").toString()).getProperty("JSESSIONID");
+        if(TestContext.getScenario().getProperty("JSESSIONID") != null){
+          return (Cookie) TestContext.getScenario().getProperty("JSESSIONID");
         }
         return null;
     }
@@ -67,11 +67,11 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
     public MultivaluedMap<String, Object> getHeaders() {
         MultivaluedMap<String, Object> mm = new MultivaluedHashMap<>();
 
-        if(TestContext.getScenario(scenarioId) != null ) {
+        if(TestContext.getScenario() != null ) {
             mm.add("scenarioId", scenarioId);
-            Object jsessioId = TestContext.getScenario(scenarioId).getProperty("JSESSIONID");
+            Object jsessioId = TestContext.getScenario().getProperty("JSESSIONID");
             if(jsessioId == null){
-                Object[] args =  (Object[])TestContext.getScenario(scenarioId).getProperty("args");
+                Object[] args =  (Object[])TestContext.getScenario().getProperty("args");
                 //Object[] args = (Object[]) Threadlocal.getInstance().get("args");
                 if(args != null && args.length ==2) {
                     String valueToEncode = args[0] + ":" + args[1];

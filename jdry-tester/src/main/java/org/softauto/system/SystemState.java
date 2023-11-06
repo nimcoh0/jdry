@@ -25,6 +25,11 @@ public class SystemState {
     Yaml yaml = new Yaml();
     static ObjectMapper objectMapper;
 
+
+    public static SystemState getSystemState() {
+        return systemState;
+    }
+
     public static SystemState getInstance(){
         if(systemState == null){
             systemState = new SystemState();
@@ -62,7 +67,7 @@ public class SystemState {
 
     public Boolean sendConfiguration(){
         try {
-            org.softauto.core.Context.setTestState(TestLifeCycle.INITIALIZE);
+            TestContext.setTestState(TestLifeCycle.INITIALIZE);
             return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_configuration", new Object[]{Configuration.getConfiguration()}, new Class[]{HashMap.class});
         }catch (Exception e){
             logger.error("fail send configuration",e);
@@ -77,13 +82,13 @@ public class SystemState {
     public Boolean startTest(String testname)throws Exception{
         ListenerObserver.getInstance().reset();
         boolean r = new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_startTest", new Object[]{testname}, new Class[]{String.class});
-        org.softauto.core.Context.setTestState(TestLifeCycle.START);
+        TestContext.setTestState(TestLifeCycle.START);
         return r;
     }
 
     public Boolean endTest(String testname)throws Exception{
         boolean r = new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_endTest", new Object[]{testname}, new Class[]{String.class});
-        org.softauto.core.Context.setTestState(TestLifeCycle.STOP);
+        TestContext.setTestState(TestLifeCycle.STOP);
         ListenerServerProviderImpl.getInstance().shutdown();
         return r;
     }

@@ -51,12 +51,18 @@ public  class Listener implements IListener {
     }
 
 
-    public <T> Listener waitTo(Function function, Handler<AsyncResult<T>> resultHandler)throws Exception{
+    public Listener waitTo(Function function)throws Exception{
+        logger.debug("waitTo "+ fqmn);
         Exec func = new Exec(function,fqmn);
         ListenerObserver.getInstance().register(fqmn,func);
         lock = func.getLock();
         lock.await(timeOutInMin, TimeUnit.MINUTES);
-        resultHandler.handle(Future.handleResult((T)func.getResult()));
+        if(lock.getCount() > 0){
+            logger.error("done waitTo for "+ fqmn+" no call ");
+        }else {
+            logger.debug("done waitTo for " + fqmn);
+        }
+        result = func.getResult();
         return this;
     }
 
@@ -82,6 +88,19 @@ public  class Listener implements IListener {
     }
 
 
+    /*
+    public <T> Listener waitTo(Function function, Handler<AsyncResult<T>> resultHandler)throws Exception{
+        Exec func = new Exec(function,fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
+        lock = func.getLock();
+        lock.await(timeOutInMin, TimeUnit.MINUTES);
+        resultHandler.handle(Future.handleResult((T)func.getResult()));
+        return this;
+    }
+
+     */
+
+/*
     public synchronized <T> Listener waitTo(Function function, CallFuture<T> future)throws Exception{
         logger.debug("waitTo "+ fqmn);
 
@@ -115,20 +134,9 @@ public  class Listener implements IListener {
     }
 
 
-    public Listener waitTo(Function function)throws Exception{
-        logger.debug("waitTo "+ fqmn);
-        Exec func = new Exec(function,fqmn);
-        ListenerObserver.getInstance().register(fqmn,func);
-        lock = func.getLock();
-        lock.await(timeOutInMin, TimeUnit.MINUTES);
-        if(lock.getCount() > 0){
-            logger.error("done waitTo for "+ fqmn+" no call ");
-        }else {
-            logger.debug("done waitTo for " + fqmn);
-        }
-        result = func.getResult();
-        return this;
-    }
+ */
+
+
 
     public Listener waitTo()throws Exception{
         logger.debug("waitTo "+ fqmn);

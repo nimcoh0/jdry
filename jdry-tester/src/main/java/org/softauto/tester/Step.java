@@ -47,8 +47,9 @@ public class Step {
 
 
 
+    public Step(){
 
-    public Step(){};
+    };
 
     public Step setResult(Object result) {
         this.result = result;
@@ -77,16 +78,21 @@ public class Step {
                         logger.debug("waiting to future to be done");
                         future.await();
                     }
-                    logger.debug("successfully get_Result() ");
-                    return (T) future.get();
+                    if(TestContext.getScenario().getState().equals(ScenarioState.RUN.name())) {
+                        logger.debug("successfully get_Result() ");
+                        return (T) future.get();
+                    }
                 }else {
-                    return (T)result;
+                    if(TestContext.getScenario().getState().equals(ScenarioState.RUN.name())) {
+                        return (T) result;
+                    }
                 }
 
             }catch (Exception e){
                  logger.error("fail get_Result() "+ e);
                  throw new Exception("fail get_Result() "+ e);
              }
+            return null;
         }
 
 
@@ -108,9 +114,11 @@ public class Step {
      */
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,String scenarioId, CallFuture<T> future)throws Exception{
-        logger.debug("invoking " +fqmn);
-        callOptions.put("scenarioId",scenarioId);
-        new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+
+            logger.debug("invoking " + fqmn);
+            callOptions.put("scenarioId", scenarioId);
+            new InvocationHandler().invoke(fqmn, args, types, future, transceiver, callOptions);
+
     }
 
     /*
@@ -123,28 +131,33 @@ public class Step {
 
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,org.apache.avro.ipc.Callback<Object> future)throws Exception{
-        logger.debug("invoking " +fqmn);
-        this.fqmn = fqmn;
-        this.args = args;
-        this.types = types;
-        this.callback = future;
+
+            logger.debug("invoking " + fqmn);
+            this.fqmn = fqmn;
+            this.args = args;
+            this.types = types;
+            this.callback = future;
+
         //new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
     }
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions)throws Exception{
-        logger.debug("invoking " +fqmn);
-        this.fqmn = fqmn;
-        this.args = args;
-        this.types = types;
+
+            logger.debug("invoking " + fqmn);
+            this.fqmn = fqmn;
+            this.args = args;
+            this.types = types;
+
         //this.callback = future;
         //new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
     }
 
     public <RespT> Step invoke() throws Exception {
-        if(this.callback == null) {
-            result = new InvocationHandler().invoke(fqmn, args, types, transceiver, callOptions);
-        }else {
-            new InvocationHandler().invoke(fqmn, args, types,callback, transceiver, callOptions);
+
+            if (this.callback == null) {
+                result = new InvocationHandler().invoke(fqmn, args, types, transceiver, callOptions);
+            } else {
+                new InvocationHandler().invoke(fqmn, args, types, callback, transceiver, callOptions);
             /*
             if(((CallFuture)callback).getResult() != null) {
                 String newContent = new String(((ByteBuffer) ((CallFuture) callback).getResult()).array(), StandardCharsets.UTF_8);
@@ -153,9 +166,9 @@ public class Step {
             }
 
              */
-            //String newContent = new String(((ByteBuffer)((CallFuture)callback).getResult()).array(), StandardCharsets.UTF_8);
-            //result =  new ObjectMapper().readValue(newContent,Object.class);
-        }
+                //String newContent = new String(((ByteBuffer)((CallFuture)callback).getResult()).array(), StandardCharsets.UTF_8);
+                //result =  new ObjectMapper().readValue(newContent,Object.class);
+            }
 
       //Object o = new StepService().setCallOptions(callOptions).setTransceiver(transceiver).invokeUnaryMethod(fqmn,types,args);
       //System.out.println(o);
@@ -167,29 +180,37 @@ public class Step {
     }
 
     public Step(String fqmn, Object[] args, Class[] types, String transceiver,CallOptions callOptions,String scenarioId)throws Exception{
-        future = new CallFuture<>();
-        logger.debug("invoking " +fqmn);
-        callOptions.getOptions().put("scenarioId",scenarioId);
-        new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions.getOptions());
+
+            future = new CallFuture<>();
+            logger.debug("invoking " + fqmn);
+            callOptions.getOptions().put("scenarioId", scenarioId);
+            new InvocationHandler().invoke(fqmn, args, types, future, transceiver, callOptions.getOptions());
+
     }
 
     public Step(String fqmn, Object[] args, Class[] types, String transceiver,CallOptions callOptions)throws Exception{
-        future = new CallFuture<>();
-        logger.debug("invoking " +fqmn);
-        new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions.getOptions());
+
+            future = new CallFuture<>();
+            logger.debug("invoking " + fqmn);
+            new InvocationHandler().invoke(fqmn, args, types, future, transceiver, callOptions.getOptions());
+
     }
 
 
     public Step(String fqmn, Object[] args, Class[] types, String transceiver) throws Exception {
-        this.future = new CallFuture();
-        logger.debug("invoking " + fqmn);
-        (new InvocationHandler()).invoke(fqmn, args, types, this.future, transceiver);
+
+            this.future = new CallFuture();
+            logger.debug("invoking " + fqmn);
+            (new InvocationHandler()).invoke(fqmn, args, types, this.future, transceiver);
+
     }
 
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver, CallFuture<T> future)throws Exception{
-        logger.debug("invoking " +fqmn);
-        new InvocationHandler().invoke(fqmn,args,types,future,transceiver);
+
+            logger.debug("invoking " + fqmn);
+            new InvocationHandler().invoke(fqmn, args, types, future, transceiver);
+
     }
 
 

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.Configuration;
 import org.softauto.core.Context;
+import org.softauto.core.TestContext;
 import org.softauto.core.TestLifeCycle;
 import org.softauto.injector.InjectorInitializer;
 import org.softauto.listener.manager.ListenerClientProviderImpl;
@@ -47,7 +48,7 @@ public class SystemServiceImpl {
      * @param testname
      */
     public boolean startTest(String testname){
-        Context.setTestState(TestLifeCycle.START);
+        TestContext.setTestState(TestLifeCycle.START);
         logger.info(" **************** start test "+ testname+ " ******************");
         //logger.info(TRACER," **************** start test "+ testname+ " ******************");
         return true;
@@ -59,7 +60,7 @@ public class SystemServiceImpl {
      */
     public boolean endTest(String testname){
         try {
-            Context.setTestState(TestLifeCycle.STOP);
+            TestContext.setTestState(TestLifeCycle.STOP);
             SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
             Date date = new Date(System.currentTimeMillis());
             String d = formatter.format(date);
@@ -81,7 +82,7 @@ public class SystemServiceImpl {
      */
     public boolean configuration(HashMap<String,Object> configuration) {
         try {
-            Context.setTestState(TestLifeCycle.INITIALIZE);
+            TestContext.setTestState(TestLifeCycle.INITIALIZE);
             Configuration.setConfiguration(configuration);
             if (!loaded) {
                 load();

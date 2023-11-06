@@ -17,7 +17,7 @@ public class ClientHttpRequestInterceptor implements WriterInterceptor {
     @Override
     public void aroundWriteTo(WriterInterceptorContext context) throws IOException, WebApplicationException {
         String scenarioId = Threadlocal.getInstance().get("scenarioId").toString();
-        Object token = TestContext.getScenario(scenarioId).getProperty("token");
+        Object token = TestContext.getScenario().getProperty("token");
         if(token != null){
             context.getHeaders().add("Authorization", "Bearer " + token.toString());
         }

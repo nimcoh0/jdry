@@ -125,9 +125,9 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
     @Override
     public MultivaluedMap<String, Object> getHeaders() {
         MultivaluedMap<String, Object> mm = new MultivaluedHashMap<>();
-        if(TestContext.getScenario(scenarioId) != null ) {
-            if (TestContext.getScenario(scenarioId).getProperty("token") != null) {
-                Object token = TestContext.getScenario(scenarioId).getProperty("token");
+        if(TestContext.getScenario() != null ) {
+            if (TestContext.getScenario().getProperty("token") != null) {
+                Object token = TestContext.getScenario().getProperty("token");
                 mm.add("Authorization", "Bearer " + token.toString());
                 mm.add("X-Authorization", "Bearer " + token.toString());
             }

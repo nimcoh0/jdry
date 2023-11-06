@@ -66,14 +66,14 @@ public class Context {
     public final static String ENTITY_NAME_POSTFIX = "entity_name_postfix";
     public final static String ENTITY_NAME_PREFIX = "entity_name_prefix";
     //public final static String LOG4J2_SOCKET_TCP_SERVER_PORT = "log4j2_socket_tcp_server_port";
-    public static TestLifeCycle TestState = TestLifeCycle.NONE;
+    //public static TestLifeCycle TestState = TestLifeCycle.NONE;
 
-    public static TestLifeCycle getTestState() {
-        return TestState;
-    }
+    //public static TestLifeCycle getTestState() {
+      //  return TestState;
+    //}
 
-    public static void setTestState(TestLifeCycle testState) {
-        TestState = testState;
-        logger.debug("test state change to "+ testState);
-    }
+    //public static void setTestState(TestLifeCycle testState) {
+        //TestState = testState;
+       // logger.debug("test state change to "+ testState);
+   // }
 }
