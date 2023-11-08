@@ -24,22 +24,22 @@ public class RestService {
          return testDefinition;
     }
 
-    public static <T> TestDefinition createTestDefinition(String stepName, Object[] args,Class[] types, HashMap<String,Object> callOptions) {
-        return _createTestDefinition(stepName,args,types,callOptions);
+    public static <T> TestDefinition createTestDefinition(String stepName, Object[] args,Class[] types, HashMap<String,Object> callOptions,String scenarioId) {
+        return _createTestDefinition(stepName,args,types,callOptions,scenarioId);
     }
 
     public static <T> TestDefinition createTestDefinition(String stepName, Object[] args) {
-        return _createTestDefinition(stepName,args,null,null);
+        return _createTestDefinition(stepName,args,null,null,null);
     }
 
-    private static <T> TestDefinition _createTestDefinition(String stepName, Object[] args,Class[] types,HashMap<String,Object> callOptions) {
+    private static <T> TestDefinition _createTestDefinition(String stepName, Object[] args,Class[] types,HashMap<String,Object> callOptions,String scenarioId) {
         TestDefinition.Builder testDefinitionBuilder = null;
         try {
             TestDescriptor testDescriptor = TestDescriptor.create(stepName);
             testDefinitionBuilder = TestDefinition.builder(testDescriptor);
             //for(Item item : test.getItems()){
                 //if (item.getProp("transceiver").equals("JAXRS")) {
-            testDefinitionBuilder.addStep(testDescriptor.getStep(stepName,args,types,callOptions),ServiceCaller.call());
+            testDefinitionBuilder.addStep(testDescriptor.getStep(stepName,args,types,callOptions,scenarioId),ServiceCaller.call());
                //}
            //}
         }catch (Exception e){

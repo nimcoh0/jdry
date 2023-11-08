@@ -8,6 +8,7 @@ import org.softauto.core.ServiceLocator;
 import org.softauto.plugin.api.Provider;
 import org.softauto.serializer.Serializer;
 import org.softauto.serializer.service.Message;
+import org.softauto.serializer.service.MessageBuilder;
 import org.softauto.serializer.service.MessageType;
 import javax.lang.model.element.Element;
 import java.io.IOException;
@@ -77,7 +78,7 @@ public class RpcProviderImpl implements Provider {
 
 
 
-    public <RespT> void exec(String name, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){
+    public <RespT> void exec(String name, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions,String scenarioId){
         Object result = null;
         try {
             logger.debug("exec rpc call "+ name);
@@ -96,7 +97,7 @@ public class RpcProviderImpl implements Provider {
                 messageType = MessageType.fromString(callOptions.get("messageType").toString());
             }
 
-            Message message = Message.newBuilder().setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("callOption",callOptions).build();
+            Message message = MessageBuilder.newBuilder().setScenarioId(scenarioId).setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("callOption",callOptions).build().getMessage();
             serializer.write(message,callback);
 
         }catch (Exception e){
@@ -105,7 +106,7 @@ public class RpcProviderImpl implements Provider {
     }
 
 
-    public <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){
+    public <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions,String scenarioId){
         Object result = null;
         try {
             logger.debug("exec rpc call "+ name);
@@ -124,7 +125,7 @@ public class RpcProviderImpl implements Provider {
                 messageType = MessageType.fromString(callOptions.get("messageType").toString());
             }
 
-            Message message = Message.newBuilder().setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("callOption",callOptions).build();
+            Message message = MessageBuilder.newBuilder().setDescriptor(name).setScenarioId(scenarioId).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("callOption",callOptions).build().getMessage();
             result = serializer.write(message);
 
         }catch (Exception e){

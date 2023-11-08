@@ -6,8 +6,13 @@ import org.softauto.core.Context;
 import org.softauto.core.TestContext;
 import org.softauto.core.TestLifeCycle;
 import org.softauto.listener.ListenerService;
+import org.softauto.listener.impl.Threadlocal;
 import org.softauto.serializer.Serializer;
 import org.softauto.serializer.service.Message;
+import org.softauto.serializer.service.MessageBuilder;
+import org.softauto.system.Scenarios;
+
+import java.util.HashMap;
 
 
 public class ListenerServiceImpl implements ListenerService {
@@ -15,15 +20,33 @@ public class ListenerServiceImpl implements ListenerService {
 
     private  final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerServiceImpl.class);
 
+    private HashMap<String,Object> getConfiguration(String scenarioId){
+        if(scenarioId != null) {
+            return Scenarios.getScenario(scenarioId).getConfiguration();
+        }
+        return null;
+    }
+
+    private String getScenarioId(){
+        if(Threadlocal.getInstance().has("scenarioId")){
+            return Threadlocal.getInstance().get("scenarioId");
+        }
+        return null;
+    }
+
     @Override
     public Object[] executeBefore(String methodName, Object[] args, Class[] types) throws Exception {
         Object result = null;
         try {
             if(TestContext.getTestState().equals(TestLifeCycle.START)) {
-                Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
-                Message message = Message.newBuilder().setState(ListenerType.BEFORE.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build();
-                result = serializer.write(message);
-                logger.debug("send message successfully " + methodName);
+                String scenarioId = getScenarioId();
+                HashMap<String,Object> configuration = getConfiguration(scenarioId);
+                if(configuration != null) {
+                    Serializer serializer = new Serializer().setHost(configuration.get(Context.TEST_MACHINE).toString()).setPort(Integer.valueOf(configuration.get(Context.LISTENER_PORT).toString())).build();
+                    Message message = MessageBuilder.newBuilder().setState(ListenerType.BEFORE.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
+                    result = serializer.write(message);
+                    logger.debug("send message successfully " + methodName);
+                }
             }
 
         } catch (Exception e) {
@@ -50,10 +73,14 @@ public class ListenerServiceImpl implements ListenerService {
 
         try {
             if(TestContext.getTestState().equals(TestLifeCycle.START)) {
-                Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
-                Message message = Message.newBuilder().setState(ListenerType.AFTER.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build();
-                serializer.write(message);
-                logger.debug("send message successfully " + methodName);
+                String scenarioId = getScenarioId();
+                HashMap<String,Object> configuration = getConfiguration(scenarioId);
+                if(configuration != null) {
+                    Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
+                    Message message = MessageBuilder.newBuilder().setState(ListenerType.AFTER.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
+                    serializer.write(message);
+                    logger.debug("send message successfully " + methodName);
+                }
             }
         } catch (Exception e) {
             if (e.getCause().toString().contains("UNAVAILABLE")) {
@@ -71,10 +98,14 @@ public class ListenerServiceImpl implements ListenerService {
         Object result = null;
         try {
             if(TestContext.getTestState().equals(TestLifeCycle.START)) {
-                Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
-                Message message = Message.newBuilder().setState("Exception").setDescriptor(methodName).setArgs(args).setTypes(types).build();
-                result = serializer.write(message);
-                logger.debug("send message successfully " + methodName);
+                String scenarioId = getScenarioId();
+                HashMap<String,Object> configuration = getConfiguration(scenarioId);
+                if(configuration != null) {
+                    Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
+                    Message message = MessageBuilder.newBuilder().setState("Exception").setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
+                    result = serializer.write(message);
+                    logger.debug("send message successfully " + methodName);
+                }
             }
         } catch (Exception e) {
             if (e.getCause().toString().contains("UNAVAILABLE")) {

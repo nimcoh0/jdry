@@ -63,12 +63,12 @@ public class RsPluginImpl implements Provider {
     }
 
     @Override
-    public <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions) {
+    public <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions,String scenarioId) {
         return null;
     }
 
     @Override
-    public <RespT> void exec(String name, org.apache.avro.ipc.Callback<RespT> callback, io.grpc.ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions) {
+    public <RespT> void exec(String name, org.apache.avro.ipc.Callback<RespT> callback, io.grpc.ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions,String scenarioId) {
 
     }
 

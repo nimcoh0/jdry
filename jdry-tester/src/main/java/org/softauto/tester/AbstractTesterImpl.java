@@ -14,12 +14,13 @@ import org.softauto.espl.Espl;
 import org.softauto.listener.ListenerServerProviderImpl;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.spi.PluginProvider;
-import org.softauto.service.ListenerService;
+import org.softauto.serializer.HttpServletRequestScenarioIdSerializer;
 import org.softauto.system.SystemState;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -40,15 +41,20 @@ public class AbstractTesterImpl  {
 
     public String scenarioId;
 
+    //public String sessionId;
+
     public AbstractTesterImpl(){
         try {
            mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
            SimpleModule module = new SimpleModule();
+           //sessionId = UUID.randomUUID().toString();
+           //TestContext.put("sessionId",sessionId);
+
            module.addDeserializer(String.class, new NullStringJsonDeserializer());
            mapper.registerModule(module);
-           SystemState.getInstance().initialize();
-           ListenerServerProviderImpl.getInstance().initialize().register();
-           loadPlugins();
+           //SystemState.getInstance().initialize(scenario);
+           //ListenerServerProviderImpl.getInstance().initialize().register();
+           //loadPlugins();
         }catch (Exception e){
             logger.error("fail start listener ",e);
         }
@@ -66,12 +72,21 @@ public class AbstractTesterImpl  {
 
     @BeforeTest
     public void beforeScenario(ITestContext testContext) {
-        scenarioId = UUID.randomUUID().toString();
-        scenario = new Scenario();
-        scenario.setId(scenarioId);
-        scenario.setSuiteName(testContext.getSuite().getName());
-        scenario.setState(ScenarioState.RUN.name());
-        TestContext.setScenario(scenario);
+        try {
+            scenario = new Scenario();
+            scenarioId = UUID.randomUUID().toString();
+            scenario.setId(scenarioId);
+            scenario.setSuiteName(testContext.getSuite().getName());
+            scenario.setState(ScenarioState.RUN.name());
+            //scenario.setConfiguration(Configuration.getConfiguration());
+            TestContext.setScenario(scenario);
+            SystemState.getInstance().initialize(scenario);
+            //scenario.setConfiguration(Configuration.getConfiguration());
+            ListenerServerProviderImpl.getInstance().initialize().register();
+            loadPlugins();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
         @BeforeMethod
@@ -109,5 +124,7 @@ public class AbstractTesterImpl  {
         }
         return null;
     }
+
+
 
 }

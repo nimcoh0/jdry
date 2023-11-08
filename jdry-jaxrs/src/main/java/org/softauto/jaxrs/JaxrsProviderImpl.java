@@ -47,11 +47,11 @@ public class JaxrsProviderImpl implements Provider {
     }
 
     @Override
-    public <RespT> Object exec(String stepName, ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions) {
+    public <RespT> Object exec(String stepName, ManagedChannel channel, Object[] args, Class[] types, HashMap<String, Object> callOptions,String scenarioId) {
         try {
             //executor.submit(()->{
                 try {
-                    testDefinition = RestService.createTestDefinition(stepName,args,types,callOptions);
+                    testDefinition = RestService.createTestDefinition(stepName,args,types,callOptions,scenarioId);
                     StepDefinition md = testDefinition.getStep(stepName);
                     RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
                     if (((Response)res).getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL) {
@@ -67,7 +67,7 @@ public class JaxrsProviderImpl implements Provider {
 
 
                     logger.debug("successfully exec jaxrs call  "+  stepName);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     e.printStackTrace();
                 }
 
@@ -94,12 +94,12 @@ public class JaxrsProviderImpl implements Provider {
     }
 
     @Override
-    public <RespT> void exec(String stepName, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions) {
+    public <RespT> void exec(String stepName, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions,String scenarioId) {
         try {
             executor.submit(()->{
                 try {
                     CallbackToResponseStreamObserverAdpater observerAdpater = new CallbackToResponseStreamObserverAdpater(callback, null);
-                    testDefinition = RestService.createTestDefinition(stepName,args,types,callOptions);
+                    testDefinition = RestService.createTestDefinition(stepName,args,types,callOptions,scenarioId);
                     StepDefinition md = testDefinition.getStep(stepName);
                     //RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
                     RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
@@ -117,7 +117,7 @@ public class JaxrsProviderImpl implements Provider {
 
 
                     logger.debug("successfully exec jaxrs call  "+  stepName);
-                } catch (ClassNotFoundException e) {
+                } catch (Throwable e) {
                     e.printStackTrace();
                 }
 

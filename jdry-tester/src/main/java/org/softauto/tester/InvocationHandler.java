@@ -8,6 +8,8 @@ import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.api.Provider;
 import org.softauto.serializer.Serializer;
 import org.softauto.serializer.service.Message;
+import org.softauto.serializer.service.MessageBuilder;
+import org.softauto.system.SystemState;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,7 +22,7 @@ public class InvocationHandler {
         try {
             Provider provider = ProviderManager.provider(transceiver).create();
             logger.debug("invoke method " + methodName+ " using protocol "+ transceiver);
-            provider.exec( methodName, callback,null,args,types,null);
+            provider.exec( methodName, callback,null,args,types,null,SystemState.getInstance().getScenarioId());
             logger.debug("callback value  get error "+callback.getError());
         } catch (Throwable e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
@@ -34,7 +36,7 @@ public class InvocationHandler {
         try {
             Provider provider = ProviderManager.provider(transceiver).create();
             logger.debug("invoke method " + methodName+ " using protocol "+ transceiver+ " call options "+ Arrays.toString(callOptions.entrySet().toArray()));
-            provider.exec( methodName, callback,null,args,types,callOptions);
+            provider.exec( methodName, callback,null,args,types,callOptions,SystemState.getInstance().getScenarioId());
             //logger.debug("callback value  get error "+callback.getError());
         } catch (Throwable e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
@@ -46,7 +48,7 @@ public class InvocationHandler {
         try {
             Provider provider = ProviderManager.provider(transceiver).create();
             logger.debug("invoke method " + methodName+ " using protocol "+ transceiver+ " call options "+ Arrays.toString(callOptions.entrySet().toArray()));
-            return provider.exec( methodName, null,args,types,callOptions);
+            return provider.exec( methodName, null,args,types,callOptions, SystemState.getInstance().getScenarioId());
             //logger.debug("callback value  get error "+callback.getError());
         } catch (Throwable e) {
             logger.error("fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
@@ -61,7 +63,7 @@ public class InvocationHandler {
             String host = Configuration.get(Context.SERIALIZER_HOST).asString();
             int port = Configuration.get(Context.SERIALIZER_PORT).asInteger();
             Serializer serializer = new Serializer().setHost(host).setPort(port).build();
-            Message message = Message.newBuilder().setDescriptor(methodName).setArgs(args).setTypes(types).build();
+            Message message = MessageBuilder.newBuilder().setScenarioId(SystemState.getInstance().getScenarioId()).setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
             return (T) serializer.write(message);
 
         } catch (Throwable e) {

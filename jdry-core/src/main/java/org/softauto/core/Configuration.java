@@ -31,6 +31,14 @@ public class Configuration {
         }
     }
 
+    public static void addConfiguration(HashMap<String,Object> configuration){
+        try {
+            Configuration.configuration.putAll(configuration);;
+        }catch (Exception e){
+            logger.error("fail update configuration ", e);
+        }
+    }
+
     public static HashMap<String,Object> getConfiguration() {
         return configuration;
     }

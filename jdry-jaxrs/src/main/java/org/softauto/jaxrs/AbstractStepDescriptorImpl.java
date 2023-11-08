@@ -40,6 +40,10 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
        return TestContext.getScenario().getId();
     }
 
+    public void setScenarioId(String scenarioId) {
+        this.scenarioId = scenarioId;
+    }
+
     public void setCallOptions(HashMap<String,Object> callOptions) {
         this.callOptions = callOptions;
     }

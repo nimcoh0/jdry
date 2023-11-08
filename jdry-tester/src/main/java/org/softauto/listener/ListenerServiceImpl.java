@@ -77,6 +77,7 @@ public class ListenerServiceImpl implements SerializerService {
                         if (message.getArgs().length == 1) {
                             TestContext.getScenario().setState(ScenarioState.FAIL.name());
                             TestContext.getScenario().addProperty("method",message.getDescriptor());
+                            TestContext.getScenario().addError(message.getArgs());
                             logger.error("scenario fail and throw exception",(Throwable) args[0]);
                             methodResponse = "";
                             //throw new Exception((Throwable)args[0]);
@@ -93,7 +94,7 @@ public class ListenerServiceImpl implements SerializerService {
             }
         } catch(Exception e){
             logger.error("fail invoke method " + message.getDescriptor(), e);
-            //throw (e);
+           // throw (e);
         }
         byte[] m = objectMapper.writeValueAsBytes(methodResponse);
         ByteBuffer byteBuffer = ByteBuffer.wrap(m);

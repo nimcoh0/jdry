@@ -2,6 +2,7 @@ package org.softauto.system;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import org.softauto.analyzer.model.scenario.Scenario;
 import org.softauto.core.*;
 import org.softauto.core.DefaultConfiguration;
 import org.softauto.listener.ListenerObserver;
@@ -25,6 +26,9 @@ public class SystemState {
     Yaml yaml = new Yaml();
     static ObjectMapper objectMapper;
 
+    String scenarioId;
+
+    Scenario scenario;
 
     public static SystemState getSystemState() {
         return systemState;
@@ -39,12 +43,22 @@ public class SystemState {
         return systemState;
     }
 
+    public Scenario getScenario() {
+        return scenario;
+    }
 
-    public void initialize() throws IOException {
+    public String getScenarioId() {
+        return scenarioId;
+    }
+
+    public void initialize(Scenario scenario) throws IOException {
+        this.scenarioId = scenario.getId();
+        this.scenario = scenario;
         loadConfiguration();
-        if(sayHello()){
+        scenario.setConfiguration(Configuration.getConfiguration());
+        if(sayHello(scenario.getId())){
                logger.debug("successfully say hello");
-               if(sendConfiguration()) {
+               if(sendConfiguration(scenario)) {
                    logger.debug("successfully send configuration");
                }else {
                    logger.error("fail send configuration ");
@@ -55,9 +69,9 @@ public class SystemState {
     }
 
 
-    private Boolean sayHello(){
+    private Boolean sayHello(String scenarioId){
         try {
-            return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_hello", new Object[]{}, new Class[]{});
+            return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_hello", new Object[]{scenarioId}, new Class[]{java.lang.String.class});
 
          }catch (Exception e){
             logger.error("fail sayHello",e);
@@ -65,29 +79,29 @@ public class SystemState {
         return null;
     }
 
-    public Boolean sendConfiguration(){
+    public Boolean sendConfiguration(Scenario scenario){
         try {
             TestContext.setTestState(TestLifeCycle.INITIALIZE);
-            return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_configuration", new Object[]{Configuration.getConfiguration()}, new Class[]{HashMap.class});
+            return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_configuration", new Object[]{scenario.getId(), scenario}, new Class[]{java.lang.String.class,Scenario.class});
         }catch (Exception e){
             logger.error("fail send configuration",e);
         }
         return null;
     }
 
-    public Boolean shutdown() throws Exception{
-        return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_shutdown", new Object[]{}, new Class[]{});
+    public Boolean shutdown(String scenarioId) throws Exception{
+        return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_shutdown", new Object[]{scenarioId}, new Class[]{java.lang.String.class});
     }
 
-    public Boolean startTest(String testname)throws Exception{
+    public Boolean startTest(String testname,String scenarioId)throws Exception{
         ListenerObserver.getInstance().reset();
-        boolean r = new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_startTest", new Object[]{testname}, new Class[]{String.class});
+        boolean r = new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_startTest", new Object[]{scenarioId,testname}, new Class[]{java.lang.String.class,String.class});
         TestContext.setTestState(TestLifeCycle.START);
         return r;
     }
 
-    public Boolean endTest(String testname)throws Exception{
-        boolean r = new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_endTest", new Object[]{testname}, new Class[]{String.class});
+    public Boolean endTest(String testname,String scenarioId)throws Exception{
+        boolean r = new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_endTest", new Object[]{scenarioId,testname}, new Class[]{java.lang.String.class,String.class});
         TestContext.setTestState(TestLifeCycle.STOP);
         ListenerServerProviderImpl.getInstance().shutdown();
         return r;

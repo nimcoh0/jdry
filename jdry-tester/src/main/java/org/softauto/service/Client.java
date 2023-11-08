@@ -133,8 +133,8 @@ public class Client {
                 Class[] classList  = Arrays.stream(finalTypes).map(t -> (Class)t).collect(Collectors.toList()).toArray(new Class[1]);
                 //unaryRequest(method.getName(), finalArgs, callback,classList);
                 //Class[] classList  = Arrays.stream(finalTypes).map(t -> (Class)t).collect(Collectors.toList()).toArray(new Class[1]);
-                return new Step(method.getName(), finalArgs, classList, transceiver, callOptions,callback);
-                //return null;
+                return  new Step(method.getName(), finalArgs, classList, transceiver, callOptions,callback);
+
             } else {
                 logger.debug("invoke sync request :" + method.getName());
                 Class[] classList  = Arrays.stream(parameterTypes).map(t -> (Class)t).collect(Collectors.toList()).toArray(new Class[1]);

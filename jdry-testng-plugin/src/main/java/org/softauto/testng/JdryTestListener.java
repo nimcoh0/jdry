@@ -1,5 +1,8 @@
 package org.softauto.testng;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
@@ -22,7 +25,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
     public void onTestStart(ITestResult result) {
         try {
             TestContext.setTestState(TestLifeCycle.START);
-            if(SystemState.getInstance().startTest(result.getName())){
+            if(SystemState.getInstance().startTest(result.getName(),TestContext.getScenario().getId())){
                 logger.debug("successfully start test " + result.getName());
                 } else {
                     logger.error("fail start test "+result.getName());
@@ -65,8 +68,11 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
     @Override
     public void onFinish(ITestContext context) {
         try {
+
+
+
             TestContext.setTestState(TestLifeCycle.STOP);
-            if(SystemState.getInstance().endTest(context.getName())){
+            if(SystemState.getInstance().endTest(context.getName(),TestContext.getScenario().getId())){
                     logger.debug("successfully end test ");
                 } else {
                     logger.error("fail end test" );
@@ -105,7 +111,20 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
         //ConstructorOrMethod constructorOrMethod = testResult.getMethod().getConstructorOrMethod();
        // Object[] p = testResult.getParameters();
         //Object i = testResult.getInstance();
-
+        if(TestContext.getScenario().getError().size() > 0){
+            try {
+                ITestContext tc = Reporter.getCurrentTestResult().getTestContext();
+                arg0.setStatus(ITestResult.FAILURE);
+                String json = new ObjectMapper().writeValueAsString(TestContext.getScenario().getError().get(0));
+                JsonNode node = new ObjectMapper().readTree(json);
+                //Throwable ex = new ObjectMapper().readValue(json,Throwable.class);
+                //Throwable ex = (Throwable) TestContext.getScenario().getError().get(0);
+                arg0.setThrowable(new Exception(node.get(0).get("message").asText()));
+                tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         if (arg0.getMethod().isTest()) {
             //Change Failed to Skipped based on exception text

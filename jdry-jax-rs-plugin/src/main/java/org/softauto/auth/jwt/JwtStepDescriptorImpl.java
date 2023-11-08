@@ -33,6 +33,7 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
     }
 
 
+
     @Override
     public Cookie getCookie() {
         return null;

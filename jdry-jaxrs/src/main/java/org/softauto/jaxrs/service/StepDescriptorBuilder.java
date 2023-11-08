@@ -35,7 +35,16 @@ public class StepDescriptorBuilder {
 
         Object returnType;
 
+        String scenarioId;
+
         IStepDescriptor stepDescriptor;
+
+
+
+        public Builder setScenarioId(String scenarioId) {
+            this.scenarioId = scenarioId;
+            return this;
+        }
 
         public Builder setTypes(Class[] types) {
             this.types = types;
@@ -83,6 +92,7 @@ public class StepDescriptorBuilder {
             //stepDescriptor.setConfiguration(configuration);
             stepDescriptor.setFullMethodName(name);
             stepDescriptor.setTypes(types);
+            stepDescriptor.setScenarioId(scenarioId);
             //stepDescriptor.setItem(item);
             //stepDescriptor.setTest(test);
 

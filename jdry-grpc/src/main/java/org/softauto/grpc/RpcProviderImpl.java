@@ -1,21 +1,25 @@
 package org.softauto.grpc;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.grpc.ManagedChannel;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.apache.avro.grpc.AvroGrpcServer;
-//import org.apache.avro.ipc.Server;
 import org.apache.avro.ipc.CallFuture;
 import org.softauto.core.ClassType;
+import org.softauto.core.Configuration;
 import org.softauto.core.ServiceLocator;
-import org.softauto.plugin.api.Provider;
 import org.softauto.serializer.Serializer;
 import org.softauto.serializer.service.Message;
+import org.softauto.serializer.service.MessageBuilder;
 import org.softauto.serializer.service.MessageType;
 import org.softauto.serializer.service.SerializerService;
+import org.yaml.snakeyaml.Yaml;
 
-import javax.lang.model.element.Element;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -37,7 +41,7 @@ public class RpcProviderImpl  {
     /** default grpc server port **/
     int port = 8085;
 
-
+    ObjectMapper mapper = new ObjectMapper();
 
     Server server = null;
 
@@ -73,6 +77,7 @@ public class RpcProviderImpl  {
             server.start();
             //server.getServices();
             logger.info("Grpc Server load successfully on port "+port);
+            loadConfiguration();
         }catch (Exception e){
             logger.fatal("fail to start Serializer server ", e);
             System.exit(1);
@@ -82,6 +87,17 @@ public class RpcProviderImpl  {
 
 
 
+    private static void loadConfiguration(){
+        try {
+            if (new File(System.getProperty("user.dir") + "/global.yaml").isFile()) {
+                HashMap<String, Object> map = (HashMap<String, Object>) new Yaml().load(new FileReader(System.getProperty("user.dir") + "/global.yaml"));
+                Configuration.addConfiguration(map);
+            }
+            logger.debug("configuration load successfully");
+        }catch (Exception e){
+            logger.error("fail load configuration " + System.getProperty("user.dir") + "/global.yaml",e.getMessage());
+        }
+    }
 
     public void register() {
         ServiceLocator.getInstance().register(type,this);
@@ -127,7 +143,7 @@ public class RpcProviderImpl  {
                     messageType = MessageType.fromString(callOptions.get("messageType").toString());
                 }
 
-            Message message = Message.newBuilder().setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("classType",classType.name()).build();
+            Message message = MessageBuilder.newBuilder().setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("classType",classType.name()).build().getMessage();
             result = serializer.write(message);
 
         }catch (Exception e){

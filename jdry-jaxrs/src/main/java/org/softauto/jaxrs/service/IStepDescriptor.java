@@ -32,6 +32,8 @@ public interface IStepDescriptor {
 
     String getScenarioId();
 
+    void setScenarioId(String scenarioId);
+
     IStepDescriptor build();
 
     HashMap<String, Object> getCallOptions();
@@ -41,6 +43,8 @@ public interface IStepDescriptor {
     void setArgs(Object[] args);
 
     void setTypes(Class[] types);
+
+
 
     //void  setMethod (ServiceCaller.UnaryClass method)  ;
 

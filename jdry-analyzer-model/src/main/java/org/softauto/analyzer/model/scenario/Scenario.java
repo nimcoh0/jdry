@@ -3,8 +3,10 @@ package org.softauto.analyzer.model.scenario;
 import org.softauto.analyzer.model.test.Test;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Scenario implements Cloneable, Serializable {
 
@@ -20,7 +22,9 @@ public class Scenario implements Cloneable, Serializable {
 
     String state;
 
+    List<Object> error = new ArrayList<>();
 
+    HashMap<String,Object> configuration = new HashMap<>();
 
     HashMap<String,Object> properties = new HashMap<>();
 
@@ -28,11 +32,33 @@ public class Scenario implements Cloneable, Serializable {
         return properties;
     }
 
+
+    public List<Object> getError() {
+        return error;
+    }
+
+    public void setError(List<Object> error) {
+        this.error = error;
+    }
+
+    public void addError(Object error) {
+        this.error.add(error);
+    }
+
     public Object getProperty(String key) {
         if(properties.containsKey(key)){
            return properties.get(key);
         }
         return null;
+    }
+
+
+    public HashMap<String, Object> getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(HashMap<String, Object> configuration) {
+        this.configuration = configuration;
     }
 
     public void setProperties(HashMap<String, Object> properties) {
