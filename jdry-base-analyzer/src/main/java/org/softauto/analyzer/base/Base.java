@@ -3,6 +3,7 @@ package org.softauto.analyzer.base;
 import org.softauto.analyzer.core.system.plugin.api.Provider;
 import org.softauto.analyzer.core.system.plugin.spi.PluginProvider;
 
+
 public class Base implements PluginProvider {
     @Override
     public Provider create(Object... obj) {

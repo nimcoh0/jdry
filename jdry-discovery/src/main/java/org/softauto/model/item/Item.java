@@ -29,20 +29,6 @@ public class Item {
 
     private int modifier;
 
-
-
-    private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
-
-    public List<HashMap<String, String>> getCrudToSubject() {
-        return crudToSubject;
-    }
-
-    public void setCrudToSubject(List<HashMap<String, String>> crudToSubject) {
-        this.crudToSubject = crudToSubject;
-    }
-
-
-
     public int getModifier() {
         return modifier;
     }

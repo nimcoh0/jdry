@@ -134,10 +134,18 @@ public class SuiteBuilder {
             try {
                 suite.setName(name);
                 suite.setNamespace(namespace);
-                suite.setTests(tests);
+                for(Test test : tests){
+                    suite.addTest(test);
+                }
 
-                suite.setScenarios(scenarios);
-                suite.setListeners(listeners);
+                for(Scenario scenario : scenarios){
+                    suite.addScenario(scenario);
+                }
+
+                for(Listener listener : listeners){
+                    suite.addListener(listener);
+                }
+
 
                 suite.setFields(fields);
                 suite.setLoginTest(loginTest);

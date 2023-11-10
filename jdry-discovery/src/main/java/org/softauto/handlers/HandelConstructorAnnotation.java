@@ -3,7 +3,7 @@ package org.softauto.handlers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 import org.softauto.utils.Multimap;
 import soot.SootClass;
 import soot.SootMethod;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class HandelConstructorAnnotation {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     SootClass sootClass ;
 

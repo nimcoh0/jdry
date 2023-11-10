@@ -2,10 +2,9 @@ package org.softauto.model.item;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 import org.softauto.discovery.handlers.flow.ClassInfo;
 import org.softauto.discovery.handlers.flow.FlowObject;
-import soot.SootMethod;
 import soot.Type;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class ItemBuilder {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     public static Builder newBuilder() { return new Builder();}
 
@@ -53,13 +52,6 @@ public class ItemBuilder {
         private int modifier;
 
 
-
-        private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
-
-        public Builder setCrudToSubject(List<HashMap<String,String>> crudToSubject) {
-            this.crudToSubject = crudToSubject;
-            return this;
-        }
 
 
         public Builder setModifier(int modifier) {
@@ -152,9 +144,6 @@ public class ItemBuilder {
                 item.setClassInfo(classInfo);
                 item.setArgumentsNames(argumentsNames);
                 item.setModifier(modifier);
-                item.setCrudToSubject(crudToSubject);
-
-
                 logger.debug("sucessfully build item "+namespce+"."+name);
             } catch (Exception e) {
                 logger.error("fail build Item ",e.getMessage());

@@ -11,6 +11,7 @@ import org.softauto.analyzer.core.utils.Utils;
 import org.softauto.analyzer.core.system.config.Configuration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 
 public class Main {
@@ -19,37 +20,58 @@ public class Main {
 
     public static Main main = null;
 
-    //Suite suite;
-
     public Main(String configuration){
-        init(new String[]{configuration});
+        init(configuration);
     }
 
     public Main(String[] args){
         logger.info(" --- start analyzer ----");
-        init(args);
-       // build();
-       // save(suite);
+        init(args[0]);
+        initializeArgs(args);
+        initializeApi();
+        initializeData();
+
+    }
+
+    public Main(String conf,String discovery,String output){
+        logger.info(" --- start analyzer ----");
+        init(conf);
+        Configuration.put(Context.DISCOVERY_INPUT_FILE, discovery);
+        Configuration.put(Context.FILE_OUTPUT,output);
+        initializeApi();
+        initializeData();
+
+
+    }
+
+    public Main(String conf,String discovery,String recorder, String output){
+        logger.info(" --- start analyzer ----");
+        init(conf);
+        Configuration.put(Context.DISCOVERY_INPUT_FILE, discovery);
+        Configuration.put(Context.RECORDER_INPUT_FILE, recorder);
+        Configuration.put(Context.FILE_OUTPUT,output);
+        initializeApi();
+        initializeData();
     }
 
     public static void main(String[] args) {
         main = new Main(args);
     }
 
-    public Main init(String[] args){
+    public Main init(String conf){
         try {
             Utils.loadDefaultConfiguration();
-            if(args.length >0){
-                Utils.loadConfiguration(args[0]);
+            if(conf != null){
+                Utils.loadConfiguration(conf);
             }else {
                 Utils.loadConfiguration(null);
             }
 
             registerPlugins();
-            initializeArgs(args);
+            //initializeArgs(args);
             Utils.addJarToClasspath(Configuration.get(Context.JAR_PATH).asList());
-            initializeApi();
-            initializeData();
+            //initializeApi();
+            //initializeData();
             //HookListener.setStart(true);
             logger.debug("initialize successfully");
         }catch (Exception e){
@@ -60,8 +82,8 @@ public class Main {
 
     private static void initializeArgs(String[] args){
         if(args.length == 3){
-            Configuration.put(Context.FILE_INPUT_PATH, args[1].trim());
-            Configuration.put(Context.FILE_OUTPUT_PATH, args[2].trim());
+            Configuration.put(Context.DISCOVERY_INPUT_FILE, args[1].trim());
+            Configuration.put(Context.FILE_OUTPUT,args[2].trim());
         }else {
 
         }
@@ -77,12 +99,16 @@ public class Main {
 
     public  Main save(Suite suite){
         try {
-            Utils.toJson(Configuration.get(Context.FILE_OUTPUT_NAME).asString(), Configuration.get(Context.FILE_OUTPUT_PATH).asString(), suite);
-            logger.debug("Suite save successfully on "+Configuration.get(Context.FILE_OUTPUT_NAME).asString(), Configuration.get(Context.FILE_OUTPUT_PATH).asString());
+            Utils.toJson(Configuration.get(Context.FILE_OUTPUT).asString(),  suite);
+            logger.debug("Suite save successfully on "+Configuration.get(Context.FILE_OUTPUT).asString());
         } catch (Exception e) {
             logger.error("fail save Suite ",e);
         }
         return this;
+    }
+
+    private static void registerProtocol(String protocol){
+        Suite.addProtocol(protocol);
     }
 
     private static void registerPlugins(){
@@ -91,7 +117,8 @@ public class Main {
                 Object plugins = Configuration.get(Context.PLUGIN_JARS).asList();
                 if (plugins != null) {
                     for (Object s : (ArrayList) plugins) {
-                        Utils.addJarToClasspath(Arrays.asList(new String[]{s.toString()}));
+                        Utils.addJarToClasspath(Arrays.asList(new String[]{((HashMap)s).get("jar").toString()}));
+                        registerProtocol(((HashMap)s).get("protocol").toString());
                         logger.debug("plugin " + s.toString() + " register save successfully");
                     }
                 }
@@ -102,12 +129,12 @@ public class Main {
     }
 
     public ApiDataProvider initializeApi(){
-        org.softauto.analyzer.core.dao.api.Parser parser = new org.softauto.analyzer.core.dao.api.Parser(Configuration.get(Context.FILE_INPUT_PATH).asString()+"/"+Configuration.get(Context.FILE_INPUT_NAME).asString());
+        org.softauto.analyzer.core.dao.api.Parser parser = new org.softauto.analyzer.core.dao.api.Parser(Configuration.get(Context.DISCOVERY_INPUT_FILE).asString());
         return ApiDataProvider.getInstance().setParser(parser);
     }
 
     public static DataProvider initializeData(){
-        Parser parser = new Parser(Configuration.get(Context.FILE_DATA_PATH).asString()+"/"+Configuration.get(Context.FILE_DATA_NAME).asString());
+        Parser parser = new Parser(Configuration.get(Context.RECORDER_INPUT_FILE).asString());
         return DataProvider.getInstance().setParser(parser);
     }
 

@@ -11,34 +11,70 @@ import org.softauto.analyzer.directivs.result.Result;
 import java.io.Serializable;
 import java.util.HashMap;
 
-
+/**
+ * represent data recorded or data generated
+ */
 public class Data implements Cloneable, Serializable {
 
-
+    /**
+     * id of the data record
+     */
     protected int id = -1;
 
-
+    /**
+     * list of @arguments contain method args name/type/value
+     */
     protected Request request;
 
+    /**
+     * response @argument contain name/type/value
+     */
     protected Result response;
 
+    /**
+     * the package + class name of the method call
+     */
     protected String clazz;
 
+    /**
+     * plugin name that generate the data
+     */
     protected String plugin;
 
+    /**
+     * the method call that generate the data
+     */
     protected String method;
 
+    /**
+     * the thread
+     */
     protected long thread  = - 1;
 
+    /**
+     * timestamp
+     */
     protected long time = -1;
 
+    /**
+     * the scenario name that was set at recorded time
+     */
     protected String scenarioId;
 
+    /**
+     * indicate whether this data record is assign to discovery record
+     */
     protected boolean used = false;
 
-
-
+    /**
+     * specific data that is analyzed by the plugin
+     */
     protected HashMap<String, Object> pluginData = new HashMap<>();
+
+    /**
+     * placeholder for extra data that is join to the data record (from another event)
+     */
+    HashMap<String, Object> threadLocal = new HashMap<>();
 
     public boolean isUsed() {
         return used;
@@ -59,8 +95,6 @@ public class Data implements Cloneable, Serializable {
     public void setScenarioId(String scenarioId) {
         this.scenarioId = scenarioId;
     }
-
-    HashMap<String, Object> threadLocal = new HashMap<>();
 
     public HashMap<String, Object> getThreadLocal() {
         return threadLocal;
@@ -153,7 +187,6 @@ public class Data implements Cloneable, Serializable {
         try {
             String str = new ObjectMapper().writeValueAsString(pluginData);
             return str.replace("\\", "\\\\").replace("\"", "\\\"");
-
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

@@ -96,6 +96,9 @@ public class Utils {
        save(suite.toJson(), path + "/" + filename + ".json");
     }
 
+    public static void toJson(String filename, Suite suite)throws Exception{
+        save(suite.toJson(), filename );
+    }
 
     public static void save(String json,String path)throws Exception{
         FileWriter file = null;

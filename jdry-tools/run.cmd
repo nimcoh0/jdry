@@ -1,0 +1,1 @@
+java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/jdk.internal.loader=ALL-UNNAMED -jar .\target\jdry-tools-1.0-SNAPSHOT-jar-with-dependencies.jar  %tool% %tag% %args%

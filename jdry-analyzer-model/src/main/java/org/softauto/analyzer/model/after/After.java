@@ -2,16 +2,34 @@ package org.softauto.analyzer.model.after;
 
 import java.io.Serializable;
 
+/**
+ * define action to be performs after api call on the api result
+ */
 public class After implements Cloneable, Serializable {
 
+    /**
+     * java expression according to Spring SpEL definition
+     */
     private Object expression;
 
+    /**
+     * the expression return type
+     */
     private String type;
 
+    /**
+     * the return type variable bane
+     */
     private String name;
 
+    /**
+     * the parent api variable result name
+     */
     private String parentResultName;
 
+    /**
+     * the parent api name
+     */
     private String parentName;
 
     public String getParentResultName() {

@@ -46,7 +46,6 @@ public class DataBuilder {
 
         HashMap<String, Object> threadLocal = new HashMap<>();
 
-
         public Builder setThreadLocal(HashMap<String, Object> threadLocal) {
             this.threadLocal = threadLocal;
             return this;

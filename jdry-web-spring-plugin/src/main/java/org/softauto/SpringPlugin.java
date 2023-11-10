@@ -1,10 +1,8 @@
 package org.softauto;
 
 
-
 import org.softauto.plugin.api.Provider;
 import org.softauto.plugin.spi.PluginProvider;
-
 
 public class SpringPlugin implements PluginProvider {
 
@@ -13,6 +11,7 @@ public class SpringPlugin implements PluginProvider {
     public Provider create() {
        return new SpringPluginImpl();
     }
+
 
     @Override
     public String getVendor() {
@@ -23,6 +22,7 @@ public class SpringPlugin implements PluginProvider {
     public String getName() {
         return "SPRING-WEB";
     }
+
 
     @Override
     public String getVersion() {

@@ -2,8 +2,7 @@ package org.softauto.model.item;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
-import org.softauto.discovery.handlers.HandleEntity;
+import org.softauto.Discover;
 import org.softauto.handlers.HandelClassAnnotation;
 import soot.SootClass;
 
@@ -13,9 +12,16 @@ import java.util.LinkedList;
 
 public class ClassFactory {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     Item item;
+
+    SootClass root;
+
+    public ClassFactory setRoot(SootClass root) {
+        this.root = root;
+        return this;
+    }
 
     LinkedList<SootClass> sootClassList = new LinkedList<>();
 
@@ -41,7 +47,7 @@ public class ClassFactory {
                 annotationsList.put(sootClass.getName(),annotations);
                 //item.setEntity(HandleEntity.isEntity(sootClass.getName()));
             }
-            item = ItemBuilder.newBuilder().setAnnotations(annotationsList).setType("clazz").build().getItem();
+            item = ItemBuilder.newBuilder().setNamespce(root.getPackageName()).setName(root.getName()).setAnnotations(annotationsList).setType("clazz").build().getItem();
 
         } catch (Exception e) {
             logger.error("fail build class items");

@@ -51,11 +51,11 @@ public class Parser {
     }
 
 
-    private List<LinkedHashMap<String,Object>> buildClazzList(){
+    private List<LinkedHashMap<String,Object>> buildClazzList(JsonNode classes){
         List<LinkedHashMap<String,Object>> list = new ArrayList<>();
-        if(!json.isNull() && json.isArray()){
-            for(JsonNode node : json){
-                if(node.get("type").asText().equals("clazz")) {
+        if(!classes.isNull() ){
+            for(JsonNode node : classes){
+                if(node.isContainerNode() && node.get("type").asText().equals("clazz")) {
                     LinkedHashMap<String, Object> result = new ObjectMapper().convertValue(node.get("annotations"), new TypeReference<LinkedHashMap<String, Object>>(){});
                     list.add(result);
                 }
@@ -108,27 +108,27 @@ public class Parser {
 
     public Parser parseProcess(){
         try {
-            if(!json.isNull() && json.isArray()){
-                List<LinkedHashMap<String,Object>> clazzList = buildClazzList();
-                for(JsonNode node : json){
-                    if(!node.get("type").asText().equals("clazz") && !node.get("type").asText().equals("entity")) {
+            if(!json.isNull() ) {
+                List<LinkedHashMap<String, Object>> clazzList = buildClazzList(json.get("classes"));
+                for (JsonNode node : json.get("methods")) {
+                    //if (!node.get("type").asText().equals("clazz") && !node.get("type").asText().equals("entity")) {
                         String jsonString = objectMapper.writeValueAsString(node);
                         GenericItem genericItem = objectMapper.readValue(jsonString, GenericItem.class);
-                        List<LinkedHashMap<String,Object>> currentClazzList = findClazzList(genericItem,clazzList);
+                        List<LinkedHashMap<String, Object>> currentClazzList = findClazzList(genericItem, clazzList);
                         genericItem.setAnnotationsHelper(buildAnnotationsHelper(genericItem));
-                        if(genericItem.getCrudToSubject().size()>0){
-                            for(HashMap<String,String> map : genericItem.getCrudToSubject()){
-                                for(Map.Entry entry : map.entrySet()){
-                                    if(entry.getValue() != null ){
+                        if (genericItem.getCrudToSubject().size() > 0) {
+                            for (HashMap<String, String> map : genericItem.getCrudToSubject()) {
+                                for (Map.Entry entry : map.entrySet()) {
+                                    if (entry.getValue() != null) {
                                         //String entityShortName = entry.getValue().toString();
                                         //entityShortName = entityShortName.substring(entityShortName.lastIndexOf(".")).replace("Dto","").toLowerCase();
-                                        entities.put(Utils.getShortName(entry.getValue().toString().replace("Dto","")).toLowerCase(),entry.getValue().toString());
+                                        entities.put(Utils.getShortName(entry.getValue().toString().replace("Dto", "")).toLowerCase(), entry.getValue().toString());
                                     }
                                 }
                             }
                         }
-                        Suite.addClassListOfMethodsAnnotationSummery(genericItem.getNamespce(),genericItem.getAnnotationsHelper());
-                        if(currentClazzList.size() > 0) {
+                        Suite.addClassListOfMethodsAnnotationSummery(genericItem.getNamespce(), genericItem.getAnnotationsHelper());
+                        if (currentClazzList.size() > 0) {
                             for (LinkedHashMap<String, Object> list : currentClazzList) {
                                 GenericItem newGenericItem = SerializationUtils.clone(genericItem);
                                 newGenericItem.setClassList(list);
@@ -136,7 +136,7 @@ public class Parser {
                                 newGenericItem.setReturnType(newType);
                                 genericItems.add(newGenericItem);
                             }
-                        }else {
+                        } else {
                             GenericItem newGenericItem = SerializationUtils.clone(genericItem);
                             String newType = DaoApiRules.overrideType(newGenericItem.getReturnType());
                             newGenericItem.setReturnType(newType);
@@ -145,21 +145,27 @@ public class Parser {
                         }
                         //genericItem.setClassList(currentClazzList);
                         //genericItems.add(genericItem);
-                        logger.debug("successfully create genericItem for "+ genericItem.getName());
-                    }else if(node.get("type").asText().equals("clazz") ) {
+                        logger.debug("successfully create genericItem for " + genericItem.getName());
+                   //}
+                }
+                /*
+                for (JsonNode node : json.get("classes")) {
+                    if (node.get("type").asText().equals("clazz")) {
                         String jsonString = objectMapper.writeValueAsString(node);
                         GenericItem genericItem = objectMapper.readValue(jsonString, GenericItem.class);
-                        for(Map.Entry entry : genericItem.getAnnotations().entrySet()){
-                            if(entry.getValue() instanceof Map ) {
-                                for(Map.Entry s : ((Map<?,?>)entry.getValue()).entrySet()){
-                                   if(s.getKey().equals("Lorg/softauto/annotations/EntityForTesting;"))
-                                        entities.put(Utils.getShortName(entry.getKey().toString().replace("Dto","")).toLowerCase(),entry.getKey().toString());
+                        for (Map.Entry entry : genericItem.getAnnotations().entrySet()) {
+                            if (entry.getValue() instanceof Map) {
+                                for (Map.Entry s : ((Map<?, ?>) entry.getValue()).entrySet()) {
+                                    if (s.getKey().equals("Lorg/softauto/annotations/EntityForTesting;"))
+                                        entities.put(Utils.getShortName(entry.getKey().toString().replace("Dto", "")).toLowerCase(), entry.getKey().toString());
                                 }
 
                             }
                         }
                     }
                 }
+
+                 */
             }
         } catch (JsonProcessingException e) {
             logger.error("fail create  genericItem ",e);

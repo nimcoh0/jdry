@@ -2,7 +2,7 @@ package org.softauto.discovery.handlers.flow;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 import org.softauto.config.Configuration;
 import org.softauto.config.Context;
 import soot.SootClass;
@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 public class ClassInheritanceDiscovery {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     private LinkedList<SootClass> buildTree(SootClass sootClass,String domain){
         LinkedList<SootClass> sootClassList = new LinkedList<>();

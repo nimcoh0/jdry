@@ -4,19 +4,15 @@ import java.io.Serializable;
 
 public class Assert implements Cloneable, Serializable {
 
+    /**
+     * assert description
+     */
     private String description;
 
+    /**
+     * java expression according to Spring SpEL definition
+     */
     private String expression;
-
-    boolean enabled = true;
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 
     public String getDescription() {
         return description;

@@ -2,7 +2,7 @@ package org.softauto.config;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class Configuration {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
     static HashMap<String,Object> configuration = new HashMap<>();
     Object result;
 

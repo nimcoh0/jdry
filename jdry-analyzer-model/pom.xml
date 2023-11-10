@@ -21,67 +21,55 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.20.0</version>
+            <version>${log4j}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.20.0</version>
+            <version>${log4j}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
+            <version>${commons-lang3}</version>
         </dependency>
 
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.11.1</version>
+            <version>${jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.11.1</version>
+            <version>${jackson}</version>
         </dependency>
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.27</version>
+            <version>${yaml}</version>
         </dependency>
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-annotations</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry-annotations}</version>
         </dependency>
-        <!--dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-jackson-serializers</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency-->
-
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
+            <version>${guava}</version>
             <scope>compile</scope>
         </dependency>
-
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.4</version>
+            <version>${commons-collections4}</version>
         </dependency>
-
-
-
     </dependencies>
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

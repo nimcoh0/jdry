@@ -10,6 +10,7 @@ import org.softauto.analyzer.model.listener.Listener;
 import org.softauto.analyzer.model.suite.Suite;
 import org.softauto.analyzer.model.test.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -23,10 +24,8 @@ public class TreeImpl implements Tree {
         this.suite = suite;
     }
 
-    public void findProtocols(){
-        List<String> protocols = new ProtocolRules().getProtocols();
-        suite.setProtocols(protocols);
-    }
+
+
 
 
     @Override
@@ -34,17 +33,7 @@ public class TreeImpl implements Tree {
 
         Item item = visitor.visitBase(tree);
 
-        //item = visitor.visitNameRecognition(item);
-
         item = visitor.visitJdryAnnotations(item);
-
-        //item = visitor.visitDataGenerator(item);
-
-        //item = visitor.visitDataRecorder(item);
-
-       // item = visitor.visitPublish(item);
-
-
 
         if (item instanceof Test) {
              suite.addTest((Test) item);

@@ -1,6 +1,10 @@
 package org.softauto.analyzer.model.test;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.ClassUtils;
 import org.softauto.analyzer.model.Item;
 import org.softauto.analyzer.model.api.Api;
@@ -266,5 +270,19 @@ public class Test implements Item {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public String toJson(){
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS,false);
+            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            JsonNode node =objectMapper.valueToTree(this);
+            String schema = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(node);
+            return schema;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

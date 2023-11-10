@@ -10,6 +10,7 @@ import org.softauto.analyzer.core.system.plugin.api.Provider;
 import org.softauto.analyzer.core.utils.Analyzer;
 import org.softauto.analyzer.core.utils.ResultTypeAnalyzer;
 
+
 public class BaseImpl implements Provider {
     @Override
     public Analyzer getAnalyzer(Phase.kind state) {

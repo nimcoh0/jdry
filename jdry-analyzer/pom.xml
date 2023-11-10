@@ -25,17 +25,17 @@
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-core-analyzer</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry-core-analyzer}</version>
         </dependency>
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-base-analyzer</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry-base-analyzer}</version>
         </dependency>
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-annotations-analyzer</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry-annotations-analyzer}</version>
         </dependency>
 
 

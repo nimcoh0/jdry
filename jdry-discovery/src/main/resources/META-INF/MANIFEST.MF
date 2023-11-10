@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: org.softauto.Main
+Main-Class: org.softauto.Discover
 Permissions: all-permission
 
 

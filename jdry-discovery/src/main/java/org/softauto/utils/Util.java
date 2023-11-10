@@ -1,20 +1,16 @@
 package org.softauto.utils;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.sun.jdi.connect.Connector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
 import org.softauto.config.Configuration;
 import org.softauto.config.Context;
 import org.softauto.config.DefaultConfiguration;
 import org.softauto.discovery.handlers.flow.FlowObject;
-import org.softauto.espl.Espl;
-import org.softauto.model.item.Item;
 import org.yaml.snakeyaml.Yaml;
 import soot.MethodOrMethodContext;
-import soot.Type;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.util.dot.DotGraph;
@@ -23,29 +19,34 @@ import soot.util.queue.QueueReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Util {
 
     private static Logger logger = LogManager.getLogger(Util.class);
 
 
-    public static void save(List<Object> items){
+    public static void save(JsonNode items,String output){
         try {
-            Util.toJson(Configuration.get(Context.FILE_NAME).asString(), Configuration.get(Context.FILE_PATH).asString(), items);
-            logger.debug("save discovery items to "+Configuration.get(Context.FILE_NAME).asString(), Configuration.get(Context.FILE_PATH).asString());
+            Util.toJson(output, items);
+            logger.debug("save discovery items to "+output);
         } catch (Exception e) {
             logger.error("fail save discovery items ",e.getMessage());
         }
     }
 
+    public static void save(JsonNode items){
+        try {
+            Util.toJson(Configuration.get(Context.FILE_NAME).asString(), Configuration.get(Context.OUTPUT_FILE_PATH).asString(), items);
+            logger.debug("save discovery items to "+Configuration.get(Context.FILE_NAME).asString(), Configuration.get(Context.OUTPUT_FILE_PATH).asString());
+        } catch (Exception e) {
+            logger.error("fail save discovery items ",e.getMessage());
+        }
+    }
+
+    /*
     public static boolean isExist(Item item, List<Object> items){
         try {
             for(Object i : items) {
@@ -65,6 +66,35 @@ public class Util {
         return false;
     }
 
+     */
+
+    /*
+    public static boolean isExist(Item item, HashMap<String,Object> items){
+        try {
+            if(!items.containsKey(item.getNamespce()+"."+item.getName())){
+                return false;
+            }
+            for(Map.Entry entry : items.entrySet()){
+                if (entry instanceof Item && ((Item)entry).getType().equals("method")) {
+                    if (((Item)entry).getNamespce().equals(item.getNamespce()) && ((Item)entry).getName().equals(item.getName())){
+                        if(((Item)entry).getParametersTypes().equals(item.getParametersTypes())){
+                            logger.debug("item found " + item.getNamespce() + "." + item.getName());
+                            return true;
+                        }else {
+
+                        }
+                    }
+                }
+            }
+            logger.debug("item not found " +item.getNamespce()+ "."+item.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+     */
+
     /**
      * convert object to json and save to file
      * @param filename
@@ -77,14 +107,24 @@ public class Util {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS,false);
             String schema = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
-            save(schema, path + filename+".json");
+            save(schema, path + filename);
             logger.debug("obj save to json file "+ path + filename+".json successfully");
         } catch (Exception e) {
             logger.error("fail to save obj to json file ",e.getMessage());
         }
     }
 
-
+    public static void toJson(String output, Object obj)throws Exception{
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS,false);
+            String schema = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+            save(schema, output);
+            logger.debug("obj save to json file "+ output+".json successfully");
+        } catch (Exception e) {
+            logger.error("fail to save obj to json file ",e.getMessage());
+        }
+    }
     /**
      * save json to file
      * @param json
@@ -140,7 +180,7 @@ public class Util {
     public static void toDot(List<FlowObject> trees){
         try{
             for(FlowObject tree : trees) {
-                String filename = Configuration.get(Context.FILE_PATH) + tree.getClazz()+"."+tree.getName() + ".dot";
+                String filename = Configuration.get(Context.OUTPUT_FILE_PATH) + tree.getClazz()+"."+tree.getName() + ".dot";
                 CallGraph cg = (CallGraph) tree.getCg();
                 DotGraph canvas = new DotGraph("call-graph");
                 QueueReader<Edge> listener = cg.listener();

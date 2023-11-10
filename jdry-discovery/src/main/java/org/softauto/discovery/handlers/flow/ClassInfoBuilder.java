@@ -2,11 +2,11 @@ package org.softauto.discovery.handlers.flow;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 
 public class ClassInfoBuilder {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     public static Builder newBuilder() { return new Builder();}
 

@@ -65,7 +65,7 @@ public class AfterBuilder {
                 after.setType(type);
                 after.setName(name);
                 after.setParentName(parentName);
-                //logger.debug("successfully build After "+parentName);
+                logger.debug("successfully build After "+parentName);
             } catch (Exception e) {
                 logger.error("fail build After "+parentName,e);
             }

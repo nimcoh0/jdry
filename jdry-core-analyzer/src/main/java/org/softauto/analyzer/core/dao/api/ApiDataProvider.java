@@ -12,7 +12,7 @@ public class ApiDataProvider {
 
     List<GenericItem> trees = new ArrayList<>();
 
-    HashMap<String,String> entities = new HashMap<>();
+    //HashMap<String,String> entities = new HashMap<>();
 
     Parser parser;
 
@@ -32,9 +32,9 @@ public class ApiDataProvider {
         return this;
     }
 
-    public HashMap<String, String> getEntities() {
-        return entities;
-    }
+    //public HashMap<String, String> getEntities() {
+     //   return entities;
+    //}
 
     public List<GenericItem> getTrees() {
         return trees;
@@ -44,7 +44,7 @@ public class ApiDataProvider {
     public ApiDataProvider initialize(){
         Parser parser = this.parser.parseProcess();
         trees = parser.getGenericItems();
-        entities = parser.getEntities();
+        //entities = parser.getEntities();
         return this;
     }
 }

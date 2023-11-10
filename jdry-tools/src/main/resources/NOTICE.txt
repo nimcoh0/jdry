@@ -1,0 +1,5 @@
+Jdry Tools
+Copyright 2024-2029 Jdry Software
+
+This product includes software developed at
+Jdry Software (https://www.softauto.org/).

@@ -3,7 +3,7 @@ package org.softauto.discovery.handlers.flow;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FlowBuilder {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     public static Builder newBuilder() { return new Builder();}
 

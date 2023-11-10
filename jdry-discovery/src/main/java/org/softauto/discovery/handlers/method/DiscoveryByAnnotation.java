@@ -3,7 +3,7 @@ package org.softauto.discovery.handlers.method;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 import soot.SootMethod;
 import soot.tagkit.AnnotationTag;
 import soot.tagkit.VisibilityAnnotationTag;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class DiscoveryByAnnotation implements IDiscovery {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     List<Object> annotations;
 

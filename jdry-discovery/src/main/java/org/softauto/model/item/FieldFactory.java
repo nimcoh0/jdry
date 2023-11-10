@@ -2,7 +2,7 @@ package org.softauto.model.item;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 import org.softauto.handlers.HandleFieldAnnotation;
 import soot.SootField;
 
@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class FieldFactory {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     Item item;
 

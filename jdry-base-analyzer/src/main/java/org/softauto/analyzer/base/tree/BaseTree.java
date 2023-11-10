@@ -264,7 +264,7 @@ public abstract class BaseTree implements Tree {
                                 .setProtocol(ProtocolRules.getProtocol(test))
                                 .setRequest(RequestRules.getRequest(genericItem))
                                 .setChildes(Utils.buildChildes(genericItem.getChildes(), new ArrayList<>()))
-                                .setDiscoveryId(String.valueOf((genericItem.getId())))
+                                //.setDiscoveryId(String.valueOf((genericItem.getId())))
                                 .setFullName(ApiRules.buildFullName(genericItem))
                                 .setMethod(ApiRules.buildName(genericItem))
                                 .setNamespce(genericItem.getNamespce());

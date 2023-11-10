@@ -59,6 +59,11 @@ public class Compiler {
     static final JsonFactory FACTORY = new JsonFactory();
     static final ObjectMapper MAPPER = new ObjectMapper(FACTORY);
 
+    public void setTemplateDir(String path){
+        this.templateDir = System.getProperty("org.apache.avro.specific.templates",
+                path);
+    }
+
     static {
         FACTORY.enable(JsonParser.Feature.ALLOW_COMMENTS);
         FACTORY.setCodec(MAPPER);
@@ -185,6 +190,8 @@ public class Compiler {
      * @param srcFiles the source Avro protocol files
      * @param dest     the directory to place generated files in
      */
+
+
     public static void compileSuite(File[] srcFiles, File dest) throws IOException {
         for (File src : srcFiles) {
             Suite suite = Suite.parse(src);
@@ -197,7 +204,7 @@ public class Compiler {
 
     public static void compileInterface(File[] srcFiles, File dest) throws IOException {
         for (File src : srcFiles) {
-            Suite suite = Suite.parse(src);
+            Suite suite = Suite.parseTests(src);
             Compiler compiler = new Compiler(suite);
             compiler.compileToInterface(src, dest);
             logger.debug("compile successfully " + src.getName());
@@ -207,7 +214,7 @@ public class Compiler {
 
     public static void compileProtocol(File[] srcFiles, File dest) throws IOException {
         for (File src : srcFiles) {
-            Suite suite = Suite.parse(src);
+            Suite suite = Suite.parseProtocols(src);
             Compiler compiler = new Compiler(suite);
             compiler.compileToProtocol(src, dest);
             logger.debug("compile successfully " + src.getName());
@@ -218,7 +225,7 @@ public class Compiler {
 
     public static void compileListenerInterface(File[] srcFiles, File dest) throws IOException {
         for (File src : srcFiles) {
-            Suite suite = Suite.parse(src);
+            Suite suite = Suite.parseListeners(src);
             Compiler compiler = new Compiler(suite);
             compiler.compileToListenerInterface(src, dest);
             logger.debug("compile successfully " + src.getName());
@@ -254,6 +261,7 @@ public class Compiler {
     private String renderTemplate(String templateName, VelocityContext context) {
         Template template;
         try {
+
             template = this.velocityEngine.getTemplate(templateName);
         } catch (Exception e) {
             logger.error("fail rendering template ",e);
@@ -272,6 +280,9 @@ public class Compiler {
         for (Object velocityTool : additionalVelocityTools) {
             String toolName = velocityTool.getClass().getSimpleName().toLowerCase();
             context.put(toolName, velocityTool);
+        }
+        if(Configuration.contains("templateDir")) {
+            templateDir = Configuration.get("templateDir").asString();
         }
         String out = renderTemplate(templateDir + "suite.vm", context);
 
@@ -293,6 +304,9 @@ public class Compiler {
             String toolName = velocityTool.getClass().getSimpleName().toLowerCase();
             context.put(toolName, velocityTool);
         }
+        if(Configuration.contains("templateDir")) {
+            templateDir = Configuration.get("templateDir").asString();
+        }
         String out = renderTemplate(templateDir + "interface.vm", context);
 
         OutputFile outputFile = new OutputFile();
@@ -312,6 +326,9 @@ public class Compiler {
             String toolName = velocityTool.getClass().getSimpleName().toLowerCase();
             context.put(toolName, velocityTool);
         }
+        if(Configuration.contains("templateDir")) {
+            templateDir = Configuration.get("templateDir").asString();
+        }
         String out = renderTemplate(templateDir + "listenerInterface.vm", context);
 
         OutputFile outputFile = new OutputFile();
@@ -330,6 +347,9 @@ public class Compiler {
         for (Object velocityTool : additionalVelocityTools) {
             String toolName = velocityTool.getClass().getSimpleName().toLowerCase();
             context.put(toolName, velocityTool);
+        }
+        if(Configuration.contains("templateDir")) {
+            templateDir = Configuration.get("templateDir").asString();
         }
         String out = renderTemplate(templateDir + "protocols.vm", context);
 
@@ -360,8 +380,8 @@ public class Compiler {
     }
 
     public static void main(String[] args) throws Exception {
-        loadConfiguration(args);
-        logger.info("-------------- start tests compiler ---------------- ");
+        //loadConfiguration(args);
+        logger.info("-------------- compile all ---------------- ");
         //compileSuite(new File(args[0]), new File(args[1]));
         compileInterface(new File(args[0]), new File(args[1]));
         compileListenerInterface(new File(args[0]), new File(args[1]));
@@ -371,6 +391,37 @@ public class Compiler {
         logger.info("tests compile finsh successfully");
     }
 
+    public static void compileTests(String analyze,String output)throws Exception{
+        logger.info("-------------- compile tests ---------------- ");
+        compileSuite(new File(analyze), new File(output));
+        logger.debug("input file "+ analyze);
+        logger.debug("output file "+ output);
+        logger.info("tests compile finsh successfully");
+    }
+
+    public static void compileListeners(String analyze,String output)throws Exception{
+        logger.info("-------------- compile listeners ---------------- ");
+        compileListenerInterface(new File(analyze), new File(output));
+        logger.debug("input file "+ analyze);
+        logger.debug("output file "+ output);
+        logger.info("listeners compile finsh successfully");
+    }
+
+    public static void compileSteps(String analyze,String output)throws Exception{
+        logger.info("-------------- compile steps  ---------------- ");
+        compileInterface(new File(analyze), new File(output));
+        logger.debug("input file "+ analyze);
+        logger.debug("output file "+ output);
+        logger.info("Steps compile finsh successfully");
+    }
+
+    public static void compileProtocols(String analyze,String output)throws Exception{
+        logger.info("-------------- compile protocols ---------------- ");
+        compileProtocols(new File(analyze), new File(output));
+        logger.debug("input file "+ analyze);
+        logger.debug("output file "+ output);
+        logger.info("Protocols compile finsh successfully");
+    }
 
     public static void loadConfiguration(String[] args){
         try {

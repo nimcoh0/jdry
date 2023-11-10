@@ -1,18 +1,14 @@
 package org.softauto.analyzer.core.system.config;
 
 public class Context {
-
-
-
-
-
     public final static String JAR_PATH = "jar_path";
-    public final static String FILE_INPUT_PATH = "file_input_path";
-    public final static String FILE_INPUT_NAME = "file_input_name";
-    public final static String FILE_DATA_PATH = "file_data_path";
-    public final static String FILE_DATA_NAME = "file_data_name";
-    public final static String FILE_OUTPUT_PATH = "file_output_path";
-    public final static String FILE_OUTPUT_NAME = "file_output_name";
+    //public final static String CONFIGURATION_FILE = "configuration_file";
+    public final static String DISCOVERY_INPUT_FILE = "discovery_input_file";
+    //public final static String DISCOVERY_INPUT_FILE_NAME = "discovery_input_file_name";
+    public final static String RECORDER_INPUT_FILE = "recoder_input_file";
+    //public final static String RECORDER_FILE_NAME = "recoder_file_name";
+    public final static String FILE_OUTPUT = "file_output";
+    //public final static String FILE_OUTPUT_NAME = "file_output_name";
     public final static String FILE_NAMESPACE = "file_namespace";
     public final static String SCHEMA_NAME = "schema_name";
     //public final static String ASSERT_TYPE_DEFAULT_VALUE = "assert_type_default_value";

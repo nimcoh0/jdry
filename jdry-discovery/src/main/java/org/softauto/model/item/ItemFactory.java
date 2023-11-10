@@ -3,7 +3,7 @@ package org.softauto.model.item;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 import org.softauto.discovery.handlers.flow.FlowObject;
 import org.softauto.handlers.HandelClassAnnotation;
 import org.softauto.handlers.HandelConstructorAnnotation;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class ItemFactory {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     Item item;
 
@@ -57,8 +57,6 @@ public class ItemFactory {
                     .setChildes(flowObject.getChileds())
                     .setAnnotations(annotations)
                     .setClassInfo(flowObject.getClassInfo())
-
-                    .setCrudToSubject(flowObject.getCrudToSubject())
                     .build()
                     .getItem();
 

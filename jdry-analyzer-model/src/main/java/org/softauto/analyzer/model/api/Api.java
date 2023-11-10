@@ -10,59 +10,87 @@ import org.softauto.analyzer.model.Item;
 import org.softauto.analyzer.model.after.After;
 import org.softauto.analyzer.model.listener.Listener;
 import org.softauto.analyzer.model.suite.Suite;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * api definition
+ */
 public class Api implements Item {
 
+    /**
+     * the protocol to be use by this api . default GRPC
+     */
     protected String protocol = "RPC";
 
-    protected String messageType = "method";
-
+    /**
+     * the callBack variable details (if callback is used )
+     */
     protected CallBack callback;
 
-    protected String role;
-
+    /**
+     * the method name to be invoke
+     */
     protected String method;
 
+    /**
+     * the method full class name
+     */
     protected String namespace;
 
+    /**
+     * api description
+     */
     protected String description;
 
+    /**
+     * list of @arguments contain method args name/type/value
+     */
     protected Request request;
 
+    /**
+     * response @argument contain name/type/value
+     */
     protected Result response;
 
-    protected long time;
-
+    /**
+     * api method full name as package + class + method
+     * with "_" insted of "."
+     */
     protected String fullName;
 
+    /**
+     * api id (default method name)
+     */
     protected String id;
 
-    String discoveryId;
-
+    /**
+     * indicate if and how to initialize a class
+     */
     protected String classType ;
 
-
-
+    /**
+     * a list of @after action's to be executed after the api call
+     */
     protected LinkedList<After> afterList = new LinkedList();
 
+    /**
+     * a list of interest methods to be call by the api as part of the api flow
+     * interest method mean method that include interest annotation like ListenerForTesting
+     */
     protected LinkedList<Object> childes = new LinkedList<>();
 
     public LinkedList<Object> getChildes() {
         return childes;
     }
 
-
-
     public Api setChildes(LinkedList<Object> childes) {
         this.childes = childes;
         return this;
     }
+
     public Api addChild(Object child) {
         if(child != null) {
             this.childes.add(child);
@@ -83,18 +111,8 @@ public class Api implements Item {
         return this;
     }
 
-
     public Api setProtocol(String protocol) {
         this.protocol = protocol;
-        return this;
-    }
-
-    public String getMessageType() {
-        return messageType;
-    }
-
-    public Api setMessageType(String messageType) {
-        this.messageType = messageType;
         return this;
     }
 
@@ -104,15 +122,6 @@ public class Api implements Item {
 
     public Api setCallback(CallBack callback) {
         this.callback = callback;
-        return this;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public Api setRole(String role) {
-        this.role = role;
         return this;
     }
 
@@ -161,15 +170,6 @@ public class Api implements Item {
         return this;
     }
 
-    public long getTime() {
-        return time;
-    }
-
-    public Api setTime(long time) {
-        this.time = time;
-        return this;
-    }
-
     public String getFullName() {
         return fullName;
     }
@@ -188,17 +188,6 @@ public class Api implements Item {
         return this;
     }
 
-    public String getDiscoveryId() {
-        return discoveryId;
-    }
-
-    public Api setDiscoveryId(String discoveryId) {
-        this.discoveryId = discoveryId;
-        return this;
-    }
-
-
-
     public List<After> getAfterList() {
         return afterList;
     }
@@ -212,8 +201,6 @@ public class Api implements Item {
         this.afterList.add(after);
         return this;
     }
-
-
 
     public JsonNode toJson(){
         try {
@@ -234,8 +221,6 @@ public class Api implements Item {
         return null;
     }
 
-
-
     @JsonIgnore
     public boolean hasAfter(){
         if(afterList != null && afterList.size() > 0){
@@ -244,15 +229,11 @@ public class Api implements Item {
         return false;
     }
 
-
-
-
     @JsonIgnore
     public List<Listener> getListeners(){
         List<Listener> listeners = new ArrayList<>();
         try {
             for(Object o : childes){
-                // suite.getListener(o.)
                 if(o instanceof Listener ){
                     listeners.add((Listener)o);
                 }
@@ -263,7 +244,6 @@ public class Api implements Item {
         return  listeners;
     }
 
-
     @JsonIgnore
     public List<Listener> getListeners(Suite suite){
         List<Listener> listeners = new ArrayList<>();
@@ -271,7 +251,6 @@ public class Api implements Item {
             for(Object o : childes){
                 Listener listener = suite.getListener(((Map)o).get("namespce")+"."+((Map)o).get("name"));
                 if(listener != null){
-                //if(o instanceof Listener ){
                    listeners.add(listener);
                 }
             }
@@ -280,17 +259,4 @@ public class Api implements Item {
         }
         return  listeners;
     }
-
-
-
-    /*
-    @JsonIgnore
-    public boolean isAuth(){
-        if(role != null && role.equals(Role.AUTH.name())){
-            return true;
-        }
-        return false;
-    }
-
-     */
 }

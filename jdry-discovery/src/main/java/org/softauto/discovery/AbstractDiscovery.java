@@ -1,8 +1,11 @@
 package org.softauto.discovery;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 import org.softauto.config.Configuration;
 import org.softauto.config.Context;
 import soot.*;
@@ -11,11 +14,13 @@ import java.util.*;
 
 public abstract class AbstractDiscovery {
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     List<String> argsList = new ArrayList();
 
-    List<Object> items = new ArrayList<>();
+    //List<Object> items = new ArrayList<>();
+
+    ObjectNode discovery = new ObjectMapper().createObjectNode();
 
     List<String> clazzes  = new ArrayList<>();
 
@@ -61,7 +66,7 @@ public abstract class AbstractDiscovery {
         return excludePackagesList;
     }
 
-    public List<Object> getItems() {
-        return items;
+    public JsonNode getDiscovery() {
+        return discovery;
     }
 }

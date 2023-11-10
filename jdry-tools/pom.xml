@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jdry2</artifactId>
+        <groupId>org.softauto</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jdry-tools</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.sf.jopt-simple</groupId>
+            <artifactId>jopt-simple</artifactId>
+            <version>5.0.4</version>
+        </dependency>
+        <dependency>
+            <artifactId>jdry-discovery</artifactId>
+            <groupId>org.softauto</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <artifactId>jdry-analyzer</artifactId>
+            <groupId>org.softauto</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <artifactId>Jdry-test-compiler</artifactId>
+            <groupId>org.softauto</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <encoding>UTF-8</encoding>
+                    <generatedTestSourcesDirectory>target/generated-test-sources/test-annotations</generatedTestSourcesDirectory>
+                    <generatedSourcesDirectory>target/generated-sources</generatedSourcesDirectory>
+                    <compilerArgument>-parameters</compilerArgument>
+                    <compilerArgs>
+                        <arg>-XDignore.symbol.file</arg>
+                    </compilerArgs>
+                    <fork>true</fork>
+                </configuration>
+
+                <executions>
+                    <execution>
+
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <index>true</index>
+                        <manifestFile>
+                            src/main/resources/META-INF/MANIFEST.MF
+                        </manifestFile>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+
+                        <phase>package</phase>
+
+                        <goals>
+                            <goal>single</goal>
+
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin1</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>**/Log4j2Plugins.dat</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+
+                            <finalName>project-name-product-1.0.0-SNAPSHOT</finalName>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+                                    <resource>MANIFEST.MF</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+                                    <resource>META-INF/MANIFEST.MF</resource>
+                                    <file>src/main/resources/META-INF/MANIFEST.MF</file>
+
+                                </transformer>
+
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+
+
+
+                            </transformers>
+
+                        </configuration>
+                    </execution>
+                </executions>
+
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>

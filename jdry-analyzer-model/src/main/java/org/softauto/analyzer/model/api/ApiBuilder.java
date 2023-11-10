@@ -34,23 +34,11 @@ public class ApiBuilder {
 
         protected String classType;
 
-        protected Assert anAssert = new Assert();
-
-        protected long time;
-
         protected CallBack callback;
-
-        protected String role;
 
         protected String id;
 
-        protected String verifyId;
-
         protected Result result;
-
-        protected String discoveryId;
-
-        protected List<String> envVars = new ArrayList<>();
 
         protected LinkedList<Object> childes = new LinkedList();
 
@@ -84,19 +72,8 @@ public class ApiBuilder {
             return this;
         }
 
-
         public Builder setDescription(String description) {
             this.description = description;
-            return this;
-        }
-
-        public Builder setEnvVars(List<String> envVars) {
-            this.envVars = envVars;
-            return this;
-        }
-
-        public Builder addEnvVar(String envVar) {
-            this.envVars.add(envVar);
             return this;
         }
 
@@ -107,11 +84,6 @@ public class ApiBuilder {
 
         public Builder addArgument(Argument argument){
             this.request.getArguments().add(argument);
-            return this;
-        }
-
-        public Builder setDiscoveryId(String discoveryId) {
-            this.discoveryId = discoveryId;
             return this;
         }
 
@@ -127,34 +99,14 @@ public class ApiBuilder {
             return this;
         }
 
-        public Builder setVerifyId(String verifyId) {
-            this.verifyId = verifyId;
-            return this;
-        }
-
-        public Builder setTime(long time) {
-            this.time = time;
-            return this;
-        }
-
         public Builder setId(String id ) {
             if(id != null)
                 this.id = id;
             return this;
         }
 
-        public Builder setRole(String role) {
-            this.role = role;
-            return this;
-        }
-
         public Builder setCallback(CallBack callback) {
             this.callback = callback;
-            return this;
-        }
-
-        public Builder setAnAssert(Assert anAssert) {
-            this.anAssert = anAssert;
             return this;
         }
 
@@ -177,8 +129,6 @@ public class ApiBuilder {
             return this;
         }
 
-
-
         public ApiBuilder build(){
             Api api = new Api();
             try {
@@ -192,11 +142,8 @@ public class ApiBuilder {
                 api.setProtocol(protocol);
                 api.setCallback(callback);
                 api.setClassType(classType);
-                api.setRole(role);
                 api.setFullName(fullName);
-                api.setDiscoveryId(discoveryId);
-
-                //logger.debug("successfully build Api "+fullName);
+                logger.debug("successfully build Api "+fullName);
             } catch (Exception e) {
                 logger.error("fail build Api "+fullName,e);
             }

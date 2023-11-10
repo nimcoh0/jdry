@@ -7,12 +7,12 @@ public class DefaultConfiguration {
     static HashMap<String,Object> configuration = new HashMap<>();
 
     static{
-        configuration.put(Context.FILE_INPUT_PATH,"jdry-analyzer/src/main/resources");
-        configuration.put(Context.FILE_INPUT_NAME, "Demo.json");
-        configuration.put(Context.FILE_DATA_PATH,"jdry-analyzer/src/main/resources");
-        configuration.put(Context.FILE_DATA_NAME, "Demo.data");
-        configuration.put(Context.FILE_OUTPUT_PATH,"jdry-analyzer/target/generated-sources");
-        configuration.put(Context.FILE_OUTPUT_NAME, "");
+        configuration.put(Context.DISCOVERY_INPUT_FILE,"jdry-analyzer/src/main/resources/Demo.json");
+        //configuration.put(Context.DISCOVERY_INPUT_FILE_NAME, "Demo.json");
+        configuration.put(Context.RECORDER_INPUT_FILE,"jdry-analyzer/src/main/resources/Demo.data");
+        //configuration.put(Context.RECORDER_FILE_NAME, "Demo.data");
+        configuration.put(Context.FILE_OUTPUT,"jdry-analyzer/target/generated-sources/");
+        //configuration.put(Context.FILE_OUTPUT_NAME, "");
         configuration.put(Context.FILE_NAMESPACE,"tests.infrastructure");
         configuration.put(Context.USE_DATA_GENERATOR,"true");
         configuration.put(Context.SCHEMA_NAME,"");

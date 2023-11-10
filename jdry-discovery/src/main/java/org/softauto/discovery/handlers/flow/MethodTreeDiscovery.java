@@ -2,14 +2,12 @@ package org.softauto.discovery.handlers.flow;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
+import org.softauto.Discover;
 import org.softauto.config.Configuration;
 import org.softauto.config.Context;
 import org.softauto.discovery.filter.FilterByAnnotation;
 import org.softauto.discovery.filter.IFilter;
-import org.softauto.discovery.handlers.HandleEntity;
-import org.softauto.discovery.handlers.HandleEntityCrud1;
-import org.softauto.discovery.handlers.HandleReturnType1;
+import org.softauto.discovery.handlers.HandleReturnType;
 import org.softauto.espl.Espl;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
@@ -21,7 +19,7 @@ import java.util.List;
 
 public class MethodTreeDiscovery implements IFlow{
 
-    private static Logger logger = LogManager.getLogger(Main.class);
+    private static Logger logger = LogManager.getLogger(Discover.class);
 
     CallGraph cg ;
 
@@ -73,7 +71,7 @@ public class MethodTreeDiscovery implements IFlow{
             List<String> unboxExcludeList = Configuration.has(Context.UNBOX_EXCLUDE_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_EXCLUDE_RETURN_TYPE).asList()): null;
             if(unboxList.contains(m.getReturnType().toString())) {
                 //String returnType = new HandleReturnType().setTags(tags).setExcludeResponseObject(unboxExcludeList).setResponseObject(m.getReturnType().toString()).setText(cg.iterator().next().getSrc().method().getActiveBody().toString()).parser();
-                String returnType = new HandleReturnType1().setBody(cg.iterator().next().getSrc().method().getActiveBody()).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList).parser(m.getReturnType().toString());
+                String returnType = new HandleReturnType().setBody(cg.iterator().next().getSrc().method().getActiveBody()).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList).parser(m.getReturnType().toString());
                 if (returnType != null) {
                     if (returnType.contains("$")) {
                         returnType = returnType.replace("$", ".");
@@ -82,10 +80,9 @@ public class MethodTreeDiscovery implements IFlow{
                 }
             }
 
-            //cg.iterator().next().getSrc().method().getActiveBody()..getUnits()
-            HandleEntityCrud1 handleEntityCrud = new HandleEntityCrud1().setCg(cg).build();
-            flowObject.setCrudToSubject(handleEntityCrud.getCrudToEntity());
-            //HandleEntity handleEntity = new HandleEntity().build();
+            //HandleEntityCrud1 handleEntityCrud = new HandleEntityCrud1().setCg(cg).build();
+            //flowObject.setCrudToSubject(handleEntityCrud.getCrudToEntity());
+
 
             List<Integer> use = new ArrayList<>();
             buildTree(m,cg,flowObject,use);
@@ -194,7 +191,7 @@ public class MethodTreeDiscovery implements IFlow{
                     .setStatic(sootClass.isStatic())
                     .setInnerClass(sootClass.isInnerClass())
                     .setHasParameters(hasParameters)
-                    .setEntity(HandleEntity.isEntity(sootClass.getName()))
+                    //.setEntity(HandleEntity.isEntity(sootClass.getName()))
                     .build()
                     .getClassInfo();
         } catch (Exception e) {

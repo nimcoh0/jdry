@@ -3,7 +3,6 @@ package org.softauto.handlers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.Main;
 import org.softauto.utils.Multimap;
 import soot.tagkit.*;
 

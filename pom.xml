@@ -16,7 +16,7 @@
         <module>jdry-grpc</module>
         <module>jdry-jaxrs-annotations</module>
         <module>jdry-tester</module>
-        <module>jdry-testng-plugin</module>
+        <module>jdry-testng</module>
         <module>jdry-serializer</module>
         <module>jdry-grpc-client</module>
         <module>jdry-jax-rs-plugin</module>
@@ -30,11 +30,23 @@
         <!--module>jdry-web-spring-analyzer</module-->
         <module>jdry-discovery</module>
         <module>Jdry-test-compiler</module>
+        <module>jdry-tools</module>
     </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <jdry-core-analyzer>1.0-SNAPSHOT</jdry-core-analyzer>
+        <jdry-base-analyzer>1.0-SNAPSHOT</jdry-base-analyzer>
+        <jdry-annotations-analyzer>1.0-SNAPSHOT</jdry-annotations-analyzer>
+        <jdry-annotations>1.0-SNAPSHOT</jdry-annotations>
+        <log4j>2.20.0</log4j>
+        <commons-lang3>3.5</commons-lang3>
+        <commons-collections4>4.4</commons-collections4>
+        <jackson>2.11.1</jackson>
+        <yaml>1.27</yaml>
+        <guava>31.1-jre</guava>
+
     </properties>
 
     <dependencies>
