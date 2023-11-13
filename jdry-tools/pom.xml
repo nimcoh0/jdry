@@ -27,13 +27,9 @@
             <groupId>org.softauto</groupId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
-            <artifactId>jdry-analyzer</artifactId>
-            <groupId>org.softauto</groupId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <artifactId>Jdry-test-compiler</artifactId>
+            <artifactId>Jdry-compiler</artifactId>
             <groupId>org.softauto</groupId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -78,16 +74,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <archive>
-                        <index>true</index>
-                        <manifestFile>
-                            src/main/resources/META-INF/MANIFEST.MF
-                        </manifestFile>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
 
-                    </archive>
                 </configuration>
                 <executions>
                     <execution>

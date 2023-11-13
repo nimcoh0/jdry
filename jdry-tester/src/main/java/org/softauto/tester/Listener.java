@@ -22,6 +22,7 @@ public  class Listener implements IListener {
     Object result;
     Exec func;
     Class[] types;
+    //String listenerType;
 
     public Class[] getTypes() {
         return types;
@@ -49,6 +50,7 @@ public  class Listener implements IListener {
         this.fqmn = fqmn;
         return this;
     }
+
 
 
     public Listener waitTo(Function function)throws Exception{

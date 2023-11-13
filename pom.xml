@@ -12,25 +12,18 @@
         <module>jdry-jaxrs</module>
         <module>jdry-annotations</module>
         <module>jdry-core</module>
-        <!--module>jdry-jackson-serializers</module-->
+        <module>jdry-model</module>
         <module>jdry-grpc</module>
         <module>jdry-jaxrs-annotations</module>
-        <module>jdry-tester</module>
         <module>jdry-testng</module>
         <module>jdry-serializer</module>
         <module>jdry-grpc-client</module>
         <module>jdry-jax-rs-plugin</module>
         <module>jdry-web-spring-plugin</module>
-        <module>jdry-analyzer</module>
-        <module>jdry-analyzer-model</module>
-        <module>jdry-base-analyzer</module>
-        <module>jdry-annotations-analyzer</module>
-        <module>jdry-core-analyzer</module>
-        <!--module>jdry-jax-rs-analyzer</module-->
-        <!--module>jdry-web-spring-analyzer</module-->
         <module>jdry-discovery</module>
-        <module>Jdry-test-compiler</module>
         <module>jdry-tools</module>
+        <module>jdry-compiler</module>
+        <module>jdry-tester</module>
     </modules>
 
     <properties>

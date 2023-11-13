@@ -54,11 +54,11 @@
             <artifactId>avro-grpc</artifactId>
             <version>1.11.2</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.avro</groupId>
             <artifactId>avro</artifactId>
             <version>1.11.2</version>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

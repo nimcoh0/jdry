@@ -2,12 +2,6 @@ package org.softauto;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.grpc.ManagedChannel;
-import org.softauto.analyzer.core.skeletal.tree.phase.Phase;
-import org.softauto.analyzer.core.utils.Analyzer;
-import org.softauto.analyzer.core.utils.ResultTypeAnalyzer;
-import org.softauto.analyzer.model.Item;
-import org.softauto.analyzer.model.data.Data;
-import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.auth.jwt.JwtStepDescriptorImpl;
 import org.softauto.core.Configuration;
 import org.softauto.core.TestContext;

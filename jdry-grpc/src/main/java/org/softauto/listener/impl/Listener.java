@@ -1,6 +1,8 @@
 package org.softauto.listener.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.aspectj.lang.JoinPoint;
@@ -8,6 +10,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.softauto.annotations.ListenerType;
+import org.softauto.core.Configuration;
+import org.softauto.system.ScenarioContext;
+import org.softauto.system.Scenarios;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -20,10 +25,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Listener {
 
     static org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Listener.class);
+
+    static org.softauto.listener.manager.ListenerServiceImpl serviceImpl = new org.softauto.listener.manager.ListenerServiceImpl();
+
     /** marker for trace logs */
     private static final Marker TRACER = MarkerManager.getMarker("TRACER");
-    static Object serviceImpl;
+    //static Object serviceImpl;
     boolean trace = false;
+
 
 
     public void setTrace(boolean trace) {
@@ -33,10 +42,14 @@ public class Listener {
     private  static ExecutorService executor = Executors.newFixedThreadPool(100);
 
 
+    /*
     public static void init(Object serviceImpl) {
         init(serviceImpl, true);
     }
 
+     */
+
+    /*
     public static void init(Object serviceImpl, boolean loadWeaver) {
         try {
             Listener.serviceImpl = serviceImpl;
@@ -47,6 +60,8 @@ public class Listener {
         }
 
     }
+
+     */
 
     private Object[] castToOrgType(Object[] args, Class[] types){
         try {
@@ -71,6 +86,10 @@ public class Listener {
         }
       return args;
     }
+
+
+
+
 
     //@Before("execution(* *(..)) && @annotation(org.softauto.annotations.ListenerForTesting)")
     //@Before(value = ("@annotation(org.softauto.annotations.ListenerForTesting) "))

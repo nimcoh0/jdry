@@ -23,13 +23,6 @@ public class ListenerClientProviderImpl  {
 
 
     public ListenerClientProviderImpl initialize() throws IOException {
-        try {
-            ListenerServiceImpl listenerServiceImpl = new ListenerServiceImpl();
-            Listener.init(listenerServiceImpl);
-            logger.info("successfully load listener manager");
-        }catch (Exception e){
-            logger.error("fail to load listener manager",e);
-        }
         return this;
     }
 

@@ -7,14 +7,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+//import org.softauto.analyzer.model.scenario.Scenario;
 import org.softauto.analyzer.model.scenario.Scenario;
 import org.softauto.core.*;
-import org.softauto.deserializer.NullStringJsonDeserializer;
+//import org.softauto.deserializer.NullStringJsonDeserializer;
 import org.softauto.espl.Espl;
 import org.softauto.listener.ListenerServerProviderImpl;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.spi.PluginProvider;
-import org.softauto.serializer.HttpServletRequestScenarioIdSerializer;
+//import org.softauto.serializer.HttpServletRequestScenarioIdSerializer;
 import org.softauto.system.SystemState;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
@@ -46,12 +47,12 @@ public class AbstractTesterImpl  {
     public AbstractTesterImpl(){
         try {
            mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-           SimpleModule module = new SimpleModule();
+          // SimpleModule module = new SimpleModule();
            //sessionId = UUID.randomUUID().toString();
            //TestContext.put("sessionId",sessionId);
 
-           module.addDeserializer(String.class, new NullStringJsonDeserializer());
-           mapper.registerModule(module);
+           //module.addDeserializer(String.class, new NullStringJsonDeserializer());
+           //mapper.registerModule(module);
            //SystemState.getInstance().initialize(scenario);
            //ListenerServerProviderImpl.getInstance().initialize().register();
            //loadPlugins();
@@ -73,10 +74,12 @@ public class AbstractTesterImpl  {
     @BeforeTest
     public void beforeScenario(ITestContext testContext) {
         try {
-            scenario = new Scenario();
-            scenarioId = UUID.randomUUID().toString();
-            scenario.setId(scenarioId);
-            scenario.setSuiteName(testContext.getSuite().getName());
+            if(scenario == null) {
+                scenario = new Scenario();
+                scenarioId = UUID.randomUUID().toString();
+                scenario.setId(scenarioId);
+                scenario.setSuiteName(testContext.getSuite().getName());
+            }
             scenario.setState(ScenarioState.RUN.name());
             //scenario.setConfiguration(Configuration.getConfiguration());
             TestContext.setScenario(scenario);

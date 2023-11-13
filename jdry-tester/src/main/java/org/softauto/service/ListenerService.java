@@ -2,6 +2,7 @@ package org.softauto.service;
 
 import org.softauto.listener.Exec;
 import org.softauto.listener.ListenerObserver;
+import org.softauto.system.SystemState;
 import org.softauto.tester.Listener;
 
 import java.lang.reflect.InvocationHandler;
@@ -27,6 +28,7 @@ public class ListenerService {
         return listeners;
     }
 
+    /*
     public org.softauto.tester.Listener register(Function function) throws Exception {
         return new ListenerService().addListener(serviceInvocationHandler.getMethodName(), serviceInvocationHandler.getTypes(),function);
     }
@@ -34,6 +36,8 @@ public class ListenerService {
     public org.softauto.tester.Listener register() throws Exception {
         return new ListenerService().addListener(serviceInvocationHandler.getMethodName(), serviceInvocationHandler.getTypes());
     }
+
+     */
 
     public Listener resetListeners()throws Exception{
         ListenerObserver.getInstance().reset();
@@ -47,17 +51,38 @@ public class ListenerService {
         return  new Listener();
     }
 
-
+/*
     public  Listener addListener(String fqmn, Class...types)throws Exception{
         logger.debug("add Listener successfully "+ fqmn+ " types "+ Arrays.toString(types));
-        return  new Listener().setFqmn(fqmn);
+        return  new Listener().setFqmn(fqmn).setTypes(types);
     }
 
+
+ */
+    public  Listener addListener(String fqmn, Class[] types)throws Exception{
+        logger.debug("add Listener successfully "+ fqmn+ " types "+ Arrays.toString(types));
+        Exec func = new Exec(fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
+        //SystemState.getInstance().update("{\"listener\" : \""+ fqmn +"\",\"type\": \""+ listenerType+"\" }" );
+        return  new Listener().setFqmn(fqmn).setTypes(types);
+    }
+
+    /*
     public  Listener addListener( String fqmn, Class[] types,Function function)throws Exception{
         logger.debug("add Listener successfully "+ fqmn+ " types "+ Arrays.toString(types));
         Exec func = new Exec(function,fqmn);
         ListenerObserver.getInstance().register(fqmn,func);
         return  new Listener().setFqmn(fqmn).setFunc(func);
+    }
+
+     */
+
+    public  Listener addListener( String fqmn, Class[] types,Function function)throws Exception{
+        logger.debug("add Listener successfully "+ fqmn+ " types "+ Arrays.toString(types));
+        Exec func = new Exec(function,fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
+        //SystemState.getInstance().update("{\"listener\" : \""+ fqmn +"\",\"type\": \""+ listenerType+"\" }");
+        return  new Listener().setFqmn(fqmn).setFunc(func).setTypes(types);
     }
 
     public static ListenerService create(Class<?> iface) {

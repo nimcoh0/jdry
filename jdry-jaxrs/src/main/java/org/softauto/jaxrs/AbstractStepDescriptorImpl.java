@@ -56,7 +56,7 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
 
     public void setArgs(Object[] args) {
         this.args = args;
-        TestContext.getScenario().addProperty("args", args);
+        //TestContext.getScenario().addProperty("args", args);
         //TestContext.getScenario(callOptions.containsKey("scenarioId") ? callOptions.get("scenarioId").toString() : null).addProperty("args", args);
 
     }

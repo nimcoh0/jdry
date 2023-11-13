@@ -1,0 +1,45 @@
+#if ($discovery.has("namespace"))
+package $discovery.get("namespace").asText();
+#end
+
+public interface ${discovery.get("name").asText()}Service {
+
+#foreach ($step in $discovery.get("steps"))
+#set ($name = $step.get("fullname").asText())
+org.softauto.tester.Step $name(##
+#foreach ($type in $step.get("parametersTypes"))##
+#*      *#$type.asText() $step.get("argumentsNames")[$foreach.index].asText() #if ($foreach.hasNext), #end ##
+#end
+) throws Exception;
+
+#end
+public interface Callback extends ${discovery.get("name").asText()}Service {
+#foreach ($step in $discovery.get("steps"))
+#set ($name = $step.get("fullname").asText())
+#set ($response = $step.get("returnType").asText())
+org.softauto.tester.Step  $name(##
+#foreach ($type in $step.get("parametersTypes"))
+#*      *#$type.asText() $step.get("argumentsNames")[$foreach.index].asText() #if ($foreach.hasNext), #end ##
+#end
+#if($this.isPrimitive($response))
+#if($step.get("parametersTypes"))
+  ,org.apache.avro.ipc.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
+#else
+  org.apache.avro.ipc.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
+#end
+#else
+#if($step.get("parametersTypes"))
+ ,org.apache.avro.ipc.CallFuture<$response> callback) throws java.io.IOException;
+#else
+  org.apache.avro.ipc.CallFuture<$response> callback) throws java.io.IOException;
+#end
+#end
+
+#end
+
+    }
+}
+
+
+
+

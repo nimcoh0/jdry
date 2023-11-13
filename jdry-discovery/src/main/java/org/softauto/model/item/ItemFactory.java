@@ -12,6 +12,7 @@ import org.softauto.handlers.HandleAnnotations;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -46,9 +47,16 @@ public class ItemFactory {
             if(classAnnotations != null && classAnnotations.size() > 0) {
                 annotations.put("class",classAnnotations);
             }
+            String type = "method";
+            for(Map.Entry entry : annotations.entrySet()){
+                if(entry.getKey().toString().contains("ListenerForTesting")){
+                    type = "listener";
+                }
+            }
+
             item = ItemBuilder.newBuilder()
                     .setName(flowObject.getName())
-                    .setType("method")
+                    .setType(type)
                     .setNamespce(flowObject.getClazz())
                     .setParametersTypes(flowObject.getMethod().getParameterTypes())
                     .setArgumentsNames(flowObject.getArgsname())

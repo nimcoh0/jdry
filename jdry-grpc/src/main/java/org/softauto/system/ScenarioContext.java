@@ -2,7 +2,6 @@ package org.softauto.system;
 
 import org.softauto.core.ScenarioState;
 import org.softauto.core.TestLifeCycle;
-
 import java.util.HashMap;
 
 public class ScenarioContext {
@@ -14,6 +13,9 @@ public class ScenarioContext {
     private String testName;
 
     private String scenarioName;
+
+    //private List<Listener> listeners = new ArrayList<>();
+
 
     private HashMap<String,Object> configuration = new HashMap<>();
 
@@ -27,6 +29,8 @@ public class ScenarioContext {
         this.testState = testState;
         return this;
     }
+
+
 
     public ScenarioState getScenarioState() {
         return scenarioState;

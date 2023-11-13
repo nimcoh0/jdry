@@ -89,6 +89,18 @@ public class SystemState {
         return null;
     }
 
+    /*
+    public Boolean update(String json){
+        try {
+            return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_update", new Object[]{scenarioId, json}, new Class[]{java.lang.String.class,java.lang.String.class});
+        }catch (Exception e){
+            logger.error("fail send update configuration",e);
+        }
+        return null;
+    }
+
+     */
+
     public Boolean shutdown(String scenarioId) throws Exception{
         return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_shutdown", new Object[]{scenarioId}, new Class[]{java.lang.String.class});
     }

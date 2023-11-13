@@ -1,0 +1,15 @@
+#if ($discovery.has("namespace"))
+package $discovery.get("namespace").asText();
+#end
+
+public interface ${discovery.get("name").asText()}ListenerService {
+
+#foreach ($listener in $discovery.get("listeners"))
+#set ($name = ($listener.get("fullname").asText()))
+org.softauto.tester.Listener $name(##
+#foreach ($type in $listener.get("parametersTypes"))##
+#*      *#$type.asText() $listener.get("argumentsNames")[$foreach.index].asText() #if ($foreach.hasNext), #end ##
+#end
+) throws Exception;
+#end
+}

@@ -12,17 +12,12 @@
     <artifactId>jdry-grpc</artifactId>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
-        <!--dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-listener</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency-->
+
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-core</artifactId>
@@ -134,24 +129,13 @@
             <artifactId>snakeyaml</artifactId>
             <version>1.27</version>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>org.softauto</groupId>
-            <artifactId>jdry-jackson-serializers</artifactId>
+            <artifactId>jdry-model</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency-->
-        <!--dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
-            <scope>provided</scope>
-        </dependency-->
+        </dependency>
 
-        <!---dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro-grpc</artifactId>
-            <version>1.10.0</version>
-        </dependency-->
     </dependencies>
 
 

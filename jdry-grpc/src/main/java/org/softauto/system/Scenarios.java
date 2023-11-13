@@ -19,7 +19,7 @@ public class Scenarios {
         return scenarios.get(id);
     }
 
-    public static void addScenario(String id,Scenario scenario) {
+    public static void addScenario(String id, Scenario scenario) {
         scenarios.put(id,convert(scenario));
     }
 

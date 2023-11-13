@@ -1,7 +1,0 @@
----
-resolve:
-  - org_softauto_analyzer_services_nameRecognition_NrTree_Entity_applyEntityNameFormat: "entity_name_format"
-  - org_softauto_analyzer_services_meta_tree_tools_MetaTree_Test_buildTestName: "test_name"
-  - org_softauto_analyzer_utils_RequestUtils_identifyEntity: "entity_identify"
-  - org_softauto_analyzer_services_nameRecognition_NrTree_UnClassifyEntity_setCrudTypeForUnClassifyEntity: "set_crud_type_for_un_classify_entity"
-  - org_softauto_analyzer_services_nameRecognition_NrTree_EntityCreate_overrideAfterReturnType: "override_after_return_type"

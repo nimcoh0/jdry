@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jdry-tester</artifactId>
+    <artifactId>jdry-compiler</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -17,85 +17,60 @@
     </properties>
 
     <dependencies>
-
         <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-common</artifactId>
-            <version>4.1.85.Final</version>
+            <groupId>org.apache.velocity.tools</groupId>
+            <artifactId>velocity-tools-generic</artifactId>
+            <version>3.0</version>
         </dependency>
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.12</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-expression</artifactId>
-            <version>5.2.8.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-serializer</artifactId>
-            <version>1.0-SNAPSHOT</version>
 
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.20.0</version>
         </dependency>
         <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-grpc-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.20.0</version>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.15.2</version>
+            <version>2.11.1</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.15.2</version>
+            <version>2.11.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-cbor</artifactId>
-            <version>2.15.2</version>
-        </dependency>
-
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.27</version>
         </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
-        </dependency>
-
-        <dependency>
-                    <groupId>jakarta.ws.rs</groupId>
-                    <artifactId>jakarta.ws.rs-api</artifactId>
-                    <version>3.1.0</version>
-                </dependency>
-        <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
-
-        </dependency>
     </dependencies>
 
     <build>
-
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -108,41 +83,50 @@
                     <generatedSourcesDirectory>target/generated-sources</generatedSourcesDirectory>
                     <compilerArgument>-parameters</compilerArgument>
 
-                    <useIncrementalCompilation>false</useIncrementalCompilation>
                 </configuration>
+
                 <executions>
+
                     <execution>
-                        <id>com</id>
+
                         <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
+
                     </execution>
+
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+
+                <configuration>
+
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+
+
+                </configuration>
                 <executions>
                     <execution>
+                        <id>make-assembly</id>
+
                         <phase>package</phase>
+
                         <goals>
-                            <goal>shade</goal>
+                            <goal>single</goal>
+
                         </goals>
-                        <configuration>
 
-                            <finalName>jdry-tester-1.0.0-SNAPSHOT</finalName>
-
-                        </configuration>
                     </execution>
-                </executions>
 
+                </executions>
             </plugin>
 
-
         </plugins>
-
     </build>
 
 </project>

@@ -174,7 +174,7 @@ public class Discovery extends AbstractDiscovery {
                 List<Object> sootItems = discovery();
                 logger.debug("successfully discover " + sootItems.size() + " sootItems");
 
-                discovery.put("discover",Configuration.get(Context.FILE_NAME).asString());
+                discovery.put("name",Configuration.get(Context.FILE_NAME).asString());
                 discovery.put("namespace",Configuration.get(Context.FILE_NAMESPACE).asString());
                 discovery.put("version",Configuration.get(Context.VERSION).asString());
                 discovery.put("doc",Configuration.get(Context.DOC).asString());

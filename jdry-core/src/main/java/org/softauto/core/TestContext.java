@@ -3,6 +3,7 @@ package org.softauto.core;
 import org.hamcrest.Condition;
 import org.softauto.analyzer.model.scenario.Scenario;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
