@@ -32,6 +32,8 @@ public class AbstractTesterImpl  {
     public ObjectMapper mapper = new ObjectMapper();
 
     public Scenario scenario;
+
+
     //public Test test;
 
     //private static TestContext jdryTestContext = new TestContext();

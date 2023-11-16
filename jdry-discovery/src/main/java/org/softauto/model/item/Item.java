@@ -1,7 +1,6 @@
 package org.softauto.model.item;
 
-import org.softauto.discovery.handlers.flow.ClassInfo;
-import soot.SootMethod;
+import org.softauto.clazz.ClassInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.Discover;
-import org.softauto.config.Configuration;
 import org.softauto.config.Context;
+import org.softauto.core.Configuration;
 import soot.*;
 import soot.options.Options;
 import java.util.*;
@@ -17,8 +17,6 @@ public abstract class AbstractDiscovery {
     private static Logger logger = LogManager.getLogger(Discover.class);
 
     List<String> argsList = new ArrayList();
-
-    //List<Object> items = new ArrayList<>();
 
     ObjectNode discovery = new ObjectMapper().createObjectNode();
 
@@ -38,7 +36,9 @@ public abstract class AbstractDiscovery {
     }
 
 
-
+    /**
+     * set soot configuration
+     */
     public AbstractDiscovery(){
         argsList.addAll(Arrays.asList(new String[]{
                 "-w",

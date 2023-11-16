@@ -3,8 +3,8 @@ package org.softauto.model.item;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.Discover;
-import org.softauto.discovery.handlers.flow.ClassInfo;
-import org.softauto.discovery.handlers.flow.FlowObject;
+import org.softauto.clazz.ClassInfo;
+import org.softauto.flow.FlowObject;
 import soot.Type;
 
 import java.util.ArrayList;

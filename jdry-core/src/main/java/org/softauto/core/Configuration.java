@@ -62,6 +62,17 @@ public class Configuration {
         return null;
     }
 
+    public <T>  List<T> asList(Class<T> t){
+        if(result != null) {
+            List<Object> l = new ArrayList<>();
+            if (result instanceof ArrayList) {
+                return (List<T>) result;
+            }
+            l.add(result);
+            return (List<T>) l;
+        }
+        return null;
+    }
 
     public HashMap<String,Object> asMap(){
         if(result !=null && result instanceof Map){

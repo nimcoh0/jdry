@@ -3,8 +3,8 @@ package org.softauto;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.config.Configuration;
 import org.softauto.config.Context;
+import org.softauto.core.Configuration;
 import org.softauto.discovery.Discovery;
 import org.softauto.utils.Util;
 
@@ -41,7 +41,6 @@ public class Discover {
                 Util.loadConfiguration(null);
             }
             initializeArgs(args);
-            //Util.addJarToClasspath(Configuration.get(Context.JAR_PATH).asList());
         }catch (Exception e){
            logger.error("initialize discovery fail ",e.getMessage());
         }

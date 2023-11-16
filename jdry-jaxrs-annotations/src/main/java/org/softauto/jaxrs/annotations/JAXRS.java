@@ -11,4 +11,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface JAXRS {
 
+    Authentication auth() default @Authentication;
+
 }

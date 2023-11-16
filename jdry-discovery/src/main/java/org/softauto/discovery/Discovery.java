@@ -7,19 +7,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.Discover;
-import org.softauto.config.Configuration;
 import org.softauto.config.Context;
-import org.softauto.discovery.filter.Filter;
-import org.softauto.discovery.filter.FilterByAnnotation;
-import org.softauto.discovery.filter.FilterByDomain;
-import org.softauto.discovery.handlers.HandleFlowDiscovery;
-import org.softauto.discovery.handlers.HandleMethodDiscovery;
-import org.softauto.discovery.handlers.flow.ClassInheritanceDiscovery;
-import org.softauto.discovery.handlers.flow.FlowObject;
-import org.softauto.discovery.handlers.flow.MethodTreeDiscovery;
-import org.softauto.discovery.handlers.method.DiscoveryByAnnotation;
+import org.softauto.core.Configuration;
+import org.softauto.filter.Filter;
+import org.softauto.filter.FilterByAnnotation;
+import org.softauto.filter.FilterByDomain;
+import org.softauto.handlers.HandleFiledDiscovery;
+import org.softauto.handlers.HandleFlowDiscovery;
+import org.softauto.handlers.HandleMethodDiscovery;
+import org.softauto.flow.FlowObject;
 import org.softauto.espl.Espl;
-import org.softauto.handlers.HandelClassAnnotation;
+import org.softauto.handlers.annotations.HandelClassAnnotation;
+import org.softauto.model.clazz.ClassFactory;
+import org.softauto.model.field.FieldFactory;
 import org.softauto.model.item.*;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CHATransformer;
@@ -87,28 +87,18 @@ public class Discovery extends AbstractDiscovery {
         try {
             CHATransformer.v().transform();
             CallGraph cg = Scene.v().getCallGraph();
-
-            /*
-            File file = new File("c:/tmp/sample.txt");
-            //Instantiating the PrintStream class
-            PrintStream stream = new PrintStream(file);
-            System.out.println("From now on "+file.getAbsolutePath()+" will be your console");
-            System.setOut(stream);
-
-
-             */
             for(SootClass sc : Scene.v().getApplicationClasses()) {
                 if (Filter.filter(new FilterByDomain().set(Configuration.get(Context.DOMAIN).asString()), sc)) {
                     Espl.getInstance().addProperty("class",sc);
                     if(sc.getModifiers() > 0) {
                         if (!isInClazzList(sc.getName())) {
                             clazzes.add(sc.getName());
-                            //for (SootField f : sc.getFields()) {
-                             //   SootField sootField = HandleFiledDiscovery.filedDiscovery(new DiscoveryFieldByAnnotation().set(Configuration.get(Context.DISCOVER_FIELD_BY_ANNOTATION).asList()), f);
-                             //   if (sootField != null) {
-                              //      sootItems.add(sootField);
-                              //  }
-                            //}
+                            for (SootField f : sc.getFields()) {
+                                SootField sootField = HandleFiledDiscovery.filedDiscovery(new DiscoveryFieldByAnnotation().set(Configuration.get(Context.DISCOVER_FIELD_BY_ANNOTATION).asList()), f);
+                                if (sootField != null) {
+                                    sootItems.add(sootField);
+                                }
+                            }
                         }
                     }
                     for (SootMethod m : sc.getMethods()) {
@@ -180,6 +170,7 @@ public class Discovery extends AbstractDiscovery {
                 discovery.put("doc",Configuration.get(Context.DOC).asString());
                 discovery.set("methods",new ObjectMapper().createObjectNode());
                 discovery.set("classes",new ObjectMapper().createObjectNode());
+                discovery.set("fields",new ObjectMapper().createObjectNode());
                 for(Object o : sootItems){
                     try {
                          if ((Boolean) new FilterByAnnotation().apply(o)) {
@@ -202,7 +193,13 @@ public class Discovery extends AbstractDiscovery {
                                     ((ObjectNode)discovery.get("classes")).set(item.getName(),node);
                                     logger.debug("successfully process Class for " + ((SootClass) o).getName());
                                 }
-
+                                 if (o instanceof SootField) {
+                                     Item item = new FieldFactory().setSootField((SootField)o).build().getItem();
+                                     String json = new ObjectMapper().writeValueAsString(item);
+                                     JsonNode node = new ObjectMapper().readTree(json);
+                                     ((ObjectNode)discovery.get("fields")).set(item.getName(),node);
+                                     logger.debug("successfully process Field for " + ((SootField) o).getName());
+                                  }
                             }
                     } catch (Exception e) {
                         logger.error("fail discovery for "+ ((SootMethod)o).getName(),e);

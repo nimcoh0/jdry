@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.softauto.config.Configuration;
 import org.softauto.config.Context;
 import org.softauto.config.DefaultConfiguration;
-import org.softauto.discovery.handlers.flow.FlowObject;
+import org.softauto.core.Configuration;
+import org.softauto.flow.FlowObject;
 import org.yaml.snakeyaml.Yaml;
 import soot.MethodOrMethodContext;
 import soot.jimple.toolkits.callgraph.CallGraph;
@@ -46,54 +46,7 @@ public class Util {
         }
     }
 
-    /*
-    public static boolean isExist(Item item, List<Object> items){
-        try {
-            for(Object i : items) {
-                if (i instanceof Item && ((Item)i).getType().equals("method")) {
-                    if (((Item)i).getNamespce().equals(item.getNamespce()) &&
-                            ((Item)i).getName().equals(item.getName()) &&
-                            ((Item)i).getParametersTypes().equals(item.getParametersTypes())) {
-                        logger.debug("item found " + item.getNamespce() + "." + item.getName());
-                        return true;
-                    }
-                }
-            }
-            logger.debug("item not found " +item.getNamespce()+ "."+item.getName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
-     */
-
-    /*
-    public static boolean isExist(Item item, HashMap<String,Object> items){
-        try {
-            if(!items.containsKey(item.getNamespce()+"."+item.getName())){
-                return false;
-            }
-            for(Map.Entry entry : items.entrySet()){
-                if (entry instanceof Item && ((Item)entry).getType().equals("method")) {
-                    if (((Item)entry).getNamespce().equals(item.getNamespce()) && ((Item)entry).getName().equals(item.getName())){
-                        if(((Item)entry).getParametersTypes().equals(item.getParametersTypes())){
-                            logger.debug("item found " + item.getNamespce() + "." + item.getName());
-                            return true;
-                        }else {
-
-                        }
-                    }
-                }
-            }
-            logger.debug("item not found " +item.getNamespce()+ "."+item.getName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-     */
 
     /**
      * convert object to json and save to file

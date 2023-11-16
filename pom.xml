@@ -9,21 +9,22 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>jdry-jaxrs</module>
+        <module>jdry-jaxrs-client-plugin</module>
         <module>jdry-annotations</module>
         <module>jdry-core</module>
         <module>jdry-model</module>
-        <module>jdry-grpc</module>
+        <module>jdry-grpc-server</module>
         <module>jdry-jaxrs-annotations</module>
         <module>jdry-testng</module>
         <module>jdry-serializer</module>
-        <module>jdry-grpc-client</module>
-        <module>jdry-jax-rs-plugin</module>
-        <module>jdry-web-spring-plugin</module>
+        <module>jdry-grpc-client-plugin</module>
+        <!--module>jdry-ws-rs-jakarta-plugin</module-->
+        <!--module>jdry-ws-rs-spring-plugin</module-->
         <module>jdry-discovery</module>
         <module>jdry-tools</module>
         <module>jdry-compiler</module>
         <module>jdry-tester</module>
+        <!--module>jdry-ws-rs-javax-plugin</module-->
     </modules>
 
     <properties>

@@ -4,10 +4,10 @@ package org.softauto.model.item;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.Discover;
-import org.softauto.discovery.handlers.flow.FlowObject;
-import org.softauto.handlers.HandelClassAnnotation;
-import org.softauto.handlers.HandelConstructorAnnotation;
-import org.softauto.handlers.HandleAnnotations;
+import org.softauto.flow.FlowObject;
+import org.softauto.handlers.annotations.HandelClassAnnotation;
+import org.softauto.handlers.annotations.HandelConstructorAnnotation;
+import org.softauto.handlers.annotations.HandleAnnotations;
 
 import java.util.ArrayList;
 import java.util.HashMap;

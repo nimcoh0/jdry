@@ -11,6 +11,8 @@ public @interface Authentication {
 
     AuthenticationType Schema() default AuthenticationType.NONE;
 
+    ProviderType provider() default ProviderType.JAKARTA;
+
     String username() default "";
 
     String password() default "";

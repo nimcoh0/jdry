@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jdry2</artifactId>
+        <groupId>org.softauto</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jdry-grpc-server</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+
+        </dependency>
+
+        <dependency>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-annotations</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-serializer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.20.0</version>
+
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>aspectj-maven-plugin</artifactId>
+            <version>1.14.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.0.1-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.9.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.olivergondza</groupId>
+            <artifactId>maven-jdk-tools-wrapper</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.27</version>
+        </dependency>
+        <dependency>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <encoding>UTF-8</encoding>
+                    <generatedTestSourcesDirectory>target/generated-test-sources/test-annotations</generatedTestSourcesDirectory>
+                    <generatedSourcesDirectory>target/generated-sources</generatedSourcesDirectory>
+                    <compilerArgument>-parameters</compilerArgument>
+                    <compilerArgs>
+                        <arg>-XDignore.symbol.file</arg>
+                    </compilerArgs>
+                    <fork>true</fork>
+                </configuration>
+
+                <executions>
+                    <execution>
+
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.14.0</version>
+
+                <configuration>
+                    <complianceLevel>1.8</complianceLevel>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <encoding>UTF-8</encoding>
+                    <verbose>true</verbose>
+                    <Xlint>ignore</Xlint>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <forceAjcCompile>true</forceAjcCompile>
+
+                    <sources>
+                        <source>
+                            <basedir>${basedir}</basedir>
+                            <includes>
+
+                                <include>**/*.java</include>
+                            </includes>
+
+                        </source>
+                    </sources>
+
+                </configuration>
+
+                <executions>
+                    <execution>
+
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <index>true</index>
+                        <manifestFile>
+                            src/main/resources/META-INF/MANIFEST.MF
+                        </manifestFile>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                        <manifestEntries>
+                            <Premain-Class>org.softauto.loader.Loader</Premain-Class>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+
+                        <phase>package</phase>
+
+                        <goals>
+                            <goal>single</goal>
+
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin1</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>**/Log4j2Plugins.dat</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+
+                            <finalName>project-name-product-1.0.0-SNAPSHOT</finalName>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+                                    <resource>MANIFEST.MF</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+                                    <resource>META-INF/MANIFEST.MF</resource>
+                                    <file>src/main/resources/META-INF/MANIFEST.MF</file>
+
+                                </transformer>
+
+                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+
+
+
+                            </transformers>
+                            <relocations>
+                                <relocation>
+                                    <pattern>io.netty</pattern>
+                                    <shadedPattern>io.netty1</shadedPattern>
+
+                                </relocation>
+                                <relocation>
+                                    <pattern>io.grpc</pattern>
+                                    <shadedPattern>io.grpc1</shadedPattern>
+
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
