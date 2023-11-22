@@ -16,12 +16,17 @@ public class Threadlocal {
     }
 
     public HashMap<String, Object>get() {
-        return threadlocal.get();
+        if(threadlocal.get() != null) {
+            return threadlocal.get();
+        }
+        return null;
     }
 
     public boolean has(String key){
-        if(threadlocal.get().containsKey(key)){
-            return true;
+        if(threadlocal.get() != null) {
+            if (threadlocal.get().containsKey(key)) {
+                return true;
+            }
         }
         return false;
     }

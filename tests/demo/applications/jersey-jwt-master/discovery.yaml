@@ -1,0 +1,31 @@
+---
+jar_path:
+    - "C:/work/myprojects/java/jdry-tests/demo/applications/jersey-jwt-master/target/original-jersey-jwt-1.0.jar"
+file_path: "target/generated-sources/"
+file_name: "jwt"
+file_namespace: "tests.infrastructure"
+class_dir:
+    - "C:/work/myprojects/java/jdry-tests/demo/applications/jersey-jwt-master/target/classes"
+main_class: "com.cassiomolin.example.Application"
+domain: "com.cassiomolin.example"
+include_childes: false
+group_by_class: true
+discover_field_by_annotation:
+    - "org.softauto.annotations.UpdateForTesting"
+    - "org.softauto.annotations.DataForTesting"
+discover_by_annotation:
+    - "org.softauto.annotations.ApiForTesting"
+    - "org.softauto.annotations.StepForTesting"
+    - "org.softauto.annotations.VerifyForTesting"
+    - "org.softauto.annotations.ListenerForTesting"
+    - "jakarta.ws.rs.Path"
+    - "jakarta.ws.rs.Consumes"
+    - "jakarta.ws.rs.Produces"
+    - "jakarta.ws.rs.POST"
+    - "jakarta.ws.rs.GET"
+    - "jakarta.ws.rs.DELETE"
+    - "jakarta.ws.rs.PUT"
+unbox_return_type:
+    - "jakarta.ws.rs.core.Response$ResponseBuilder"
+unbox_exclude_return_type:
+    - "jakarta.ws.rs.core.Response$Status"

@@ -139,7 +139,7 @@ public class SystemServiceImpl {
 
     private  void load()  {
         try {
-            InjectorInitializer.getInstance().initialize();
+           // InjectorInitializer.getInstance().initialize();
             ListenerClientProviderImpl.getInstance().initialize().register();
         }catch(Throwable e){
             logger.error("init fail ",e);

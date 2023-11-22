@@ -3,10 +3,7 @@ package org.softauto.analyzer.model.scenario;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Scenario implements Cloneable, Serializable {
 
@@ -20,7 +17,7 @@ public class Scenario implements Cloneable, Serializable {
     /**
      * scenario UUID
      */
-    String id;
+    String id ;
 
     String namespace;
 
@@ -50,6 +47,9 @@ public class Scenario implements Cloneable, Serializable {
         return properties;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public List<Object> getError() {
         return error;
@@ -117,10 +117,7 @@ public class Scenario implements Cloneable, Serializable {
         return id;
     }
 
-    public Scenario setId(String id) {
-        this.id = id;
-        return this;
-    }
+
 
     public String getNamespace() {
         return namespace;

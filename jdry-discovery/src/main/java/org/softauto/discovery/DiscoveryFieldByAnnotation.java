@@ -22,9 +22,11 @@ public class DiscoveryFieldByAnnotation implements IDiscovery {
             VisibilityAnnotationTag tag = (VisibilityAnnotationTag) sootField.getTag("VisibilityAnnotationTag");
             if (tag != null) {
                 for (AnnotationTag annotation : tag.getAnnotations()) {
-                    for (Object obj : annotations) {
-                        if (annotation.getType().contains(obj.toString().replace(".","/"))) {
-                            return sootField;
+                    if (annotations != null && annotations.size() > 0) {
+                        for (Object obj : annotations) {
+                            if (annotation.getType().contains(obj.toString().replace(".", "/"))) {
+                                return sootField;
+                            }
                         }
                     }
                 }

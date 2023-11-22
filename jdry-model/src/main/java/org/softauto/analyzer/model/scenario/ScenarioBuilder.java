@@ -29,7 +29,7 @@ public class ScenarioBuilder {
 
         private Integer order;
 
-        private String id;
+        String id ;
 
         String namespace;
 
@@ -48,12 +48,6 @@ public class ScenarioBuilder {
         public Builder setId(String id) {
             this.id = id;
             return this;
-        }
-
-
-
-        public String getId() {
-            return id;
         }
 
         public Builder setOrder(Integer order) {
@@ -86,7 +80,7 @@ public class ScenarioBuilder {
                 scenario.setSuiteName(suiteName);
 
             } catch (Exception e) {
-                logger.error("fail build Scenario "+ id,e);
+                logger.error("fail build Scenario "+ e);
             }
             return new ScenarioBuilder(scenario);
         }

@@ -12,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 import org.softauto.core.*;
 import org.softauto.espl.Espl;
 import org.softauto.listener.ListenerObserver;
+import org.softauto.plugin.ProviderManager;
+import org.softauto.plugin.api.Provider;
 import org.softauto.service.Client;
 import org.softauto.service.StepService;
 
@@ -25,7 +27,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 
-public class Step {
+public class Step implements IStep{
 
     private static Logger logger = LogManager.getLogger(Step.class);
     CallFuture<Object> future = null;
@@ -61,9 +63,18 @@ public class Step {
         return this;
     }
 
+
     public Step setTransceiver(String transceiver) {
         this.transceiver = transceiver;
         return this;
+    }
+
+
+
+    public <T> T setTransceiver(String pluginName,T transceiverType) {
+        this.transceiver = pluginName;
+        Provider provider = ProviderManager.provider(transceiver).create();
+        return (T)provider;
     }
 
 

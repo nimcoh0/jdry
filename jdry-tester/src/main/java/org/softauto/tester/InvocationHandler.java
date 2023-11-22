@@ -35,7 +35,7 @@ public class InvocationHandler {
     public  void invoke(String methodName, Object[] args, Class[] types, org.apache.avro.ipc.Callback callback, String transceiver, HashMap<String,Object> callOptions)  {
         try {
             Provider provider = ProviderManager.provider(transceiver).create();
-            logger.debug("invoke method " + methodName+ " using protocol "+ transceiver+ " call options "+ Arrays.toString(callOptions.entrySet().toArray()));
+            logger.debug("invoke method " + methodName+ " using protocol "+ transceiver);
             provider.exec( methodName, callback,null,args,types,callOptions,SystemState.getInstance().getScenarioId());
             //logger.debug("callback value  get error "+callback.getError());
         } catch (Throwable e) {
@@ -47,7 +47,7 @@ public class InvocationHandler {
     public  Object invoke(String methodName, Object[] args, Class[] types,  String transceiver, HashMap<String,Object> callOptions)  {
         try {
             Provider provider = ProviderManager.provider(transceiver).create();
-            logger.debug("invoke method " + methodName+ " using protocol "+ transceiver+ " call options "+ Arrays.toString(callOptions.entrySet().toArray()));
+            logger.debug("invoke method " + methodName+ " using protocol "+ transceiver);
             return provider.exec( methodName, null,args,types,callOptions, SystemState.getInstance().getScenarioId());
             //logger.debug("callback value  get error "+callback.getError());
         } catch (Throwable e) {

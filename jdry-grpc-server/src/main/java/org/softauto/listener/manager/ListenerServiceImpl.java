@@ -10,6 +10,7 @@ import org.softauto.listener.impl.Threadlocal;
 import org.softauto.serializer.Serializer;
 import org.softauto.serializer.service.Message;
 import org.softauto.serializer.service.MessageBuilder;
+import org.softauto.system.ScenarioContext;
 import org.softauto.system.Scenarios;
 
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class ListenerServiceImpl implements ListenerService {
 
     private HashMap<String,Object> getConfiguration(String scenarioId){
         if(scenarioId != null) {
-            return Scenarios.getScenario(scenarioId).getConfiguration();
+           return Scenarios.getScenario(scenarioId).getConfiguration();
         }
         return null;
     }
@@ -108,10 +109,10 @@ public class ListenerServiceImpl implements ListenerService {
                 }
             }
         } catch (Exception e) {
-            if (e.getCause().toString().contains("UNAVAILABLE")) {
-                logger.debug("fail on UNAVAILABLE ", e);
+            //if (e.getCause().toString().contains("UNAVAILABLE")) {
+             //   logger.debug("fail on UNAVAILABLE ", e);
 
-            }
+            //}
             logger.debug("send message "+methodName+" fail  ",e );
         }
         logger.debug("returning from Exception" );

@@ -12,8 +12,8 @@
     <artifactId>jdry-grpc-server</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -29,13 +29,13 @@
             <groupId>org.softauto</groupId>
             <artifactId>jdry-annotations</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+
         </dependency>
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-serializer</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+
         </dependency>
 
         <dependency>
@@ -133,7 +133,7 @@
             <groupId>org.softauto</groupId>
             <artifactId>jdry-model</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+
         </dependency>
 
     </dependencies>
@@ -146,8 +146,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <encoding>UTF-8</encoding>
                     <generatedTestSourcesDirectory>target/generated-test-sources/test-annotations</generatedTestSourcesDirectory>
                     <generatedSourcesDirectory>target/generated-sources</generatedSourcesDirectory>
@@ -242,7 +242,7 @@
                 </executions>
             </plugin>
 
-            <plugin>
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin1</artifactId>
                 <version>3.4.1</version>
@@ -298,7 +298,7 @@
                     </execution>
                 </executions>
 
-            </plugin>
+            </plugin-->
 
         </plugins>
 

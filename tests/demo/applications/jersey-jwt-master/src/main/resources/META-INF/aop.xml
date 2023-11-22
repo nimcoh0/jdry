@@ -1,0 +1,8 @@
+<aspectj>
+    <aspects>
+        <weaver options="-verbose  ">
+            <include within="com.cassiomolin.example..*"/>
+        </weaver>
+    </aspects>
+
+</aspectj>

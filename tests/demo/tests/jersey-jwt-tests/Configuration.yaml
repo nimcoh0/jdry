@@ -1,0 +1,13 @@
+---
+host: "localhost"
+port: 8085
+jaxrs:
+  host: "localhost"
+  port: "8080"
+  protocol: "HTTP"
+  auth: "JWT"
+
+
+
+
+
