@@ -2,7 +2,7 @@ package org.softauto.tool;
 
 
 import org.softauto.tool.tools.AnalyzeTool;
-import org.softauto.tool.tools.CompileToStepsTool;
+import org.softauto.tool.tools.CompileTool;
 import org.softauto.tool.tools.DiscoveryTool;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -23,7 +23,7 @@ public class Main {
 
     Main() {
         tools = new TreeMap<>();
-        for (Tool tool : new Tool[] { new DiscoveryTool(), new CompileToStepsTool(), new AnalyzeTool()}) {
+        for (Tool tool : new Tool[] { new DiscoveryTool(), new CompileTool(), new AnalyzeTool()}) {
             Tool prev = tools.put(tool.getName(), tool);
             if (prev != null) {
                 throw new AssertionError("Two tools with identical names: " + tool + ", " + prev);

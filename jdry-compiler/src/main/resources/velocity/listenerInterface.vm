@@ -1,10 +1,10 @@
-#if ($discovery.has("namespace"))
-package $discovery.get("namespace").asText();
+#if ($analyze.has("namespace"))
+package $analyze.get("namespace").asText();
 #end
 
-public interface ${discovery.get("name").asText()}ListenerService {
-
-#foreach ($listener in $discovery.get("listeners"))
+public interface ${analyze.get("name").asText()}ListenerService {
+    public static final org.softauto.core.Analyze analyze = org.softauto.core.Analyze.parse("$this.javaEscape($analyze)");
+#foreach ($listener in $analyze.get("listeners"))
 #set ($name = ($listener.get("fullname").asText()))
 org.softauto.tester.Listener $name(##
 ##foreach ($type in $listener.get("parametersTypes"))##

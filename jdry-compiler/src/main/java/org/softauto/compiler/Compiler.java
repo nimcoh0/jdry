@@ -33,7 +33,7 @@ public class Compiler {
 
     private static ArrayNode steps = new ObjectMapper().createArrayNode();
 
-    private static ObjectNode listeners = new ObjectMapper().createObjectNode();
+    private static ArrayNode listeners = new ObjectMapper().createArrayNode();
 
     private static String name;
 
@@ -248,7 +248,7 @@ public class Compiler {
         try {
             suite.put("name",jsonNode.get("name").asText());
             suite.put("namespace",jsonNode.get("namespace").asText());
-            for(JsonNode node : jsonNode.get("methods")) {
+            for(JsonNode node : jsonNode.get("steps")) {
                 if(node.get("type").asText().equals("listener")) {
                     ((ObjectNode) node).put("fullname", (node.get("namespce").asText() + "." + node.get("name").asText()).replace(".", "_"));
                     parseListener(node);
@@ -261,7 +261,7 @@ public class Compiler {
     }
 
     private static void parseListener(JsonNode node){
-        listeners.set(node.get("namespce").asText()+"."+node.get("name").asText(),node);
+        listeners.add(node);
     }
 
     public static void compileListeners(File[] srcFiles, File dest) throws IOException {
@@ -325,9 +325,9 @@ public class Compiler {
         return outputFile;
     }
 
-    OutputFile compileListener(JsonNode discovery) {
+    OutputFile compileListener(JsonNode analyzer) {
         VelocityContext context = new VelocityContext();
-        context.put("discovery", discovery);
+        context.put("analyze", analyzer);
         context.put("this", this);
         for (Object velocityTool : additionalVelocityTools) {
             String toolName = velocityTool.getClass().getSimpleName().toLowerCase();
@@ -337,8 +337,8 @@ public class Compiler {
         String out = renderTemplate(templateDir + "listenerInterface.vm", context);
 
         OutputFile outputFile = new OutputFile();
-        String mangledName = mangle(discovery.get("name").asText()+"ListenerService");
-        outputFile.path = makePath(mangledName, discovery.get("namespace").asText());
+        String mangledName = mangle(suite.get("name").asText()+"ListenerService");
+        outputFile.path = makePath(mangledName, suite.get("namespace").asText());
         outputFile.contents = out;
         outputFile.outputCharacterEncoding = outputCharacterEncoding;
         logger.debug("write output to " + outputFile);
@@ -376,10 +376,10 @@ public class Compiler {
     }
 
 
-    public static void compileListeners(String discovery,String output)throws Exception{
+    public static void compileListeners(String analyzer,String output)throws Exception{
         logger.info("-------------- compile listeners ---------------- ");
-        compileListenerInterface(new File(discovery), new File(output));
-        logger.debug("input file "+ discovery);
+        compileListenerInterface(new File(analyzer), new File(output));
+        logger.debug("input file "+ analyzer);
         logger.debug("output file "+ output);
         logger.info("listeners compile finsh successfully");
     }

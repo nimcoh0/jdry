@@ -2,6 +2,7 @@ package org.softauto.core;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -22,6 +23,8 @@ public class Analyze {
 
 
     List<GenericItem> steps = new ArrayList<>();
+
+    List<GenericItem> listeners = new ArrayList<>();
 
 
 
@@ -75,6 +78,20 @@ public class Analyze {
         return this;
     }
 
+    public List<GenericItem> getListeners() {
+        return listeners;
+    }
+
+    public Analyze setListeners(List<GenericItem> listeners) {
+        this.listeners = listeners;
+        return this;
+    }
+
+    public Analyze addListener(GenericItem listener) {
+        this.listeners.add(listener);
+        return this;
+    }
+
     public String toJson(){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -91,7 +108,9 @@ public class Analyze {
 
     public static Analyze parse(String json){
         try {
-          return new ObjectMapper().readValue(json,Analyze.class);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+            return objectMapper.readValue(json,Analyze.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

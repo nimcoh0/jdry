@@ -44,7 +44,8 @@ public class jwtServiceTests extends AbstractTesterImpl {
 
     @BeforeTest
     public void init(){
-        listeners = (jwtListenerService) org.softauto.service.ListenerService.create(jwtListenerService.class).getListeners();
+        //listeners = (jwtListenerService) org.softauto.service.ListenerService.create(jwtListenerService.class).getListeners();
+        listeners = JdryClient.create(jwtListenerService.class);
         //clientCallback = Client.create(jwtService.Callback.class).build();
         testsCallback = JdryClient.create(jwtService.Callback.class);
         //client = Client.create(jwtService.class).build();

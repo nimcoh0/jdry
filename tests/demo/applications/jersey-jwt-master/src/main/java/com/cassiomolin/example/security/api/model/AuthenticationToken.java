@@ -1,5 +1,6 @@
 package com.cassiomolin.example.security.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.softauto.annotations.ListenerForTesting;
 import org.softauto.annotations.ListenerType;
 
