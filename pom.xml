@@ -23,12 +23,14 @@
         <module>jdry-tester</module>
         <module>jdry-jaxrs-javax-client-plugin</module>
         <module>jdry-jaxrs-jakarta-client-plugin</module>
+        <module>jdry-analyzer</module>
+        <module>jdry-jax-rs-analyzer</module>
     </modules>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <jdry-core-analyzer>1.0-SNAPSHOT</jdry-core-analyzer>
+        <jdry-analyzer>1.0-SNAPSHOT</jdry-analyzer>
         <jdry-base-analyzer>1.0-SNAPSHOT</jdry-base-analyzer>
         <jdry-annotations-analyzer>1.0-SNAPSHOT</jdry-annotations-analyzer>
         <jdry-annotations>1.0-SNAPSHOT</jdry-annotations>

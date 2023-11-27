@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.core.Configuration;
-import org.softauto.injector.jvm.HeapHelperInitializer;
+//import org.softauto.injector.jvm.HeapHelperInitializer;
 import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FileReader;
@@ -40,7 +40,7 @@ public class InjectorInitializer {
     public InjectorInitializer initialize() throws IOException {
         try {
                 loadConfiguration();
-                HeapHelperInitializer.getInstance().initialize();
+                //HeapHelperInitializer.getInstance().initialize();
                 injector = new Injector();
                 logger.info("Injector successfully initialize");
         }catch (Throwable e){
@@ -52,7 +52,7 @@ public class InjectorInitializer {
     public InjectorInitializer initialize(HashMap<String, Object> map) throws IOException {
         try {
             loadConfiguration(map);
-            HeapHelperInitializer.getInstance().initialize();
+            //HeapHelperInitializer.getInstance().initialize();
             injector = new Injector();
             logger.info("Injector successfully initialize");
         }catch (Throwable e){

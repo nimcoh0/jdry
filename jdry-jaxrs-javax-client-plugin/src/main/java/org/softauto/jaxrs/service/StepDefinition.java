@@ -1,5 +1,6 @@
 package org.softauto.jaxrs.service;
 
+
 public class StepDefinition {
 
     private IStepDescriptor step;

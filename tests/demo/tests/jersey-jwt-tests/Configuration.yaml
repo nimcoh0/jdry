@@ -6,7 +6,7 @@ jaxrs:
   port: "8080"
   protocol: "HTTP"
   auth: "JWT"
-
+  base_url: "/api"
 
 
 

@@ -4,12 +4,15 @@ import com.cassiomolin.example.security.api.model.UserCredentials;
 import com.cassiomolin.example.user.domain.Person;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.InvocationCallback;
+import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.avro.ipc.CallFuture;
+import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Assert;
+import org.softauto.jaxrs.filter.RequestClientFilter;
 import org.softauto.jaxrs.cli.WebCallOption;
-import org.softauto.service.Client;
+import org.softauto.service.JdryClient;
 import org.softauto.tester.AbstractTesterImpl;
 import org.softauto.tester.Listener;
 import org.testng.annotations.BeforeTest;
@@ -27,21 +30,29 @@ public class jwtServiceTests extends AbstractTesterImpl {
 
     jwtListenerService listeners;
 
-    Client clientCallback;
+    JdryClient jdryClientCallback;
 
-    Client client;
+    JdryClient jdryClient;
 
     jwtService.Callback testsCallback;
 
     jwtService tests;
 
+
+
+    ClientConfig clientConfig;
+
     @BeforeTest
     public void init(){
         listeners = (jwtListenerService) org.softauto.service.ListenerService.create(jwtListenerService.class).getListeners();
-        clientCallback = Client.create(jwtService.Callback.class).build();
-        client = Client.create(jwtService.class).build();
-        testsCallback = (jwtService.Callback) clientCallback.getTests();
-        tests = (jwtService) client.getTests();
+        //clientCallback = Client.create(jwtService.Callback.class).build();
+        testsCallback = JdryClient.create(jwtService.Callback.class);
+        //client = Client.create(jwtService.class).build();
+        tests = JdryClient.create(jwtService.class);
+        //testsCallback = (jwtService.Callback) clientCallback.getTests();
+        //tests = (jwtService) client.getTests();
+        clientConfig = new ClientConfig();
+        clientConfig.register(RequestClientFilter.class);
     }
 
     /**
@@ -133,7 +144,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     @Test
     public void asyncLoginUsingJdryJaxrsClientWithListenerBefore(){
         try {
-            CallFuture<javax.ws.rs.core.Response> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
+            CallFuture<String> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
 
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
@@ -260,9 +271,17 @@ public class jwtServiceTests extends AbstractTesterImpl {
             credentials.setUsername("user");
             credentials.setPassword("password");
 
+            Object result = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result();
+
+            Response response = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().setTransceiver("JAXRS")
+                    .setClientBuilder(javax.ws.rs.client.ClientBuilder.newClient((Configuration) clientConfig)).
+                        target("http://localhost:8080").path("/api/auth").request().post(Entity.entity(credentials, MediaType.APPLICATION_JSON) );
+
+
+
             javax.ws.rs.client.Client client = org.softauto.jaxrs.cli.ClientBuilder.newClient();
-            Response response = client.target("http://localhost:8080").path("/api/auth").request().post(Entity.entity(credentials, MediaType.APPLICATION_JSON) );
-            Object o = response.readEntity(HashMap.class);
+            Response response2 = client.target("http://localhost:8080").path("/api/auth").request().post(Entity.entity(credentials, MediaType.APPLICATION_JSON) );
+            Object o = response2.readEntity(HashMap.class);
             Response response1 = client.target("http://localhost:8080").path("api").path("greetings").path("public").request().get();
             String o1 = response1.readEntity(String.class);
             Assert.assertTrue(o1 != null);
@@ -276,7 +295,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     public void findAllUsersUsingJdryRpc(){
         try {
             HashMap<String,Object> callOption = mapper.readValue("{\"constructor\":[]}",HashMap.class);
-            List<Person> people =  tests.com_cassiomolin_example_user_service_UserService_findAll().setTransceiver("RPC").setCallOptions(callOption).invoke().get_Result();
+            List<Person> people =  tests.com_cassiomolin_example_user_service_PersonService_findAll().setTransceiver("RPC").setCallOptions(callOption).invoke().get_Result();
             Assert.assertTrue(people.size()>0 );
         }catch (Exception e){
             e.printStackTrace();

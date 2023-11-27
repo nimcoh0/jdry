@@ -36,7 +36,7 @@ public class Application {
      *
      * @param args
      */
-    public static void main(final String[] args) {
+    public static void main(java.lang.String[] args) {
         startServer(DEFAULT_PORT);
     }
 

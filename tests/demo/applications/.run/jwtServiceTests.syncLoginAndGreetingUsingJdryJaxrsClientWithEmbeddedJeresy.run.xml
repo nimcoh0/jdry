@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="jwtServiceTests.syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJeresy" type="TestNG" nameIsGenerated="true">
+    <module name="jersey-jwt-tests" />
     <shortenClasspath name="NONE" />
     <useClassPathOnly />
     <extension name="coverage">
@@ -14,7 +15,6 @@
     <option name="METHOD_NAME" value="syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJeresy" />
     <option name="GROUP_NAME" value="" />
     <option name="TEST_OBJECT" value="METHOD" />
-    <option name="VM_PARAMETERS" value="-ea --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/jdk.internal.loader=ALL-UNNAMED" />
     <option name="PARAMETERS" value="" />
     <option name="OUTPUT_DIRECTORY" value="" />
     <option name="TEST_SEARCH_SCOPE">

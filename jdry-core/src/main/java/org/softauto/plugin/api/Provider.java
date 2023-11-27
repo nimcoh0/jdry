@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.grpc.ManagedChannel;
 //import org.softauto.core.CallFuture;
 import org.apache.avro.ipc.CallFuture;
+import org.apache.avro.ipc.Callback;
+import org.softauto.core.IChannelDescriptor;
+import org.softauto.core.IStepDescriptor;
 
 
 import javax.lang.model.element.Element;
@@ -50,8 +53,13 @@ public interface Provider {
       */
      Provider iface(Class iface);
 
+     //IStepDescriptor buildStepDescriptor(String stepName, Object[] args, Class[] types, HashMap<String,Object> callOptions, String scenarioId, String auth, Callback<Object> callback);
+
+     //IChannelDescriptor buildChannelDescriptor();
 
      //<RespT> void exec(String name, org.softauto.serializer.CallFuture<RespT> callback, ManagedChannel channel,Object...args);
+     //<RespT> Object exec(IStepDescriptor testDescriptor) ;
+     //<RespT> void exec(IStepDescriptor testDescriptor,org.apache.avro.ipc.Callback<Object> future);
      <RespT> Object exec(String name, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions,String scenarioId);
      <RespT> void exec(String name, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions,String scenarioId);
 }

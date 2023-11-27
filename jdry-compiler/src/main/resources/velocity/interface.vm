@@ -1,10 +1,10 @@
-#if ($discovery.has("namespace"))
-package $discovery.get("namespace").asText();
+#if ($analyze.has("namespace"))
+package $analyze.get("namespace").asText();
 #end
 
-public interface ${discovery.get("name").asText()}Service {
-
-#foreach ($step in $discovery.get("steps"))
+public interface ${analyze.get("name").asText()}Service {
+    public static final org.softauto.core.Analyze analyze = org.softauto.core.Analyze.parse("$this.javaEscape($analyze)");
+#foreach ($step in $analyze.get("steps"))
 #set ($name = $step.get("fullname").asText())
 org.softauto.tester.Step $name(##
 #foreach ($type in $step.get("parametersTypes"))##
@@ -13,8 +13,9 @@ org.softauto.tester.Step $name(##
 ) throws Exception;
 
 #end
-public interface Callback extends ${discovery.get("name").asText()}Service {
-#foreach ($step in $discovery.get("steps"))
+public interface Callback extends ${analyze.get("name").asText()}Service {
+    public static final org.softauto.core.Analyze analyze = tests.infrastructure.${analyze.get("name").asText()}Service.analyze;
+#foreach ($step in $analyze.get("steps"))
 #set ($name = $step.get("fullname").asText())
 #set ($response = $step.get("returnType").asText())
 org.softauto.tester.Step  $name(##

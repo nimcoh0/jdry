@@ -3,6 +3,7 @@ package org.softauto.jaxrs.cli;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.core.Configuration;
 import org.glassfish.jersey.client.ClientConfig;
+import org.softauto.jaxrs.filter.RequestClientFilter;
 
 
 public abstract class ClientBuilder extends jakarta.ws.rs.client.ClientBuilder{

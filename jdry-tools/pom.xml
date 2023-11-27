@@ -33,6 +33,11 @@
             <groupId>org.softauto</groupId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <artifactId>jdry-analyzer</artifactId>
+            <groupId>org.softauto</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 

@@ -5,23 +5,15 @@
  */
 package org.softauto.tester;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.avro.ipc.CallFuture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.softauto.core.*;
 import org.softauto.espl.Espl;
-import org.softauto.listener.ListenerObserver;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.api.Provider;
-import org.softauto.service.Client;
-import org.softauto.service.StepService;
 
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -70,8 +62,12 @@ public class Step implements IStep{
     }
 
 
+    public <T> T setClientBuilder(T clientBuilder) {
+        //this.clientBuilder = clientBuilder;
+        return clientBuilder;
+    }
 
-    public <T> T setTransceiver(String pluginName,T transceiverType) {
+    public <T> T setTransceiver(String pluginName, T transceiverType) {
         this.transceiver = pluginName;
         Provider provider = ProviderManager.provider(transceiver).create();
         return (T)provider;
@@ -141,6 +137,7 @@ public class Step implements IStep{
      */
 
 
+
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,org.apache.avro.ipc.Callback<Object> future)throws Exception{
 
             logger.debug("invoking " + fqmn);
@@ -148,6 +145,8 @@ public class Step implements IStep{
             this.args = args;
             this.types = types;
             this.callback = future;
+            this.setTransceiver(transceiver);
+            this.setCallOptions(callOptions);
 
         //new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
     }
@@ -158,25 +157,30 @@ public class Step implements IStep{
             this.fqmn = fqmn;
             this.args = args;
             this.types = types;
+            this.setTransceiver(transceiver);
+            this.setCallOptions(callOptions);
 
         //this.callback = future;
         //new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
     }
 
     public <RespT> Step invoke() throws Exception {
+        if (this.callback == null) {
+            result = new InvocationHandler().invoke(fqmn, args, types, transceiver, callOptions);
+        } else {
+            new InvocationHandler().invoke(fqmn, args, types, callback, transceiver, callOptions);
+        }
+        return this;
+    }
+
+    /*
+    public <RespT> Step invoke() throws Exception {
 
             if (this.callback == null) {
                 result = new InvocationHandler().invoke(fqmn, args, types, transceiver, callOptions);
             } else {
                 new InvocationHandler().invoke(fqmn, args, types, callback, transceiver, callOptions);
-            /*
-            if(((CallFuture)callback).getResult() != null) {
-                String newContent = new String(((ByteBuffer) ((CallFuture) callback).getResult()).array(), StandardCharsets.UTF_8);
-                result =  new ObjectMapper().readValue(newContent,Object.class);
-                callback.handleResult( result);
-            }
 
-             */
                 //String newContent = new String(((ByteBuffer)((CallFuture)callback).getResult()).array(), StandardCharsets.UTF_8);
                 //result =  new ObjectMapper().readValue(newContent,Object.class);
             }
@@ -189,6 +193,7 @@ public class Step implements IStep{
       //return callFuture.get();
      // return   new Step(fqmn, args, types, transceiver, callOptions, callback);
     }
+    */
 
     public Step(String fqmn, Object[] args, Class[] types, String transceiver,CallOptions callOptions,String scenarioId)throws Exception{
 

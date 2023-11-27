@@ -80,16 +80,22 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
         boolean first = true;
         List<Integer> argumentsRequestTypeArray = new ArrayList<>();
         if (this.callOptions.containsKey("argumentsRequestType")) {
-            HashMap<String, Object> argumentsRequestTypes = (HashMap<String, Object>) callOptions.get("argumentsRequestType");
-            for(Map.Entry entry : argumentsRequestTypes.entrySet()){
-                if(entry.getKey().equals("QueryParam") || entry.getKey().equals("RequestParam")){
-                    if(entry.getValue() instanceof ArrayList<?>) {
-                        for(Object o : (ArrayList)entry.getValue()){
-                            argumentsRequestTypeArray.add(Integer.valueOf(((HashMap<String,Object>)o).get("index").toString()));
+            if(callOptions.get("argumentsRequestType") instanceof HashMap) {
+                HashMap<String, Object> argumentsRequestTypes = (HashMap<String, Object>) callOptions.get("argumentsRequestType");
+                for (Map.Entry entry : argumentsRequestTypes.entrySet()) {
+                    if (entry.getKey().equals("QueryParam") || entry.getKey().equals("RequestParam")) {
+                        if (entry.getValue() instanceof ArrayList<?>) {
+                            for (Object o : (ArrayList) entry.getValue()) {
+                                argumentsRequestTypeArray.add(Integer.valueOf(((HashMap<String, Object>) o).get("index").toString()));
+                            }
+                        } else {
+                            argumentsRequestTypeArray.add(Integer.valueOf(((HashMap<String, Object>) entry.getValue()).get("index").toString()));
                         }
-                    }else {
-                        argumentsRequestTypeArray.add(Integer.valueOf(((HashMap<String,Object>)entry.getValue()).get("index").toString()));
                     }
+                }
+            }else if(callOptions.get("argumentsRequestType") instanceof ArrayList<?>) {
+                for(int i = 0;i<((ArrayList<?>) callOptions.get("argumentsRequestType")).size();i++){
+                    argumentsRequestTypeArray.add(i);
                 }
             }
         }

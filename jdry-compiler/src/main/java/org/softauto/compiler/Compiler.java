@@ -29,7 +29,7 @@ public class Compiler {
     private String suffix = ".java";
     private String outputCharacterEncoding;
 
-    private static ObjectNode discovery = new ObjectMapper().createObjectNode();
+    private static ObjectNode suite = new ObjectMapper().createObjectNode();
 
     private static ArrayNode steps = new ObjectMapper().createArrayNode();
 
@@ -200,15 +200,15 @@ public class Compiler {
 
     private static void parseSteps(JsonNode jsonNode){
         try {
-            discovery.put("name",jsonNode.get("name").asText());
-            discovery.put("namespace",jsonNode.get("namespace").asText());
-            for(JsonNode node : jsonNode.get("methods")) {
+            suite.put("name",jsonNode.get("name").asText());
+            suite.put("namespace",jsonNode.get("namespace").asText());
+            for(JsonNode node : jsonNode.get("steps")) {
                 if(node.get("type").asText().equals("method")) {
                     ((ObjectNode) node).put("fullname", (node.get("namespce").asText() + "." + node.get("name").asText()).replace(".", "_"));
                     parseStep(node);
                 }
             }
-            discovery.set("steps",steps);
+            suite.set("steps",steps);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -246,15 +246,15 @@ public class Compiler {
 
     private static void parseListeners(JsonNode jsonNode){
         try {
-            discovery.put("name",jsonNode.get("name").asText());
-            discovery.put("namespace",jsonNode.get("namespace").asText());
+            suite.put("name",jsonNode.get("name").asText());
+            suite.put("namespace",jsonNode.get("namespace").asText());
             for(JsonNode node : jsonNode.get("methods")) {
                 if(node.get("type").asText().equals("listener")) {
                     ((ObjectNode) node).put("fullname", (node.get("namespce").asText() + "." + node.get("name").asText()).replace(".", "_"));
                     parseListener(node);
                 }
             }
-            discovery.set("listeners",listeners);
+            suite.set("listeners",listeners);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -277,13 +277,13 @@ public class Compiler {
 
     public void compileToSteps(File src, File dst) throws IOException {
         if (steps != null) {
-            compileSteps(discovery).writeToDestination(src, dst);
+            compileSteps(suite).writeToDestination(src, dst);
         }
     }
 
     public void compileToListeners(File src, File dst) throws IOException {
         if (listeners != null) {
-            compileListener(discovery).writeToDestination(src, dst);
+            compileListener(suite).writeToDestination(src, dst);
         }
     }
 
@@ -305,9 +305,9 @@ public class Compiler {
 
 
 
-    OutputFile compileSteps(JsonNode discovery) {
+    OutputFile compileSteps(JsonNode analyzer) {
         VelocityContext context = new VelocityContext();
-        context.put("discovery", discovery);
+        context.put("analyze", analyzer);
         context.put("this", this);
         for (Object velocityTool : additionalVelocityTools) {
             String toolName = velocityTool.getClass().getSimpleName().toLowerCase();
@@ -317,8 +317,8 @@ public class Compiler {
         String out = renderTemplate(templateDir + "interface.vm", context);
 
         OutputFile outputFile = new OutputFile();
-        String mangledName = mangle(discovery.get("name").asText()+"Service");
-        outputFile.path = makePath(mangledName, discovery.get("namespace").asText());
+        String mangledName = mangle(suite.get("name").asText()+"Service");
+        outputFile.path = makePath(mangledName, suite.get("namespace").asText());
         outputFile.contents = out;
         outputFile.outputCharacterEncoding = outputCharacterEncoding;
         logger.debug("write output to " + outputFile);
@@ -384,10 +384,10 @@ public class Compiler {
         logger.info("listeners compile finsh successfully");
     }
 
-    public static void compileSteps(String discovery,String output)throws Exception{
+    public static void compileSteps(String analyzer,String output)throws Exception{
         logger.info("-------------- compile steps  ---------------- ");
-        compileStepsInterface(new File(discovery), new File(output));
-        logger.debug("input file "+ discovery);
+        compileStepsInterface(new File(analyzer), new File(output));
+        logger.debug("input file "+ analyzer);
         logger.debug("output file "+ output);
         logger.info("Steps compile finsh successfully");
     }
@@ -403,6 +403,7 @@ public class Compiler {
     public String unCapitalizeFirstLetter(String str){
         return str.toLowerCase().charAt(0)+str.substring(1,str.length());
     }
+
 
     public static String getJavaStringFullName(String str){
         return str.replace(".","_");

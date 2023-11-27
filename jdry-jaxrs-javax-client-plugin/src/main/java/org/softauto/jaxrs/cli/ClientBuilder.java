@@ -1,12 +1,14 @@
 package org.softauto.jaxrs.cli;
 
 import org.glassfish.jersey.client.ClientConfig;
+import org.softauto.jaxrs.filter.RequestClientFilter;
+
 import javax.ws.rs.core.Configuration;
 import javax.ws.rs.client.Client;
 
 
 
-public abstract class ClientBuilder extends javax.ws.rs.client.ClientBuilder{
+public abstract class ClientBuilder extends javax.ws.rs.client.ClientBuilder  {
 
     public static Client newClient(final Configuration configuration) {
         ((ClientConfig)configuration).register(RequestClientFilter.class);

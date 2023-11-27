@@ -1,8 +1,8 @@
 package org.softauto.jaxrs.auth.basic;
 
-import jakarta.ws.rs.client.ClientRequestContext;
-import jakarta.ws.rs.client.ClientResponseContext;
-import jakarta.ws.rs.client.ClientResponseFilter;
+import javax.ws.rs.client.ClientRequestContext;
+import javax.ws.rs.client.ClientResponseContext;
+import javax.ws.rs.client.ClientResponseFilter;
 import org.softauto.core.TestContext;
 
 import java.io.IOException;
