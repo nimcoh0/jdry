@@ -6,6 +6,7 @@ import org.softauto.analyzer.core.system.plugin.api.Provider;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.analyzer.core.utils.Analyzer;
 import org.softauto.jaxrs.analyzer.analyzers.AnalyzeAnnotations;
+import org.softauto.jaxrs.analyzer.handlers.HandleRequestType;
 import org.softauto.jaxrs.analyzer.util.CallOptionBuilder;
 
 import java.util.*;
@@ -41,8 +42,11 @@ public class BaseInitializer implements Analyzer {
                                 .getCallOption();
                         callOption.put("argumentsNames", tree.getArgumentsNames());
                         callOption.put("protocol", "JAXRS");
-                        callOption.put("argumentsRequestType", tree.getParametersTypes());
-
+                        //callOption.put("argumentsRequestType", tree.getParametersTypes());
+                        HashMap<String, Object> argumentsRequestType = HandleRequestType.setTree(tree).build().getArgumentsRequestType();
+                        if (argumentsRequestType.size() > 0) {
+                            callOption.put("argumentsRequestType", argumentsRequestType);
+                        }
 
                         logger.debug("successfully initialize plugin data " + tree.getName());
                         return callOption;

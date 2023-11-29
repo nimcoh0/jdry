@@ -153,6 +153,25 @@ public  class AnnotationHelper {
         return new AnnotationHelper(mapList);
     }
 
+    public static boolean isContains(LinkedList<String> pathList,LinkedHashMap<String, Object> annotations){
+        for(String path : pathList) {
+            boolean result =  isContains(path, annotations);
+            if(result){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isContains(String path,LinkedHashMap<String, Object> annotations){
+        for(Map.Entry entry : annotations.entrySet()){
+            if(entry.getKey().toString().contains(path)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isExist(String path,LinkedHashMap<String, Object> annotations){
        return isExist(path,annotations,null);
     }
@@ -173,6 +192,18 @@ public  class AnnotationHelper {
             if(AnnotationHelper.has(annotations,"constructor",path)){
                 if(parameter != null){
                     String str = AnnotationHelper.get(annotations,"constructor",path).getValueAsString(0);
+                    if(str.contains(parameter)){
+                        return true;
+                    }
+                    return false;
+                }
+                return true;
+            }
+        }
+        if(AnnotationHelper.has(annotations,"class")){
+            if(AnnotationHelper.has(annotations,"class",path)){
+                if(parameter != null){
+                    String str = AnnotationHelper.get(annotations,"class",path).getValueAsString(0);
                     if(str.contains(parameter)){
                         return true;
                     }

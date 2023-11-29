@@ -93,10 +93,6 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
                     }
                 }
             }
-            }else if(callOptions.get("argumentsRequestType") instanceof ArrayList<?>) {
-                for(int i = 0;i<((ArrayList<?>) callOptions.get("argumentsRequestType")).size();i++){
-                    argumentsRequestTypeArray.add(i);
-                }
             }
         }
 

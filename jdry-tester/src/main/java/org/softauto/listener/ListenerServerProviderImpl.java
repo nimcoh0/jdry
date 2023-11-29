@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import org.apache.avro.grpc.AvroGrpcServer;
 import org.softauto.core.Configuration;
 import org.softauto.core.Context;
 import org.softauto.core.ServiceLocator;
+import org.softauto.serializer.grpc.AvroGrpcServer;
 import org.softauto.serializer.service.SerializerService;
 
 public class ListenerServerProviderImpl  {

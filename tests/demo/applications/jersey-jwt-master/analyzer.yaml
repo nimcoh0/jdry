@@ -13,6 +13,7 @@ api_annotations:
   - "Ljavax/ws/rs/DELETE;"
   - "Ljavax/ws/rs/PUT;"
   - "Lorg/softauto/annotations/ApiForTesting;"
+  - "Lorg/softauto/annotations/InitializeForTesting;"
 default_protocol: "RPC"
 jax_rs_end_point:
   - "/ws/rs/POST"

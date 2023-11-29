@@ -6,12 +6,13 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.grpc.ManagedChannel;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import org.apache.avro.grpc.AvroGrpcServer;
 import org.apache.avro.ipc.CallFuture;
 import org.softauto.core.ClassType;
 import org.softauto.core.Configuration;
 import org.softauto.core.ServiceLocator;
 import org.softauto.serializer.Serializer;
+
+import org.softauto.serializer.grpc.AvroGrpcServer;
 import org.softauto.serializer.service.Message;
 import org.softauto.serializer.service.MessageBuilder;
 import org.softauto.serializer.service.MessageType;

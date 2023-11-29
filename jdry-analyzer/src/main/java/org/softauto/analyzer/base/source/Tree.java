@@ -4,7 +4,8 @@ public interface Tree  {
 
     public enum Kind {
 
-        ITEM(ItemTree.class);
+        ITEM(ItemTree.class),
+        CLASSTYPE(ClassTypeTree.class);
 
         Kind(Class<? extends Tree> intf) {
             associatedInterface = intf;

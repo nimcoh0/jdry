@@ -9,6 +9,7 @@ import org.softauto.core.*;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.api.Provider;
 import org.softauto.plugin.spi.PluginProvider;
+import org.softauto.tester.Listener;
 import org.softauto.tester.Step;
 import java.lang.reflect.*;
 import java.lang.reflect.InvocationHandler;
@@ -126,12 +127,34 @@ public class JdryClient {
             return this;
         }
 
-
-
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
             try {
                 GenericItem tree = JdryUtils.getStep(method,analyze);
+                if(tree.getType().equals("method")){
+                   return invokeStep(tree,method,args);
+                }
+                if(tree.getType().equals("listener")){
+                    return invokeListener(tree,method,args);
+                }
+            } catch (Exception e) {
+                logger.error("fail invoke method " + method.getName() + " with args " + Arrays.toString(args), e);
+                throw new Exception(e);
+            }
+            return null;
+        }
+
+        public Object invokeListener(GenericItem tree, Method method, Object[] args) throws Exception {
+            Listener listener = new Listener();
+            listener.setFqmn(method.getName());
+            listener.setTypes(method.getParameterTypes());
+
+            return listener;
+        }
+
+        public Object invokeStep(GenericItem tree, Method method, Object[] args) throws Exception {
+            try {
+                //GenericItem tree = JdryUtils.getStep(method,analyze);
                 transceiver = JdryUtils.getTransceiver(tree);
                 callOptions = JdryUtils.getCallOption(tree);
                // for (PluginProvider plugin : ProviderManager.providers()) {

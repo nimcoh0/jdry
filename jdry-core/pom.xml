@@ -129,5 +129,63 @@
 
 
     </dependencies>
+    <build>
+        <plugins>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <generatedTestSourcesDirectory>target/generated-test-sources/test-annotations</generatedTestSourcesDirectory>
+                    <generatedSourcesDirectory>target/generated-sources</generatedSourcesDirectory>
+                    <compilerArgument>-parameters</compilerArgument>
+                    <debug>true</debug>
+                    <debuglevel>lines,vars,source</debuglevel>
+                </configuration>
+
+                <executions>
+
+                    <execution>
+
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+
+                    </execution>
+
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+
+                <configuration>
+
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+
+                        <phase>package</phase>
+
+                        <goals>
+                            <goal>single</goal>
+
+                        </goals>
+
+                    </execution>
+
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

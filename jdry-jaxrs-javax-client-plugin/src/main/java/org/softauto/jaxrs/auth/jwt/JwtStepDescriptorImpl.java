@@ -44,8 +44,8 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
     public Client getClient() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
-        JacksonJaxbJsonProvider provider = new JacksonJaxbJsonProvider();
-        provider.setMapper(objectMapper);
+        //JacksonJaxbJsonProvider provider = new JacksonJaxbJsonProvider();
+        //provider.setMapper(objectMapper);
 
         Client client = null;
         ClientConfig clientConfig = new ClientConfig();
@@ -54,7 +54,7 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
         clientConfig.register(ClientHttpRequestInterceptor.class);
         clientConfig.register(RequestServerReaderInterceptor.class);
         clientConfig.register(MultiPartFeature.class);
-        clientConfig.register(provider);
+        //clientConfig.register(provider);
         client = JerseyClientBuilder.createClient(clientConfig);
         return client;
     }
@@ -92,10 +92,6 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
                             argumentsRequestTypeArray.add(Integer.valueOf(((HashMap<String, Object>) entry.getValue()).get("index").toString()));
                         }
                     }
-                }
-            }else if(callOptions.get("argumentsRequestType") instanceof ArrayList<?>) {
-                for(int i = 0;i<((ArrayList<?>) callOptions.get("argumentsRequestType")).size();i++){
-                    argumentsRequestTypeArray.add(i);
                 }
             }
         }

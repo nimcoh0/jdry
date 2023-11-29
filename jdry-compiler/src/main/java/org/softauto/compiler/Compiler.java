@@ -203,10 +203,10 @@ public class Compiler {
             suite.put("name",jsonNode.get("name").asText());
             suite.put("namespace",jsonNode.get("namespace").asText());
             for(JsonNode node : jsonNode.get("steps")) {
-                if(node.get("type").asText().equals("method")) {
+                //if(node.get("type").asText().equals("method")) {
                     ((ObjectNode) node).put("fullname", (node.get("namespce").asText() + "." + node.get("name").asText()).replace(".", "_"));
                     parseStep(node);
-                }
+                //}
             }
             suite.set("steps",steps);
         } catch (Exception e) {
@@ -248,11 +248,11 @@ public class Compiler {
         try {
             suite.put("name",jsonNode.get("name").asText());
             suite.put("namespace",jsonNode.get("namespace").asText());
-            for(JsonNode node : jsonNode.get("steps")) {
-                if(node.get("type").asText().equals("listener")) {
+            for(JsonNode node : jsonNode.get("listeners")) {
+               // if(node.get("type").asText().equals("listener")) {
                     ((ObjectNode) node).put("fullname", (node.get("namespce").asText() + "." + node.get("name").asText()).replace(".", "_"));
                     parseListener(node);
-                }
+               // }
             }
             suite.set("listeners",listeners);
         } catch (Exception e) {

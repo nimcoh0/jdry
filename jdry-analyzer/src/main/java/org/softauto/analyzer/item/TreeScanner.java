@@ -10,6 +10,8 @@ import org.softauto.analyzer.core.dao.api.ApiDataProvider;
 import org.softauto.core.Analyze;
 import org.softauto.analyzer.model.Item;
 import org.softauto.analyzer.model.genericItem.GenericItem;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,20 +39,29 @@ public class TreeScanner {
         analyze.setDoc(json.get("doc").asText());
         analyze.setVersion(json.get("version").asText());
         trees = apiDataProvider.getTrees();
+        List<GenericItem> steps = new ArrayList<>();
+        List<GenericItem> listeners = new ArrayList<>();
         logger.debug("number of trees to analyze  " + trees.size());
         for (GenericItem tree : trees) {
             logger.debug(" ----------- analyze  tree " + tree.getName() + " -------------------");
-            if (tree.getType().equals("method"))
+            if (tree.getType().equals("method") || tree.getType().equals("listener"))
                 new TreeImpl().walkOnTree(tree, new TreeVisitor() {
 
                     @Override
                     public Item visitBase(GenericItem tree) {
                         logger.debug(" ***** analyze  meta phase for " + tree.getName() + " ***** ");
-                        return (Item)  new BaseTree.Item().accept(new BaseScanner(), tree, null, null);
+                        new BaseTree.Item().accept(new BaseScanner(), tree, null, null);
+                        if(tree.getType().equals("method")){
+                            steps.add(tree);
+                        }
+                        if(tree.getType().equals("listener")){
+                            listeners.add(tree);
+                        }
+                        return null;
                     }
                 });
             }
-        analyze.setSteps(trees);
-
+        analyze.setSteps(steps);
+        analyze.setListeners(listeners);
         }
     }

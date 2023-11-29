@@ -2,6 +2,8 @@ package tests.infrastructure;
 
 import com.cassiomolin.example.security.api.model.UserCredentials;
 import com.cassiomolin.example.user.domain.Person;
+
+import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.core.Configuration;
@@ -145,7 +147,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     @Test
     public void asyncLoginUsingJdryJaxrsClientWithListenerBefore(){
         try {
-            CallFuture<String> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
+            CallFuture<com.cassiomolin.example.security.api.model.AuthenticationToken> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
 
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
@@ -218,6 +220,42 @@ public class jwtServiceTests extends AbstractTesterImpl {
     }
 
     @Test
+    public void asyncLoginUsingJdryJaxrsClientProxyAndListenerBefore(){
+        try {
+            CallFuture<com.cassiomolin.example.security.api.model.AuthenticationToken> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
+            java.util.function.Function<Object,Object> ff = new java.util.function.Function<Object,Object>() {
+
+                @Override
+                public Object apply(Object  f) {
+                    try{
+                        //Object[] r = (Object[]) f;
+                        //r[1] = "ADSf";
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    return f;
+                }
+            };
+
+            Listener listener = listeners.com_cassiomolin_example_security_api_model_AuthenticationToken_setToken();
+            UserCredentials credentials = new UserCredentials();
+            credentials.setUsername("user");
+            credentials.setPassword("password");
+
+
+            testsCallback.com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate(credentials,future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate).invoke()
+                    .then(listener.waitTo(ff));
+
+
+            Object result = future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate.get();
+            Assert.assertTrue(result != null);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
     public void asyncLoginUsingJdryJaxrsClientWithEmbededJeresy(){
         try {
 
@@ -265,6 +303,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
+
     @Test
     public void syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJeresy(){
         try {
@@ -272,20 +311,50 @@ public class jwtServiceTests extends AbstractTesterImpl {
             credentials.setUsername("user");
             credentials.setPassword("password");
 
-            Object result = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result();
-
-            Response response = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().setTransceiver("JAXRS")
-                    .setClientBuilder(javax.ws.rs.client.ClientBuilder.newClient((Configuration) clientConfig)).
-                        target("http://localhost:8080").path("/api/auth").request().post(Entity.entity(credentials, MediaType.APPLICATION_JSON) );
-
-
-
             javax.ws.rs.client.Client client = org.softauto.jaxrs.cli.ClientBuilder.newClient();
             Response response2 = client.target("http://localhost:8080").path("/api/auth").request().post(Entity.entity(credentials, MediaType.APPLICATION_JSON) );
             Object o = response2.readEntity(HashMap.class);
             Response response1 = client.target("http://localhost:8080").path("api").path("greetings").path("public").request().get();
             String o1 = response1.readEntity(String.class);
             Assert.assertTrue(o1 != null);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void syncGreetingUsingJdryJaxrsClientWithEmbeddedJeresy(){
+        try {
+            Response response = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().setTransceiver("JAXRS")
+                    .setClientBuilder(javax.ws.rs.client.ClientBuilder.newClient((Configuration) clientConfig)).
+                    target("http://localhost:8080").path("/api/public/greetings").request().get();
+            Assert.assertTrue(response != null);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void syncGreetingUsingJdryJaxrsClientProxy(){
+        try {
+           Object result = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result();
+           Assert.assertTrue(result != null);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void syncLoginAndGreetingUsingJdryJaxrsClientWithProxy(){
+        try {
+            UserCredentials credentials = new UserCredentials();
+            credentials.setUsername("user");
+            credentials.setPassword("password");
+
+            tests.com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate(credentials).invoke();
+            Object result = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result();
+            Assert.assertTrue(result != null);
         }catch (Exception e){
             e.printStackTrace();
         }

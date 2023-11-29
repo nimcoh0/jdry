@@ -38,6 +38,13 @@ public class BaseScanner<R,T,D>  implements TreeVisitor<R,T,D> {
 
     @Override
     public R visitItem(ItemTree item, T t, D d, R r) {
+       scan(item.getClassTypeTree(), t, d, r);
        return r;
+    }
+
+
+    @Override
+    public R visitClassType(ClassTypeTree classType, T t, D d, R r) {
+        return r;
     }
 }

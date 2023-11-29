@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.softauto.analyzer.model.request.Request;
 import org.softauto.analyzer.model.result.Result;
+import org.softauto.annotations.ClassType;
 
 import java.io.Serializable;
 import java.util.*;
@@ -72,10 +73,34 @@ public class GenericItem implements   Cloneable, Serializable {
      */
     private int modifier;
 
+    protected List<HashMap<String,String>> constructorParameter = new ArrayList<>();
 
+    protected ClassType classType;
 
 
     HashMap<String,Object>  properties = new HashMap<>();
+
+    public List<HashMap<String, String>> getConstructorParameter() {
+        return constructorParameter;
+    }
+
+    public void setConstructorParameters(List<HashMap<String, String>> parameters) {
+        this.constructorParameter = parameters;
+    }
+
+    public void addConstructorParameter(String key,String value) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(key,value);
+        this.constructorParameter.add(map);
+    }
+
+    public ClassType getClassType() {
+        return classType;
+    }
+
+    public void setClassType(ClassType classType) {
+        this.classType = classType;
+    }
 
     public String getFullname() {
         return fullname;

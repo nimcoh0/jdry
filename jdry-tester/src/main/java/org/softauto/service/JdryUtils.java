@@ -2,11 +2,15 @@ package org.softauto.service;
 
 import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.Protocol;
+import org.apache.avro.ipc.Callback;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.core.Analyze;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class JdryUtils {
 
@@ -29,7 +33,8 @@ public class JdryUtils {
     public static GenericItem getStep(Method method,Analyze analyze){
         for(GenericItem tree : analyze.getSteps()){
             if((tree.getNamespce()+"."+tree.getName()).replace(".","_").equals(method.getName())){
-                if(tree.getParametersTypes().size() == method.getParameterTypes().length) {
+                Class[] types = getRealParametersType(method);
+                if(tree.getParametersTypes().size() == types.length) {
                     boolean found = true;
                     for (int i = 0; i < tree.getParametersTypes().size(); i++) {
                         if(!tree.getParametersTypes().get(i).equals(method.getParameterTypes()[i].getTypeName())){
@@ -40,6 +45,11 @@ public class JdryUtils {
                         return tree;
                     }
                 }
+            }
+        }
+        for(GenericItem tree : analyze.getListeners()){
+            if((tree.getNamespce()+"."+tree.getName()).replace(".","_").equals(method.getName())){
+                return tree;
             }
         }
         return null;
@@ -56,4 +66,18 @@ public class JdryUtils {
     public static HashMap<String,Object> getCallOption(GenericItem tree){
         return tree.getProperties();
     }
+
+    public static Class[] getRealParametersType(Method method) {
+        Type[] parameterTypes = method.getParameterTypes();
+        if(parameterTypes.length > 0) {
+            if ((parameterTypes.length > 0) && (parameterTypes[parameterTypes.length - 1] instanceof Class)
+                    && org.apache.avro.ipc.CallFuture.class.isAssignableFrom(((Class<?>) parameterTypes[parameterTypes.length - 1]))) {
+                Type[] finalTypes = Arrays.copyOf(parameterTypes, parameterTypes.length - 1);
+                return Arrays.stream(finalTypes).map(t -> (Class) t).collect(Collectors.toList()).toArray(new Class[1]);
+            }
+            return Arrays.stream(parameterTypes).map(t -> (Class) t).collect(Collectors.toList()).toArray(new Class[1]);
+        }
+        return new Class[]{};
+    }
+
 }

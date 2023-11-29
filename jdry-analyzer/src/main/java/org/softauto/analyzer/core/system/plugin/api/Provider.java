@@ -14,5 +14,7 @@ public interface Provider {
 
       Item Analyze(GenericItem tree, Item item);
 
+      boolean isInterest(GenericItem tree);
+
 
 }

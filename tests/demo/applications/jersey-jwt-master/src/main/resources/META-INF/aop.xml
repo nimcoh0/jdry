@@ -1,5 +1,21 @@
 <aspectj>
     <aspects>
+            <concrete-aspect name="any" extends="org.softauto.listener.impl.ExternalListener">
+                <pointcut name="externalPointcut" expression="execution(* com.cassiomolin.example.security.api.filter.AuthenticationFilter.filter(..))"/>
+                <!--after pointcut="execution(* org.traccar.api.SecurityRequestFilter.filter(..)) " invokeClass="org.softauto.jaxrs.recorder.JaxRsRecorder" invokeMethod="captureRequest(JoinPoint joinPoint)"/-->
+            </concrete-aspect>
+            <concrete-aspect name="post" extends="org.softauto.listener.impl.ExternalListener">
+                <pointcut name="externalPointcut" expression="execution(* *(..)) AND @annotation(javax.ws.rs.POST)"/>
+            </concrete-aspect>
+            <concrete-aspect name="delete" extends="org.softauto.listener.impl.ExternalListener">
+                <pointcut name="externalPointcut" expression="execution(* *(..)) AND @annotation(javax.ws.rs.DELETE)"/>
+            </concrete-aspect>
+            <concrete-aspect name="put" extends="org.softauto.listener.impl.ExternalListener">
+                <pointcut name="externalPointcut" expression="execution(* *(..)) AND @annotation(javax.ws.rs.PUT)"/>
+            </concrete-aspect>
+            <concrete-aspect name="get" extends="org.softauto.listener.impl.ExternalListener">
+                <pointcut name="externalPointcut" expression="execution(* *(..)) AND @annotation(javax.ws.rs.GET)"/>
+            </concrete-aspect>
         <weaver options="-verbose  ">
             <include within="com.cassiomolin.example..*"/>
         </weaver>

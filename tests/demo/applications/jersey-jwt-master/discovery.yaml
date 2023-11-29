@@ -8,16 +8,10 @@ class_dir:
     - "C:/work/myprojects/java/jdry2/tests/demo/applications/jersey-jwt-master/target/classes"
 main_class: "com.cassiomolin.example.Application"
 domain: "com.cassiomolin.example"
-include_childes: false
-group_by_class: true
-discover_field_by_annotation:
-    - "org.softauto.annotations.UpdateForTesting"
-    - "org.softauto.annotations.DataForTesting"
 discover_by_annotation:
     - "org.softauto.annotations.ApiForTesting"
-    - "org.softauto.annotations.StepForTesting"
-    - "org.softauto.annotations.VerifyForTesting"
     - "org.softauto.annotations.ListenerForTesting"
+    - "org.softauto.annotations.InitializeForTesting"
     - "javax.ws.rs.Path"
     - "javax.ws.rs.Consumes"
     - "javax.ws.rs.Produces"
