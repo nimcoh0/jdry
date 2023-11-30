@@ -41,7 +41,7 @@ public class ListenerServiceImpl implements SerializerService {
                 printLog(message);
                 return null;
             }
-            if (TestContext.getTestState().equals(TestLifeCycle.START)) {
+            if (TestContext.getStepState().equals(StepLifeCycle.START)) {
                 logger.debug("execute message " + message.toJson());
                 Object o = ListenerObserver.getInstance().getLastChannel(message.getDescriptor());
                 if (o != null) {
@@ -75,7 +75,8 @@ public class ListenerServiceImpl implements SerializerService {
                     if (message.getState().equals("Exception")) {
                         logger.debug("got message Exception " + message.toJson());
                         if (message.getArgs().length == 1) {
-                            TestContext.getScenario().setState(ScenarioState.FAIL.name());
+                            TestContext.getScenario().setState(ScenarioLifeCycle.FAIL.name());
+                            TestContext.setStepState(StepLifeCycle.FAIL);
                             TestContext.getScenario().addProperty("method",message.getDescriptor());
                             TestContext.getScenario().addError(message.getArgs());
                             logger.error("scenario fail and throw exception",(Throwable) args[0]);

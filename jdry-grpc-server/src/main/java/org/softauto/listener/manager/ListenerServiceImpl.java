@@ -3,14 +3,13 @@ package org.softauto.listener.manager;
 import org.softauto.annotations.ListenerType;
 import org.softauto.core.Configuration;
 import org.softauto.core.Context;
-import org.softauto.core.TestContext;
-import org.softauto.core.TestLifeCycle;
+import org.softauto.core.ScenarioLifeCycle;
+import org.softauto.core.StepLifeCycle;
 import org.softauto.listener.ListenerService;
 import org.softauto.listener.impl.Threadlocal;
 import org.softauto.serializer.Serializer;
 import org.softauto.serializer.service.Message;
 import org.softauto.serializer.service.MessageBuilder;
-import org.softauto.system.ScenarioContext;
 import org.softauto.system.Scenarios;
 
 import java.util.HashMap;
@@ -39,8 +38,8 @@ public class ListenerServiceImpl implements ListenerService {
     public Object[] executeBefore(String methodName, Object[] args, Class[] types) throws Exception {
         Object result = null;
         try {
-            if(TestContext.getTestState().equals(TestLifeCycle.START)) {
-                String scenarioId = getScenarioId();
+            String scenarioId = getScenarioId();
+            if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
                 HashMap<String,Object> configuration = getConfiguration(scenarioId);
                 if(configuration != null) {
                     Serializer serializer = new Serializer().setHost(configuration.get(Context.TEST_MACHINE).toString()).setPort(Integer.valueOf(configuration.get(Context.LISTENER_PORT).toString())).build();
@@ -73,8 +72,9 @@ public class ListenerServiceImpl implements ListenerService {
     public  void executeAfter(String methodName, Object[] args, Class[] types) throws Exception {
 
         try {
-            if(TestContext.getTestState().equals(TestLifeCycle.START)) {
-                String scenarioId = getScenarioId();
+            String scenarioId = getScenarioId();
+            //if(TestContext.getTestState().equals(TestLifeCycle.START)) {
+            if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
                 HashMap<String,Object> configuration = getConfiguration(scenarioId);
                 if(configuration != null) {
                     Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
@@ -98,8 +98,9 @@ public class ListenerServiceImpl implements ListenerService {
     public  Object executeException(String methodName, Object[] args, Class[] types) throws Exception {
         Object result = null;
         try {
-            if(TestContext.getTestState().equals(TestLifeCycle.START)) {
-                String scenarioId = getScenarioId();
+            String scenarioId = getScenarioId();
+           // if(TestContext.getTestState().equals(TestLifeCycle.START)) {
+            if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
                 HashMap<String,Object> configuration = getConfiguration(scenarioId);
                 if(configuration != null) {
                     Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();

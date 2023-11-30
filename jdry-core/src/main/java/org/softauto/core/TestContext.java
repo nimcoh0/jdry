@@ -1,13 +1,12 @@
 package org.softauto.core;
 
-import org.hamcrest.Condition;
 import org.softauto.analyzer.model.scenario.Scenario;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.TestRunner;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class TestContext {
 
@@ -29,14 +28,30 @@ public class TestContext {
 
     private static Scenario scenario;
 
-    public static TestLifeCycle TestState = TestLifeCycle.NONE;
+    private static IJdryStepListener jdryStepListener;
 
-    public static TestLifeCycle getTestState() {
-        return TestState;
+    private static ITestContext testContext;
+
+    public static StepLifeCycle stepState = StepLifeCycle.NONE;
+
+    public static StepLifeCycle getStepState() {
+        return stepState;
     }
 
-    public static void setTestState(TestLifeCycle testState) {
-        TestState = testState;
+    public static void setStepState(StepLifeCycle stepState) {
+        TestContext.stepState = stepState;
+        switch (stepState){
+            case START : jdryStepListener.onStepStart();
+                        break;
+            case STOP : jdryStepListener.onStepFinish();
+                        break;
+            case FAIL : jdryStepListener.onStepFailure();
+                        break;
+            case PASS : jdryStepListener.onStepSuccess();
+                        break;
+            case SKIP : jdryStepListener.onStepSkipped();
+                        break;
+        }
         //logger.debug("test state change to "+ testState);
     }
 
@@ -45,6 +60,19 @@ public class TestContext {
             return true;
         }
         return false;
+    }
+
+    public static void setTestContext(ITestContext testContext) {
+        TestContext.testContext = testContext;
+        setJdryStepListener(testContext);
+    }
+
+    public static void setJdryStepListener(ITestContext context){
+        for (ITestListener listener : ((TestRunner) context).getTestListeners()) {
+            if(listener instanceof IJdryStepListener) {
+                jdryStepListener = (IJdryStepListener) listener;
+            }
+        }
     }
 
     //public static String getScenarioKey(){

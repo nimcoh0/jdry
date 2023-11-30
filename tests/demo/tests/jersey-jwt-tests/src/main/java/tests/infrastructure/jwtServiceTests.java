@@ -3,7 +3,6 @@ package tests.infrastructure;
 import com.cassiomolin.example.security.api.model.UserCredentials;
 import com.cassiomolin.example.user.domain.Person;
 
-import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.core.Configuration;
@@ -17,6 +16,7 @@ import org.softauto.jaxrs.cli.WebCallOption;
 import org.softauto.service.JdryClient;
 import org.softauto.tester.AbstractTesterImpl;
 import org.softauto.tester.Listener;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -24,8 +24,9 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicReference;
 
-@Listeners(org.softauto.testng.JdryTestListener.class)
+//@Listeners({org.softauto.testng.JdryTestListener.class})
 public class jwtServiceTests extends AbstractTesterImpl {
 
     TestLib testLib = new TestLib();
@@ -219,9 +220,13 @@ public class jwtServiceTests extends AbstractTesterImpl {
             }
     }
 
+
+
+
     @Test
     public void asyncLoginUsingJdryJaxrsClientProxyAndListenerBefore(){
         try {
+
             CallFuture<com.cassiomolin.example.security.api.model.AuthenticationToken> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
             java.util.function.Function<Object,Object> ff = new java.util.function.Function<Object,Object>() {
 
@@ -249,6 +254,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
 
             Object result = future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate.get();
             Assert.assertTrue(result != null);
+            Reporter.log("The Google Site is Launched");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -351,10 +357,12 @@ public class jwtServiceTests extends AbstractTesterImpl {
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
             credentials.setPassword("password");
+            AtomicReference<Object> result = new AtomicReference<>();
+            tests.com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate(credentials).setExpected("#result != null").invoke().isSuccesses(res ->{
+                result.set(tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result());
+            });
 
-            tests.com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate(credentials).invoke();
-            Object result = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result();
-            Assert.assertTrue(result != null);
+            Assert.assertTrue(result.get() != null);
         }catch (Exception e){
             e.printStackTrace();
         }

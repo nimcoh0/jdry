@@ -10,7 +10,7 @@ public class Scenario implements Cloneable, Serializable {
     /**
      * list of tests names that include in this scenario
      */
-    LinkedList<String> tests = new LinkedList<>();
+    LinkedList<String> steps = new LinkedList<>();
 
     Integer order;
 
@@ -96,11 +96,11 @@ public class Scenario implements Cloneable, Serializable {
     }
 
     public LinkedList<String> getTests() {
-        return tests;
+        return steps;
     }
 
-    public Scenario setTests(LinkedList<String> tests) {
-        this.tests = tests;
+    public Scenario setTests(LinkedList<String> steps) {
+        this.steps = steps;
         return this;
     }
 
@@ -138,14 +138,14 @@ public class Scenario implements Cloneable, Serializable {
     }
 
     public Scenario addTest(String fullName) {
-        this.tests.add(fullName);
+        this.steps.add(fullName);
         return this;
     }
 
 
 
     public boolean isExist(String name){
-        for(String s : tests){
+        for(String s : steps){
             if(s.equals(name)){
                 return true;
             }

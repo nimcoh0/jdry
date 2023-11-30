@@ -1,21 +1,15 @@
 package org.softauto.service;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
-import io.grpc.CallOptions;
 import org.apache.avro.ipc.Callback;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.core.*;
-import org.softauto.plugin.ProviderManager;
-import org.softauto.plugin.api.Provider;
-import org.softauto.plugin.spi.PluginProvider;
 import org.softauto.tester.Listener;
 import org.softauto.tester.Step;
 import java.lang.reflect.*;
 import java.lang.reflect.InvocationHandler;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class JdryClient {
@@ -165,10 +159,10 @@ public class JdryClient {
                                 args = new Object[]{};
                             }
                             logger.debug("invoke method " + method.getName() + " with args " + Arrays.toString(args));
-                            if (TestContext.getScenario().getState().equals(ScenarioState.RUN.name())) {
+                            if (TestContext.getStepState().equals(StepLifeCycle.START)) {
                                 return invokeUnaryMethod(method, args);
                             } else {
-                                TestContext.setTestState(TestLifeCycle.SKIP);
+                                TestContext.setStepState(StepLifeCycle.SKIP);
                                 logger.debug("step skip due test status  " + TestContext.getScenario().getState() + " on " + TestContext.getScenario().getProperty("method"));
                                 throw new Exception("step skip due test status  " + TestContext.getScenario().getState() + " on " + TestContext.getScenario().getProperty("method"));
                             }

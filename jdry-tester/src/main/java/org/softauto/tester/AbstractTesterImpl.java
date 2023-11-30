@@ -18,6 +18,8 @@ import org.softauto.plugin.spi.PluginProvider;
 //import org.softauto.serializer.HttpServletRequestScenarioIdSerializer;
 import org.softauto.system.SystemState;
 import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.TestRunner;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
@@ -32,7 +34,6 @@ public class AbstractTesterImpl  {
     public ObjectMapper mapper = new ObjectMapper();
 
     public Scenario scenario;
-
 
     //public Test test;
 
@@ -82,9 +83,10 @@ public class AbstractTesterImpl  {
                 scenario.setId(scenarioId);
                 scenario.setSuiteName(testContext.getSuite().getName());
             }
-            scenario.setState(ScenarioState.RUN.name());
+            scenario.setState(ScenarioLifeCycle.START.name());
             //scenario.setConfiguration(Configuration.getConfiguration());
             TestContext.setScenario(scenario);
+            TestContext.setTestContext(testContext);
             SystemState.getInstance().initialize(scenario);
             //scenario.setConfiguration(Configuration.getConfiguration());
             ListenerServerProviderImpl.getInstance().initialize().register();

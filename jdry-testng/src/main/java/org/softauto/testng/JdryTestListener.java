@@ -1,15 +1,9 @@
 package org.softauto.testng;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.config.Configuration;
-import org.softauto.core.Context;
-import org.softauto.core.ScenarioState;
-import org.softauto.core.TestContext;
-import org.softauto.core.TestLifeCycle;
+import org.softauto.core.*;
 import org.softauto.listener.ListenerObserver;
 import org.softauto.system.SystemState;
 import org.testng.*;
@@ -17,14 +11,16 @@ import org.testng.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class JdryTestListener implements ITestListener, IInvokedMethodListener {
+public class JdryTestListener implements ITestListener, IInvokedMethodListener, IJdryStepListener {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(JdryTestListener.class);
+
+
 
     @Override
     public void onTestStart(ITestResult result) {
         try {
-            TestContext.setTestState(TestLifeCycle.START);
+            //TestContext.getScenario().setState(ScenarioLifeCycle.START.name());;
             if(SystemState.getInstance().startTest(result.getName(),TestContext.getScenario().getId())){
                 logger.debug("successfully start test " + result.getName());
                 } else {
@@ -38,12 +34,13 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
+        TestContext.getScenario().setState(ScenarioLifeCycle.START.PASS.name());
         logger.debug(result.getName()+" end successfully");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        TestContext.getScenario().setState(ScenarioState.FAIL.name());
+        TestContext.getScenario().setState(ScenarioLifeCycle.FAIL.name());
         logger.debug(result.getName()+" fail",result.getThrowable());
     }
 
@@ -59,8 +56,33 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
     }
 
     @Override
+    public void onStepStart() {
+        logger.info("step " + TestContext.get("step_name") + " start");
+    }
+
+    @Override
+    public void onStepSuccess() {
+        logger.info("step " + TestContext.get("step_name") + " finish successfully");
+    }
+
+    @Override
+    public void onStepFailure() {
+        logger.info("step " + TestContext.get("step_name") + " fail");
+    }
+
+    @Override
+    public void onStepSkipped() {
+        logger.info("step " + TestContext.get("step_name") + " skip");
+    }
+
+    @Override
+    public void onStepFinish() {
+        logger.info("step " + TestContext.get("step_name") + " finish ");
+    }
+
+    @Override
     public void onStart(ITestContext context) {
-        TestContext.put("test_name",context.getName());
+        TestContext.put("step " + "step_name",context.getName());
     }
 
 
@@ -68,10 +90,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
     @Override
     public void onFinish(ITestContext context) {
         try {
-
-
-
-            TestContext.setTestState(TestLifeCycle.STOP);
+            TestContext.getScenario().setState(ScenarioLifeCycle.STOP.name());;
             if(SystemState.getInstance().endTest(context.getName(),TestContext.getScenario().getId())){
                     logger.debug("successfully end test ");
                 } else {
@@ -143,7 +162,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener {
                     }
                 }
             }
-            if (TestContext.getTestState().equals(TestLifeCycle.SKIP) ) {
+            if (TestContext.getStepState().equals(StepLifeCycle.SKIP) ) {
                 arg0.setStatus(ITestResult.FAILURE);
                 ITestContext tc = Reporter.getCurrentTestResult().getTestContext();
                 tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());

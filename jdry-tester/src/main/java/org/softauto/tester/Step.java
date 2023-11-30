@@ -37,13 +37,54 @@ public class Step implements IStep{
 
     Class[] types;
 
+    Object expected;
 
-
-
+    boolean state;
 
     public Step(){
 
     };
+
+
+
+
+    public <T> boolean isSuccesses(Handler<AsyncResult<T>> resultHandler){
+        if(state){
+            try {
+                resultHandler.handle(Future.handleResult((T) result));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean isSuccesses(){
+        Object o = Espl.getInstance().addProperty("result",result).evaluate(expected.toString());
+        if(o != null && o instanceof Boolean){
+            return true;
+        }
+      return false;
+    }
+
+    public <T> boolean isFail(Handler<AsyncResult<T>> resultHandler){
+        if(!state){
+            try {
+                resultHandler.handle(Future.handleResult((T) result));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean isFail(){
+        Object o = Espl.getInstance().addProperty("result",result).evaluate(expected.toString());
+        if(o == null ){
+            return true;
+        }
+        return false;
+    }
 
     public Step setResult(Object result) {
         this.result = result;
@@ -85,12 +126,12 @@ public class Step implements IStep{
                         logger.debug("waiting to future to be done");
                         future.await();
                     }
-                    if(TestContext.getScenario().getState().equals(ScenarioState.RUN.name())) {
+                    if(TestContext.getScenario().getState().equals(ScenarioLifeCycle.START.name())) {
                         logger.debug("successfully get_Result() ");
                         return (T) future.get();
                     }
                 }else {
-                    if(TestContext.getScenario().getState().equals(ScenarioState.RUN.name())) {
+                    if(TestContext.getScenario().getState().equals(ScenarioLifeCycle.START.name())) {
                         return (T) result;
                     }
                 }
@@ -173,7 +214,21 @@ public class Step implements IStep{
         return this;
     }
 
-    /*
+    public Object getExpected() {
+        return expected;
+    }
+
+    public Step setExpected(Object expected) {
+        this.expected = expected;
+        return this;
+    }
+
+    public Step setExpected(String expression) {
+        this.expected = expression;
+        return this;
+    }
+
+   /*
     public <RespT> Step invoke() throws Exception {
 
             if (this.callback == null) {

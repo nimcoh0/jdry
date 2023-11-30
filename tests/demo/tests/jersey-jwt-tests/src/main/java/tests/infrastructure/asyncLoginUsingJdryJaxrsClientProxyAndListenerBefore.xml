@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name = "jwtService" verbose="10">
+    <listeners>
+        <listener class-name="org.softauto.testng.JdryTestListener" />
+
+    </listeners>
+    <test name = "asyncLoginUsingJdryJaxrsClientProxyAndListenerBefore">
+        <classes>
+            <class name = "tests.infrastructure.jwtServiceTests">
+            <methods>
+                <include name= "asyncLoginUsingJdryJaxrsClientProxyAndListenerBefore"/>
+            </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

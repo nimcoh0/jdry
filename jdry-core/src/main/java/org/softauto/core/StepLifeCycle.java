@@ -1,10 +1,9 @@
 package org.softauto.core;
 
-public enum TestLifeCycle {
+public enum StepLifeCycle {
 
     START,
     STOP,
-    INITIALIZE,
     PASS,
     FAIL,
     SKIP,

@@ -1,16 +1,16 @@
 package org.softauto.system;
 
-import org.softauto.core.ScenarioState;
-import org.softauto.core.TestLifeCycle;
+import org.softauto.core.ScenarioLifeCycle;
+import org.softauto.core.StepLifeCycle;
 import java.util.HashMap;
 
 public class ScenarioContext {
 
-    private TestLifeCycle testState;
+    private StepLifeCycle stepState;
 
-    private ScenarioState scenarioState;
+    private ScenarioLifeCycle scenarioState;
 
-    private String testName;
+    private String stepName;
 
     private String scenarioName;
 
@@ -21,32 +21,32 @@ public class ScenarioContext {
 
     private String id;
 
-    public TestLifeCycle getTestState() {
-        return testState;
+    public StepLifeCycle getStepState() {
+        return stepState;
     }
 
-    public ScenarioContext setTestState(TestLifeCycle testState) {
-        this.testState = testState;
+    public ScenarioContext setStepState(StepLifeCycle stepState) {
+        this.stepState = stepState;
         return this;
     }
 
 
 
-    public ScenarioState getScenarioState() {
+    public ScenarioLifeCycle getScenarioState() {
         return scenarioState;
     }
 
-    public ScenarioContext setScenarioState(ScenarioState scenarioState) {
+    public ScenarioContext setScenarioState(ScenarioLifeCycle scenarioState) {
         this.scenarioState = scenarioState;
         return this;
     }
 
-    public String getTestName() {
-        return testName;
+    public String getStepName() {
+        return stepName;
     }
 
-    public ScenarioContext setTestName(String testName) {
-        this.testName = testName;
+    public ScenarioContext setStepName(String stepName) {
+        this.stepName = stepName;
         return this;
     }
 

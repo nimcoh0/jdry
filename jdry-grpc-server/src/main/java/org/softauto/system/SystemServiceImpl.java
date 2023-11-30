@@ -1,10 +1,5 @@
 package org.softauto.system;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 //import org.softauto.core.Configuration;
@@ -12,9 +7,8 @@ import org.apache.logging.log4j.MarkerManager;
 
 import org.softauto.analyzer.model.scenario.Scenario;
 import org.softauto.core.Configuration;
-import org.softauto.core.TestContext;
-import org.softauto.core.TestLifeCycle;
-import org.softauto.injector.InjectorInitializer;
+import org.softauto.core.ScenarioLifeCycle;
+import org.softauto.core.StepLifeCycle;
 import org.softauto.listener.manager.ListenerClientProviderImpl;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -58,7 +52,9 @@ public class SystemServiceImpl {
      * @param testname
      */
     public boolean startTest(String scenarioId,String testname){
-        TestContext.setTestState(TestLifeCycle.START);
+        Scenarios.getScenario(scenarioId).setStepState(StepLifeCycle.START);
+        Scenarios.getScenario(scenarioId).setScenarioState(ScenarioLifeCycle.START);
+        //TestContext.setTestState(TestLifeCycle.START);
         logger.info(" **************** start test "+ testname+" "+ scenarioId+ " ******************");
         //logger.info(TRACER," **************** start test "+ testname+ " ******************");
         return true;
@@ -70,7 +66,9 @@ public class SystemServiceImpl {
      */
     public boolean endTest(String scenarioId,String testname){
         try {
-            TestContext.setTestState(TestLifeCycle.STOP);
+            //TestContext.setTestState(TestLifeCycle.STOP);
+            Scenarios.getScenario(scenarioId).setScenarioState(ScenarioLifeCycle.STOP);
+            Scenarios.getScenario(scenarioId).setStepState(StepLifeCycle.STOP);
             SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
             Date date = new Date(System.currentTimeMillis());
             String d = formatter.format(date);
@@ -120,7 +118,7 @@ public class SystemServiceImpl {
     public boolean configuration(String scenarioId, Scenario scenario) {
         try {
             Scenarios.addScenario(scenarioId,scenario);
-            Scenarios.getScenario(scenarioId).setTestState(TestLifeCycle.INITIALIZE);
+            Scenarios.getScenario(scenarioId).setScenarioState(ScenarioLifeCycle.INITIALIZE);
             Configuration.addConfiguration(scenario.getConfiguration());
             if (!loaded) {
                 load();
