@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.*;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -77,27 +78,44 @@ public class Utils {
     public static Object[] getConstructorArgsValues(HashMap<String,Object> callOption,Class[] types){
         List<Object> objs = new ArrayList<>();
         try {
-            List<String> args = (List<String>) callOption.get("constructor");
+            List<HashMap<String,String>> args = (List<HashMap<String,String>>) callOption.get("constructor");
             if(args != null && args.size() > 0) {
-                for (int i = 0; i < args.size(); i++) {
-                    String s = new ObjectMapper().writeValueAsString(args.get(i));
-                    Object o = new ObjectMapper().readValue(s, types[i]);
-                    objs.add(o);
+                for(int i=0;i<args.size();i++) {
+                    //for(HashMap<String,String> map : args)
+                    for (Map.Entry entry : args.get(i).entrySet()) {
+                        try {
+                            String value = entry.getValue().toString();
+                            String s = new ObjectMapper().writeValueAsString(value);
+                            Object o = new ObjectMapper().readValue(s, types[i]);
+                            objs.add(o);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return objs.toArray();
     }
 
-    public static Class[] extractConstructorArgsTypes(String fullClassName){
+
+
+    public static Class[] extractConstructorArgsTypes(String fullClassName , List<String> constructorTypes){
         try {
             Class c = Class.forName(fullClassName);
             Constructor[] constructors = c.getDeclaredConstructors();
             for(Constructor constructor: constructors){
-                if(constructor.getParameters().length >0 ){
-                    return constructor.getParameterTypes();
+                boolean found = true;
+                if(constructor.getParameters().length >0 && constructor.getParameters().length == constructorTypes.size()){
+                    for(int i=0;i<constructor.getParameters().length;i++){
+                        if(!constructor.getParameters()[i].getType().getTypeName().contains(constructorTypes.get(i))){
+                            found = false;
+                        }
+                    }
+                    if(found)
+                        return constructor.getParameterTypes();
                 }
             }
         }catch (Exception e){

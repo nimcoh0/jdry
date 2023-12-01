@@ -15,8 +15,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 
 public class SerializerServiceImpl implements SerializerService{
@@ -116,14 +115,15 @@ public class SerializerServiceImpl implements SerializerService{
                 callOption = (HashMap<String, Object>) message.getData().get("callOption");
             }
             Object serviceImpl;
-            String classType = ClassType.INITIALIZE_IF_NOT_EXIST.name();
+            String classType = ClassType.INITIALIZE_EVERY_TIME.name();
             if(callOption != null && callOption.get("classType") != null) {
                 classType = callOption.get("classType").toString();
             }
             if(injector != null && !fullClassName.equals("org.softauto.system.SystemServiceImpl") && callOption != null) {
                 //if(classType.equals(ClassType.INITIALIZE) && !Utils.getClassName(fullClassName).equals(methodName)){
                 logger.debug("got request to method "+methodName+"  . trying to load class");
-                Class[] types = Utils.extractConstructorArgsTypes(fullClassName);
+                List<String> constructorTypes = buildConstructorTypes(callOption);
+                Class[] types = Utils.extractConstructorArgsTypes(fullClassName,constructorTypes);
                 Object[] args = Utils.getConstructorArgsValues(callOption,types);
                 serviceImpl = injector.inject(fullClassName,args,types, ClassType.fromString(classType));
                 if(serviceImpl == null){
@@ -160,6 +160,22 @@ public class SerializerServiceImpl implements SerializerService{
         return byteBuffer;
     }
 
+    private List<String> buildConstructorTypes(HashMap<String, Object> callOption){
+        List<String> types = new ArrayList<>();
+        List<HashMap<String,String>> args = (List<HashMap<String,String>>) callOption.get("constructor");
+        if(args != null && args.size() > 0) {
+            for(int i=0;i<args.size();i++) {
+               for (Map.Entry entry : args.get(i).entrySet()) {
+                    try {
+                        types.add(entry.getKey().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return types;
+    }
 
     private Object[] buildArgs(Message message){
         Object[] args = new Object[message.getArgs().length];

@@ -74,21 +74,27 @@ public abstract class BaseTree implements Tree {
         public <R, T, D> R accept(TreeVisitor<R, T, D> visitor, T t, D d, R r) {
             AbstractAnnotationScanner scanner =  new AnnotationScanner().setPath(path).setAnnotations(((GenericItem) t).getAnnotations()).scanner();
             if(scanner != null ){
-                ((GenericItem) t).setClassType(org.softauto.annotations.ClassType.fromString(scanner.get("value").asString()));
+                HashMap<String, Object> callIotion = ((GenericItem) t).getProperties();
+                callIotion.put("classType",org.softauto.annotations.ClassType.fromString(scanner.get("value").asString()));
                 if(scanner.has("parameters")){
                    Object p =  scanner.get("parameters").asObject();
+                    List<HashMap<String, Object>> constructorParameters = new ArrayList<>();
+
                    if(p instanceof Map){
-                     //for(Map.Entry entry :  ((HashMap<String,String>)p).entrySet()){
-                         ((GenericItem) t).addConstructorParameter(((HashMap<String,String>)p).get("type"),((HashMap<String,String>)p).get("value"));
+                     //for(Map.Entry entry :  ((HashMap<String,String>)p).entrySet()) {
+                         HashMap<String, Object> parameter = new HashMap<>();
+                         parameter.put(((HashMap<String, String>) p).get("type"), ((HashMap<String, String>) p).get("value"));
+                         constructorParameters.add(parameter);
                      //}
                    }
                    if(p instanceof ArrayList){
                        for(Object o : (ArrayList)p){
-                           //for(Map.Entry entry :  ((HashMap<String,String>)o).entrySet()){
-                               ((GenericItem) t).addConstructorParameter(((HashMap<String,String>)o).get("type"),((HashMap<String,String>)o).get("value"));
-                           //}
+                           HashMap<String, Object> parameter = new HashMap<>();
+                           parameter.put(((HashMap<String, String>) p).get("type"), ((HashMap<String, String>) p).get("value"));
+                           constructorParameters.add(parameter);
                        }
                    }
+                    callIotion.put("constructor",constructorParameters);
                 }
             }
             return visitor.visitClassType( this, t,d, r);

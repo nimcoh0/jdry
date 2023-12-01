@@ -6,7 +6,7 @@ package org.softauto.core;
 public enum ClassType {
 
     SINGLETON,
-    INITIALIZE_IF_NOT_EXIST,
+    //INITIALIZE_IF_NOT_EXIST,
     INITIALIZE_EVERY_TIME,
     NONE;
 

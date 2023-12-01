@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name = "jwtService" verbose="10">
+
+    <test name = "findAllUsersUsingJdryRpc">
+        <classes>
+            <class name = "tests.infrastructure.jwtServiceTests">
+            <methods>
+                <include name= "findAllUsersUsingJdryRpc"/>
+            </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

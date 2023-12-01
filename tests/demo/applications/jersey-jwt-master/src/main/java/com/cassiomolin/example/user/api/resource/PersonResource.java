@@ -37,7 +37,6 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"ADMIN"})
     public Response getUsers() {
-
         List<QueryPersonResult> queryPersonResults = personService.findAll().stream()
                 .map(this::toQueryUserResult)
                 .collect(Collectors.toList());

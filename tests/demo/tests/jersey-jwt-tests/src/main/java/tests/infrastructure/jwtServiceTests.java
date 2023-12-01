@@ -148,7 +148,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     @Test
     public void asyncLoginUsingJdryJaxrsClientWithListenerBefore(){
         try {
-            CallFuture<com.cassiomolin.example.security.api.model.AuthenticationToken> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
+            CallFuture<String> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
 
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
@@ -227,7 +227,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     public void asyncLoginUsingJdryJaxrsClientProxyAndListenerBefore(){
         try {
 
-            CallFuture<com.cassiomolin.example.security.api.model.AuthenticationToken> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
+            CallFuture<String> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
             java.util.function.Function<Object,Object> ff = new java.util.function.Function<Object,Object>() {
 
                 @Override
@@ -372,9 +372,39 @@ public class jwtServiceTests extends AbstractTesterImpl {
     @Test
     public void findAllUsersUsingJdryRpc(){
         try {
-            HashMap<String,Object> callOption = mapper.readValue("{\"constructor\":[]}",HashMap.class);
-            List<Person> people =  tests.com_cassiomolin_example_user_service_PersonService_findAll().setTransceiver("RPC").setCallOptions(callOption).invoke().get_Result();
+            //HashMap<String,Object> callOption = mapper.readValue("{\"constructor\":[]}",HashMap.class);
+            List<Person> people =  tests.com_cassiomolin_example_user_service_PersonService_findAll().invoke().get_Result();
             Assert.assertTrue(people.size()>0 );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void publicRpcCall(){
+        try{
+            String name = tests.com_cassiomolin_example_user_service_PersonService_publicRpcCall("aaaa").invoke().get_Result();
+            Assert.assertTrue(name.equals("aaaa"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void privateRpcCall(){
+        try{
+            String name = tests.com_cassiomolin_example_user_service_PersonService_privateRpcCall("aaaa").invoke().get_Result();
+            Assert.assertTrue(name.equals("aaaa"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void publicStaticRpcCall(){
+        try{
+            String name = tests.com_cassiomolin_example_user_service_PersonService_publicStaticRpcCall("aaaa").invoke().get_Result();
+            Assert.assertTrue(name.equals("aaaa"));
         }catch (Exception e){
             e.printStackTrace();
         }

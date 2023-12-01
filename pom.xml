@@ -25,6 +25,7 @@
         <module>jdry-jaxrs-jakarta-client-plugin</module>
         <module>jdry-analyzer</module>
         <module>jdry-jax-rs-analyzer</module>
+        <module>jdry-rpc-analyzer</module>
     </modules>
 
     <properties>

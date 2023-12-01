@@ -7,5 +7,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ApiForTesting {
 
+    String protocol()  ;
 
 }
