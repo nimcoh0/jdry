@@ -1,0 +1,967 @@
+{
+  "name" : "jwt",
+  "namespace" : "tests.infrastructure",
+  "version" : null,
+  "doc" : null,
+  "methods" : {
+    "com.cassiomolin.example.greeting.api.resource.GreetingResource.getPublicGreeting" : {
+      "name" : "getPublicGreeting",
+      "namespce" : "com.cassiomolin.example.greeting.api.resource.GreetingResource",
+      "annotations" : {
+        "Ljavax/ws/rs/GET;" : { },
+        "Ljavax/ws/rs/Path;" : {
+          "value" : "public",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "text/plain",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/annotation/security/PermitAll;" : { },
+        "class" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "greetings",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 16874,
+      "type" : "method",
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : false,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.greeting.api.resource.GreetingResource.getProtectedGreeting" : {
+      "name" : "getProtectedGreeting",
+      "namespce" : "com.cassiomolin.example.greeting.api.resource.GreetingResource",
+      "annotations" : {
+        "Ljavax/ws/rs/GET;" : { },
+        "Ljavax/ws/rs/Path;" : {
+          "value" : "protected",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "text/plain",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "greetings",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 16875,
+      "type" : "method",
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : false,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.security.api.model.AuthenticationToken.setToken" : {
+      "name" : "setToken",
+      "namespce" : "com.cassiomolin.example.security.api.model.AuthenticationToken",
+      "annotations" : {
+        "Lorg/softauto/annotations/ListenerForTesting;" : {
+          "type" : "BEFORE"
+        },
+        "class" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          }
+        }
+      },
+      "parametersTypes" : [ "java.lang.String" ],
+      "argumentsNames" : [ "token" ],
+      "id" : 17010,
+      "type" : "listener",
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.security.api.resource.AuthenticationResource.authenticate" : {
+      "name" : "authenticate",
+      "namespce" : "com.cassiomolin.example.security.api.resource.AuthenticationResource",
+      "annotations" : {
+        "Ljavax/ws/rs/POST;" : { },
+        "Ljavax/ws/rs/Consumes;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/annotation/security/PermitAll;" : { },
+        "class" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "auth",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ "com.cassiomolin.example.security.api.model.UserCredentials" ],
+      "argumentsNames" : [ "credentials" ],
+      "id" : 17017,
+      "type" : "method",
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ {
+        "name" : "setToken",
+        "namespce" : "com.cassiomolin.example.security.api.model.AuthenticationToken",
+        "annotations" : {
+          "Lorg/softauto/annotations/ListenerForTesting;" : {
+            "type" : "BEFORE"
+          },
+          "class" : {
+            "Lorg/softauto/annotations/InitializeForTesting;" : {
+              "value" : "INITIALIZE_EVERY_TIME",
+              "type" : "java.lang.Enum",
+              "parameters" : {
+                "type" : "String",
+                "value" : "helo"
+              }
+            }
+          }
+        },
+        "parametersTypes" : [ "java.lang.String" ],
+        "argumentsNames" : [ "token" ],
+        "id" : 17010,
+        "type" : "listener",
+        "returnType" : "void",
+        "classInfo" : {
+          "hasParameters" : true,
+          "entity" : false,
+          "interface" : false,
+          "enum" : false,
+          "static" : false,
+          "public" : true,
+          "protected" : false,
+          "final" : false,
+          "abstract" : false,
+          "private" : false,
+          "innerClass" : false,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "javaLibraryClass" : false
+        },
+        "modifier" : 0,
+        "childes" : [ ]
+      } ]
+    },
+    "com.cassiomolin.example.security.api.resource.AuthenticationResource.refresh" : {
+      "name" : "refresh",
+      "namespce" : "com.cassiomolin.example.security.api.resource.AuthenticationResource",
+      "annotations" : {
+        "Ljavax/ws/rs/POST;" : { },
+        "Ljavax/ws/rs/Path;" : {
+          "value" : "refresh",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "auth",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 17018,
+      "type" : "method",
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : false,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ {
+        "name" : "setToken",
+        "namespce" : "com.cassiomolin.example.security.api.model.AuthenticationToken",
+        "annotations" : {
+          "Lorg/softauto/annotations/ListenerForTesting;" : {
+            "type" : "BEFORE"
+          },
+          "class" : {
+            "Lorg/softauto/annotations/InitializeForTesting;" : {
+              "value" : "INITIALIZE_EVERY_TIME",
+              "type" : "java.lang.Enum",
+              "parameters" : {
+                "type" : "String",
+                "value" : "helo"
+              }
+            }
+          }
+        },
+        "parametersTypes" : [ "java.lang.String" ],
+        "argumentsNames" : [ "token" ],
+        "id" : 17010,
+        "type" : "listener",
+        "returnType" : "void",
+        "classInfo" : {
+          "hasParameters" : false,
+          "entity" : false,
+          "interface" : false,
+          "enum" : false,
+          "static" : false,
+          "public" : true,
+          "protected" : false,
+          "final" : false,
+          "abstract" : false,
+          "private" : false,
+          "innerClass" : false,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "javaLibraryClass" : false
+        },
+        "modifier" : 0,
+        "childes" : [ ]
+      } ]
+    },
+    "com.cassiomolin.example.user.api.resource.PersonResource.getUsers" : {
+      "name" : "getUsers",
+      "namespce" : "com.cassiomolin.example.user.api.resource.PersonResource",
+      "annotations" : {
+        "Ljavax/ws/rs/GET;" : { },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/annotation/security/RolesAllowed;" : {
+          "value" : "ADMIN",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "users",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 17040,
+      "type" : "method",
+      "returnType" : "java.util.List",
+      "classInfo" : {
+        "hasParameters" : false,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ {
+        "name" : "findAll",
+        "namespce" : "com.cassiomolin.example.user.service.PersonService",
+        "annotations" : {
+          "Lorg/softauto/annotations/ApiForTesting;" : {
+            "protocol" : "RPC",
+            "type" : "java.lang.String"
+          },
+          "class" : {
+            "Lorg/softauto/annotations/InitializeForTesting;" : {
+              "value" : "INITIALIZE_EVERY_TIME",
+              "type" : "java.lang.Enum",
+              "parameters" : {
+                "type" : "String",
+                "value" : "helo"
+              }
+            },
+            "Ljavax/enterprise/context/ApplicationScoped;" : { }
+          }
+        },
+        "parametersTypes" : [ ],
+        "argumentsNames" : [ ],
+        "id" : 16931,
+        "type" : "method",
+        "returnType" : "java.util.List",
+        "classInfo" : {
+          "hasParameters" : false,
+          "entity" : false,
+          "interface" : false,
+          "enum" : false,
+          "static" : false,
+          "public" : true,
+          "protected" : false,
+          "final" : false,
+          "abstract" : false,
+          "private" : false,
+          "innerClass" : false,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "javaLibraryClass" : false
+        },
+        "modifier" : 0,
+        "childes" : [ ]
+      } ]
+    },
+    "com.cassiomolin.example.user.api.resource.PersonResource.getUser" : {
+      "name" : "getUser",
+      "namespce" : "com.cassiomolin.example.user.api.resource.PersonResource",
+      "annotations" : {
+        "Ljavax/ws/rs/GET;" : { },
+        "Ljavax/ws/rs/Path;" : {
+          "value" : "{userId}",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/annotation/security/RolesAllowed;" : {
+          "value" : "ADMIN",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/PathParam;" : {
+          "value" : "userId",
+          "type" : "java.lang.String",
+          "index" : 0
+        },
+        "class" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "users",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ "java.lang.Long" ],
+      "argumentsNames" : [ "userId" ],
+      "id" : 17041,
+      "type" : "method",
+      "returnType" : "com.cassiomolin.example.user.api.model.QueryPersonResult",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ {
+        "name" : "findById",
+        "namespce" : "com.cassiomolin.example.user.service.PersonService",
+        "annotations" : {
+          "Lorg/softauto/annotations/ApiForTesting;" : {
+            "protocol" : "RPC",
+            "type" : "java.lang.String"
+          },
+          "class" : {
+            "Lorg/softauto/annotations/InitializeForTesting;" : {
+              "value" : "INITIALIZE_EVERY_TIME",
+              "type" : "java.lang.Enum",
+              "parameters" : {
+                "type" : "String",
+                "value" : "helo"
+              }
+            },
+            "Ljavax/enterprise/context/ApplicationScoped;" : { }
+          }
+        },
+        "parametersTypes" : [ "java.lang.Long" ],
+        "argumentsNames" : [ "userId" ],
+        "id" : 16932,
+        "type" : "method",
+        "returnType" : "java.util.Optional",
+        "classInfo" : {
+          "hasParameters" : true,
+          "entity" : false,
+          "interface" : false,
+          "enum" : false,
+          "static" : false,
+          "public" : true,
+          "protected" : false,
+          "final" : false,
+          "abstract" : false,
+          "private" : false,
+          "innerClass" : false,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "javaLibraryClass" : false
+        },
+        "modifier" : 0,
+        "childes" : [ ]
+      } ]
+    },
+    "com.cassiomolin.example.user.api.resource.PersonResource.getAuthenticatedUser" : {
+      "name" : "getAuthenticatedUser",
+      "namespce" : "com.cassiomolin.example.user.api.resource.PersonResource",
+      "annotations" : {
+        "Ljavax/ws/rs/GET;" : { },
+        "Ljavax/ws/rs/Path;" : {
+          "value" : "me",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/ws/rs/Produces;" : {
+          "value" : "application/json",
+          "type" : "java.lang.String"
+        },
+        "Ljavax/annotation/security/PermitAll;" : { },
+        "class" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "users",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 17042,
+      "type" : "method",
+      "returnType" : "com.cassiomolin.example.user.api.model.QueryPersonResult",
+      "classInfo" : {
+        "hasParameters" : false,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ {
+        "name" : "findByUsernameOrEmail",
+        "namespce" : "com.cassiomolin.example.user.service.PersonService",
+        "annotations" : {
+          "Lorg/softauto/annotations/ApiForTesting;" : {
+            "protocol" : "RPC",
+            "type" : "java.lang.String"
+          },
+          "class" : {
+            "Lorg/softauto/annotations/InitializeForTesting;" : {
+              "value" : "INITIALIZE_EVERY_TIME",
+              "type" : "java.lang.Enum",
+              "parameters" : {
+                "type" : "String",
+                "value" : "helo"
+              }
+            },
+            "Ljavax/enterprise/context/ApplicationScoped;" : { }
+          }
+        },
+        "parametersTypes" : [ "java.lang.String" ],
+        "argumentsNames" : [ "identifier" ],
+        "id" : 16930,
+        "type" : "method",
+        "returnType" : "com.cassiomolin.example.user.domain.Person",
+        "classInfo" : {
+          "hasParameters" : false,
+          "entity" : false,
+          "interface" : false,
+          "enum" : false,
+          "static" : false,
+          "public" : true,
+          "protected" : false,
+          "final" : false,
+          "abstract" : false,
+          "private" : false,
+          "innerClass" : false,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "javaLibraryClass" : false
+        },
+        "modifier" : 0,
+        "childes" : [ ]
+      } ]
+    },
+    "com.cassiomolin.example.user.service.PersonService.publicRpcCall" : {
+      "name" : "publicRpcCall",
+      "namespce" : "com.cassiomolin.example.user.service.PersonService",
+      "annotations" : {
+        "Lorg/softauto/annotations/ApiForTesting;" : {
+          "protocol" : "RPC",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          },
+          "Ljavax/enterprise/context/ApplicationScoped;" : { }
+        }
+      },
+      "parametersTypes" : [ "java.lang.String" ],
+      "argumentsNames" : [ "name" ],
+      "id" : 16927,
+      "type" : "method",
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.user.service.PersonService.privateRpcCall" : {
+      "name" : "privateRpcCall",
+      "namespce" : "com.cassiomolin.example.user.service.PersonService",
+      "annotations" : {
+        "Lorg/softauto/annotations/ApiForTesting;" : {
+          "protocol" : "RPC",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          },
+          "Ljavax/enterprise/context/ApplicationScoped;" : { }
+        }
+      },
+      "parametersTypes" : [ "java.lang.String" ],
+      "argumentsNames" : [ "name" ],
+      "id" : 16928,
+      "type" : "method",
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.user.service.PersonService.publicStaticRpcCall" : {
+      "name" : "publicStaticRpcCall",
+      "namespce" : "com.cassiomolin.example.user.service.PersonService",
+      "annotations" : {
+        "Lorg/softauto/annotations/ApiForTesting;" : {
+          "protocol" : "RPC",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          },
+          "Ljavax/enterprise/context/ApplicationScoped;" : { }
+        }
+      },
+      "parametersTypes" : [ "java.lang.String" ],
+      "argumentsNames" : [ "name" ],
+      "id" : 16929,
+      "type" : "method",
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.user.service.PersonService.findByUsernameOrEmail" : {
+      "name" : "findByUsernameOrEmail",
+      "namespce" : "com.cassiomolin.example.user.service.PersonService",
+      "annotations" : {
+        "Lorg/softauto/annotations/ApiForTesting;" : {
+          "protocol" : "RPC",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          },
+          "Ljavax/enterprise/context/ApplicationScoped;" : { }
+        }
+      },
+      "parametersTypes" : [ "java.lang.String" ],
+      "argumentsNames" : [ "identifier" ],
+      "id" : 16930,
+      "type" : "method",
+      "returnType" : "com.cassiomolin.example.user.domain.Person",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.user.service.PersonService.findAll" : {
+      "name" : "findAll",
+      "namespce" : "com.cassiomolin.example.user.service.PersonService",
+      "annotations" : {
+        "Lorg/softauto/annotations/ApiForTesting;" : {
+          "protocol" : "RPC",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          },
+          "Ljavax/enterprise/context/ApplicationScoped;" : { }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 16931,
+      "type" : "method",
+      "returnType" : "java.util.List",
+      "classInfo" : {
+        "hasParameters" : false,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.user.service.PersonService.findById" : {
+      "name" : "findById",
+      "namespce" : "com.cassiomolin.example.user.service.PersonService",
+      "annotations" : {
+        "Lorg/softauto/annotations/ApiForTesting;" : {
+          "protocol" : "RPC",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          },
+          "Ljavax/enterprise/context/ApplicationScoped;" : { }
+        }
+      },
+      "parametersTypes" : [ "java.lang.Long" ],
+      "argumentsNames" : [ "userId" ],
+      "id" : 16932,
+      "type" : "method",
+      "returnType" : "java.util.Optional",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "innerClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    }
+  },
+  "classes" : {
+    "com.cassiomolin.example.greeting.api.resource.GreetingResource" : {
+      "name" : "com.cassiomolin.example.greeting.api.resource.GreetingResource",
+      "namespce" : "com.cassiomolin.example.greeting.api.resource",
+      "annotations" : {
+        "com.cassiomolin.example.greeting.api.resource.GreetingResource" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "greetings",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 0,
+      "type" : "clazz",
+      "returnType" : null,
+      "classInfo" : null,
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.security.api.model.AuthenticationToken" : {
+      "name" : "com.cassiomolin.example.security.api.model.AuthenticationToken",
+      "namespce" : "com.cassiomolin.example.security.api.model",
+      "annotations" : {
+        "com.cassiomolin.example.security.api.model.AuthenticationToken" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 0,
+      "type" : "clazz",
+      "returnType" : null,
+      "classInfo" : null,
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.security.api.resource.AuthenticationResource" : {
+      "name" : "com.cassiomolin.example.security.api.resource.AuthenticationResource",
+      "namespce" : "com.cassiomolin.example.security.api.resource",
+      "annotations" : {
+        "com.cassiomolin.example.security.api.resource.AuthenticationResource" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "auth",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 0,
+      "type" : "clazz",
+      "returnType" : null,
+      "classInfo" : null,
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.user.api.resource.PersonResource" : {
+      "name" : "com.cassiomolin.example.user.api.resource.PersonResource",
+      "namespce" : "com.cassiomolin.example.user.api.resource",
+      "annotations" : {
+        "com.cassiomolin.example.user.api.resource.PersonResource" : {
+          "Ljavax/enterprise/context/RequestScoped;" : { },
+          "Ljavax/ws/rs/Path;" : {
+            "value" : "users",
+            "type" : "java.lang.String"
+          }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 0,
+      "type" : "clazz",
+      "returnType" : null,
+      "classInfo" : null,
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.user.service.PersonService" : {
+      "name" : "com.cassiomolin.example.user.service.PersonService",
+      "namespce" : "com.cassiomolin.example.user.service",
+      "annotations" : {
+        "com.cassiomolin.example.user.service.PersonService" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          },
+          "Ljavax/enterprise/context/ApplicationScoped;" : { }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 0,
+      "type" : "clazz",
+      "returnType" : null,
+      "classInfo" : null,
+      "modifier" : 0,
+      "childes" : [ ]
+    }
+  },
+  "fields" : { }
+}
