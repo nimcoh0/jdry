@@ -73,7 +73,7 @@ public abstract class ExternalListener {
         return null;
     }
 
-    @Before(value = "externalPointcut()")
+    @Before(value = "externalPointcut() && !within(org.softauto..*)")
     public synchronized void captureScenarioId(JoinPoint thisJoinPoint)throws Throwable {
         if(thisJoinPoint.getArgs() != null && thisJoinPoint.getArgs().length > 0){
             if(thisJoinPoint.getArgs()[0].getClass().getTypeName().equals("org.glassfish.jersey.server.ContainerRequest")) {
@@ -87,7 +87,7 @@ public abstract class ExternalListener {
         }
     }
 
-    @Around(value = "listenerBeforePointcut()")
+    @Around(value = "listenerBeforePointcut() && !within(org.softauto..*)")
     public synchronized Object captureBeforeListener(ProceedingJoinPoint joinPoint)throws Throwable {
         Object o = null;
         //AtomicReference<String> fqmn = new AtomicReference();
@@ -129,7 +129,7 @@ public abstract class ExternalListener {
 
     //@AfterReturning(pointcut = "execution(* *(..))  && @annotation(org.softauto.annotations.ListenerForTesting)  ", returning = "result")
     //@AfterReturning(value = ("@annotation(org.softauto.annotations.ListenerForTesting)"), returning="result")
-    @AfterReturning(value = "listenerAfterPointcut()", returning="result")
+    @AfterReturning(value = "listenerAfterPointcut() && !within(org.softauto..*)", returning="result")
     public synchronized   void captureAfterListener(JoinPoint joinPoint,Object result) {
         try {
             if(serviceImpl != null) {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" pacages="org.softauto.core.ForceTriggerPolicy">
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
+        <Property name="APP_LOG_ROOT">log</Property>
+        <Property name="defaultPattern">[%d] [%-5p] [%t] %C{5} - %m%n</Property>
+        <Property name="defaultRollOverMax">10</Property>
+    </Properties>
+
+    <appenders>
+        <File name="test" append="false" fileName="${APP_LOG_ROOT}/test.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <Filters>
+                <MarkerFilter marker="TESTER" onMatch="ACCEPT" onMismatch="DENY"/>
+
+            </Filters>
+        </File>
+        <File name="jdry" append="false" fileName="${APP_LOG_ROOT}/jdry.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %msg%n"/>
+        </Console>
+
+        <RollingFile name="Tester"
+                     append="true"
+                     fileName="${APP_LOG_ROOT}/testtmp.log"
+                     filePattern="${APP_LOG_ROOT}/${sys:logFilename}.%d{yyyy-MM-dd}_%i.log"
+                     immediateFlush="true">
+            <Filters>
+                <MarkerFilter marker="TESTER" onMatch="ACCEPT" onMismatch="DENY"/>
+
+            </Filters>
+            <Policies>
+                <ForceTriggerPolicy />
+            </Policies>
+
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} app     %-5level %-30notEmpty{[%marker]} - %msg%xEx - %class{36} %L %M%n"/>
+            <DefaultRolloverStrategy max="10" fileIndex="max"/>
+        </RollingFile>
+
+
+    </appenders>
+
+    <Root level="all">
+        <AppenderRef ref="Tester"/>
+        <AppenderRef ref="Console"/>
+        <AppenderRef ref="jdry"/>
+        <AppenderRef ref="test"/>
+
+    </Root>
+    <loggers>
+        <root name="tests.infrastructure" level="all">
+            <appender-ref ref="Tester"/>
+            <appender-ref ref="jdry"/>
+            <appender-ref ref="Console"/>
+            <appender-ref ref="test"/>
+
+        </root>
+    </loggers>
+
+</Configuration>

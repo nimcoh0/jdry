@@ -3,6 +3,8 @@ package org.softauto.testng;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.*;
 import org.softauto.listener.ListenerObserver;
 import org.softauto.system.SystemState;
@@ -15,11 +17,15 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(JdryTestListener.class);
 
+    private static final Marker TESTER = MarkerManager.getMarker("TESTER");
+
+
 
 
     @Override
     public void onTestStart(ITestResult result) {
         try {
+            System.setProperty("logFilename", result.getName());
             //TestContext.getScenario().setState(ScenarioLifeCycle.START.name());;
             if(SystemState.getInstance().startTest(result.getName(),TestContext.getScenario().getId())){
                 logger.debug("successfully start test " + result.getName());
@@ -90,6 +96,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
     @Override
     public void onFinish(ITestContext context) {
         try {
+
             TestContext.getScenario().setState(ScenarioLifeCycle.STOP.name());;
             if(SystemState.getInstance().endTest(context.getName(),TestContext.getScenario().getId())){
                     logger.debug("successfully end test ");
@@ -109,9 +116,11 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
             //final Configuration config = ctx.getConfiguration();
             //config.getRootLogger().removeAppender("console");
             //ctx.updateLoggers();
+
         }catch (Exception e){
             logger.error("fail onFinish ",e);
         }
+        logger.info(TESTER, "roll test");
     }
 
 

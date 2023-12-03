@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" pacages="org.softauto.core.ForceTriggerPolicy">
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
+        <Property name="APP_LOG_ROOT">tests/demo/applications/jersey-jwt-master/log</Property>
+        <Property name="defaultPattern">[%d] [%-5p] [%t] %C{5} - %m%n</Property>
+        <Property name="defaultRollOverMax">10</Property>
+    </Properties>
+
+    <appenders>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %msg%n"/>
+        </Console>
+
+        <File name="Sut" append="false" fileName="${APP_LOG_ROOT}/sut.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <Filters>
+                <MarkerFilter marker="SUT" onMatch="ACCEPT" onMismatch="DENY"/>
+
+            </Filters>
+        </File>
+
+        <File name="Jdry" append="false" fileName="${APP_LOG_ROOT}/jdry.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+
+        <RollingFile name="Root"
+                     fileName="${APP_LOG_ROOT}/suttmp.log"
+                     filePattern="${APP_LOG_ROOT}/sut.%d{yyyy-MM-dd}_%i.gz"
+                     immediateFlush="true">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <ForceTriggerPolicy />
+                <!--SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy/-->
+            </Policies>
+
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} app     %-5level %-30notEmpty{[%marker]} - %msg%xEx - %class{36} %L %M%n"/>
+            <DefaultRolloverStrategy max="${defaultRollOverMax}" fileIndex="max"/>
+        </RollingFile>
+
+
+
+    </appenders>
+
+    <Root level="all">
+        <AppenderRef ref="Root"/>
+        <AppenderRef ref="Console"/>
+        <AppenderRef ref="Sut"/>
+        <AppenderRef ref="Jdry"/>
+    </Root>
+    <loggers>
+        <root name="com.cassiomolin.example" level="all">
+            <appender-ref ref="Root"/>
+            <appender-ref ref="Sut"/>
+            <appender-ref ref="Jdry"/>
+        </root>
+    </loggers>
+
+</Configuration>

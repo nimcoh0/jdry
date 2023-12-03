@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 //import org.softauto.analyzer.model.scenario.Scenario;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.model.scenario.Scenario;
 import org.softauto.core.*;
 //import org.softauto.deserializer.NullStringJsonDeserializer;
@@ -17,9 +19,7 @@ import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.spi.PluginProvider;
 //import org.softauto.serializer.HttpServletRequestScenarioIdSerializer;
 import org.softauto.system.SystemState;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.TestRunner;
+import org.testng.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
@@ -32,6 +32,8 @@ public class AbstractTesterImpl  {
     private static final Logger logger = LogManager.getLogger(AbstractTesterImpl.class);
 
     public ObjectMapper mapper = new ObjectMapper();
+
+    private static final Marker TESTER = MarkerManager.getMarker("TESTER");
 
     public Scenario scenario;
 
@@ -77,7 +79,7 @@ public class AbstractTesterImpl  {
     @BeforeTest
     public void beforeScenario(ITestContext testContext) {
         try {
-            if(scenario == null) {
+           if(scenario == null) {
                 scenario = new Scenario();
                 scenarioId = UUID.randomUUID().toString();
                 scenario.setId(scenarioId);
@@ -98,6 +100,7 @@ public class AbstractTesterImpl  {
 
         @BeforeMethod
         public void beforeMethod (ITestContext testContext){
+
             //test = new ListenerService();
            // test.setId(testContext.getName());
 

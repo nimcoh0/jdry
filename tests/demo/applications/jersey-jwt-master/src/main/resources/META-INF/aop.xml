@@ -16,6 +16,9 @@
             <concrete-aspect name="get" extends="org.softauto.listener.impl.ExternalListener">
                 <pointcut name="externalPointcut" expression="execution(* *(..)) AND @annotation(javax.ws.rs.GET)"/>
             </concrete-aspect>
+            <!--concrete-aspect name="trace" extends="org.softauto.logger.Tracer">
+                <pointcut name="tracePointcut" expression="execution(* *(..)) AND within(com.cassiomolin..*) AND !within(org.softauto..*)"/>
+            </concrete-aspect-->
         <weaver options="-verbose  ">
             <include within="com.cassiomolin.example..*"/>
         </weaver>

@@ -373,6 +373,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     public void findAllUsersUsingJdryRpc(){
         try {
             //HashMap<String,Object> callOption = mapper.readValue("{\"constructor\":[]}",HashMap.class);
+
             List<Person> people =  tests.com_cassiomolin_example_user_service_PersonService_findAll().invoke().get_Result();
             Assert.assertTrue(people.size()>0 );
         }catch (Exception e){

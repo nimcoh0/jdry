@@ -2,6 +2,9 @@ package org.softauto.service;
 
 
 import org.apache.avro.ipc.Callback;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.core.*;
 import org.softauto.tester.Listener;
@@ -85,6 +88,8 @@ public class JdryClient {
 
         String transceiver;
 
+        private static final Marker TESTER = MarkerManager.getMarker("TESTER");
+
         //Provider provider;
 
         //IChannelDescriptor channelDescriptor;
@@ -124,6 +129,7 @@ public class JdryClient {
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
             try {
+
                 GenericItem tree = JdryUtils.getStep(method,analyze);
                 if(tree.getType().equals("method")){
                    return invokeStep(tree,method,args);
@@ -186,7 +192,9 @@ public class JdryClient {
                     && org.apache.avro.ipc.CallFuture.class.isAssignableFrom(((Class<?>) parameterTypes[parameterTypes.length - 1]))) {
                 Type[] finalTypes = Arrays.copyOf(parameterTypes, parameterTypes.length - 1);
                 // get the callback argument from the end
-                logger.debug("invoke async request :" + method.getName());
+                Level level = Level.DEBUG;
+                //logger.debug("invoke async request :" + method.getName());
+                logger.log(level,TESTER,"invoke sync request :" + method.getName() +" transceiver: "+ transceiver+ " callOptions: "+callOptions);
                 Object[] finalArgs = Arrays.copyOf(args, args.length - 1);
                 Callback<Object> callback = (Callback<Object>) args[args.length - 1];
                 Class[] classList  = Arrays.stream(finalTypes).map(t -> (Class)t).collect(Collectors.toList()).toArray(new Class[1]);
@@ -195,7 +203,8 @@ public class JdryClient {
                 //IStepDescriptor stepDescriptor = testDescriptor.getStep(method.getName(),finalArgs,classList,callOptions,TestContext.getScenario().getId(),Configuration.get(transceiver).asMap().get("auth").toString());
                 return  new Step(method.getName(), finalArgs, classList, transceiver, callOptions,callback);
             } else {
-                logger.debug("invoke sync request :" + method.getName());
+                Level level = Level.DEBUG;
+                logger.log(level,TESTER,"invoke sync request :" + method.getName() +" transceiver: "+ transceiver+ " callOptions: "+callOptions);
                 Class[] classList  = Arrays.stream(parameterTypes).map(t -> (Class)t).collect(Collectors.toList()).toArray(new Class[1]);
                 //return provider.exec(testDescriptor.setProvider(provider).getStep(method.getName(),args,classList,callOptions,TestContext.getScenario().getId(),Configuration.get(transceiver).asMap().get("auth").toString()));
                 //return testDescriptor.getStep(method.getName(),args,classList,callOptions,TestContext.getScenario().getId(),Configuration.get(transceiver).asMap().get("auth").toString());

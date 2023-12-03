@@ -26,6 +26,8 @@
         <module>jdry-analyzer</module>
         <module>jdry-jax-rs-analyzer</module>
         <module>jdry-rpc-analyzer</module>
+        <module>jdry-logger</module>
+
     </modules>
 
     <properties>

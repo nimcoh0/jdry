@@ -1,8 +1,6 @@
 package org.softauto.listener.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.aspectj.lang.JoinPoint;
@@ -10,11 +8,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.softauto.annotations.ListenerType;
-import org.softauto.core.Configuration;
-import org.softauto.system.ScenarioContext;
-import org.softauto.system.Scenarios;
-
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -188,7 +181,7 @@ public class Listener {
     }
 
 
-    @AfterThrowing(value = "execution(* *(..))", throwing = "ee")
+    @AfterThrowing(value = "execution(* *(..)) && !within(org.softauto..*)", throwing = "ee")
     public synchronized   void captureException(JoinPoint joinPoint,Throwable ee) {
         try {
             if (serviceImpl != null) {
