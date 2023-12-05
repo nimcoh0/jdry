@@ -7,9 +7,12 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static io.undertow.servlet.Servlets.listener;
@@ -43,16 +46,20 @@ public class PersonResourceTest extends ArquillianTest {
 
     @Test
     public void getUsersAsAdmin() {
+        try {
+            URI uri  = new URI("http://localhost:8080/");
+            String authorizationHeader = composeAuthorizationHeader(getTokenForAdmin());
+            client = ClientBuilder.newClient();
+            Response response = client.target(uri).path("api").path("users").request()
+                    .header(HttpHeaders.AUTHORIZATION, authorizationHeader).get();
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 
-        String authorizationHeader = composeAuthorizationHeader(getTokenForAdmin());
-
-        Response response = client.target(uri).path("api").path("users").request()
-                .header(HttpHeaders.AUTHORIZATION, authorizationHeader).get();
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-
-        List<QueryPersonResult> queryDetailsList = response.readEntity(new GenericType<List<QueryPersonResult>>() {});
-        assertNotNull(queryDetailsList);
-        assertThat(queryDetailsList, hasSize(3));
+            List<QueryPersonResult> queryDetailsList = response.readEntity(new GenericType<List<QueryPersonResult>>() {});
+            assertNotNull(queryDetailsList);
+            assertThat(queryDetailsList, hasSize(3));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.cassiomolin.example.security.api.model;
+package com.cassiomolin.example.security.jwt.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.softauto.annotations.*;
@@ -25,7 +25,7 @@ public class AuthenticationToken {
         return token;
     }
 
-    @ListenerForTesting(type = ListenerType.BEFORE)
+    //@ListenerForTesting(type = ListenerType.BEFORE)
     public void setToken(String token) {
         this.token = token;
     }

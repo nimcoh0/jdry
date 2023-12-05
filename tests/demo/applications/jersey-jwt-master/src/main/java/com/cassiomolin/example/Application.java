@@ -9,6 +9,7 @@ import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.weld.environment.servlet.Listener;
 
 import javax.servlet.ServletException;
@@ -45,6 +46,7 @@ public class Application {
      *
      * @param port
      */
+    @Deployment(testable = false)
     public static void startServer(int port) {
 
         LOGGER.info(String.format("Starting server on port %d", port));
@@ -55,10 +57,10 @@ public class Application {
                 .addHttpListener(port, "localhost")
                 .setHandler(path)
                 .build();
-
         server.start();
 
         LOGGER.info(String.format("Server started on port %d", port));
+
 
         DeploymentInfo servletBuilder = Servlets.deployment()
                 .setClassLoader(Application.class.getClassLoader())
@@ -73,15 +75,17 @@ public class Application {
                 .setDeploymentName("application.war");
 
         LOGGER.info("Starting application deployment");
-
+        try {
         deploymentManager = Servlets.defaultContainer().addDeployment(servletBuilder);
         deploymentManager.deploy();
+        //deploymentManager.start();
 
-        try {
             path.addPrefixPath("/", deploymentManager.start());
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
+
+
 
         LOGGER.info("Application deployed");
     }

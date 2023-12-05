@@ -29,7 +29,7 @@
         <RollingFile name="Tester"
                      append="true"
                      fileName="${APP_LOG_ROOT}/testtmp.log"
-                     filePattern="${APP_LOG_ROOT}/${sys:logFilename}.%d{yyyy-MM-dd}_%i.log"
+                     filePattern="${APP_LOG_ROOT}/${sys:logFilename}.%d{yyyy-MM-dd}_%i.gz"
                      immediateFlush="true">
             <Filters>
                 <MarkerFilter marker="TESTER" onMatch="ACCEPT" onMismatch="DENY"/>

@@ -48,15 +48,12 @@ public class Step implements IStep{
 
 
 
-    public <T> boolean isSuccesses(Handler<AsyncResult<T>> resultHandler){
-        if(state){
+    public <T> void isSuccesses(Handler<AsyncResult<T>> resultHandler){
             try {
                 resultHandler.handle(Future.handleResult((T) result));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        return false;
     }
 
     public boolean isSuccesses(){

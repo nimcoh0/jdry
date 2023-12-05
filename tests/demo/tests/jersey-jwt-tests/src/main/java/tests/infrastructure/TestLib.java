@@ -1,7 +1,7 @@
 package tests.infrastructure;
 
-import com.cassiomolin.example.security.api.model.AuthenticationToken;
-import com.cassiomolin.example.security.api.model.UserCredentials;
+import com.cassiomolin.example.security.jwt.model.AuthenticationToken;
+import com.cassiomolin.example.security.jwt.model.UserCredentials;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 

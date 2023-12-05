@@ -1,4 +1,4 @@
-package com.cassiomolin.example.security.api.model;
+package com.cassiomolin.example.security.jwt.model;
 
 /**
  * API model for the user credentials.

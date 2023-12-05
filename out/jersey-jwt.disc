@@ -43,9 +43,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -88,58 +88,16 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
     },
-    "com.cassiomolin.example.security.api.model.AuthenticationToken.setToken" : {
-      "name" : "setToken",
-      "namespce" : "com.cassiomolin.example.security.api.model.AuthenticationToken",
-      "annotations" : {
-        "Lorg/softauto/annotations/ListenerForTesting;" : {
-          "type" : "BEFORE"
-        },
-        "class" : {
-          "Lorg/softauto/annotations/InitializeForTesting;" : {
-            "value" : "INITIALIZE_EVERY_TIME",
-            "type" : "java.lang.Enum",
-            "parameters" : {
-              "type" : "String",
-              "value" : "helo"
-            }
-          }
-        }
-      },
-      "parametersTypes" : [ "java.lang.String" ],
-      "argumentsNames" : [ "token" ],
-      "id" : 17010,
-      "type" : "listener",
-      "returnType" : "void",
-      "classInfo" : {
-        "hasParameters" : true,
-        "entity" : false,
-        "interface" : false,
-        "enum" : false,
-        "static" : false,
-        "public" : true,
-        "protected" : false,
-        "final" : false,
-        "abstract" : false,
-        "private" : false,
-        "innerClass" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
-      },
-      "modifier" : 0,
-      "childes" : [ ]
-    },
-    "com.cassiomolin.example.security.api.resource.AuthenticationResource.authenticate" : {
+    "com.cassiomolin.example.security.jwt.resource.AuthenticationResource.authenticate" : {
       "name" : "authenticate",
-      "namespce" : "com.cassiomolin.example.security.api.resource.AuthenticationResource",
+      "namespce" : "com.cassiomolin.example.security.jwt.resource.AuthenticationResource",
       "annotations" : {
         "Ljavax/ws/rs/POST;" : { },
         "Ljavax/ws/rs/Consumes;" : {
@@ -159,11 +117,11 @@
           }
         }
       },
-      "parametersTypes" : [ "com.cassiomolin.example.security.api.model.UserCredentials" ],
+      "parametersTypes" : [ "com.cassiomolin.example.security.jwt.model.UserCredentials" ],
       "argumentsNames" : [ "credentials" ],
-      "id" : 17017,
+      "id" : 17036,
       "type" : "method",
-      "returnType" : "java.lang.String",
+      "returnType" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
       "classInfo" : {
         "hasParameters" : true,
         "entity" : false,
@@ -176,57 +134,16 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
-      "childes" : [ {
-        "name" : "setToken",
-        "namespce" : "com.cassiomolin.example.security.api.model.AuthenticationToken",
-        "annotations" : {
-          "Lorg/softauto/annotations/ListenerForTesting;" : {
-            "type" : "BEFORE"
-          },
-          "class" : {
-            "Lorg/softauto/annotations/InitializeForTesting;" : {
-              "value" : "INITIALIZE_EVERY_TIME",
-              "type" : "java.lang.Enum",
-              "parameters" : {
-                "type" : "String",
-                "value" : "helo"
-              }
-            }
-          }
-        },
-        "parametersTypes" : [ "java.lang.String" ],
-        "argumentsNames" : [ "token" ],
-        "id" : 17010,
-        "type" : "listener",
-        "returnType" : "void",
-        "classInfo" : {
-          "hasParameters" : true,
-          "entity" : false,
-          "interface" : false,
-          "enum" : false,
-          "static" : false,
-          "public" : true,
-          "protected" : false,
-          "final" : false,
-          "abstract" : false,
-          "private" : false,
-          "innerClass" : false,
-          "applicationClass" : true,
-          "libraryClass" : false,
-          "javaLibraryClass" : false
-        },
-        "modifier" : 0,
-        "childes" : [ ]
-      } ]
+      "childes" : [ ]
     },
-    "com.cassiomolin.example.security.api.resource.AuthenticationResource.refresh" : {
+    "com.cassiomolin.example.security.jwt.resource.AuthenticationResource.refresh" : {
       "name" : "refresh",
-      "namespce" : "com.cassiomolin.example.security.api.resource.AuthenticationResource",
+      "namespce" : "com.cassiomolin.example.security.jwt.resource.AuthenticationResource",
       "annotations" : {
         "Ljavax/ws/rs/POST;" : { },
         "Ljavax/ws/rs/Path;" : {
@@ -247,7 +164,7 @@
       },
       "parametersTypes" : [ ],
       "argumentsNames" : [ ],
-      "id" : 17018,
+      "id" : 17037,
       "type" : "method",
       "returnType" : "java.lang.String",
       "classInfo" : {
@@ -262,53 +179,12 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
-      "childes" : [ {
-        "name" : "setToken",
-        "namespce" : "com.cassiomolin.example.security.api.model.AuthenticationToken",
-        "annotations" : {
-          "Lorg/softauto/annotations/ListenerForTesting;" : {
-            "type" : "BEFORE"
-          },
-          "class" : {
-            "Lorg/softauto/annotations/InitializeForTesting;" : {
-              "value" : "INITIALIZE_EVERY_TIME",
-              "type" : "java.lang.Enum",
-              "parameters" : {
-                "type" : "String",
-                "value" : "helo"
-              }
-            }
-          }
-        },
-        "parametersTypes" : [ "java.lang.String" ],
-        "argumentsNames" : [ "token" ],
-        "id" : 17010,
-        "type" : "listener",
-        "returnType" : "void",
-        "classInfo" : {
-          "hasParameters" : false,
-          "entity" : false,
-          "interface" : false,
-          "enum" : false,
-          "static" : false,
-          "public" : true,
-          "protected" : false,
-          "final" : false,
-          "abstract" : false,
-          "private" : false,
-          "innerClass" : false,
-          "applicationClass" : true,
-          "libraryClass" : false,
-          "javaLibraryClass" : false
-        },
-        "modifier" : 0,
-        "childes" : [ ]
-      } ]
+      "childes" : [ ]
     },
     "com.cassiomolin.example.user.api.resource.PersonResource.getUsers" : {
       "name" : "getUsers",
@@ -333,7 +209,7 @@
       },
       "parametersTypes" : [ ],
       "argumentsNames" : [ ],
-      "id" : 17040,
+      "id" : 17059,
       "type" : "method",
       "returnType" : "java.util.List",
       "classInfo" : {
@@ -348,9 +224,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -375,7 +251,7 @@
         },
         "parametersTypes" : [ ],
         "argumentsNames" : [ ],
-        "id" : 16931,
+        "id" : 16888,
         "type" : "method",
         "returnType" : "java.util.List",
         "classInfo" : {
@@ -390,9 +266,9 @@
           "abstract" : false,
           "private" : false,
           "innerClass" : false,
+          "javaLibraryClass" : false,
           "applicationClass" : true,
-          "libraryClass" : false,
-          "javaLibraryClass" : false
+          "libraryClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -430,7 +306,7 @@
       },
       "parametersTypes" : [ "java.lang.Long" ],
       "argumentsNames" : [ "userId" ],
-      "id" : 17041,
+      "id" : 17060,
       "type" : "method",
       "returnType" : "com.cassiomolin.example.user.api.model.QueryPersonResult",
       "classInfo" : {
@@ -445,9 +321,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -472,7 +348,7 @@
         },
         "parametersTypes" : [ "java.lang.Long" ],
         "argumentsNames" : [ "userId" ],
-        "id" : 16932,
+        "id" : 16889,
         "type" : "method",
         "returnType" : "java.util.Optional",
         "classInfo" : {
@@ -487,9 +363,9 @@
           "abstract" : false,
           "private" : false,
           "innerClass" : false,
+          "javaLibraryClass" : false,
           "applicationClass" : true,
-          "libraryClass" : false,
-          "javaLibraryClass" : false
+          "libraryClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -519,9 +395,9 @@
       },
       "parametersTypes" : [ ],
       "argumentsNames" : [ ],
-      "id" : 17042,
+      "id" : 17061,
       "type" : "method",
-      "returnType" : "com.cassiomolin.example.user.api.model.QueryPersonResult",
+      "returnType" : "java.util.HashSet",
       "classInfo" : {
         "hasParameters" : false,
         "entity" : false,
@@ -534,9 +410,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -561,7 +437,7 @@
         },
         "parametersTypes" : [ "java.lang.String" ],
         "argumentsNames" : [ "identifier" ],
-        "id" : 16930,
+        "id" : 16887,
         "type" : "method",
         "returnType" : "com.cassiomolin.example.user.domain.Person",
         "classInfo" : {
@@ -576,9 +452,9 @@
           "abstract" : false,
           "private" : false,
           "innerClass" : false,
+          "javaLibraryClass" : false,
           "applicationClass" : true,
-          "libraryClass" : false,
-          "javaLibraryClass" : false
+          "libraryClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -606,7 +482,7 @@
       },
       "parametersTypes" : [ "java.lang.String" ],
       "argumentsNames" : [ "name" ],
-      "id" : 16927,
+      "id" : 16884,
       "type" : "method",
       "returnType" : "java.lang.String",
       "classInfo" : {
@@ -621,9 +497,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -650,7 +526,7 @@
       },
       "parametersTypes" : [ "java.lang.String" ],
       "argumentsNames" : [ "name" ],
-      "id" : 16928,
+      "id" : 16885,
       "type" : "method",
       "returnType" : "java.lang.String",
       "classInfo" : {
@@ -665,9 +541,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -694,7 +570,7 @@
       },
       "parametersTypes" : [ "java.lang.String" ],
       "argumentsNames" : [ "name" ],
-      "id" : 16929,
+      "id" : 16886,
       "type" : "method",
       "returnType" : "java.lang.String",
       "classInfo" : {
@@ -709,9 +585,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -738,7 +614,7 @@
       },
       "parametersTypes" : [ "java.lang.String" ],
       "argumentsNames" : [ "identifier" ],
-      "id" : 16930,
+      "id" : 16887,
       "type" : "method",
       "returnType" : "com.cassiomolin.example.user.domain.Person",
       "classInfo" : {
@@ -753,9 +629,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -782,7 +658,7 @@
       },
       "parametersTypes" : [ ],
       "argumentsNames" : [ ],
-      "id" : 16931,
+      "id" : 16888,
       "type" : "method",
       "returnType" : "java.util.List",
       "classInfo" : {
@@ -797,9 +673,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -826,7 +702,7 @@
       },
       "parametersTypes" : [ "java.lang.Long" ],
       "argumentsNames" : [ "userId" ],
-      "id" : 16932,
+      "id" : 16889,
       "type" : "method",
       "returnType" : "java.util.Optional",
       "classInfo" : {
@@ -841,9 +717,9 @@
         "abstract" : false,
         "private" : false,
         "innerClass" : false,
+        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -871,11 +747,11 @@
       "modifier" : 0,
       "childes" : [ ]
     },
-    "com.cassiomolin.example.security.api.model.AuthenticationToken" : {
-      "name" : "com.cassiomolin.example.security.api.model.AuthenticationToken",
-      "namespce" : "com.cassiomolin.example.security.api.model",
+    "com.cassiomolin.example.security.jwt.model.AuthenticationToken" : {
+      "name" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
+      "namespce" : "com.cassiomolin.example.security.jwt.model",
       "annotations" : {
-        "com.cassiomolin.example.security.api.model.AuthenticationToken" : {
+        "com.cassiomolin.example.security.jwt.model.AuthenticationToken" : {
           "Lorg/softauto/annotations/InitializeForTesting;" : {
             "value" : "INITIALIZE_EVERY_TIME",
             "type" : "java.lang.Enum",
@@ -895,11 +771,11 @@
       "modifier" : 0,
       "childes" : [ ]
     },
-    "com.cassiomolin.example.security.api.resource.AuthenticationResource" : {
-      "name" : "com.cassiomolin.example.security.api.resource.AuthenticationResource",
-      "namespce" : "com.cassiomolin.example.security.api.resource",
+    "com.cassiomolin.example.security.jwt.resource.AuthenticationResource" : {
+      "name" : "com.cassiomolin.example.security.jwt.resource.AuthenticationResource",
+      "namespce" : "com.cassiomolin.example.security.jwt.resource",
       "annotations" : {
-        "com.cassiomolin.example.security.api.resource.AuthenticationResource" : {
+        "com.cassiomolin.example.security.jwt.resource.AuthenticationResource" : {
           "Ljavax/enterprise/context/RequestScoped;" : { },
           "Ljavax/ws/rs/Path;" : {
             "value" : "auth",

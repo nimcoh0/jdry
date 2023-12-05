@@ -1,8 +1,8 @@
 package com.cassiomolin.example.security.api.resource;
 
 import com.cassiomolin.example.ArquillianTest;
-import com.cassiomolin.example.security.api.model.AuthenticationToken;
-import com.cassiomolin.example.security.api.model.UserCredentials;
+import com.cassiomolin.example.security.jwt.model.AuthenticationToken;
+import com.cassiomolin.example.security.jwt.model.UserCredentials;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
@@ -37,7 +37,7 @@ public class AuthenticationResourceTest extends ArquillianTest {
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("admin");
             credentials.setPassword("password");
-            uri = new URI("http://localhost:8080/api/auth");
+            uri = new URI("http://localhost:8080/");
             Response response = client.target(uri).path("api").path("auth").request()
                     .post(Entity.entity(credentials, MediaType.APPLICATION_JSON));
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());

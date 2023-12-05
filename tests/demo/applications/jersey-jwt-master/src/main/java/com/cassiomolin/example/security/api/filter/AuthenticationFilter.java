@@ -1,21 +1,17 @@
 package com.cassiomolin.example.security.api.filter;
 
-import com.cassiomolin.example.security.api.AuthenticatedUserDetails;
-import com.cassiomolin.example.security.api.AuthenticationTokenDetails;
-import com.cassiomolin.example.security.api.TokenBasedSecurityContext;
+import com.cassiomolin.example.security.jwt.AuthenticatedUserDetails;
+import com.cassiomolin.example.security.jwt.AuthenticationTokenDetails;
+import com.cassiomolin.example.security.jwt.TokenBasedSecurityContext;
 import com.cassiomolin.example.security.service.AuthenticationTokenService;
 import com.cassiomolin.example.user.domain.Person;
 import com.cassiomolin.example.user.service.PersonService;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.SecurityContext;
-import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 
 /**
@@ -23,9 +19,9 @@ import java.io.IOException;
  *
  * @author cassiomolin
  */
-@Provider
-@Dependent
-@Priority(Priorities.AUTHENTICATION)
+//@Provider
+//@Dependent
+//@Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
 
     @Inject
@@ -37,12 +33,12 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
 
-        String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String authenticationToken = authorizationHeader.substring(7);
-            handleTokenBasedAuthentication(authenticationToken, requestContext);
-            return;
-        }
+            String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
+            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+                String authenticationToken = authorizationHeader.substring(7);
+                handleTokenBasedAuthentication(authenticationToken, requestContext);
+                return;
+            }
 
         // Other authentication schemes (such as Basic) could be supported
     }

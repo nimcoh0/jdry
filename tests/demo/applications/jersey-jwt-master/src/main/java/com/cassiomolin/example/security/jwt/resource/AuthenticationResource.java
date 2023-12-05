@@ -1,9 +1,9 @@
-package com.cassiomolin.example.security.api.resource;
+package com.cassiomolin.example.security.jwt.resource;
 
-import com.cassiomolin.example.security.api.AuthenticationTokenDetails;
-import com.cassiomolin.example.security.api.TokenBasedSecurityContext;
-import com.cassiomolin.example.security.api.model.AuthenticationToken;
-import com.cassiomolin.example.security.api.model.UserCredentials;
+import com.cassiomolin.example.security.jwt.AuthenticationTokenDetails;
+import com.cassiomolin.example.security.jwt.TokenBasedSecurityContext;
+import com.cassiomolin.example.security.jwt.model.AuthenticationToken;
+import com.cassiomolin.example.security.jwt.model.UserCredentials;
 import com.cassiomolin.example.security.service.AuthenticationTokenService;
 import com.cassiomolin.example.security.service.UsernamePasswordValidator;
 import com.cassiomolin.example.user.domain.Person;
@@ -55,6 +55,7 @@ public class AuthenticationResource {
         String token = authenticationTokenService.issueToken(person.getUsername(), person.getAuthorities());
         AuthenticationToken authenticationToken = new AuthenticationToken();
         authenticationToken.setToken(token);
+        //requestContext.setProperty("Token", newToken);
         return Response.ok(authenticationToken).build();
     }
 

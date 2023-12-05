@@ -1,6 +1,6 @@
 package com.cassiomolin.example.security.service;
 
-import com.cassiomolin.example.security.api.AuthenticationTokenDetails;
+import com.cassiomolin.example.security.jwt.AuthenticationTokenDetails;
 import com.cassiomolin.example.security.domain.Authority;
 import com.cassiomolin.example.security.exception.InvalidAuthenticationTokenException;
 import io.jsonwebtoken.*;
@@ -26,6 +26,7 @@ class AuthenticationTokenParser {
     @Inject
     private AuthenticationTokenSettings settings;
 
+   // private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     /**
      * Parse a JWT token.
      *
@@ -38,8 +39,7 @@ class AuthenticationTokenParser {
 
             Claims claims = Jwts.parser()
                     .setSigningKey(settings.getSecret())
-                    .requireAudience(settings.getAudience())
-                    .setAllowedClockSkewSeconds(settings.getClockSkew())
+                    .build()
                     .parseClaimsJws(token)
                     .getBody();
 

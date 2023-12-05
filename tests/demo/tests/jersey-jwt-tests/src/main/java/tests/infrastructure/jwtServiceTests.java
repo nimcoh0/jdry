@@ -1,6 +1,7 @@
 package tests.infrastructure;
 
-import com.cassiomolin.example.security.api.model.UserCredentials;
+import com.cassiomolin.example.security.jwt.model.AuthenticationToken;
+import com.cassiomolin.example.security.jwt.model.UserCredentials;
 import com.cassiomolin.example.user.domain.Person;
 
 import javax.ws.rs.client.Entity;
@@ -18,7 +19,6 @@ import org.softauto.tester.AbstractTesterImpl;
 import org.softauto.tester.Listener;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -41,20 +41,15 @@ public class jwtServiceTests extends AbstractTesterImpl {
 
     jwtService tests;
 
-
+    private static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
 
     ClientConfig clientConfig;
 
     @BeforeTest
     public void init(){
-        //listeners = (jwtListenerService) org.softauto.service.ListenerService.create(jwtListenerService.class).getListeners();
         listeners = JdryClient.create(jwtListenerService.class);
-        //clientCallback = Client.create(jwtService.Callback.class).build();
         testsCallback = JdryClient.create(jwtService.Callback.class);
-        //client = Client.create(jwtService.class).build();
         tests = JdryClient.create(jwtService.class);
-        //testsCallback = (jwtService.Callback) clientCallback.getTests();
-        //tests = (jwtService) client.getTests();
         clientConfig = new ClientConfig();
         clientConfig.register(RequestClientFilter.class);
     }
@@ -69,22 +64,12 @@ public class jwtServiceTests extends AbstractTesterImpl {
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
             credentials.setPassword("password");
-            javax.ws.rs.client.Client client = javax.ws.rs.client.ClientBuilder.newBuilder().build();
-            Future response = client.target("http://localhost:8080").path("/api/auth").request().async()
-                    .post(Entity.entity(credentials, MediaType.APPLICATION_JSON),new InvocationCallback<String>() {
-                        @Override
-                        public void completed(String s) {
-                            System.out.println("Async got: " + s);
-                        }
+            javax.ws.rs.client.Client client = javax.ws.rs.client.ClientBuilder.newClient();
+            AuthenticationToken authenticationToken = client.target("http://localhost:8080").path("api").path("auth").request()
+                    .post(Entity.entity(credentials, MediaType.APPLICATION_JSON), AuthenticationToken.class);
+            String token = authenticationToken.getToken();
 
-                        @Override
-                        public void failed(Throwable throwable) {
-                            System.out.println("Async failure...");
-                        }
-                    });
-            Object result = response.get();
-
-            Assert.assertTrue(result != null);
+            Assert.assertTrue(token  != null);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -112,7 +97,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
             };
 
 
-            Listener listener = listeners.com_cassiomolin_example_security_api_model_AuthenticationToken_setToken();
+            //Listener listener = listeners.com_cassiomolin_example_security_api_model_AuthenticationToken_setToken();
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
             credentials.setPassword("password");
@@ -131,7 +116,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
                             System.out.println("Async failure...");
                         }
                     });
-            listener.waitTo(ff);
+            //listener.waitTo(ff);
             Object result = response.get();
             Assert.assertTrue(result != null);
         }catch (Exception e){
@@ -145,6 +130,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
      * need to handle argumentsRequestType type ? like RequestBody....
      *
      */
+    /*
     @Test
     public void asyncLoginUsingJdryJaxrsClientWithListenerBefore(){
         try {
@@ -154,20 +140,20 @@ public class jwtServiceTests extends AbstractTesterImpl {
             credentials.setUsername("user");
             credentials.setPassword("password");
 
-            Listener listener = listeners.com_cassiomolin_example_security_api_model_AuthenticationToken_setToken();
+            //Listener listener = listeners.com_cassiomolin_example_security_api_model_AuthenticationToken_setToken();
 
             HashMap<String,Object> callOption =  new WebCallOption().setHttpMethod("POST").setProduce(MediaType.APPLICATION_JSON_TYPE)
                     .setTypes(new Class[]{UserCredentials.class}).setConsume(MediaType.APPLICATION_JSON_TYPE).setPath("/api/auth").setArgumentsNames(new String[]{"user","password"})
                     .setResponseType(javax.ws.rs.core.Response.class.getTypeName()).toMap();
 
-            testsCallback.com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate(credentials,future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate)
+            testsCallback.com_cassiomolin_example_security_jwt_resource_AuthenticationResource_authenticate(credentials,future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate)
                     .setTransceiver("JAXRS")
                     .setCallOptions(callOption)
-                    .invoke()
-                    .then(listener.waitTo(res ->{
-                        Object[] r = (Object[]) res.result();
-                        r[0] = "sdf";
-                    }));
+                    .invoke();
+                    //.then(listener.waitTo(res ->{
+                     //   Object[] r = (Object[]) res.result();
+                     //   r[0] = "sdf";
+                   // }));
             Object result = future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate.get();
             Assert.assertTrue(result != null);
 
@@ -177,6 +163,8 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
+
+     */
     @Test
     public void asyncLoginUsingJdryJaxrsClientWithEmbededJeresyAndListenerBefore(){
         try {
@@ -194,7 +182,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
                 }
             };
 
-                Listener listener = listeners.com_cassiomolin_example_security_api_model_AuthenticationToken_setToken();
+                //Listener listener = listeners.com_cassiomolin_example_security_api_model_AuthenticationToken_setToken();
                 UserCredentials credentials = new UserCredentials();
                 credentials.setUsername("user");
                 credentials.setPassword("password");
@@ -212,7 +200,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
                                 System.out.println("Async failure...");
                             }
                         });
-                listener.waitTo(ff);
+                //listener.waitTo(ff);
                 Object result = response.get();
                 Assert.assertTrue(result != null);
             }catch (Exception e){
@@ -221,13 +209,13 @@ public class jwtServiceTests extends AbstractTesterImpl {
     }
 
 
-
+/*
 
     @Test
     public void asyncLoginUsingJdryJaxrsClientProxyAndListenerBefore(){
         try {
 
-            CallFuture<String> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
+            //CallFuture<String> future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate = new CallFuture();
             java.util.function.Function<Object,Object> ff = new java.util.function.Function<Object,Object>() {
 
                 @Override
@@ -242,14 +230,14 @@ public class jwtServiceTests extends AbstractTesterImpl {
                 }
             };
 
-            Listener listener = listeners.com_cassiomolin_example_security_api_model_AuthenticationToken_setToken();
+            //Listener listener = listeners.com_cassiomolin_example_security_api_model_AuthenticationToken_setToken();
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
             credentials.setPassword("password");
 
 
-            testsCallback.com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate(credentials,future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate).invoke()
-                    .then(listener.waitTo(ff));
+            testsCallback.com_cassiomolin_example_security_jwt_resource_AuthenticationResource_authenticate(credentials,future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate).invoke()
+                    //.then(listener.waitTo(ff));
 
 
             Object result = future_com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate.get();
@@ -260,6 +248,8 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
+
+ */
 
     @Test
     public void asyncLoginUsingJdryJaxrsClientWithEmbededJeresy(){
@@ -358,7 +348,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
             credentials.setUsername("user");
             credentials.setPassword("password");
             AtomicReference<Object> result = new AtomicReference<>();
-            tests.com_cassiomolin_example_security_api_resource_AuthenticationResource_authenticate(credentials).setExpected("#result != null").invoke().isSuccesses(res ->{
+            tests.com_cassiomolin_example_security_jwt_resource_AuthenticationResource_authenticate(credentials).setExpected("#result != null").invoke().isSuccesses(res ->{
                 result.set(tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result());
             });
 

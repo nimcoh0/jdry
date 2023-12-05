@@ -1,13 +1,18 @@
 package com.cassiomolin.example.security.service;
 
 import com.cassiomolin.example.common.configuration.Configurable;
-import com.cassiomolin.example.security.api.AuthenticationTokenDetails;
+import com.cassiomolin.example.security.jwt.AuthenticationTokenDetails;
 import com.cassiomolin.example.security.domain.Authority;
 import com.cassiomolin.example.security.exception.AuthenticationTokenRefreshmentException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
+import javax.crypto.SecretKey;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,6 +23,8 @@ import java.util.UUID;
  */
 @ApplicationScoped
 public class AuthenticationTokenService {
+
+    private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     /**
      * How long the token is valid for (in seconds).
@@ -63,6 +70,19 @@ public class AuthenticationTokenService {
                 .build();
 
         return tokenIssuer.issueToken(authenticationTokenDetails);
+    }
+
+    private String generateToken(String subject) {
+        Date now = new Date();
+        Date expiration = new Date(now.getTime() + 86400000);
+
+        return Jwts.builder()
+                .setSubject(subject)
+                .setIssuer("your-issuer")
+                .setIssuedAt(new Date())
+                .setExpiration(expiration)
+                .signWith(SECRET_KEY)
+                .compact();
     }
 
     /**

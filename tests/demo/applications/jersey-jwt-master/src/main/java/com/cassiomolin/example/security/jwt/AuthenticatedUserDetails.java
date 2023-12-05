@@ -1,4 +1,4 @@
-package com.cassiomolin.example.security.api;
+package com.cassiomolin.example.security.jwt;
 
 import com.cassiomolin.example.security.domain.Authority;
 
