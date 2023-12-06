@@ -25,7 +25,7 @@ public class AuthenticationToken {
         return token;
     }
 
-    //@ListenerForTesting(type = ListenerType.BEFORE)
+    @ListenerForTesting(type = ListenerType.BEFORE)
     public void setToken(String token) {
         this.token = token;
     }

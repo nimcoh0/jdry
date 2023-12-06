@@ -2,7 +2,10 @@ package org.softauto.system;
 
 import org.softauto.core.ScenarioLifeCycle;
 import org.softauto.core.StepLifeCycle;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ScenarioContext {
 
@@ -13,6 +16,8 @@ public class ScenarioContext {
     private String stepName;
 
     private String scenarioName;
+
+    private List<String> listeners = new ArrayList<>();
 
     //private List<Listener> listeners = new ArrayList<>();
 
@@ -75,5 +80,17 @@ public class ScenarioContext {
     public ScenarioContext setId(String id) {
         this.id = id;
         return this;
+    }
+
+    public List<String> getListeners() {
+        return listeners;
+    }
+
+    public void setListeners(List<String> listeners) {
+        this.listeners = listeners;
+    }
+
+    public boolean isListenerExist(String name){
+        return this.listeners.contains(name);
     }
 }

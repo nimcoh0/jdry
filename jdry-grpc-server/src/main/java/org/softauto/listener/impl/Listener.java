@@ -115,6 +115,7 @@ public class Listener {
                             o = joinPoint.proceed(args);
                         } catch (Exception e) {
                             logger.error("send message " + fqmn.get() + " fail  ", e);
+                            o = joinPoint.proceed();
                         }
                     }else {
                         o = joinPoint.proceed();

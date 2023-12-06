@@ -1,7 +1,7 @@
 <aspectj>
     <aspects>
             <concrete-aspect name="any" extends="org.softauto.listener.impl.ExternalListener">
-                <pointcut name="externalPointcut" expression="execution(* com.cassiomolin.example.security.api.filter.AuthenticationFilter.filter(..))"/>
+                <pointcut name="externalPointcut" expression="execution(* com.cassiomolin.example.security.jwt.filter.AuthenticationFilter.filter(..))"/>
                 <!--after pointcut="execution(* org.traccar.api.SecurityRequestFilter.filter(..)) " invokeClass="org.softauto.jaxrs.recorder.JaxRsRecorder" invokeMethod="captureRequest(JoinPoint joinPoint)"/-->
             </concrete-aspect>
             <concrete-aspect name="post" extends="org.softauto.listener.impl.ExternalListener">

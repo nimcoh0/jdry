@@ -68,7 +68,7 @@ public class NoneStepDescriptorImpl extends AbstractStepDescriptorImpl {
             mm.add("scenarioId", scenarioId);
         }
 
-        if(callOptions.get("headers") != null){
+        if(callOptions != null && callOptions.containsKey("headers") && callOptions.get("headers") != null){
             mm.putAll((MultivaluedMap<String, Object>)callOptions.get("headers"));
         }
 

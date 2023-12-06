@@ -42,13 +42,48 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
-      "childes" : [ ]
+      "childes" : [ {
+        "name" : "getPublicGreeting",
+        "namespce" : "com.cassiomolin.example.greeting.service.GreetingService",
+        "annotations" : {
+          "Lorg/softauto/annotations/ApiForTesting;" : {
+            "protocol" : "RPC",
+            "type" : "java.lang.String"
+          },
+          "class" : {
+            "Ljavax/enterprise/context/ApplicationScoped;" : { }
+          }
+        },
+        "parametersTypes" : [ ],
+        "argumentsNames" : [ ],
+        "id" : 16877,
+        "type" : "method",
+        "returnType" : "java.lang.String",
+        "classInfo" : {
+          "hasParameters" : false,
+          "entity" : false,
+          "interface" : false,
+          "enum" : false,
+          "static" : false,
+          "public" : true,
+          "protected" : false,
+          "final" : false,
+          "abstract" : false,
+          "private" : false,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "javaLibraryClass" : false,
+          "innerClass" : false
+        },
+        "modifier" : 0,
+        "childes" : [ ]
+      } ]
     },
     "com.cassiomolin.example.greeting.api.resource.GreetingResource.getProtectedGreeting" : {
       "name" : "getProtectedGreeting",
@@ -87,10 +122,88 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.greeting.service.GreetingService.getPublicGreeting" : {
+      "name" : "getPublicGreeting",
+      "namespce" : "com.cassiomolin.example.greeting.service.GreetingService",
+      "annotations" : {
+        "Lorg/softauto/annotations/ApiForTesting;" : {
+          "protocol" : "RPC",
+          "type" : "java.lang.String"
+        },
+        "class" : {
+          "Ljavax/enterprise/context/ApplicationScoped;" : { }
+        }
+      },
+      "parametersTypes" : [ ],
+      "argumentsNames" : [ ],
+      "id" : 16877,
+      "type" : "method",
+      "returnType" : "java.lang.String",
+      "classInfo" : {
+        "hasParameters" : false,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
+      },
+      "modifier" : 0,
+      "childes" : [ ]
+    },
+    "com.cassiomolin.example.security.jwt.model.AuthenticationToken.setToken" : {
+      "name" : "setToken",
+      "namespce" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
+      "annotations" : {
+        "Lorg/softauto/annotations/ListenerForTesting;" : {
+          "type" : "BEFORE"
+        },
+        "class" : {
+          "Lorg/softauto/annotations/InitializeForTesting;" : {
+            "value" : "INITIALIZE_EVERY_TIME",
+            "type" : "java.lang.Enum",
+            "parameters" : {
+              "type" : "String",
+              "value" : "helo"
+            }
+          }
+        }
+      },
+      "parametersTypes" : [ "java.lang.String" ],
+      "argumentsNames" : [ "token" ],
+      "id" : 17029,
+      "type" : "listener",
+      "returnType" : "void",
+      "classInfo" : {
+        "hasParameters" : true,
+        "entity" : false,
+        "interface" : false,
+        "enum" : false,
+        "static" : false,
+        "public" : true,
+        "protected" : false,
+        "final" : false,
+        "abstract" : false,
+        "private" : false,
+        "applicationClass" : true,
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -133,13 +246,54 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
-      "childes" : [ ]
+      "childes" : [ {
+        "name" : "setToken",
+        "namespce" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
+        "annotations" : {
+          "Lorg/softauto/annotations/ListenerForTesting;" : {
+            "type" : "BEFORE"
+          },
+          "class" : {
+            "Lorg/softauto/annotations/InitializeForTesting;" : {
+              "value" : "INITIALIZE_EVERY_TIME",
+              "type" : "java.lang.Enum",
+              "parameters" : {
+                "type" : "String",
+                "value" : "helo"
+              }
+            }
+          }
+        },
+        "parametersTypes" : [ "java.lang.String" ],
+        "argumentsNames" : [ "token" ],
+        "id" : 17029,
+        "type" : "listener",
+        "returnType" : "void",
+        "classInfo" : {
+          "hasParameters" : true,
+          "entity" : false,
+          "interface" : false,
+          "enum" : false,
+          "static" : false,
+          "public" : true,
+          "protected" : false,
+          "final" : false,
+          "abstract" : false,
+          "private" : false,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "javaLibraryClass" : false,
+          "innerClass" : false
+        },
+        "modifier" : 0,
+        "childes" : [ ]
+      } ]
     },
     "com.cassiomolin.example.security.jwt.resource.AuthenticationResource.refresh" : {
       "name" : "refresh",
@@ -178,13 +332,54 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
-      "childes" : [ ]
+      "childes" : [ {
+        "name" : "setToken",
+        "namespce" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
+        "annotations" : {
+          "Lorg/softauto/annotations/ListenerForTesting;" : {
+            "type" : "BEFORE"
+          },
+          "class" : {
+            "Lorg/softauto/annotations/InitializeForTesting;" : {
+              "value" : "INITIALIZE_EVERY_TIME",
+              "type" : "java.lang.Enum",
+              "parameters" : {
+                "type" : "String",
+                "value" : "helo"
+              }
+            }
+          }
+        },
+        "parametersTypes" : [ "java.lang.String" ],
+        "argumentsNames" : [ "token" ],
+        "id" : 17029,
+        "type" : "listener",
+        "returnType" : "void",
+        "classInfo" : {
+          "hasParameters" : false,
+          "entity" : false,
+          "interface" : false,
+          "enum" : false,
+          "static" : false,
+          "public" : true,
+          "protected" : false,
+          "final" : false,
+          "abstract" : false,
+          "private" : false,
+          "applicationClass" : true,
+          "libraryClass" : false,
+          "javaLibraryClass" : false,
+          "innerClass" : false
+        },
+        "modifier" : 0,
+        "childes" : [ ]
+      } ]
     },
     "com.cassiomolin.example.user.api.resource.PersonResource.getUsers" : {
       "name" : "getUsers",
@@ -223,10 +418,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -265,10 +460,10 @@
           "final" : false,
           "abstract" : false,
           "private" : false,
-          "innerClass" : false,
-          "javaLibraryClass" : false,
           "applicationClass" : true,
-          "libraryClass" : false
+          "libraryClass" : false,
+          "javaLibraryClass" : false,
+          "innerClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -320,10 +515,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -362,10 +557,10 @@
           "final" : false,
           "abstract" : false,
           "private" : false,
-          "innerClass" : false,
-          "javaLibraryClass" : false,
           "applicationClass" : true,
-          "libraryClass" : false
+          "libraryClass" : false,
+          "javaLibraryClass" : false,
+          "innerClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -397,7 +592,7 @@
       "argumentsNames" : [ ],
       "id" : 17061,
       "type" : "method",
-      "returnType" : "java.util.HashSet",
+      "returnType" : "com.cassiomolin.example.user.api.model.QueryPersonResult",
       "classInfo" : {
         "hasParameters" : false,
         "entity" : false,
@@ -409,10 +604,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -451,10 +646,10 @@
           "final" : false,
           "abstract" : false,
           "private" : false,
-          "innerClass" : false,
-          "javaLibraryClass" : false,
           "applicationClass" : true,
-          "libraryClass" : false
+          "libraryClass" : false,
+          "javaLibraryClass" : false,
+          "innerClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -496,10 +691,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -540,10 +735,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -584,10 +779,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -628,10 +823,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -672,10 +867,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -716,10 +911,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]

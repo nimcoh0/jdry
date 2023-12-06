@@ -148,7 +148,7 @@ public class JdryClient {
             Listener listener = new Listener();
             listener.setFqmn(method.getName());
             listener.setTypes(method.getParameterTypes());
-
+            TestContext.getScenario().addListeners(method.getName());
             return listener;
         }
 

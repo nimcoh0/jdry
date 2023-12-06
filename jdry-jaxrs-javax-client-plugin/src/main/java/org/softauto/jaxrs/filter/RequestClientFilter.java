@@ -6,6 +6,7 @@ import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import org.softauto.core.Configuration;
@@ -31,6 +32,9 @@ public class RequestClientFilter implements ClientRequestFilter {
             String auto = Configuration.get("jaxrs").asMap().get("auth").toString();
             IStepDescriptor stepDescriptor = AuthFactory.getStepDescriptor(auto);
             Client client = stepDescriptor.getClient();
+            MultivaluedMap<String, Object> headers = stepDescriptor.getHeaders();
+            headers.putAll(requestContext.getHeaders());
+            headers.add("scenarioId",scenarioId);
             String mediaType ;
             if(requestContext.getMediaType() != null){
                 mediaType = requestContext.getMediaType().toString();
@@ -39,7 +43,7 @@ public class RequestClientFilter implements ClientRequestFilter {
             }
             Entity<?> entity = Entity.entity(requestContext.getEntity(), mediaType);
             if(requestContext.getMethod().equals("POST")) {
-                res = new JerseyHelper().setClient(client).post(requestContext.getUri().toString(), mediaType, requestContext.getHeaders(), Object.class, entity, cookie, scenarioId);
+                res = new JerseyHelper().setClient(client).post(requestContext.getUri().toString(), mediaType, headers, Object.class, entity, cookie, scenarioId);
                 if(res.hasEntity()){
                     status = res.getStatus();
                     result =    res.readEntity(Object.class);
@@ -47,24 +51,24 @@ public class RequestClientFilter implements ClientRequestFilter {
 
             }
             if(requestContext.getMethod().equals("GET")) {
-                res = new JerseyHelper().setClient(client).get(requestContext.getUri().toString(), mediaType, requestContext.getHeaders(), Object.class, cookie, scenarioId);
+                res = new JerseyHelper().setClient(client).get(requestContext.getUri().toString(), mediaType, headers, Object.class, cookie, scenarioId);
                 if(res.hasEntity()){
                     status = res.getStatus();
-                    result =    res.readEntity(String.class);
+                    result =    res.getEntity();
                 }
             }
             if(requestContext.getMethod().equals("PUT")) {
-                res = new JerseyHelper().setClient(client).put(requestContext.getUri().toString(), mediaType, requestContext.getHeaders(), Object.class, entity, cookie, scenarioId);
+                res = new JerseyHelper().setClient(client).put(requestContext.getUri().toString(), mediaType, headers, Object.class, entity, cookie, scenarioId);
                 if(res.hasEntity()){
                     status = res.getStatus();
-                    result =    res.readEntity(Object.class);
+                    result =    res.getEntity();
                 }
             }
             if(requestContext.getMethod().equals("DELETE")) {
-                res = new JerseyHelper().setClient(client).delete(requestContext.getUri().toString(), mediaType, requestContext.getHeaders(), Object.class, cookie, scenarioId);
+                res = new JerseyHelper().setClient(client).delete(requestContext.getUri().toString(), mediaType, headers, Object.class, cookie, scenarioId);
                 if(res.hasEntity()){
                     status = res.getStatus();
-                    result =    res.readEntity(Object.class);
+                    result =    res.getEntity();
                 }
             }
         } catch (Exception e) {

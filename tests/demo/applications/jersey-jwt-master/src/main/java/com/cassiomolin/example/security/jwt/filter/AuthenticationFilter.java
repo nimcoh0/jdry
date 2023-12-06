@@ -12,25 +12,25 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 import javax.annotation.Priority;
+import javax.annotation.security.PermitAll;
 import javax.crypto.SecretKey;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.ws.rs.Priorities;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
+import javax.ws.rs.container.*;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Date;
 
 @Provider
 @Dependent
 @Priority(Priorities.AUTHENTICATION)
-public class AuthenticationFilter implements ContainerRequestFilter {
+public class AuthenticationFilter implements ContainerRequestFilter  {
 
     private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private static final String ISSUER = "your-issuer";
@@ -42,6 +42,9 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     @Inject
     private AuthenticationTokenService authenticationTokenService;
 
+    @javax.ws.rs.core.Context
+    ResourceInfo resourceInfo;
+
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         // Get the JWT token from the request header
@@ -51,26 +54,12 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             handleTokenBasedAuthentication(authenticationToken, requestContext);
             return;
         } else {
-            // Token doesn't exist, create and attach a new token to the response
-            //String newToken = generateToken("username"); // Replace with your logic for obtaining the username
-            //requestContext.setProperty("Token", newToken);
+            Method method = resourceInfo.getResourceMethod();
+            if (!method.isAnnotationPresent(PermitAll.class)) {
+                requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+            }
         }
     }
-
-/*
-    @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
-            throws IOException {
-        // Attach the new token to the response header if it was created
-        String newToken = (String) requestContext.getProperty("Token");
-        if (newToken != null) {
-            responseContext.getHeaders().add(HttpHeaders.AUTHORIZATION, "Bearer " + newToken);
-        }
-    }
-
-
- */
-
 
     private void validateToken(ContainerRequestContext requestContext, String token) {
         try {

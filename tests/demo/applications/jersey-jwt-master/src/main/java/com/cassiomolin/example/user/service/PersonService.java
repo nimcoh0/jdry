@@ -30,7 +30,7 @@ public class PersonService {
     }
 
     public PersonService(String name){
-
+        System.out.println(name);
     }
 
     @ApiForTesting(protocol = "RPC")

@@ -12,6 +12,8 @@ public class Scenario implements Cloneable, Serializable {
      */
     LinkedList<String> steps = new LinkedList<>();
 
+    LinkedList<String> listeners = new LinkedList<>();
+
     Integer order;
 
     /**
@@ -117,7 +119,17 @@ public class Scenario implements Cloneable, Serializable {
         return id;
     }
 
+    public LinkedList<String> getListeners() {
+        return listeners;
+    }
 
+    public void setListeners(LinkedList<String> listeners) {
+        this.listeners = listeners;
+    }
+
+    public void addListeners(String listener) {
+        this.listeners.add(listener);
+    }
 
     public String getNamespace() {
         return namespace;

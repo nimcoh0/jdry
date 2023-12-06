@@ -19,6 +19,7 @@ import org.softauto.tester.AbstractTesterImpl;
 import org.softauto.tester.Listener;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicReference;
 
-//@Listeners({org.softauto.testng.JdryTestListener.class})
+@Listeners({org.softauto.testng.JdryTestListener.class})
 public class jwtServiceTests extends AbstractTesterImpl {
 
     TestLib testLib = new TestLib();
@@ -280,25 +281,6 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
-    @Test
-    public void syncLoginUsingJdryJaxrsClientWithEmbededJeresy(){
-        try {
-
-            UserCredentials credentials = new UserCredentials();
-            credentials.setUsername("user");
-            credentials.setPassword("password");
-
-            javax.ws.rs.client.Client client = org.softauto.jaxrs.cli.ClientBuilder.newClient();
-            Response response = client.target("http://localhost:8080").path("/api/auth").request()
-                    .post(Entity.entity(credentials, MediaType.APPLICATION_JSON));
-
-            Object result = response.getEntity();
-            Assert.assertTrue(result != null);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
 
     @Test
     public void syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJeresy(){
@@ -310,9 +292,9 @@ public class jwtServiceTests extends AbstractTesterImpl {
             javax.ws.rs.client.Client client = org.softauto.jaxrs.cli.ClientBuilder.newClient();
             Response response2 = client.target("http://localhost:8080").path("/api/auth").request().post(Entity.entity(credentials, MediaType.APPLICATION_JSON) );
             Object o = response2.readEntity(HashMap.class);
-            Response response1 = client.target("http://localhost:8080").path("api").path("greetings").path("public").request().get();
+            Response response1 = client.target("http://localhost:8080").path("api").path("greetings").path("protected").request().get();
             String o1 = response1.readEntity(String.class);
-            Assert.assertTrue(o1 != null);
+            Assert.assertTrue(o1.equals("Hello user!"));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -324,22 +306,14 @@ public class jwtServiceTests extends AbstractTesterImpl {
         try {
             Response response = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().setTransceiver("JAXRS")
                     .setClientBuilder(javax.ws.rs.client.ClientBuilder.newClient((Configuration) clientConfig)).
-                    target("http://localhost:8080").path("/api/public/greetings").request().get();
-            Assert.assertTrue(response != null);
+                    target("http://localhost:8080").path("/api/greetings/public").request().get();
+            Assert.assertTrue(response.readEntity(String.class).equals("Hello from the other side!"));
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    @Test
-    public void syncGreetingUsingJdryJaxrsClientProxy(){
-        try {
-           Object result = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result();
-           Assert.assertTrue(result != null);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+
 
     @Test
     public void syncLoginAndGreetingUsingJdryJaxrsClientWithProxy(){
@@ -358,14 +332,28 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
+    @Test
+    public void findAllUsersUsingJdryJaxrs(){
+        try {
+            UserCredentials credentials = new UserCredentials();
+            credentials.setUsername("admin");
+            credentials.setPassword("password");
+            AtomicReference<List<Person>> people = new AtomicReference<>();
+            tests.com_cassiomolin_example_security_jwt_resource_AuthenticationResource_authenticate(credentials).setExpected("#result != null").invoke().isSuccesses(res -> {
+                        people.set(tests.com_cassiomolin_example_user_api_resource_PersonResource_getUsers().invoke().get_Result());
+            });
+            Assert.assertTrue(people.get().size()>0 );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
-    public void findAllUsersUsingJdryRpc(){
+    public void publicGreetingUsingJdryRpc(){
         try {
-            //HashMap<String,Object> callOption = mapper.readValue("{\"constructor\":[]}",HashMap.class);
-
-            List<Person> people =  tests.com_cassiomolin_example_user_service_PersonService_findAll().invoke().get_Result();
-            Assert.assertTrue(people.size()>0 );
+            String  greeting =  tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result();
+            Assert.assertTrue(greeting.equals("Hello from the other side!") );
         }catch (Exception e){
             e.printStackTrace();
         }

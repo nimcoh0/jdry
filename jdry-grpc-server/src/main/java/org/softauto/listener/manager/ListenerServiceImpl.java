@@ -40,12 +40,14 @@ public class ListenerServiceImpl implements ListenerService {
         try {
             String scenarioId = getScenarioId();
             if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
-                HashMap<String,Object> configuration = getConfiguration(scenarioId);
-                if(configuration != null) {
-                    Serializer serializer = new Serializer().setHost(configuration.get(Context.TEST_MACHINE).toString()).setPort(Integer.valueOf(configuration.get(Context.LISTENER_PORT).toString())).build();
-                    Message message = MessageBuilder.newBuilder().setState(ListenerType.BEFORE.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
-                    result = serializer.write(message);
-                    logger.debug("send message successfully " + methodName);
+                if(Scenarios.getScenario(scenarioId).isListenerExist(methodName)) {
+                    HashMap<String, Object> configuration = getConfiguration(scenarioId);
+                    if (configuration != null) {
+                        Serializer serializer = new Serializer().setHost(configuration.get(Context.TEST_MACHINE).toString()).setPort(Integer.valueOf(configuration.get(Context.LISTENER_PORT).toString())).build();
+                        Message message = MessageBuilder.newBuilder().setState(ListenerType.BEFORE.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
+                        result = serializer.write(message);
+                        logger.debug("send message successfully " + methodName);
+                    }
                 }
             }
 
@@ -75,12 +77,14 @@ public class ListenerServiceImpl implements ListenerService {
             String scenarioId = getScenarioId();
             //if(TestContext.getTestState().equals(TestLifeCycle.START)) {
             if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
-                HashMap<String,Object> configuration = getConfiguration(scenarioId);
-                if(configuration != null) {
-                    Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
-                    Message message = MessageBuilder.newBuilder().setState(ListenerType.AFTER.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
-                    serializer.write(message);
-                    logger.debug("send message successfully " + methodName);
+                if(Scenarios.getScenario(scenarioId).isListenerExist(methodName)) {
+                    HashMap<String, Object> configuration = getConfiguration(scenarioId);
+                    if (configuration != null) {
+                        Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
+                        Message message = MessageBuilder.newBuilder().setState(ListenerType.AFTER.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
+                        serializer.write(message);
+                        logger.debug("send message successfully " + methodName);
+                    }
                 }
             }
         } catch (Exception e) {

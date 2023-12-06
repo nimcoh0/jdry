@@ -1,6 +1,8 @@
 package com.cassiomolin.example.greeting.service;
 
 
+import org.softauto.annotations.ApiForTesting;
+
 import javax.enterprise.context.ApplicationScoped;
 
 
@@ -18,6 +20,7 @@ public class GreetingService {
      *
      * @return
      */
+    @ApiForTesting(protocol = "RPC")
     public String getPublicGreeting() {
         return "Hello from the other side!";
     }
