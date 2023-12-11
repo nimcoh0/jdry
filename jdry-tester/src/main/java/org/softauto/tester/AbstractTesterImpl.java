@@ -51,7 +51,8 @@ public class AbstractTesterImpl  {
 
     public AbstractTesterImpl(){
         try {
-           mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+
+            mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
           // SimpleModule module = new SimpleModule();
            //sessionId = UUID.randomUUID().toString();
            //TestContext.put("sessionId",sessionId);
@@ -79,6 +80,7 @@ public class AbstractTesterImpl  {
     @BeforeTest
     public void beforeScenario(ITestContext testContext) {
         try {
+           TestContext.restart();
            if(scenario == null) {
                 scenario = new Scenario();
                 scenarioId = UUID.randomUUID().toString();
@@ -100,7 +102,7 @@ public class AbstractTesterImpl  {
 
         @BeforeMethod
         public void beforeMethod (ITestContext testContext){
-
+            //scenario.getId();
             //test = new ListenerService();
            // test.setId(testContext.getName());
 

@@ -39,27 +39,7 @@ public class NoneStepDescriptorImpl extends AbstractStepDescriptorImpl {
         return client;
     }
 
-    public ChannelDescriptor getChannel() {
-        String host = (Configuration.get("jaxrs").asMap().get("host").toString());
-        String port = (Configuration.get("jaxrs").asMap().get("port").toString());
-        String protocol = (Configuration.get("jaxrs").asMap().get("protocol").toString());
-        String baseUrl = Configuration.get("jaxrs").asMap().containsKey("base_url") ? (Configuration.get("jaxrs").asMap().get("base_url").toString()):"";
-        String newPath = callOptions.get("path").toString();
-        if(!newPath.contains(baseUrl)){
-            if(newPath.startsWith("/")){
-                newPath = baseUrl+newPath;
-            }else {
-                newPath = baseUrl+"/"+newPath;
-            }
-        }
-        return ChannelBuilder.newBuilder().setHost(host)
-                .setProtocol(protocol)
-                .setArgs(args)
-                .setPath(newPath)
-                .setPort(port)
-                .build()
-                .getChannelDescriptor();
-    }
+
 
     public MultivaluedMap<String, Object> getHeaders() {
         MultivaluedMap<String, Object> mm = new MultivaluedHashMap<>();
@@ -75,9 +55,5 @@ public class NoneStepDescriptorImpl extends AbstractStepDescriptorImpl {
         return mm;
     }
 
-    @Override
-    public Entity<?> getEntity() {
-        List<String> argumentsNames = (ArrayList)callOptions.get("argumentsNames");
-        return (Entity<?>) EntityBuilder.newBuilder().setCallOptions(callOptions).setProduce(consume).setArgs(args).setArgsNames(argumentsNames).build().getEntity();
-    }
+
 }

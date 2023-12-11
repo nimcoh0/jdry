@@ -4,10 +4,8 @@ import com.cassiomolin.example.user.domain.Person;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import org.softauto.annotations.ApiForTesting;
-import org.softauto.annotations.ClassType;
-import org.softauto.annotations.InitializeForTesting;
-import org.softauto.annotations.Parameter;
+
+import org.softauto.annotations.*;
 //import jakarta.persistence.EntityManager;
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -53,8 +51,9 @@ public class PersonService {
      * @param identifier
      * @return
      */
-    @ApiForTesting(protocol = "RPC")
+    @ListenerForTesting(type = ListenerType.BEFORE)
     public Person findByUsernameOrEmail(String identifier) {
+
         List<Person> people = em.createQuery("SELECT u FROM Person u WHERE u.username = :identifier OR u.email = :identifier", Person.class)
                 .setParameter("identifier", identifier)
                 .setMaxResults(1)
@@ -70,7 +69,7 @@ public class PersonService {
      *
      * @return
      */
-    @ApiForTesting(protocol = "RPC")
+    @ListenerForTesting(type = ListenerType.AFTER)
     public List<Person> findAll() {
         return em.createQuery("SELECT u FROM Person u", Person.class).getResultList();
     }
@@ -81,7 +80,7 @@ public class PersonService {
      * @param userId
      * @return
      */
-    @ApiForTesting(protocol = "RPC")
+    @ListenerForTesting(type = ListenerType.BEFORE)
     public Optional<Person> findById(Long userId) {
         return Optional.ofNullable(em.find(Person.class, userId));
     }

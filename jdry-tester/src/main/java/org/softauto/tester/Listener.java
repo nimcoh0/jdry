@@ -51,7 +51,20 @@ public  class Listener implements IListener {
         return this;
     }
 
-
+    public Listener waitTo(java.util.function.Consumer<Object> consumer)throws Exception{
+        logger.debug("waitTo "+ fqmn);
+        Exec func = new Exec(consumer,fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
+        lock = func.getLock();
+        lock.await(timeOutInMin, TimeUnit.MINUTES);
+        if(lock.getCount() > 0){
+            logger.error("done waitTo for "+ fqmn+" no call ");
+        }else {
+            logger.debug("done waitTo for " + fqmn);
+        }
+        //result = func.getResult();
+        return this;
+    }
 
     public Listener waitTo(Function function)throws Exception{
         logger.debug("waitTo "+ fqmn);
@@ -69,6 +82,7 @@ public  class Listener implements IListener {
     }
 
 
+/*
     public <T> Listener waitTo(Handler<AsyncResult<T>> resultHandler)throws Exception{
         java.util.function.Function<Object,Object> ff = new java.util.function.Function<Object,Object>() {
 
@@ -86,6 +100,53 @@ public  class Listener implements IListener {
         ListenerObserver.getInstance().register(fqmn,func);
         lock = func.getLock();
         lock.await(timeOutInMin, TimeUnit.MINUTES);
+        return this;
+    }
+
+
+ */
+
+    /*
+    public <T> Listener waitTo(Handler<AsyncResult<T>> resultHandler)throws Exception{
+        logger.debug("waitTo "+ fqmn);
+        Exec func = new Exec(fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
+        lock = func.getLock();
+        lock.await(timeOutInMin, TimeUnit.MINUTES);
+        resultHandler.handle(Future.handleResult((T) func.getResult()));
+
+        return this;
+    }
+
+
+
+    public <T> Listener waitTo1(Handler1<T> resultHandler)throws Exception{
+        logger.debug("waitTo "+ fqmn);
+        Exec func = new Exec(fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
+        lock = func.getLock();
+        lock.await(timeOutInMin, TimeUnit.MINUTES);
+        //resultHandler.handle(new GenericResult());
+        func.setResult(resultHandler);
+        func.getResult();
+        return this;
+    }
+
+
+     */
+
+    public Listener waitTo()throws Exception{
+        logger.debug("waitTo "+ fqmn);
+        Exec func = new Exec(fqmn);
+        ListenerObserver.getInstance().register(fqmn,func);
+        lock = func.getLock();
+        lock.await(timeOutInMin, TimeUnit.MINUTES);
+        if(lock.getCount() > 0){
+            logger.error("done waitTo for "+ fqmn+" no call ");
+        }else {
+            logger.debug("done waitTo for " + fqmn);
+        }
+        result = func.getResult();
         return this;
     }
 
@@ -140,20 +201,7 @@ public  class Listener implements IListener {
 
 
 
-    public Listener waitTo()throws Exception{
-        logger.debug("waitTo "+ fqmn);
-        Exec func = new Exec(fqmn);
-        ListenerObserver.getInstance().register(fqmn,func);
-        lock = func.getLock();
-        lock.await(timeOutInMin, TimeUnit.MINUTES);
-        if(lock.getCount() > 0){
-            logger.error("done waitTo for "+ fqmn+" no call ");
-        }else {
-            logger.debug("done waitTo for " + fqmn);
-        }
-        result = func.getResult();
-        return this;
-    }
+
 
     public org.softauto.tester.Listener register(Function function) throws Exception {
         ListenerObserver.getInstance().register(fqmn,function);

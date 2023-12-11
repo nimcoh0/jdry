@@ -13,7 +13,7 @@ import org.testng.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class JdryTestListener implements ITestListener, IInvokedMethodListener, IJdryStepListener {
+public class JdryTestListener implements ITestListener, IInvokedMethodListener, IJdryListener {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(JdryTestListener.class);
 
@@ -25,6 +25,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
     @Override
     public void onTestStart(ITestResult result) {
         try {
+
             System.setProperty("logFilename", result.getName());
             TestContext.put("step_name",result.getName());
             //TestContext.getScenario().setState(ScenarioLifeCycle.START.name());;
@@ -129,7 +130,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         //ConstructorOrMethod constructorOrMethod = method.getTestMethod().getConstructorOrMethod();
         //Object[] p = testResult.getParameters();
-       // Object i = testResult.getInstance();
+        Object i = testResult.getInstance();
        // Assert.setContext(testResult.getTestContext(),method);
     }
 
@@ -149,7 +150,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
                 //Throwable ex = new ObjectMapper().readValue(json,Throwable.class);
                 //Throwable ex = (Throwable) TestContext.getScenario().getError().get(0);
                 arg0.setThrowable(new Exception(node.get(0).get("message").asText()));
-                tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
+               // tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -164,7 +165,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
                         arg0.getThrowable().printStackTrace(new PrintWriter(sw));
                         //if (sw.toString().contains("visible")) {
                             ITestContext tc = Reporter.getCurrentTestResult().getTestContext();
-                            tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
+                           // tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
                             //tc.getFailedTests().getAllMethods().remove(Reporter.getCurrentTestResult().getMethod());
                             //Reporter.getCurrentTestResult().setStatus(ITestResult.SKIP);
                             //tc.getSkippedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
@@ -175,7 +176,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
             if (TestContext.getStepState().equals(StepLifeCycle.SKIP) ) {
                 arg0.setStatus(ITestResult.FAILURE);
                 ITestContext tc = Reporter.getCurrentTestResult().getTestContext();
-                tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
+                //tc.getFailedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
                 //tc.getSkippedTests().addResult(arg0, Reporter.getCurrentTestResult().getMethod());
             }
         }

@@ -40,7 +40,7 @@ public class ListenerServiceImpl implements ListenerService {
         try {
             String scenarioId = getScenarioId();
             if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
-                if(Scenarios.getScenario(scenarioId).isListenerExist(methodName)) {
+               // if(Scenarios.getScenario(scenarioId).isListenerExist(methodName)) {
                     HashMap<String, Object> configuration = getConfiguration(scenarioId);
                     if (configuration != null) {
                         Serializer serializer = new Serializer().setHost(configuration.get(Context.TEST_MACHINE).toString()).setPort(Integer.valueOf(configuration.get(Context.LISTENER_PORT).toString())).build();
@@ -48,7 +48,7 @@ public class ListenerServiceImpl implements ListenerService {
                         result = serializer.write(message);
                         logger.debug("send message successfully " + methodName);
                     }
-                }
+               // }
             }
 
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class ListenerServiceImpl implements ListenerService {
             String scenarioId = getScenarioId();
             //if(TestContext.getTestState().equals(TestLifeCycle.START)) {
             if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
-                if(Scenarios.getScenario(scenarioId).isListenerExist(methodName)) {
+               // if(Scenarios.getScenario(scenarioId).isListenerExist(methodName)) {
                     HashMap<String, Object> configuration = getConfiguration(scenarioId);
                     if (configuration != null) {
                         Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
@@ -85,7 +85,7 @@ public class ListenerServiceImpl implements ListenerService {
                         serializer.write(message);
                         logger.debug("send message successfully " + methodName);
                     }
-                }
+               // }
             }
         } catch (Exception e) {
             if (e.getCause().toString().contains("UNAVAILABLE")) {

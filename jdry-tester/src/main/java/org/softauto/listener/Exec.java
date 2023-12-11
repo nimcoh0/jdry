@@ -13,6 +13,8 @@ public  class Exec implements Function {
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Exec.class);
     CountDownLatch lock = null;
     java.util.function.Function func = null;
+    java.util.function.Consumer cons = null;
+
     String key = null;
     Object result = null;
     boolean seen = false;
@@ -22,21 +24,33 @@ public  class Exec implements Function {
         return result;
     }
 
-
+    public void setResult(Object result) {
+        this.result = result;
+    }
 
     public Exec(java.util.function.Function o, String key){
         lock = new CountDownLatch(1);
         func = o;
         this.key = key;
         seen = false;
-        logger.debug("init function after for "+ key);
+        logger.debug("init function  for "+ key);
+    }
+
+
+
+    public Exec(java.util.function.Consumer<Object> o, String key){
+        lock = new CountDownLatch(1);
+        cons = o;
+        this.key = key;
+        seen = false;
+        logger.debug("init function for "+ key);
     }
 
     public Exec(String key){
         lock = new CountDownLatch(1);
         this.key = key;
         seen = false;
-        logger.debug("init function before for "+ key);
+        logger.debug("init function  for "+ key);
     }
 
     @Override
@@ -49,8 +63,10 @@ public  class Exec implements Function {
     public Object apply(Object o){
         try {
             if(!seen) {
-                if(func != null) {
+                if (func != null) {
                     this.result = func.apply(o);
+                } else if (cons != null) {
+                    cons.accept(o);
                 }else {
                     this.result = o;
                 }

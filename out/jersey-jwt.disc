@@ -166,48 +166,6 @@
       "modifier" : 0,
       "childes" : [ ]
     },
-    "com.cassiomolin.example.security.jwt.model.AuthenticationToken.setToken" : {
-      "name" : "setToken",
-      "namespce" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
-      "annotations" : {
-        "Lorg/softauto/annotations/ListenerForTesting;" : {
-          "type" : "BEFORE"
-        },
-        "class" : {
-          "Lorg/softauto/annotations/InitializeForTesting;" : {
-            "value" : "INITIALIZE_EVERY_TIME",
-            "type" : "java.lang.Enum",
-            "parameters" : {
-              "type" : "String",
-              "value" : "helo"
-            }
-          }
-        }
-      },
-      "parametersTypes" : [ "java.lang.String" ],
-      "argumentsNames" : [ "token" ],
-      "id" : 17029,
-      "type" : "listener",
-      "returnType" : "void",
-      "classInfo" : {
-        "hasParameters" : true,
-        "entity" : false,
-        "interface" : false,
-        "enum" : false,
-        "static" : false,
-        "public" : true,
-        "protected" : false,
-        "final" : false,
-        "abstract" : false,
-        "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
-        "javaLibraryClass" : false,
-        "innerClass" : false
-      },
-      "modifier" : 0,
-      "childes" : [ ]
-    },
     "com.cassiomolin.example.security.jwt.resource.AuthenticationResource.authenticate" : {
       "name" : "authenticate",
       "namespce" : "com.cassiomolin.example.security.jwt.resource.AuthenticationResource",
@@ -252,48 +210,7 @@
         "innerClass" : false
       },
       "modifier" : 0,
-      "childes" : [ {
-        "name" : "setToken",
-        "namespce" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
-        "annotations" : {
-          "Lorg/softauto/annotations/ListenerForTesting;" : {
-            "type" : "BEFORE"
-          },
-          "class" : {
-            "Lorg/softauto/annotations/InitializeForTesting;" : {
-              "value" : "INITIALIZE_EVERY_TIME",
-              "type" : "java.lang.Enum",
-              "parameters" : {
-                "type" : "String",
-                "value" : "helo"
-              }
-            }
-          }
-        },
-        "parametersTypes" : [ "java.lang.String" ],
-        "argumentsNames" : [ "token" ],
-        "id" : 17029,
-        "type" : "listener",
-        "returnType" : "void",
-        "classInfo" : {
-          "hasParameters" : true,
-          "entity" : false,
-          "interface" : false,
-          "enum" : false,
-          "static" : false,
-          "public" : true,
-          "protected" : false,
-          "final" : false,
-          "abstract" : false,
-          "private" : false,
-          "applicationClass" : true,
-          "libraryClass" : false,
-          "javaLibraryClass" : false,
-          "innerClass" : false
-        },
-        "modifier" : 0,
-        "childes" : [ ]
-      } ]
+      "childes" : [ ]
     },
     "com.cassiomolin.example.security.jwt.resource.AuthenticationResource.refresh" : {
       "name" : "refresh",
@@ -320,7 +237,7 @@
       "argumentsNames" : [ ],
       "id" : 17037,
       "type" : "method",
-      "returnType" : "java.lang.String",
+      "returnType" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
       "classInfo" : {
         "hasParameters" : false,
         "entity" : false,
@@ -338,48 +255,7 @@
         "innerClass" : false
       },
       "modifier" : 0,
-      "childes" : [ {
-        "name" : "setToken",
-        "namespce" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
-        "annotations" : {
-          "Lorg/softauto/annotations/ListenerForTesting;" : {
-            "type" : "BEFORE"
-          },
-          "class" : {
-            "Lorg/softauto/annotations/InitializeForTesting;" : {
-              "value" : "INITIALIZE_EVERY_TIME",
-              "type" : "java.lang.Enum",
-              "parameters" : {
-                "type" : "String",
-                "value" : "helo"
-              }
-            }
-          }
-        },
-        "parametersTypes" : [ "java.lang.String" ],
-        "argumentsNames" : [ "token" ],
-        "id" : 17029,
-        "type" : "listener",
-        "returnType" : "void",
-        "classInfo" : {
-          "hasParameters" : false,
-          "entity" : false,
-          "interface" : false,
-          "enum" : false,
-          "static" : false,
-          "public" : true,
-          "protected" : false,
-          "final" : false,
-          "abstract" : false,
-          "private" : false,
-          "applicationClass" : true,
-          "libraryClass" : false,
-          "javaLibraryClass" : false,
-          "innerClass" : false
-        },
-        "modifier" : 0,
-        "childes" : [ ]
-      } ]
+      "childes" : [ ]
     },
     "com.cassiomolin.example.user.api.resource.PersonResource.getUsers" : {
       "name" : "getUsers",
@@ -428,9 +304,8 @@
         "name" : "findAll",
         "namespce" : "com.cassiomolin.example.user.service.PersonService",
         "annotations" : {
-          "Lorg/softauto/annotations/ApiForTesting;" : {
-            "protocol" : "RPC",
-            "type" : "java.lang.String"
+          "Lorg/softauto/annotations/ListenerForTesting;" : {
+            "type" : "AFTER"
           },
           "class" : {
             "Lorg/softauto/annotations/InitializeForTesting;" : {
@@ -447,7 +322,7 @@
         "parametersTypes" : [ ],
         "argumentsNames" : [ ],
         "id" : 16888,
-        "type" : "method",
+        "type" : "listener",
         "returnType" : "java.util.List",
         "classInfo" : {
           "hasParameters" : false,
@@ -525,9 +400,8 @@
         "name" : "findById",
         "namespce" : "com.cassiomolin.example.user.service.PersonService",
         "annotations" : {
-          "Lorg/softauto/annotations/ApiForTesting;" : {
-            "protocol" : "RPC",
-            "type" : "java.lang.String"
+          "Lorg/softauto/annotations/ListenerForTesting;" : {
+            "type" : "BEFORE"
           },
           "class" : {
             "Lorg/softauto/annotations/InitializeForTesting;" : {
@@ -544,7 +418,7 @@
         "parametersTypes" : [ "java.lang.Long" ],
         "argumentsNames" : [ "userId" ],
         "id" : 16889,
-        "type" : "method",
+        "type" : "listener",
         "returnType" : "java.util.Optional",
         "classInfo" : {
           "hasParameters" : true,
@@ -592,7 +466,7 @@
       "argumentsNames" : [ ],
       "id" : 17061,
       "type" : "method",
-      "returnType" : "com.cassiomolin.example.user.api.model.QueryPersonResult",
+      "returnType" : "java.util.HashSet",
       "classInfo" : {
         "hasParameters" : false,
         "entity" : false,
@@ -614,9 +488,8 @@
         "name" : "findByUsernameOrEmail",
         "namespce" : "com.cassiomolin.example.user.service.PersonService",
         "annotations" : {
-          "Lorg/softauto/annotations/ApiForTesting;" : {
-            "protocol" : "RPC",
-            "type" : "java.lang.String"
+          "Lorg/softauto/annotations/ListenerForTesting;" : {
+            "type" : "BEFORE"
           },
           "class" : {
             "Lorg/softauto/annotations/InitializeForTesting;" : {
@@ -633,7 +506,7 @@
         "parametersTypes" : [ "java.lang.String" ],
         "argumentsNames" : [ "identifier" ],
         "id" : 16887,
-        "type" : "method",
+        "type" : "listener",
         "returnType" : "com.cassiomolin.example.user.domain.Person",
         "classInfo" : {
           "hasParameters" : false,
@@ -791,9 +664,8 @@
       "name" : "findByUsernameOrEmail",
       "namespce" : "com.cassiomolin.example.user.service.PersonService",
       "annotations" : {
-        "Lorg/softauto/annotations/ApiForTesting;" : {
-          "protocol" : "RPC",
-          "type" : "java.lang.String"
+        "Lorg/softauto/annotations/ListenerForTesting;" : {
+          "type" : "BEFORE"
         },
         "class" : {
           "Lorg/softauto/annotations/InitializeForTesting;" : {
@@ -810,7 +682,7 @@
       "parametersTypes" : [ "java.lang.String" ],
       "argumentsNames" : [ "identifier" ],
       "id" : 16887,
-      "type" : "method",
+      "type" : "listener",
       "returnType" : "com.cassiomolin.example.user.domain.Person",
       "classInfo" : {
         "hasParameters" : true,
@@ -835,9 +707,8 @@
       "name" : "findAll",
       "namespce" : "com.cassiomolin.example.user.service.PersonService",
       "annotations" : {
-        "Lorg/softauto/annotations/ApiForTesting;" : {
-          "protocol" : "RPC",
-          "type" : "java.lang.String"
+        "Lorg/softauto/annotations/ListenerForTesting;" : {
+          "type" : "AFTER"
         },
         "class" : {
           "Lorg/softauto/annotations/InitializeForTesting;" : {
@@ -854,7 +725,7 @@
       "parametersTypes" : [ ],
       "argumentsNames" : [ ],
       "id" : 16888,
-      "type" : "method",
+      "type" : "listener",
       "returnType" : "java.util.List",
       "classInfo" : {
         "hasParameters" : false,
@@ -879,9 +750,8 @@
       "name" : "findById",
       "namespce" : "com.cassiomolin.example.user.service.PersonService",
       "annotations" : {
-        "Lorg/softauto/annotations/ApiForTesting;" : {
-          "protocol" : "RPC",
-          "type" : "java.lang.String"
+        "Lorg/softauto/annotations/ListenerForTesting;" : {
+          "type" : "BEFORE"
         },
         "class" : {
           "Lorg/softauto/annotations/InitializeForTesting;" : {
@@ -898,7 +768,7 @@
       "parametersTypes" : [ "java.lang.Long" ],
       "argumentsNames" : [ "userId" ],
       "id" : 16889,
-      "type" : "method",
+      "type" : "listener",
       "returnType" : "java.util.Optional",
       "classInfo" : {
         "hasParameters" : true,

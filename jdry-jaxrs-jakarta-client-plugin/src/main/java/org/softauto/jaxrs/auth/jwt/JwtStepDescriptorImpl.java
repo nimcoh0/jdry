@@ -20,10 +20,7 @@ import org.softauto.jaxrs.providers.ObjectMapperProvider;
 import org.softauto.jaxrs.service.ChannelDescriptor;
 import org.softauto.jaxrs.util.ChannelBuilder;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
 
@@ -91,6 +88,8 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
                     }else {
                         argumentsRequestTypeArray.add(Integer.valueOf(((HashMap<String,Object>)entry.getValue()).get("index").toString()));
                     }
+                }else if(entry.getKey().equals("PathParam")){
+                    newArgs = Arrays.asList(args);
                 }
             }
             }

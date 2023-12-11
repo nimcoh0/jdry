@@ -109,10 +109,13 @@ public class Listener {
                                     args = (Object[]) method.invoke(serviceImpl, new Object[]{fqmn.get(), Utils.getArgs(joinPoint.getArgs()), Utils.getTypes(sig.getMethod().getParameterTypes())});
 
                             }
-
-                            args = getArgs(args);
-                            args = castToOrgType(args,sig.getMethod().getParameterTypes());
-                            o = joinPoint.proceed(args);
+                            if(args != null && args.length > 0) {
+                                //args = getArgs(args);
+                                args = castToOrgType(args, sig.getMethod().getParameterTypes());
+                                o = joinPoint.proceed(args);
+                            }else {
+                                o = joinPoint.proceed();
+                            }
                         } catch (Exception e) {
                             logger.error("send message " + fqmn.get() + " fail  ", e);
                             o = joinPoint.proceed();

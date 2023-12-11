@@ -1,14 +1,18 @@
 package org.softauto.jaxrs;
 
+import org.softauto.core.Configuration;
 import org.softauto.core.TestContext;
 import org.softauto.core.Utils;
+import org.softauto.jaxrs.auth.EntityBuilder;
 import org.softauto.jaxrs.service.ChannelDescriptor;
 import org.softauto.jaxrs.service.IStepDescriptor;
 import org.softauto.jaxrs.service.RestService;
 import org.softauto.jaxrs.service.ServiceCaller;
+import org.softauto.jaxrs.util.ChannelBuilder;
+
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
 
@@ -56,7 +60,7 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
 
 
     public String getScenarioId() {
-        if(callOptions.containsKey("scenarioId")) {
+        if(callOptions.containsKey("scenarioId") && callOptions.get("scenarioId") != null ) {
             return scenarioId = callOptions.get("scenarioId").toString();
         }
        return TestContext.getScenario().getId();
@@ -100,7 +104,68 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
 
     public abstract <T> T getClient();
 
-    public abstract ChannelDescriptor getChannel();
+    @Override
+    public ChannelDescriptor getChannel() {
+        String host = (Configuration.get("jaxrs").asMap().get("host").toString());
+        String port = (Configuration.get("jaxrs").asMap().get("port").toString());
+        String protocol = (Configuration.get("jaxrs").asMap().get("protocol").toString());
+        String baseUrl = Configuration.get("jaxrs").asMap().containsKey("base_url") ? (Configuration.get("jaxrs").asMap().get("base_url").toString()):"";
+        List<String> argumentsNames = (ArrayList)callOptions.get("argumentsNames");
+        Map<String,Object> parameters = new HashMap();
+        List<Object> newArgs = new ArrayList<>();
+        String newPath = callOptions.get("path").toString();
+        if(!newPath.contains(baseUrl)){
+            if(newPath.startsWith("/")){
+                newPath = baseUrl+newPath;
+            }else {
+                newPath = baseUrl+"/"+newPath;
+            }
+        }
+
+        boolean first = true;
+        List<Integer> argumentsRequestTypeArray = new ArrayList<>();
+        if (this.callOptions.containsKey("argumentsRequestType")) {
+            if(callOptions.get("argumentsRequestType") instanceof HashMap) {
+                HashMap<String, Object> argumentsRequestTypes = (HashMap<String, Object>) callOptions.get("argumentsRequestType");
+                for (Map.Entry entry : argumentsRequestTypes.entrySet()) {
+                    if (entry.getKey().equals("QueryParam") || entry.getKey().equals("RequestParam") ) {
+                        if (entry.getValue() instanceof ArrayList<?>) {
+                            for (Object o : (ArrayList) entry.getValue()) {
+                                argumentsRequestTypeArray.add(Integer.valueOf(((HashMap<String, Object>) o).get("index").toString()));
+                            }
+                        } else {
+                            argumentsRequestTypeArray.add(Integer.valueOf(((HashMap<String, Object>) entry.getValue()).get("index").toString()));
+                        }
+                    }else if(entry.getKey().equals("PathParam")){
+                        newArgs = Arrays.asList(args);
+                    }
+                }
+            }
+        }
+
+
+        for(int i=0;i<args.length;i++) {
+            if(argumentsRequestTypeArray.contains(i)){
+                if (first) {
+                    newPath = newPath + "?" + argumentsNames.get(i) + "=" + args[i];
+                    first = false;
+                } else {
+                    newPath = newPath + "&" + argumentsNames.get(i) + "=" + args[i];
+                }
+            }
+        }
+
+
+
+        return ChannelBuilder.newBuilder().setHost(host)
+                .setProtocol(protocol)
+                .setArgs(newArgs.toArray())
+                .setPath(newPath)
+                .setPort(port)
+                //.setBaseUrl(base_url)
+                .build()
+                .getChannelDescriptor();
+    }
 
     public abstract <T> T getHeaders();
 
@@ -124,7 +189,11 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
         return this;
     }
 
-    public abstract <T> T getEntity();
+    @Override
+    public Entity<?> getEntity() {
+        List<String> argumentsNames = (ArrayList)callOptions.get("argumentsNames");
+        return (Entity<?>) EntityBuilder.newBuilder().setCallOptions(callOptions).setProduce(consume).setArgs(args).setArgsNames(argumentsNames).build().getEntity();
+    }
 
     public MediaType getProduce() {
         if(callOptions.containsKey("produces") && callOptions.get("produces") != null && !callOptions.get("produces").toString().isEmpty()) {

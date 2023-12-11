@@ -76,7 +76,7 @@ public class ChannelDescriptor  {
                     uri = UriBuilder.fromUri(protocol + "://" + host + ":" + port + path).build(args);
                 }
             }catch (Exception e){
-                logger.error("fail create uri");
+                logger.error("fail create uri",e);
             }
             return new ChannelDescriptor(uri);
         }

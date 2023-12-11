@@ -28,7 +28,7 @@ public class TestContext {
 
     private static Scenario scenario;
 
-    private static IJdryStepListener jdryStepListener;
+    private static IJdryListener jdryStepListener;
 
     private static ITestContext testContext;
 
@@ -69,8 +69,8 @@ public class TestContext {
 
     public static void setJdryStepListener(ITestContext context){
         for (ITestListener listener : ((TestRunner) context).getTestListeners()) {
-            if(listener instanceof IJdryStepListener) {
-                jdryStepListener = (IJdryStepListener) listener;
+            if(listener instanceof IJdryListener) {
+                jdryStepListener = (IJdryListener) listener;
             }
         }
     }
@@ -105,6 +105,14 @@ public class TestContext {
 
     public static void setScenario(Scenario scenario){
         TestContext.scenario = scenario;
+    }
+
+    public static void restart(){
+        hm = new HashMap<>();
+        Scenario scenario = null;
+        IJdryListener jdryStepListener = null;
+        ITestContext testContext = null;
+        stepState = StepLifeCycle.NONE;
     }
 
 }

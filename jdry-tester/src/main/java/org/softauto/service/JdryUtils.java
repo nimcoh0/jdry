@@ -35,13 +35,17 @@ public class JdryUtils {
             if((tree.getNamespce()+"."+tree.getName()).replace(".","_").equals(method.getName())){
                 Class[] types = getRealParametersType(method);
                 if(tree.getParametersTypes().size() == types.length) {
-                    boolean found = true;
-                    for (int i = 0; i < tree.getParametersTypes().size(); i++) {
-                        if(!tree.getParametersTypes().get(i).equals(method.getParameterTypes()[i].getTypeName())){
-                            found = false;
+                    if (tree.getParametersTypes().size() > 0) {
+                        boolean found = true;
+                        for (int i = 0; i < tree.getParametersTypes().size(); i++) {
+                            if (!tree.getParametersTypes().get(i).equals(method.getParameterTypes()[i].getTypeName())) {
+                                found = false;
+                            }
                         }
-                    }
-                    if(found){
+                        if (found) {
+                            return tree;
+                        }
+                    }else {
                         return tree;
                     }
                 }
@@ -73,9 +77,9 @@ public class JdryUtils {
             if ((parameterTypes.length > 0) && (parameterTypes[parameterTypes.length - 1] instanceof Class)
                     && org.apache.avro.ipc.CallFuture.class.isAssignableFrom(((Class<?>) parameterTypes[parameterTypes.length - 1]))) {
                 Type[] finalTypes = Arrays.copyOf(parameterTypes, parameterTypes.length - 1);
-                return Arrays.stream(finalTypes).map(t -> (Class) t).collect(Collectors.toList()).toArray(new Class[1]);
+                return Arrays.stream(finalTypes).map(t -> (Class) t).collect(Collectors.toList()).toArray(new Class[finalTypes.length]);
             }
-            return Arrays.stream(parameterTypes).map(t -> (Class) t).collect(Collectors.toList()).toArray(new Class[1]);
+            return Arrays.stream(parameterTypes).map(t -> (Class) t).collect(Collectors.toList()).toArray(new Class[parameterTypes.length]);
         }
         return new Class[]{};
     }

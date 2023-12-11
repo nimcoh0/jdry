@@ -1,15 +1,14 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name = "jwtService" verbose="10">
+<suite name = "jwtService" parallel="tests" thread-count="4" verbose="2">
     <listeners>
-        <listener class-name="org.softauto.testng.JdryTestListener" />
-
+        <listener class-name="org.softauto.testng.JdryTestListener"></listener>
     </listeners>
-    <test name = "asyncLoginUsingJdryJaxrsClientProxyAndListenerBefore">
+    <test name = "syncLoginAndGreetingUsingJdryJaxrsClientWithProxy">
         <classes>
             <class name = "tests.infrastructure.jwtServiceTests">
             <methods>
-                <include name= "asyncLoginUsingJdryJaxrsClientProxyAndListenerBefore"/>
+                <include name= "syncLoginAndGreetingUsingJdryJaxrsClientWithProxy"/>
             </methods>
             </class>
         </classes>

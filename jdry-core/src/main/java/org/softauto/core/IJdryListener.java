@@ -1,9 +1,8 @@
 package org.softauto.core;
 
-import org.testng.ITestContext;
 import org.testng.ITestNGListener;
 
-public interface IJdryStepListener extends ITestNGListener {
+public interface IJdryListener extends ITestNGListener {
 
     public void onStepStart();
 
@@ -18,4 +17,8 @@ public interface IJdryStepListener extends ITestNGListener {
 
 
     public void onStepFinish();
+
+
+
+
 }

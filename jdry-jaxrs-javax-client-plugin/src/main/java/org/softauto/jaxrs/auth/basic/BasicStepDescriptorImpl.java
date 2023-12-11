@@ -60,35 +60,7 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
 
 
 
-    @Override
-    public ChannelDescriptor getChannel() {
-        ChannelDescriptor channelDescriptor = null;
-        try {
-            String host = (Configuration.get("jaxrs").asMap().get("host").toString());
-            String port = (Configuration.get("jaxrs").asMap().get("port").toString());
-            String protocol = (Configuration.get("jaxrs").asMap().get("protocol").toString());
-            String baseUrl = Configuration.get("jaxrs").asMap().containsKey("base_url") ? (Configuration.get("jaxrs").asMap().get("base_url").toString()):"";
-            String newPath = callOptions.get("path").toString();
-            if(!newPath.contains(baseUrl)){
-                if(newPath.startsWith("/")){
-                    newPath = baseUrl+newPath;
-                }else {
-                    newPath = baseUrl+"/"+newPath;
-                }
-            }
-            channelDescriptor = ChannelBuilder.newBuilder().setHost(host)
-                    .setProtocol(protocol)
-                    .setArgs(args)
-                    .setPath(newPath)
-                    .setPort(port)
-                    .build()
-                    .getChannelDescriptor();
-            logger.debug("successfully build channel ");
-        } catch (Exception e) {
-            logger.error("fail build channel ",e);
-        }
-        return channelDescriptor;
-    }
+
 
 
 
@@ -119,18 +91,7 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
         return mm;
     }
 
-    @Override
-    public Entity<?> getEntity() {
-        Entity<?> entity = null;
-        try {
-            List<String> argumentsNames = (ArrayList)callOptions.get("argumentsNames");
-            entity = (Entity<?>) EntityBuilder.newBuilder().setCallOptions(callOptions).setProduce(consume).setArgs(args).setArgsNames(argumentsNames).build().getEntity();
-            logger.debug("successfully build entity ");
-        } catch (Exception e) {
-            logger.error("fail build entity",e);
-        }
-        return entity;
-    }
+
 
 
 
