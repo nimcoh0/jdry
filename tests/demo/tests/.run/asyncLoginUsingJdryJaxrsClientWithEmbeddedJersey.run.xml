@@ -1,20 +1,14 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="jwtServiceTests.syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJeresy" type="TestNG" nameIsGenerated="true">
+  <configuration default="false" name="jwtServiceTests.asyncLoginUsingJdryJaxrsClientWithEmbeddedJersey" type="TestNG">
     <module name="jersey-jwt-tests" />
     <shortenClasspath name="NONE" />
     <useClassPathOnly />
-    <extension name="coverage">
-      <pattern>
-        <option name="PATTERN" value="tests.infrastructure.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
-    </extension>
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
     <option name="SUITE_NAME" value="" />
     <option name="PACKAGE_NAME" value="tests.infrastructure" />
     <option name="MAIN_CLASS_NAME" value="tests.infrastructure.jwtServiceTests" />
-    <option name="METHOD_NAME" value="syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJeresy" />
+    <option name="METHOD_NAME" value="asyncLoginUsingJdryJaxrsClientWithEmbeddedJersey" />
     <option name="GROUP_NAME" value="" />
     <option name="TEST_OBJECT" value="METHOD" />
     <option name="PARAMETERS" value="" />

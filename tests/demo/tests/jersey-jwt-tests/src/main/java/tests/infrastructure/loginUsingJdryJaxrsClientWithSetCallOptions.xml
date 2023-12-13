@@ -2,11 +2,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name = "jwtService" parallel="tests" thread-count="4" verbose="2">
 
-    <test name = "asyncLoginUsingJdryJaxrsClientWithSetCallOptions">
+    <test name = "loginUsingJdryJaxrsClientWithSetCallOptions">
         <classes>
             <class name = "tests.infrastructure.jwtServiceTests">
             <methods>
-                <include name= "asyncLoginUsingJdryJaxrsClientWithSetCallOptions"/>
+                <include name= "loginUsingJdryJaxrsClientWithSetCallOptions"/>
             </methods>
             </class>
         </classes>

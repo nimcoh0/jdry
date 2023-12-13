@@ -54,11 +54,6 @@
             <artifactId>jdry-jaxrs-annotations</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-web-spring-plugin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -90,14 +85,6 @@
             <artifactId>reflections</artifactId>
             <version>0.9.12</version>
         </dependency>
-
-        <!--dependency>
-            <artifactId>backend</artifactId>
-            <groupId>com.iot</groupId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>C:/work/myprojects/java/iotBackendTests/src/lib/iotback.jar</systemPath>
-        </dependency-->
 
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -144,36 +131,12 @@
             <version>31.1-jre</version>
         </dependency>
 
-        <!--dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>3.1.3</version>
-        </dependency-->
-        <!--dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
-        </dependency-->
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
             <version>2.27</version>
         </dependency>
-        <!--dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-multipart</artifactId>
-            <version>3.1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-common</artifactId>
-            <version>3.1.3</version>
-        </dependency-->
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>

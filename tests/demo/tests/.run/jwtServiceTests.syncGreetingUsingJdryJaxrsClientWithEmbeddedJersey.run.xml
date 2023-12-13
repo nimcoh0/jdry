@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="jwtServiceTests.syncGreetingUsingJdryJaxrsClientWithEmbeddedJeresy" type="TestNG" nameIsGenerated="true">
+  <configuration default="false" name="jwtServiceTests.syncGreetingUsingJdryJaxrsClientWithEmbeddedJersey" type="TestNG" nameIsGenerated="true">
     <module name="jersey-jwt-tests" />
     <shortenClasspath name="NONE" />
     <useClassPathOnly />
@@ -12,7 +12,7 @@
     <option name="SUITE_NAME" value="" />
     <option name="PACKAGE_NAME" value="tests.infrastructure" />
     <option name="MAIN_CLASS_NAME" value="tests.infrastructure.jwtServiceTests" />
-    <option name="METHOD_NAME" value="syncGreetingUsingJdryJaxrsClientWithEmbeddedJeresy" />
+    <option name="METHOD_NAME" value="syncGreetingUsingJdryJaxrsClientWithEmbeddedJersey" />
     <option name="GROUP_NAME" value="" />
     <option name="TEST_OBJECT" value="METHOD" />
     <option name="PARAMETERS" value="" />

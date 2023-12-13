@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="jwtServiceTests.asyncLoginUsingJdryJaxrsClientWithSetCallOptions" type="TestNG" nameIsGenerated="true">
+  <configuration default="false" name="jwtServiceTests.loginUsingJdryJaxrsClientWithSetCallOptions" type="TestNG" nameIsGenerated="true">
     <module name="jersey-jwt-tests" />
     <shortenClasspath name="NONE" />
     <useClassPathOnly />
@@ -14,7 +14,7 @@
     <option name="SUITE_NAME" value="" />
     <option name="PACKAGE_NAME" value="tests.infrastructure" />
     <option name="MAIN_CLASS_NAME" value="tests.infrastructure.jwtServiceTests" />
-    <option name="METHOD_NAME" value="asyncLoginUsingJdryJaxrsClientWithSetCallOptions" />
+    <option name="METHOD_NAME" value="loginUsingJdryJaxrsClientWithSetCallOptions" />
     <option name="GROUP_NAME" value="" />
     <option name="TEST_OBJECT" value="METHOD" />
     <option name="PARAMETERS" value="" />

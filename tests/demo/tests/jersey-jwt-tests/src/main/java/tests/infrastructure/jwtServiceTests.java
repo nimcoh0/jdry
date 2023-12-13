@@ -2,9 +2,7 @@ package tests.infrastructure;
 
 import com.cassiomolin.example.security.jwt.model.AuthenticationToken;
 import com.cassiomolin.example.security.jwt.model.UserCredentials;
-import com.cassiomolin.example.user.api.model.QueryPersonResult;
 import com.cassiomolin.example.user.domain.Person;
-
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.core.Configuration;
@@ -13,40 +11,46 @@ import javax.ws.rs.core.Response;
 import org.apache.avro.ipc.CallFuture;
 import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Assert;
-import org.softauto.core.GenericResult;
 import org.softauto.jaxrs.filter.RequestClientFilter;
 import org.softauto.jaxrs.cli.WebCallOption;
 import org.softauto.service.JdryClient;
 import org.softauto.tester.AbstractTesterImpl;
 import org.softauto.tester.Listener;
-import org.testng.Reporter;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
+
 
 @Listeners({org.softauto.testng.JdryTestListener.class})
 public class jwtServiceTests extends AbstractTesterImpl {
 
+    /**
+     * help class optional
+     */
     TestLib testLib = new TestLib();
 
+    /**
+     * proxy listeners list
+     */
     jwtListenerService listeners;
 
-    JdryClient jdryClientCallback;
-
-    JdryClient jdryClient;
-
+    /**
+     * proxy steps with call back list
+     */
     jwtService.Callback testsCallback;
 
+    /**
+     * proxy steps list
+     */
     jwtService tests;
 
-    private static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
-
+    /**
+     * jersey configuration
+     */
     ClientConfig clientConfig;
 
     @BeforeTest
@@ -59,12 +63,13 @@ public class jwtServiceTests extends AbstractTesterImpl {
     }
 
     /**
-     * need to capture the Token and pass it to the next call to impl JWT
+     * this tests run jersey in native way impl JWT authentication
+     * it is given for compare and stest without the Jdry framework
+     * need to capture the Token and pass it to the next step
      */
     @Test
     public void asyncLoginUsingJersey(){
         try {
-
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
             credentials.setPassword("password");
@@ -72,7 +77,6 @@ public class jwtServiceTests extends AbstractTesterImpl {
             AuthenticationToken authenticationToken = client.target("http://localhost:8080").path("api").path("auth").request()
                     .post(Entity.entity(credentials, MediaType.APPLICATION_JSON), AuthenticationToken.class);
             String token = authenticationToken.getToken();
-
             Assert.assertTrue(token  != null);
         }catch (Exception e){
             e.printStackTrace();
@@ -84,12 +88,10 @@ public class jwtServiceTests extends AbstractTesterImpl {
 
 
     /**
-     * need to handle argumentsRequestType type ? like RequestBody....
-     *
+     * this test show how to use proxy login step  with manual data (callOption)
      */
-
     @Test
-    public void asyncLoginUsingJdryJaxrsClientWithSetCallOptions(){
+    public void loginUsingJdryJaxrsClientWithSetCallOptions(){
         try {
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
@@ -112,36 +114,37 @@ public class jwtServiceTests extends AbstractTesterImpl {
     }
 
 
-
-
-
+    /**
+     * this test show the use of two steps with Listener before (replace the listener method argument value).
+     * the test will first invoke the Authentication in sync call and if success it will
+     * call getProtectedGreeting in async call waiting for getGreetingForUser to be call and then replace the user name with "aaa"
+     */
     @Test
     public void loginUsingJdryJaxrsClientProxyAndAsyncRestCallWithListenerBefore(){
         try {
-
             CallFuture<java.lang.String> future_com_cassiomolin_example_user_api_model_QueryPersonResult = new CallFuture();
-
             Listener listener = listeners.com_cassiomolin_example_greeting_service_GreetingService_getGreetingForUser();
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("admin");
             credentials.setPassword("password");
-
-
             tests.com_cassiomolin_example_security_jwt_resource_AuthenticationResource_authenticate(credentials).setExpected("#result != null").invoke().isSuccesses(res ->{
                 testsCallback.com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting(future_com_cassiomolin_example_user_api_model_QueryPersonResult).invoke()
                         .then(listener.waitTo(r -> {
                             return "aaa";
                          }));
             });
-
             java.lang.String result = future_com_cassiomolin_example_user_api_model_QueryPersonResult.get();
             Assert.assertTrue(result.equals("Hello aaa!"));
-
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    /**
+     * this test show the use of two steps with Listener after (get the step result ).
+     * the test will first invoke the Authentication in sync call and if success it will
+     * call getProtectedGreeting1 in async call waiting for getGreetingForUser1 to be call
+     */
     @Test
     public void loginUsingJdryJaxrsClientProxyAndAsyncRestCallWithListenerAfter(){
         try {
@@ -179,8 +182,12 @@ public class jwtServiceTests extends AbstractTesterImpl {
     }
 
 
+    /**
+     * the test show how to use Embedded Jersey with jdry framework
+     * the configuration is done in the native jersey style but it will be exec with Jdry framework
+     */
     @Test
-    public void asyncLoginUsingJdryJaxrsClientWithEmbededJeresy(){
+    public void asyncLoginUsingJdryJaxrsClientWithEmbeddedJersey(){
         try {
 
             UserCredentials credentials = new UserCredentials();
@@ -209,8 +216,11 @@ public class jwtServiceTests extends AbstractTesterImpl {
     }
 
 
+    /**
+     * the tests show the use of two rest call using jwt
+     */
     @Test
-    public void syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJeresy(){
+    public void syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJersey(){
         try {
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("admin");
@@ -228,8 +238,11 @@ public class jwtServiceTests extends AbstractTesterImpl {
     }
 
 
+    /**
+     * the test show the use of rest call using proxy step with jdry ClineBuilder
+     */
     @Test
-    public void syncGreetingUsingJdryJaxrsClientWithEmbeddedJeresy(){
+    public void syncGreetingUsingJdryJaxrsClientWithEmbeddedJersey(){
         try {
             Response response = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().setTransceiver("JAXRS")
                     .setClientBuilder(javax.ws.rs.client.ClientBuilder.newClient((Configuration) clientConfig)).
@@ -241,7 +254,10 @@ public class jwtServiceTests extends AbstractTesterImpl {
     }
 
 
-
+    /**
+     * the test show how to use two proxy steps
+     * using Jwt
+     */
     @Test
     public void syncLoginAndGreetingUsingJdryJaxrsClientWithProxy(){
         try {
@@ -259,6 +275,10 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
+    /**
+     * the test show how to use two proxy steps
+     * using JWT
+     */
     @Test
     public void findAllUsersUsingJdryJaxrs(){
         try {
@@ -275,7 +295,9 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
-
+    /**
+     * the test show the use of rpc call
+     */
     @Test
     public void publicGreetingUsingJdryRpc(){
         try {
@@ -286,6 +308,9 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
+    /**
+     * the test show the use of rpc call
+     */
     @Test
     public void publicRpcCall(){
         try{
@@ -296,6 +321,9 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
+    /**
+     * the test show the use of rpc call to private method
+     */
     @Test
     public void privateRpcCall(){
         try{
@@ -306,6 +334,9 @@ public class jwtServiceTests extends AbstractTesterImpl {
         }
     }
 
+    /**
+     * the test show the use of rpc call to static  method
+     */
     @Test
     public void publicStaticRpcCall(){
         try{

@@ -3,12 +3,12 @@
 <suite name = "jwtService" verbose="10">
 <suite-files>
     <suite-file path="asyncLoginUsingJersey.xml"/>
-    <suite-file path="asyncLoginUsingJdryJaxrsClientWithSetCallOptions.xml"/>
+    <suite-file path="loginUsingJdryJaxrsClientWithSetCallOptions.xml"/>
     <suite-file path="loginUsingJdryJaxrsClientProxyAndAsyncRestCallWithListenerBefore.xml"/>
     <suite-file path="loginUsingJdryJaxrsClientProxyAndAsyncRestCallWithListenerAfter.xml"/>
-    <suite-file path="asyncLoginUsingJdryJaxrsClientWithEmbededJeresy.xml"/>
-    <suite-file path="syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJeresy.xml"/>
-    <suite-file path="syncGreetingUsingJdryJaxrsClientWithEmbeddedJeresy.xml"/>
+    <suite-file path="asyncLoginUsingJdryJaxrsClientWithEmbeddedJersey.xml"/>
+    <suite-file path="syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJersey.xml"/>
+    <suite-file path="syncGreetingUsingJdryJaxrsClientWithEmbeddedJersey.xml"/>
     <suite-file path="syncLoginAndGreetingUsingJdryJaxrsClientWithProxy.xml"/>
     <suite-file path="findAllUsersUsingJdryJaxrs.xml"/>
     <suite-file path="publicGreetingUsingJdryRpc.xml"/>
