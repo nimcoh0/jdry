@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="tools -analyzer jeresy-jwt" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="org.softauto.tool.Main" />
+    <module name="jdry-tools" />
+    <option name="PROGRAM_PARAMETERS" value="analyzer -conf $PROJECT_DIR$/tests/demo/applications/jersey-jwt-master/analyzer.yaml -discover $PROJECT_DIR$/out/jersey-jwt.disc -output $PROJECT_DIR$/out/jersey-jwt.analyzer" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

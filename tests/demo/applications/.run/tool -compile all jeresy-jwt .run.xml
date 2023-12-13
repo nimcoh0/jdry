@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="tool -compile all jeresy-jwt " type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="org.softauto.tool.Main" />
+    <module name="jdry-tools" />
+    <option name="PROGRAM_PARAMETERS" value="compile -analyzer $PROJECT_DIR$/out/jersey-jwt.analyzer -all $PROJECT_DIR$/tests/demo/applications/out -templateDir Jdry-compiler\src\main\resources\velocity/" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
