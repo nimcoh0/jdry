@@ -4,12 +4,9 @@ import com.cassiomolin.example.security.jwt.AuthenticationTokenDetails;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-
 import javax.crypto.SecretKey;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.xml.bind.DatatypeConverter;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
@@ -32,9 +29,6 @@ class AuthenticationTokenIssuer {
      * @return
      */
     public String issueToken(AuthenticationTokenDetails authenticationTokenDetails) {
-       // SecretKey key = io.jsonwebtoken.security.Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        //String key = "random_secret_key_aaaaa_bbbb_ccccc_dddddd";
-        //String base64Key = DatatypeConverter.printBase64Binary(key.getBytes());
         return Jwts.builder()
                 .setId(authenticationTokenDetails.getId())
                 .setIssuer(settings.getIssuer())

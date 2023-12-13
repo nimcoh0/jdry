@@ -24,7 +24,9 @@
     </option>
     <option name="PROPERTIES_FILE" value="" />
     <properties />
-    <listeners />
+    <listeners>
+      <listener class="org.softauto.testng.JdryTestListener" />
+    </listeners>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

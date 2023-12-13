@@ -1,9 +1,6 @@
 package com.cassiomolin.example.security.service;
 
 import com.cassiomolin.example.common.configuration.Configurable;
-import io.jsonwebtoken.SignatureAlgorithm;
-
-import javax.crypto.SecretKey;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.xml.bind.DatatypeConverter;
@@ -68,8 +65,6 @@ class AuthenticationTokenSettings {
     public String getSecret() {
         String key = "random_secret_key_aaaaa_bbbb_ccccc_dddddd";
         String base64Key = DatatypeConverter.printBase64Binary(key.getBytes());
-        //SecretKey key = io.jsonwebtoken.security.Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        //byte[] secretBytes = DatatypeConverter.parseBase64Binary(base64Key);
         return base64Key;
     }
 

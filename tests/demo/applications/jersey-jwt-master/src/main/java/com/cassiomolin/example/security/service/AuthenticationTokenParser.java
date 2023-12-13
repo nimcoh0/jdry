@@ -26,7 +26,7 @@ class AuthenticationTokenParser {
     @Inject
     private AuthenticationTokenSettings settings;
 
-   // private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
     /**
      * Parse a JWT token.
      *
