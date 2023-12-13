@@ -40,7 +40,7 @@
         <log4j>2.20.0</log4j>
         <commons-lang3>3.5</commons-lang3>
         <commons-collections4>4.4</commons-collections4>
-        <jackson>2.11.1</jackson>
+        <jackson>2.15.2</jackson>
         <yaml>1.27</yaml>
         <guava>31.1-jre</guava>
 

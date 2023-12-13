@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.softauto.annotations.*;
 //import jakarta.persistence.EntityManager;
 import javax.persistence.EntityManager;
+//import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
  */
 @InitializeForTesting(value = ClassType.INITIALIZE_EVERY_TIME,parameters = @Parameter(type = "String",value = "helo"))
 @ApplicationScoped
+//@Transactional
 public class PersonService {
 
     @Inject
@@ -51,15 +53,19 @@ public class PersonService {
      * @param identifier
      * @return
      */
-    @ListenerForTesting(type = ListenerType.BEFORE)
+    //@ListenerForTesting(type = ListenerType.BEFORE)
     public Person findByUsernameOrEmail(String identifier) {
-
-        List<Person> people = em.createQuery("SELECT u FROM Person u WHERE u.username = :identifier OR u.email = :identifier", Person.class)
-                .setParameter("identifier", identifier)
-                .setMaxResults(1)
-                .getResultList();
-        if (people.isEmpty()) {
-            return null;
+        List<Person> people = null;
+        try {
+            people = em.createQuery("SELECT u FROM Person u WHERE u.username = :identifier OR u.email = :identifier", Person.class)
+                    .setParameter("identifier", identifier)
+                    .setMaxResults(1)
+                    .getResultList();
+            if (people.isEmpty()) {
+                return null;
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
         return people.get(0);
     }
@@ -69,7 +75,7 @@ public class PersonService {
      *
      * @return
      */
-    @ListenerForTesting(type = ListenerType.AFTER)
+    //@ListenerForTesting(type = ListenerType.AFTER)
     public List<Person> findAll() {
         return em.createQuery("SELECT u FROM Person u", Person.class).getResultList();
     }
@@ -80,7 +86,7 @@ public class PersonService {
      * @param userId
      * @return
      */
-    @ListenerForTesting(type = ListenerType.BEFORE)
+    //@ListenerForTesting(type = ListenerType.BEFORE)
     public Optional<Person> findById(Long userId) {
         return Optional.ofNullable(em.find(Person.class, userId));
     }

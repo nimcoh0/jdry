@@ -1,6 +1,5 @@
 package org.softauto.logger;
 
-import io.netty.handler.logging.LogLevel;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
@@ -25,9 +24,9 @@ import java.util.StringJoiner;
 @Aspect
 public abstract class Tracer {
 
-	private static final Marker SUT = MarkerManager.getMarker("SUT");
+	private static final Marker TRACER = MarkerManager.getMarker("TRACER");
 
-
+	static String domain = null;
 
 	@Pointcut
 	public void tracePointcut(){
@@ -35,32 +34,42 @@ public abstract class Tracer {
 	};
 
 	//@Before("execution(* *(..))  && !within(org.softauto..*)")
-	@Before(value = "tracePointcut() && within(com.cassiomolin..*) && !within(org.softauto..*)")
+	@Before(value = "tracePointcut() ")
 	public synchronized void trace(JoinPoint joinPoint) throws Throwable {
-		if (joinPoint.getSignature() instanceof MethodSignature) {
-			handleMethod(joinPoint);
-		}
-		if (joinPoint.getSignature() instanceof ConstructorSignature) {
-			handleConstructor(joinPoint);
-		}
+		//if(!joinPoint.getSourceLocation().getWithinType().isEnum()) {
+			if (joinPoint.getSignature() instanceof MethodSignature) {
+				if (domain == null) {
+					domain = joinPoint.getSignature().getDeclaringType().getPackage().getName();
+				}
+				handleMethod(joinPoint);
+			}
+			if (joinPoint.getSignature() instanceof ConstructorSignature) {
+				if (domain == null) {
+					domain = joinPoint.getSignature().getDeclaringType().getPackage().getName();
+				}
+				handleConstructor(joinPoint);
+			}
+		//}
 		//return joinPoint.proceed();
 	}
 
 
-/*
+
 	//@AfterReturning(pointcut = "execution(* *(..)) && !within(org.softauto..*)", returning = "result")
-	@AfterReturning(value = "tracePointcut()", returning = "result")
+	@AfterReturning(value = "tracePointcut() ", returning = "result")
 	public synchronized   void returning(JoinPoint joinPoint,Object result) throws Throwable{
-		if (joinPoint.getSignature() instanceof MethodSignature) {
-			handleExitMethod(joinPoint,result);
-		}
-		if (joinPoint.getSignature() instanceof ConstructorSignature) {
-			handleExitConstructor(joinPoint,result);
-		}
+		//if(!joinPoint.getSourceLocation().getWithinType().isEnum()) {
+			if (joinPoint.getSignature() instanceof MethodSignature) {
+				handleExitMethod(joinPoint, result);
+			}
+			if (joinPoint.getSignature() instanceof ConstructorSignature) {
+				handleExitConstructor(joinPoint, result);
+			}
+		//}
 	}
 
 
- */
+
 
 
 
@@ -80,7 +89,7 @@ public abstract class Tracer {
 		Object[] args = joinPoint.getArgs();
 		Class[] parameterTypes = codeSignature.getParameterTypes();
 		String[] params = codeSignature.getParameterNames();
-		logger.log(level,SUT, entry(constructorSignature.getConstructor().getName(), showArgs, params, args, parameterTypes));
+		logger.log(level,TRACER, entry(constructorSignature.getConstructor().getName(), showArgs, params, args, parameterTypes));
 		//log(logger, level,
 			//	entry(constructorSignature.getConstructor().getName(), showArgs, params, args, parameterTypes));
 		Temporal start = Instant.now();
@@ -112,7 +121,7 @@ public abstract class Tracer {
 		Class[] parameterTypes = codeSignature.getParameterTypes();
 		String[] methodParams = codeSignature.getParameterNames();
 		//log(logger, level, entry(methodName, showArgs, methodParams, methodArgs, parameterTypes));
-		logger.log(level,SUT,entry(methodName, showArgs, methodParams, methodArgs, parameterTypes));
+		logger.log(level,TRACER,entry(methodName, showArgs, methodParams, methodArgs, parameterTypes));
 		Temporal start = Instant.now();
 
 		Temporal end = Instant.now();
@@ -144,7 +153,7 @@ public abstract class Tracer {
 
 		Temporal end = Instant.now();
 		String duration = String.format("%s %s", unit.between(start, end), unit.name().toLowerCase());
-		logger.log(level,SUT, exit(constructorSignature.getConstructor().getName(), duration, result, showResult,
+		logger.log(level,TRACER, exit(constructorSignature.getConstructor().getName(), duration, result, showResult,
 			showExecutionTime));
 
 	}
@@ -174,7 +183,7 @@ public abstract class Tracer {
 
 		Temporal end = Instant.now();
 		String duration = String.format("%s %s", unit.between(start, end), unit.name().toLowerCase());
-		logger.log(level,SUT, exit(methodName, duration, result, showResult, showExecutionTime));
+		logger.log(level,TRACER, exit(methodName, duration, result, showResult, showExecutionTime));
 		//logger.log(level, exit(methodName, showArgs, methodParams, methodArgs, parameterTypes));
 	}
 
@@ -184,7 +193,8 @@ public abstract class Tracer {
 		if (showArgs && Objects.nonNull(params) && Objects.nonNull(args) && params.length == args.length) {
 			Map<String, Object> values = new HashMap<>(params.length);
 			for (int i = 0; i < params.length; i++) {
-				values.put(params[i], new Serializer().serialize(args[i]));
+				if(args[i].getClass().getTypeName().contains(domain))
+					values.put(params[i], new Serializer().serialize(args[i]));
 			}
 			message.add("with args:").add(values.toString());
 		}
@@ -199,7 +209,8 @@ public abstract class Tracer {
 		}
 		if (showResult) {
 			if (result != null) {
-				message.add("with return:").add(new Serializer().serialize(result).toString());
+				if(result.getClass().getTypeName().contains(domain))
+					message.add("with return:").add(new Serializer().serialize(result).toString());
 			} else {
 				message.add("no return");
 			}

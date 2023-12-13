@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
+        <Property name="APP_LOG_ROOT">c:/temp</Property>
+    </Properties>
+
+
+
+    <Appenders>
+
+        <RollingFile append="true" name="jdry" fileName="jdry.log" filePattern="sut-%d{yyyy-MM-dd}-%i.log">
+
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} app     %-5level %-30notEmpty{[%marker]} - %msg%xEx - %class{36} %L %M%n"/>
+            <Policies>
+                <!--<TimeBasedTriggeringPolicy />-->
+                <SizeBasedTriggeringPolicy size="20 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+        <RollingFile append="true" name="test" fileName="test.log" filePattern="test-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} app     %-5level %-30notEmpty{[%marker]} - %msg%xEx - %class{36} %L %M%n"/>
+            <Policies>
+                <!--<TimeBasedTriggeringPolicy />-->
+                <SizeBasedTriggeringPolicy size="20 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout  disableAnsi="false" pattern="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %-6notEmpty{[%marker]} -  %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green,  bold,DEBUG=green bold, TRACE=blue}   [%15.15t] %style{%logger}{cyan} : %msg%n"/>
+
+        </Console>
+
+    </Appenders>
+    <Loggers>
+
+        <Logger name="tests" level="debug" >
+            <AppenderRef ref="test" level="debug"/>
+
+        </Logger>
+        <Logger name="helper" level="debug" >
+            <AppenderRef ref="test" level="debug"/>
+
+        </Logger>
+        <Logger name="org.softauto" level="debug" >
+            <AppenderRef ref="jdry" level="debug"/>
+
+        </Logger>
+        <Logger name="io.grpc.netty" level="off" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        <Logger name="io.netty" level="off" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        <Root level="all">
+            <AppenderRef ref="console" level="debug"/>
+        </Root>
+    </Loggers>
+</Configuration>

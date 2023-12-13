@@ -41,11 +41,11 @@
             <groupId>org.softauto</groupId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--dependency>
+        <dependency>
             <artifactId>jdry-logger</artifactId>
             <groupId>org.softauto</groupId>
             <version>1.0-SNAPSHOT</version>
-        </dependency-->
+        </dependency>
         <!-- Undertow -->
         <dependency>
             <groupId>io.undertow</groupId>
@@ -102,6 +102,21 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <!--dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
         <!-- JJWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

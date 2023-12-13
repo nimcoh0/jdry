@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="debug" pacages="org.softauto.core.ForceTriggerPolicy">
+<Configuration status="debug" >
     <Properties>
         <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
         <Property name="APP_LOG_ROOT">tests/demo/applications/jersey-jwt-master/log</Property>
@@ -10,55 +10,65 @@
     <appenders>
 
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %msg%n"/>
+            <PatternLayout  disableAnsi="false" pattern="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %-6notEmpty{[%marker]} -  %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green,  bold,DEBUG=green bold, TRACE=blue}   [%15.15t] %style{%logger}{cyan} : %msg%n"/>
         </Console>
 
-        <File name="Sut" append="false" fileName="${APP_LOG_ROOT}/sut.log">
+        <File name="All" append="false" fileName="${APP_LOG_ROOT}/all.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
-            <Filters>
-                <MarkerFilter marker="SUT" onMatch="ACCEPT" onMismatch="DENY"/>
-
-            </Filters>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <!--TimeBasedTriggeringPolicy/-->
+            </Policies>
         </File>
 
         <File name="Jdry" append="false" fileName="${APP_LOG_ROOT}/jdry.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <!--TimeBasedTriggeringPolicy/-->
+            </Policies>
         </File>
 
-        <RollingFile name="Root"
-                     fileName="${APP_LOG_ROOT}/suttmp.log"
-                     filePattern="${APP_LOG_ROOT}/sut.%d{yyyy-MM-dd}_%i.gz"
+        <RollingFile name="Trace"
+                     fileName="${APP_LOG_ROOT}/trace.log"
+                     filePattern="${APP_LOG_ROOT}/trace.%d{yyyy-MM-dd}_%i.gz"
                      immediateFlush="true">
-            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+
+            <MarkerFilter marker="TRACER" onMatch="ACCEPT" onMismatch="DENY"/>
             <Policies>
-                <ForceTriggerPolicy />
-                <!--SizeBasedTriggeringPolicy size="10 MB"/>
-                <TimeBasedTriggeringPolicy/-->
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <!--TimeBasedTriggeringPolicy/-->
             </Policies>
 
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} app     %-5level %-30notEmpty{[%marker]} - %msg%xEx - %class{36} %L %M%n"/>
-            <DefaultRolloverStrategy max="${defaultRollOverMax}" fileIndex="max"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}  %-5level %-10notEmpty{[%marker]} %c{1.} - %msg%xEx %n"/>
+            <DefaultRolloverStrategy max="5" />
+
         </RollingFile>
 
 
 
     </appenders>
 
-    <Root level="all">
-        <AppenderRef ref="Root"/>
-        <AppenderRef ref="Console"/>
-        <AppenderRef ref="Sut"/>
-        <AppenderRef ref="Jdry"/>
-    </Root>
+
     <loggers>
-        <root name="com.cassiomolin.example" level="all">
-            <appender-ref ref="Root"/>
-            <appender-ref ref="Sut"/>
+        <Logger name="org.softauto" level="DEBUG" >
             <appender-ref ref="Jdry"/>
+        </Logger>
+
+        <Logger name="com.cassiomolin.example" level="all" >
+            <appender-ref ref="Trace"/>
+        </Logger>
+
+        <root level="all">
+            <appender-ref ref="All"/>
+            <AppenderRef ref="Console"/>
         </root>
     </loggers>
 

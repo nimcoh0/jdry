@@ -1,4 +1,4 @@
-package org.softauto.logger;
+package org.softauto.tracer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

@@ -30,26 +30,26 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
             TestContext.put("step_name",result.getName());
             //TestContext.getScenario().setState(ScenarioLifeCycle.START.name());;
             if(SystemState.getInstance().startTest(result.getName(),TestContext.getScenario().getId())){
-                logger.debug("successfully start test " + result.getName());
+                logger.debug(TESTER,"successfully start test " + result.getName());
                 } else {
-                    logger.error("fail start test "+result.getName());
+                    logger.error(TESTER,"fail start test "+result.getName());
                 }
 
         }catch (Exception e){
-            logger.error("fail onTestStart "+result.getName(),e);
+            logger.error(TESTER,"fail onTestStart "+result.getName(),e);
         }
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
         TestContext.getScenario().setState(ScenarioLifeCycle.START.PASS.name());
-        logger.debug(result.getName()+" end successfully");
+        logger.debug(TESTER,result.getName()+" end successfully");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         TestContext.getScenario().setState(ScenarioLifeCycle.FAIL.name());
-        logger.debug(result.getName()+" fail",result.getThrowable());
+        logger.debug(TESTER,result.getName()+" fail",result.getThrowable());
     }
 
 
@@ -65,27 +65,27 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
 
     @Override
     public void onStepStart() {
-        logger.info("step " + TestContext.get("step_name") + " start");
+        logger.info(TESTER,"step " + TestContext.get("step_name") + " start");
     }
 
     @Override
     public void onStepSuccess() {
-        logger.info("step " + TestContext.get("step_name") + " finish successfully");
+        logger.info(TESTER,"step " + TestContext.get("step_name") + " finish successfully");
     }
 
     @Override
     public void onStepFailure() {
-        logger.info("step " + TestContext.get("step_name") + " fail");
+        logger.info(TESTER,"step " + TestContext.get("step_name") + " fail");
     }
 
     @Override
     public void onStepSkipped() {
-        logger.info("step " + TestContext.get("step_name") + " skip");
+        logger.info(TESTER,"step " + TestContext.get("step_name") + " skip");
     }
 
     @Override
     public void onStepFinish() {
-        logger.info("step " + TestContext.get("step_name") + " finish ");
+        logger.info(TESTER,"step " + TestContext.get("step_name") + " finish ");
     }
 
     @Override
@@ -101,9 +101,9 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
 
             TestContext.getScenario().setState(ScenarioLifeCycle.STOP.name());;
             if(SystemState.getInstance().endTest(context.getName(),TestContext.getScenario().getId())){
-                    logger.debug("successfully end test ");
+                    logger.debug(TESTER,"successfully end test ");
                 } else {
-                    logger.error("fail end test" );
+                    logger.error(TESTER,"fail end test" );
                 }
             ListenerObserver.getInstance().reset();
 
@@ -114,13 +114,13 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
                    // logger.error("fail shutdown ");
                // }
 
-            final org.apache.logging.log4j.spi.LoggerContext ctx = (org.apache.logging.log4j.spi.LoggerContext) LogManager.getContext(false);
+            //final org.apache.logging.log4j.spi.LoggerContext ctx = (org.apache.logging.log4j.spi.LoggerContext) LogManager.getContext(false);
             //final Configuration config = ctx.getConfiguration();
             //config.getRootLogger().removeAppender("console");
             //ctx.updateLoggers();
 
         }catch (Exception e){
-            logger.error("fail onFinish ",e);
+            logger.error(TESTER,"fail onFinish ",e);
         }
         logger.info(TESTER, "roll test");
     }

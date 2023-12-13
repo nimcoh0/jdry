@@ -166,7 +166,9 @@ public class JdryClient {
                             }
                             logger.debug("invoke method " + method.getName() + " with args " + Arrays.toString(args));
                             if (TestContext.getStepState().equals(StepLifeCycle.START)) {
-                                return invokeUnaryMethod(method, args);
+                                Object r =  invokeUnaryMethod(method, args);
+                                TestContext.setStepState(StepLifeCycle.STOP);
+                                return r;
                             } else {
                                 TestContext.setStepState(StepLifeCycle.SKIP);
                                 logger.debug("step skip due test status  " + TestContext.getScenario().getState() + " on " + TestContext.getScenario().getProperty("method"));

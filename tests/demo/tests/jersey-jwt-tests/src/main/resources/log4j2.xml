@@ -8,58 +8,49 @@
     </Properties>
 
     <appenders>
-        <File name="test" append="false" fileName="${APP_LOG_ROOT}/test.log">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
-            <Filters>
-                <MarkerFilter marker="TESTER" onMatch="ACCEPT" onMismatch="DENY"/>
 
-            </Filters>
-        </File>
-        <File name="jdry" append="false" fileName="${APP_LOG_ROOT}/jdry.log">
+        <File name="Jdry" append="false" fileName="${APP_LOG_ROOT}/jdry.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
+
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %msg%n"/>
+            <PatternLayout  disableAnsi="false" pattern="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %-6notEmpty{[%marker]} -  %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green,  bold,DEBUG=green bold, TRACE=blue}   [%15.15t] %style{%logger}{cyan} : %msg%n"/>
         </Console>
 
         <RollingFile name="Tester"
-                     append="true"
-                     fileName="${APP_LOG_ROOT}/testtmp.log"
+                     fileName="${APP_LOG_ROOT}/test.log"
                      filePattern="${APP_LOG_ROOT}/${sys:logFilename}.%d{yyyy-MM-dd}_%i.gz"
                      immediateFlush="true">
-            <Filters>
-                <MarkerFilter marker="TESTER" onMatch="ACCEPT" onMismatch="DENY"/>
 
-            </Filters>
+            <MarkerFilter marker="TESTER" onMatch="ACCEPT" onMismatch="DENY"/>
+
             <Policies>
                 <ForceTriggerPolicy />
             </Policies>
 
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} app     %-5level %-30notEmpty{[%marker]} - %msg%xEx - %class{36} %L %M%n"/>
-            <DefaultRolloverStrategy max="10" fileIndex="max"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}  %-5level %-10notEmpty{[%marker]} %c{1.} - %msg%xEx %n"/>
+            <DefaultRolloverStrategy max="10" />
         </RollingFile>
 
 
     </appenders>
 
-    <Root level="all">
-        <AppenderRef ref="Tester"/>
-        <AppenderRef ref="Console"/>
-        <AppenderRef ref="jdry"/>
-        <AppenderRef ref="test"/>
 
-    </Root>
     <loggers>
-        <root name="tests.infrastructure" level="all">
-            <appender-ref ref="Tester"/>
-            <appender-ref ref="jdry"/>
-            <appender-ref ref="Console"/>
-            <appender-ref ref="test"/>
 
+        <Logger name="org.softauto" level="DEBUG" >
+            <appender-ref ref="Jdry"/>
+        </Logger>
+
+        <Logger name="tests.infrastructure" level="all" >
+            <appender-ref ref="Tester"/>
+        </Logger>
+
+        <root level="all">
+           <appender-ref ref="Console"/>
+           <appender-ref ref="Tester"/>
         </root>
     </loggers>
 

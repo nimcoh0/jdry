@@ -2,7 +2,10 @@ package org.softauto.espl;
 
 
 import org.softauto.core.Multimap;
+import org.softauto.listener.impl.ExternalListener;
+import org.springframework.expression.EvaluationException;
 import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.ParseException;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
@@ -11,6 +14,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Espl {
+
+    static org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ExternalListener.class);
 
     StandardEvaluationContext  itemContext = new StandardEvaluationContext();
     ExpressionParser parser = new SpelExpressionParser();
@@ -86,16 +91,21 @@ public class Espl {
 
     public Object  evaluate(String expression){
         Object o = null;
-        if(expression.contains("#")) {
-            if (expression.contains("${")) {
-                o = parser.parseExpression(expression, new TemplateParserContextCompileTime()).getValue(itemContext);
-            } else {
-                o = parser.parseExpression(expression).getValue(itemContext);
+        try {
+            if(expression.contains("#")) {
+                if (expression.contains("${")) {
+                    o = parser.parseExpression(expression, new TemplateParserContextCompileTime()).getValue(itemContext);
+                } else {
+                    o = parser.parseExpression(expression).getValue(itemContext);
+                }
+                if (o instanceof String) {
+                    return o.toString().replace("'", "\"");
+                }
+                return o;
             }
-            if (o instanceof String) {
-                return o.toString().replace("'", "\"");
-            }
-            return o;
+        } catch (Throwable e) {
+            logger.warn("fail evaluate "+ expression,e);
+            return expression;
         }
         return expression;
     }

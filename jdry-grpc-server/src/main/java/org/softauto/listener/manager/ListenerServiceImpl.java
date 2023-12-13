@@ -104,7 +104,7 @@ public class ListenerServiceImpl implements ListenerService {
         try {
             String scenarioId = getScenarioId();
            // if(TestContext.getTestState().equals(TestLifeCycle.START)) {
-            if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
+            if(Scenarios.getScenarios().size() > 0 && Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
                 HashMap<String,Object> configuration = getConfiguration(scenarioId);
                 if(configuration != null) {
                     Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();

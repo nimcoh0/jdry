@@ -21,6 +21,8 @@ public class Serializer {
 				objectMapper = new ObjectMapper();
 				SimpleModule userModule = new SimpleModule();
 				objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+				objectMapper.enable(SerializationFeature.FAIL_ON_SELF_REFERENCES);
+
 				//userModule.addSerializer(HttpServletRequestWrapper.class, new HttpServletRequestSerializer());
 				objectMapper.registerModule(userModule);
 			}
@@ -50,13 +52,24 @@ public class Serializer {
 
 	private Object _serialize(Object arg) {
 		try {
+			if (arg != null ) {
+				return objectMapper.writeValueAsString(arg);
+			}
+
+			/*
 			if (arg != null && (arg instanceof String || Util.isPrimitive(arg.getClass().getTypeName()))) {
 				return objectMapper.writeValueAsString(arg);
 			} else {
 				return arg;
 			}
-		} catch (Exception e) {
-			logger.warn(e.getCause().toString());
+
+			 */
+		} catch (Throwable e) {
+			if(e.getCause() != null) {
+				logger.warn(e.getCause());
+			}else {
+				logger.warn(e.getMessage());
+			}
 		}
 		return arg;
 	}

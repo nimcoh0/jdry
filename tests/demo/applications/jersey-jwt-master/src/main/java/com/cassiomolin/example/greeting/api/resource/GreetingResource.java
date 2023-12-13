@@ -43,4 +43,15 @@ public class GreetingResource {
         String username = securityContext.getUserPrincipal().getName();
         return Response.ok(greetingService.getGreetingForUser(username)).build();
     }
+
+
+    @GET
+    @Path("protected1")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getProtectedGreeting1() {
+        String username = securityContext.getUserPrincipal().getName();
+        return Response.ok(greetingService.getGreetingForUser1(username)).build();
+    }
+
+
 }

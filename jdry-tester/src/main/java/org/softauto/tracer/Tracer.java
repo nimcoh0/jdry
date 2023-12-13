@@ -1,4 +1,4 @@
-package org.softauto.logger;
+package org.softauto.tracer;
 
 import io.netty.handler.logging.LogLevel;
 import org.apache.logging.log4j.Level;
@@ -8,7 +8,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -24,15 +23,15 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 
-//@Aspect
+@Aspect
 public class Tracer {
 
 	private static final Marker TESTER = MarkerManager.getMarker("TESTER");
 
 
 
-	//@Before("execution(* *(..))  && !within(org.softauto..*)")
-	//@Before(value = "tracePointcut()")
+	@Before("execution(* *(..))  && !within(org.softauto..*)")
+	//@Before(value = "tracePointcut()  && !within(org.softauto..*)")
 	public synchronized void trace(JoinPoint joinPoint) throws Throwable {
 		if (joinPoint.getSignature() instanceof MethodSignature) {
 			handleMethod(joinPoint);
@@ -43,7 +42,7 @@ public class Tracer {
 		//return joinPoint.proceed();
 	}
 
-	//@AfterReturning(pointcut = "execution(* *(..)) && !within(org.softauto..*)", returning = "result")
+	@AfterReturning(pointcut = "execution(* *(..)) && !within(org.softauto..*)", returning = "result")
 	public synchronized   void returning(JoinPoint joinPoint,Object result) throws Throwable{
 		if (joinPoint.getSignature() instanceof MethodSignature) {
 			handleExitMethod(joinPoint,result);

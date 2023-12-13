@@ -119,23 +119,23 @@ public class jwtServiceTests extends AbstractTesterImpl {
     public void loginUsingJdryJaxrsClientProxyAndAsyncRestCallWithListenerBefore(){
         try {
 
-            CallFuture<com.cassiomolin.example.user.api.model.QueryPersonResult> future_com_cassiomolin_example_user_api_model_QueryPersonResult = new CallFuture();
+            CallFuture<java.lang.String> future_com_cassiomolin_example_user_api_model_QueryPersonResult = new CallFuture();
 
-            Listener listener = listeners.com_cassiomolin_example_user_service_PersonService_findById();
+            Listener listener = listeners.com_cassiomolin_example_greeting_service_GreetingService_getGreetingForUser();
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("admin");
             credentials.setPassword("password");
 
 
             tests.com_cassiomolin_example_security_jwt_resource_AuthenticationResource_authenticate(credentials).setExpected("#result != null").invoke().isSuccesses(res ->{
-                testsCallback.com_cassiomolin_example_user_api_resource_PersonResource_getUser(1L,future_com_cassiomolin_example_user_api_model_QueryPersonResult).invoke()
+                testsCallback.com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting(future_com_cassiomolin_example_user_api_model_QueryPersonResult).invoke()
                         .then(listener.waitTo(r -> {
-                            return 2L;
+                            return "aaa";
                          }));
             });
 
-            QueryPersonResult result = future_com_cassiomolin_example_user_api_model_QueryPersonResult.get();
-            Assert.assertTrue(result.getFirstName().equals("Jane"));
+            java.lang.String result = future_com_cassiomolin_example_user_api_model_QueryPersonResult.get();
+            Assert.assertTrue(result.equals("Hello aaa!"));
 
         }catch (Exception e){
             e.printStackTrace();
@@ -146,32 +146,32 @@ public class jwtServiceTests extends AbstractTesterImpl {
     public void loginUsingJdryJaxrsClientProxyAndAsyncRestCallWithListenerAfter(){
         try {
 
-            CallFuture<java.util.List> future_com_cassiomolin_example_user_api_resource_PersonResource_getUsers = new CallFuture();
+            CallFuture<java.lang.String> future_com_cassiomolin_example_user_api_resource_PersonResource_getUsers = new CallFuture();
 
             java.util.function.Consumer<Object> ff = new java.util.function.Consumer<Object>() {
 
-                List<Person> parsonList = null;
+                java.lang.String name = null;
 
                 @Override
                 public void accept(Object o) {
-                    parsonList = (List<Person>)o;
+                    name = o.toString();
                 }
 
             };
 
-            Listener listener = listeners.com_cassiomolin_example_user_service_PersonService_findAll();
+            Listener listener = listeners.com_cassiomolin_example_greeting_service_GreetingService_getGreetingForUser1();
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("admin");
             credentials.setPassword("password");
 
 
             tests.com_cassiomolin_example_security_jwt_resource_AuthenticationResource_authenticate(credentials).setExpected("#result != null").invoke().isSuccesses(res ->{
-                testsCallback.com_cassiomolin_example_user_api_resource_PersonResource_getUsers(future_com_cassiomolin_example_user_api_resource_PersonResource_getUsers).invoke()
+                testsCallback.com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting1(future_com_cassiomolin_example_user_api_resource_PersonResource_getUsers).invoke()
                         .then(listener.waitTo(ff));
             });
 
-            List<Person> result = future_com_cassiomolin_example_user_api_resource_PersonResource_getUsers.get();
-            Assert.assertTrue(result.size() == 3);
+            java.lang.String result = future_com_cassiomolin_example_user_api_resource_PersonResource_getUsers.get();
+            Assert.assertTrue(result.equals("Hello admin!"));
 
         }catch (Exception e){
             e.printStackTrace();
@@ -213,7 +213,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     public void syncLoginAndGreetingUsingJdryJaxrsClientWithEmbeddedJeresy(){
         try {
             UserCredentials credentials = new UserCredentials();
-            credentials.setUsername("user");
+            credentials.setUsername("admin");
             credentials.setPassword("password");
 
             javax.ws.rs.client.Client client = org.softauto.jaxrs.cli.ClientBuilder.newClient();
@@ -221,7 +221,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
             Object o = response2.readEntity(HashMap.class);
             Response response1 = client.target("http://localhost:8080").path("api").path("greetings").path("protected").request().get();
             String o1 = response1.readEntity(String.class);
-            Assert.assertTrue(o1.equals("Hello user!"));
+            Assert.assertTrue(o1.equals("Hello admin!"));
         }catch (Exception e){
             e.printStackTrace();
         }

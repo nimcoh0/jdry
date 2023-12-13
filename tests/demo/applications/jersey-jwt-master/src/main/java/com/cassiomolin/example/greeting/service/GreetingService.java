@@ -2,6 +2,8 @@ package com.cassiomolin.example.greeting.service;
 
 
 import org.softauto.annotations.ApiForTesting;
+import org.softauto.annotations.ListenerForTesting;
+import org.softauto.annotations.ListenerType;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -30,7 +32,13 @@ public class GreetingService {
      *
      * @return
      */
+    @ListenerForTesting(type = ListenerType.BEFORE)
     public String getGreetingForUser(String username) {
+        return String.format("Hello %s!", username);
+    }
+
+    @ListenerForTesting(type = ListenerType.AFTER)
+    public String getGreetingForUser1(String username) {
         return String.format("Hello %s!", username);
     }
 }
