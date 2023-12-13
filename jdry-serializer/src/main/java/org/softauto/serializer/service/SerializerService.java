@@ -1,8 +1,6 @@
 package org.softauto.serializer.service;
 
 import org.apache.avro.Protocol;
-import org.apache.avro.ipc.CallFuture;
-
 import java.nio.ByteBuffer;
 
 

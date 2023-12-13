@@ -1,11 +1,10 @@
 package org.softauto.service;
 
 import org.apache.avro.AvroRuntimeException;
-import org.apache.avro.Protocol;
-import org.apache.avro.ipc.Callback;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.core.Analyze;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -13,6 +12,10 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class JdryUtils {
+
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(JdryUtils.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public static String getServiceName(Class iface) {
         Analyze analyze = getAnalyze(iface);

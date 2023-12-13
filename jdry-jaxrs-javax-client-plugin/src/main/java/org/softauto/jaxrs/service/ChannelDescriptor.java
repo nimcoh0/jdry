@@ -1,6 +1,8 @@
 package org.softauto.jaxrs.service;
 
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 
@@ -8,6 +10,8 @@ import java.net.URI;
 public class ChannelDescriptor  {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ChannelDescriptor.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public static Builder newBuilder() { return new Builder();}
 
@@ -76,7 +80,7 @@ public class ChannelDescriptor  {
                     uri = UriBuilder.fromUri(protocol + "://" + host + ":" + port + path).build(args);
                 }
             }catch (Exception e){
-                logger.error("fail create uri",e);
+                logger.error(JDRY,"fail create uri",e);
             }
             return new ChannelDescriptor(uri);
         }

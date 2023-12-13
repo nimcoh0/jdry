@@ -45,14 +45,7 @@
 
 
     <build>
-        <pluginManagement>
-            <plugins>
-
-            </plugins>
-        </pluginManagement>
-
         <plugins>
-
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
@@ -96,12 +89,7 @@
                         </configuration>
                     </execution>
                 </executions>
-
             </plugin>
-            <!--plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-            </plugin-->
         </plugins>
 
     </build>

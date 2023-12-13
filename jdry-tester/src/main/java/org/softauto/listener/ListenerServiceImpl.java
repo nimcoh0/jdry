@@ -17,6 +17,8 @@ public class ListenerServiceImpl implements SerializerService {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerServiceImpl.class);
 
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     ObjectMapper objectMapper;
 
     public ListenerServiceImpl(){
@@ -24,7 +26,7 @@ public class ListenerServiceImpl implements SerializerService {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    //@Override
+
     public synchronized Object execute(ByteBuffer mes) throws Exception {
         Object methodResponse = null;
         String newContent = new String(mes.array(), StandardCharsets.UTF_8);
@@ -42,65 +44,46 @@ public class ListenerServiceImpl implements SerializerService {
                 return null;
             }
             if (TestContext.getStepState().equals(StepLifeCycle.START)) {
-                logger.debug("execute message " + message.toJson());
+                logger.debug(JDRY,"execute message " + message.toJson());
                 Object o = ListenerObserver.getInstance().getLastChannel(message.getDescriptor());
                 if (o != null) {
                     methodResponse = message.getArgs();
-                    //if (o instanceof Exec) {
                         if (message.getState().equals(ListenerType.BEFORE.name())) {
-                            logger.debug("got message Before " + message.toJson());
+                            logger.debug(JDRY,"got message Before " + message.toJson());
                             methodResponse = ((org.softauto.listener.Function) o).apply(message.getArgs());
-                            logger.debug("result of function Before " + methodResponse);
-                            //byte[] m = objectMapper.writeValueAsBytes(methodResponse);
-                            //ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-                            //return byteBuffer;
+                            logger.debug(JDRY,"result of function Before " + methodResponse);
                         }
-                    //}
-                    //if (o instanceof Exec) {
                         if (message.getState().equals(ListenerType.AFTER.name())) {
-                            logger.debug("got message After " + message.toJson());
+                            logger.debug(JDRY,"got message After " + message.toJson());
                             if (message.getArgs().length == 1) {
                                 methodResponse = ((org.softauto.listener.Function) o).apply(message.getArgs()[0]);
                             } else {
                                 methodResponse = ((org.softauto.listener.Function) o).apply(message.getArgs());
                             }
-                            logger.debug("result of function After " + methodResponse);
+                            logger.debug(JDRY,"result of function After " + methodResponse);
                         }
-
-
-                    //}
-
-
                 }else {
                     if (message.getState().equals("Exception")) {
-                        logger.debug("got message Exception " + message.toJson());
+                        logger.debug(JDRY,"got message Exception " + message.toJson());
                         if (message.getArgs().length == 1) {
                             TestContext.getScenario().setState(ScenarioLifeCycle.FAIL.name());
                             TestContext.setStepState(StepLifeCycle.FAIL);
                             TestContext.getScenario().addProperty("method",message.getDescriptor());
                             TestContext.getScenario().addError(message.getArgs());
-                            logger.error("scenario fail and throw exception",(Throwable) args[0]);
+                            logger.error(JDRY,"scenario fail and throw exception",(Throwable) args[0]);
                             methodResponse = "";
-                            //throw new Exception((Throwable)args[0]);
                         }
-                        logger.debug("result of function After " + methodResponse);
+                        logger.debug(JDRY,"result of function After " + methodResponse);
                     }
 
                 }
-            }else {
-               // byte[] m = objectMapper.writeValueAsBytes(message.getArgs());
-               // ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-              //  return byteBuffer;
-
             }
         } catch(Exception e){
-            logger.error("fail invoke method " + message.getDescriptor(), e);
-           // throw (e);
+            logger.error(JDRY,"fail invoke method " + message.getDescriptor(), e);
         }
         byte[] m = objectMapper.writeValueAsBytes(methodResponse);
         ByteBuffer byteBuffer = ByteBuffer.wrap(m);
         return byteBuffer;
-        //return "ok";
     }
 
 

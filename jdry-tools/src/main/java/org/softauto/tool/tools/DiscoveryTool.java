@@ -2,19 +2,12 @@ package org.softauto.tool.tools;
 
 import org.softauto.Discover;
 import org.softauto.tool.Tool;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.io.File;
-import java.net.URI;
 import java.util.List;
-
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.List;
 
 public class DiscoveryTool implements Tool {
 
@@ -26,7 +19,6 @@ public class DiscoveryTool implements Tool {
         OptionSpec<String> output = p.accepts("output", "output path and name .").withRequiredArg()
                 .ofType(String.class);
         OptionSet opts = p.parse(args.toArray(new String[0]));
-        //args = (List<String>) opts.nonOptionArguments();
 
         if (args.size() != 4 ) {
             err.println("Usage: -conf f -output output-file");

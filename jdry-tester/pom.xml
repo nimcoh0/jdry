@@ -80,11 +80,6 @@
             <version>1.9.3</version>
         </dependency>
 
-        <!--dependency>
-          <groupId>jakarta.ws.rs</groupId>
-          <artifactId>jakarta.ws.rs-api</artifactId>
-           <version>3.1.0</version>
-         </dependency-->
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-model</artifactId>

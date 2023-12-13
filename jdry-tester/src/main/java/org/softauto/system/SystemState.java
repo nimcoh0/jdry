@@ -2,6 +2,8 @@ package org.softauto.system;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.model.scenario.Scenario;
 import org.softauto.core.*;
 import org.softauto.core.DefaultConfiguration;
@@ -19,6 +21,8 @@ import java.util.HashMap;
 public class SystemState {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(SystemState.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     private static SystemState systemState = null;
 
@@ -57,14 +61,14 @@ public class SystemState {
         loadConfiguration();
         scenario.setConfiguration(Configuration.getConfiguration());
         if(sayHello(scenario.getId())){
-               logger.debug("successfully say hello");
+               logger.debug(JDRY,"successfully say hello");
                if(sendConfiguration(scenario)) {
-                   logger.debug("successfully send configuration");
+                   logger.debug(JDRY,"successfully send configuration");
                }else {
-                   logger.error("fail send configuration ");
+                   logger.error(JDRY,"fail send configuration ");
                }
            }else {
-               logger.error("fail say hello ");
+               logger.error(JDRY,"fail say hello ");
         }
     }
 
@@ -74,7 +78,7 @@ public class SystemState {
             return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_hello", new Object[]{scenarioId}, new Class[]{java.lang.String.class});
 
          }catch (Exception e){
-            logger.error("fail sayHello",e);
+            logger.error(JDRY,"fail sayHello",e);
         }
         return null;
     }
@@ -84,22 +88,11 @@ public class SystemState {
             TestContext.getScenario().setState(ScenarioLifeCycle.INITIALIZE.name());
             return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_configuration", new Object[]{scenario.getId(), scenario}, new Class[]{java.lang.String.class,Scenario.class});
         }catch (Exception e){
-            logger.error("fail send configuration",e);
+            logger.error(JDRY,"fail send configuration",e);
         }
         return null;
     }
 
-    /*
-    public Boolean update(String json){
-        try {
-            return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_update", new Object[]{scenarioId, json}, new Class[]{java.lang.String.class,java.lang.String.class});
-        }catch (Exception e){
-            logger.error("fail send update configuration",e);
-        }
-        return null;
-    }
-
-     */
 
     public Boolean shutdown(String scenarioId) throws Exception{
         return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_shutdown", new Object[]{scenarioId}, new Class[]{java.lang.String.class});
@@ -124,9 +117,9 @@ public class SystemState {
     public static void loadDefaultConfiguration()  {
         try {
                Configuration.setConfiguration(DefaultConfiguration.getConfiguration());
-            logger.debug("default configuration load successfully " + Configuration.getConfiguration());
+            logger.debug(JDRY,"default configuration load successfully " + Configuration.getConfiguration());
         }catch(Exception e){
-            logger.error("fail load default configuration ",e);
+            logger.error(JDRY,"fail load default configuration ",e);
         }
     }
 
@@ -138,9 +131,9 @@ public class SystemState {
                 defaultConfiguration.putAll(map);
                 Configuration.setConfiguration(defaultConfiguration);
             }
-            logger.debug("configuration load successfully " + Configuration.getConfiguration());
+            logger.debug(JDRY,"configuration load successfully " + Configuration.getConfiguration());
         }catch(Exception e){
-            logger.error("fail load listener configuration ",e);
+            logger.error(JDRY,"fail load listener configuration ",e);
         }
         return this;
     }

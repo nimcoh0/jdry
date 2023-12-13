@@ -1,16 +1,15 @@
 package org.softauto.listener;
 
-import org.softauto.core.AsyncResult;
-import org.softauto.core.Future;
-import org.softauto.core.Handler;
-
-
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 public  class Exec implements Function {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Exec.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     CountDownLatch lock = null;
     java.util.function.Function func = null;
     java.util.function.Consumer cons = null;
@@ -33,7 +32,7 @@ public  class Exec implements Function {
         func = o;
         this.key = key;
         seen = false;
-        logger.debug("init function  for "+ key);
+        logger.debug(JDRY,"init function  for "+ key);
     }
 
 
@@ -43,14 +42,14 @@ public  class Exec implements Function {
         cons = o;
         this.key = key;
         seen = false;
-        logger.debug("init function for "+ key);
+        logger.debug(JDRY,"init function for "+ key);
     }
 
     public Exec(String key){
         lock = new CountDownLatch(1);
         this.key = key;
         seen = false;
-        logger.debug("init function  for "+ key);
+        logger.debug(JDRY,"init function  for "+ key);
     }
 
     @Override
@@ -70,14 +69,14 @@ public  class Exec implements Function {
                 }else {
                     this.result = o;
                 }
-                logger.debug("apply function After result  " + result);
+                logger.debug(JDRY,"apply function After result  " + result);
                 seen = true;
             }else{
-                logger.debug("message was already execute "+ key);
+                logger.debug(JDRY,"message was already execute "+ key);
             }
 
         }catch (Exception e){
-            logger.error("fail apply ",e);
+            logger.error(JDRY,"fail apply ",e);
         }finally {
             lock.countDown();
         }

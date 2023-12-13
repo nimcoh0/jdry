@@ -22,7 +22,6 @@ public class AnalyzeTool implements Tool {
         OptionSpec<String> output = p.accepts("output", "output path").withRequiredArg()
                 .ofType(String.class);
         OptionSet opts = p.parse(args.toArray(new String[0]));
-        //args = (List<String>) opts.nonOptionArguments();
 
         if (args.size() != 6 && args.size() != 8) {
             err.println("Usage: -conf <configuration_file> -discover <discovery_file> (-recorded <recorded_file>) -output <output_file>");

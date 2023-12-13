@@ -1,10 +1,6 @@
 package org.softauto.jaxrs.service;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import java.util.HashMap;
 import java.util.Map;
 

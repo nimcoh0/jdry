@@ -8,16 +8,46 @@ import java.util.Map;
 public class Message {
 
 
-
+    /**
+     * message descriptor . in case of a method it will be method full name
+     */
     private String descriptor;
+
+    /**
+     * arguments type
+     */
     private Class[] types;
+
+    /**
+     * arguments value
+     */
     private Object[] args;
+
+    /**
+     * entity
+     */
     private String message;
+
+    @Deprecated
     private String threadId;
+
+    @Deprecated
     private String service;
+
+    /**
+     * scenarion id
+     */
     private String scenarioId;
+
+    /**
+     * any extra data
+     */
     private Map<String , Object> data = new HashMap<>();
+
+
     private String state;
+
+
     private MessageType messageType = MessageType.METHOD;
 
 

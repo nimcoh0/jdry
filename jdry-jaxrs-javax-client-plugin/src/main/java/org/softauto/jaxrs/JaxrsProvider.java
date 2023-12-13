@@ -1,8 +1,5 @@
 package org.softauto.jaxrs;
 
-
-
-
 import org.softauto.plugin.api.Provider;
 import org.softauto.plugin.spi.PluginProvider;
 

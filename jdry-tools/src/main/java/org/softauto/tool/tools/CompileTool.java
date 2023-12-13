@@ -22,8 +22,7 @@ public class CompileTool implements Tool {
                 .ofType(String.class);
         OptionSpec<String> templateDir = p.accepts("templateDir", "set templateDir.").withRequiredArg()
                 .ofType(String.class);
-        //OptionSpec<String> output = p.accepts("output", "output path").withRequiredArg()
-               //.ofType(String.class);
+
         OptionSet opts = p.parse(args.toArray(new String[0]));
 
 
@@ -48,7 +47,6 @@ public class CompileTool implements Tool {
         }
 
 
-        //Configuration.put("templateDir",templateDir.value(opts));
         org.softauto.compiler.Compiler.setTemplateDir(templateDir.value(opts));
 
         if(step.value(opts) != null ){

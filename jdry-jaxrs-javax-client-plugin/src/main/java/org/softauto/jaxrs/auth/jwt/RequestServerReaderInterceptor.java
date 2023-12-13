@@ -7,7 +7,6 @@ import javax.ws.rs.ext.ReaderInterceptor;
 import javax.ws.rs.ext.ReaderInterceptorContext;
 import org.softauto.core.TestContext;
 import org.softauto.jaxrs.util.Threadlocal;
-
 import java.io.*;
 import java.util.stream.Collectors;
 

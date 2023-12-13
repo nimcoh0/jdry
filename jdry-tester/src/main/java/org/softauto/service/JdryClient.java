@@ -19,102 +19,35 @@ public class JdryClient {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(JdryClient.class);
 
-    //private Object tests;
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     private Class<?> iface;
-
-
-
-    //private HashMap<String,Object> callOptions = new HashMap<>();
-
-    //private String transceiver;
-
-   // public Object getTests() {
-       // return tests;
-   // }
-
-    /*
-    public JdryClient setCallOptions(HashMap<String, Object> callOptions) {
-        this.callOptions = callOptions;
-        return this;
-    }
-
-    public JdryClient setTransceiver(String transceiver) {
-        this.transceiver = transceiver;
-        return this;
-    }
-
-     */
-
-    //public static Client create(Class<?> iface) {
-      // return new Client(iface);
-    //}
 
     public JdryClient(Class<?> iface) {
         this.iface = iface;
     }
 
     public static <T> T create(Class<T> iface) {
-        //T t = null;
         Analyze analyze = JdryUtils.getAnalyze(iface);
         TestDescriptor testDescriptor = TestDescriptor.create(iface);
-        //t = (T) Proxy.newProxyInstance(iface.getClassLoader(), new Class[]{iface}, (proxy, method, methodArgs) -> {
-           // return (new ServiceInvocationHandler(analyze,testDescriptor)).invoke(proxy, method, methodArgs);
-        //});
-
-        //return t;
         ServiceInvocationHandler proxyHandler = new ServiceInvocationHandler(analyze,testDescriptor);
         return (T) Proxy.newProxyInstance(iface.getClassLoader(), new Class[] { iface }, proxyHandler);
-       // return (T) Proxy.newProxyInstance(iface.getClassLoader(), new Class[] { iface }, proxyHandler);
     }
-
-   /*
-    public JdryClient build(){
-        ServiceInvocationHandler serviceInvocationHandler = new ServiceInvocationHandler(iface).setCallOptions(callOptions).setTransceiver(transceiver);
-        tests =  Proxy.newProxyInstance(iface.getClassLoader(), new Class[]{iface}, serviceInvocationHandler);
-        logger.debug("tester proxy instance create successfully ");
-        return this;
-    }
-
-    */
-
-
 
     public    static class ServiceInvocationHandler implements InvocationHandler {
-
-       // Class<?> iface;
 
         HashMap<String,Object> callOptions;
 
         String transceiver;
 
-        private static final Marker TESTER = MarkerManager.getMarker("TESTER");
-
-        //Provider provider;
-
-        //IChannelDescriptor channelDescriptor;
-
         TestDescriptor testDescriptor;
 
-        //private Object result;
-
         Analyze analyze;
-
-       // public ServiceInvocationHandler(Class<?> iface){
-          //  this.iface = iface;
-       // }
 
         public ServiceInvocationHandler(Analyze analyze,TestDescriptor testDescriptor){
            this.testDescriptor = testDescriptor;
            this.analyze = analyze;
         }
-
-        //public Object getResult() {
-           // return result;
-        //}
-
-
-
 
         public ServiceInvocationHandler setCallOptions(HashMap<String, Object> callOptions) {
             this.callOptions = callOptions;
@@ -138,7 +71,7 @@ public class JdryClient {
                     return invokeListener(tree,method,args);
                 }
             } catch (Exception e) {
-                logger.error("fail invoke method " + method.getName() + " with args " + Arrays.toString(args), e);
+                logger.error(JDRY,"fail invoke method " + method.getName() + " with args " + Arrays.toString(args), e);
                 throw new Exception(e);
             }
             return null;
@@ -154,39 +87,26 @@ public class JdryClient {
 
         public Object invokeStep(GenericItem tree, Method method, Object[] args) throws Exception {
             try {
-                //GenericItem tree = JdryUtils.getStep(method,analyze);
                 transceiver = JdryUtils.getTransceiver(tree);
                 callOptions = JdryUtils.getCallOption(tree);
-               // for (PluginProvider plugin : ProviderManager.providers()) {
-                  //  if(plugin.getName().equals(transceiver)) {
-                       // provider = plugin.create();
-                        //if (provider.getType() != null && provider.getType().equals("protocol") ) {
-                            if (args == null) {
+                           if (args == null) {
                                 args = new Object[]{};
                             }
-                            logger.debug("invoke method " + method.getName() + " with args " + Arrays.toString(args));
+                            logger.debug(JDRY,"invoke method " + method.getName() + " with args " + Arrays.toString(args));
                             if (TestContext.getStepState().equals(StepLifeCycle.START)) {
                                 Object r =  invokeUnaryMethod(method, args);
                                 TestContext.setStepState(StepLifeCycle.STOP);
                                 return r;
                             } else {
                                 TestContext.setStepState(StepLifeCycle.SKIP);
-                                logger.debug("step skip due test status  " + TestContext.getScenario().getState() + " on " + TestContext.getScenario().getProperty("method"));
+                                logger.debug(JDRY,"step skip due test status  " + TestContext.getScenario().getState() + " on " + TestContext.getScenario().getProperty("method"));
                                 throw new Exception("step skip due test status  " + TestContext.getScenario().getState() + " on " + TestContext.getScenario().getProperty("method"));
                             }
-                       // }
-                    //}
-               // }
             } catch (Exception e) {
-                logger.error("fail invoke method " + method.getName() + " with args " + Arrays.toString(args), e);
+                logger.error(JDRY,"fail invoke method " + method.getName() + " with args " + Arrays.toString(args), e);
                 throw new Exception(e);
             }
-           // return null;
         }
-
-
-
-
 
         private Object invokeUnaryMethod(Method method, Object[] args) throws Exception {
             Type[] parameterTypes = method.getParameterTypes();
@@ -195,21 +115,14 @@ public class JdryClient {
                 Type[] finalTypes = Arrays.copyOf(parameterTypes, parameterTypes.length - 1);
                 // get the callback argument from the end
                 Level level = Level.DEBUG;
-                //logger.debug("invoke async request :" + method.getName());
-                logger.log(level,TESTER,"invoke sync request :" + method.getName() +" transceiver: "+ transceiver+ " callOptions: "+callOptions);
+                logger.log(level,JDRY,"invoke sync request :" + method.getName() +" transceiver: "+ transceiver+ " callOptions: "+callOptions);
                 Object[] finalArgs = Arrays.copyOf(args, args.length - 1);
                 Callback<Object> callback = (Callback<Object>) args[args.length - 1];
                 Class[] classList  = Arrays.stream(finalTypes).map(t -> (Class)t).collect(Collectors.toList()).toArray(new Class[1]);
-                //provider.exec(testDescriptor.setProvider(provider).getStep(method.getName(),finalArgs,classList,callOptions,TestContext.getScenario().getId(),Configuration.get(transceiver).asMap().get("auth").toString()),callback);
-                //return  new Step(method.getName(), finalArgs, classList, transceiver, callOptions,callback);
-                //IStepDescriptor stepDescriptor = testDescriptor.getStep(method.getName(),finalArgs,classList,callOptions,TestContext.getScenario().getId(),Configuration.get(transceiver).asMap().get("auth").toString());
                 return  new Step(method.getName(), finalArgs, classList, transceiver, callOptions,callback);
             } else {
                 Level level = Level.DEBUG;
-                logger.log(level,TESTER,"invoke sync request :" + method.getName() +" transceiver: "+ transceiver+ " callOptions: "+callOptions);
-                Class[] classList  = Arrays.stream(parameterTypes).map(t -> (Class)t).collect(Collectors.toList()).toArray(new Class[1]);
-                //return provider.exec(testDescriptor.setProvider(provider).getStep(method.getName(),args,classList,callOptions,TestContext.getScenario().getId(),Configuration.get(transceiver).asMap().get("auth").toString()));
-                //return testDescriptor.getStep(method.getName(),args,classList,callOptions,TestContext.getScenario().getId(),Configuration.get(transceiver).asMap().get("auth").toString());
+                logger.log(level,JDRY,"invoke sync request :" + method.getName() +" transceiver: "+ transceiver+ " callOptions: "+callOptions);
                 return new Step(method.getName(), args, method.getParameterTypes(), transceiver, callOptions);
             }
         }

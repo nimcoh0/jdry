@@ -8,11 +8,12 @@ package org.softauto.tester;
 import org.apache.avro.ipc.CallFuture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.*;
 import org.softauto.espl.Espl;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.api.Provider;
-
 import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -24,35 +25,49 @@ public class Step implements IStep{
     private static Logger logger = LogManager.getLogger(Step.class);
     CallFuture<Object> future = null;
     protected HashMap<String,Object> callOptions = null;
-
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
     org.apache.avro.ipc.Callback<Object> callback;
 
+    /**
+     * step result
+     */
     Object result;
 
+    /**
+     * step protocol
+     */
     String transceiver;
 
+    /**
+     * step full name
+     */
     String fqmn;
 
+    /**
+     * step args
+     */
     Object[] args;
 
+    /**
+     * step args types
+     */
     Class[] types;
 
+    /**
+     * step expected
+     */
     Object expected;
 
+    /**
+     * step state
+     */
     boolean state;
-
-    public Step(){
-
-    };
-
-
-
 
     public <T> void isSuccesses(Handler<AsyncResult<T>> resultHandler){
             try {
                 resultHandler.handle(Future.handleResult((T) result));
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(JDRY,"fail handle step success",e);
             }
     }
 
@@ -69,7 +84,7 @@ public class Step implements IStep{
             try {
                 resultHandler.handle(Future.handleResult((T) result));
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(JDRY,"fail handle step fail",e);
             }
         }
         return false;
@@ -101,7 +116,6 @@ public class Step implements IStep{
 
 
     public <T> T setClientBuilder(T clientBuilder) {
-        //this.clientBuilder = clientBuilder;
         return clientBuilder;
     }
 
@@ -120,11 +134,11 @@ public class Step implements IStep{
             try {
                 if (future != null) {
                     if (!future.isDone()) {
-                        logger.debug("waiting to future to be done");
+                        logger.debug(JDRY,"waiting to future to be done");
                         future.await();
                     }
                     if(TestContext.getScenario().getState().equals(ScenarioLifeCycle.START.name())) {
-                        logger.debug("successfully get_Result() ");
+                        logger.debug(JDRY,"successfully get_Result() ");
                         return (T) future.get();
                     }
                 }else {
@@ -134,7 +148,7 @@ public class Step implements IStep{
                 }
 
             }catch (Exception e){
-                 logger.error("fail get_Result() "+ e);
+                 logger.error(JDRY,"fail get_Result() "+ e);
                  throw new Exception("fail get_Result() "+ e);
              }
             return null;
@@ -144,41 +158,23 @@ public class Step implements IStep{
 
     public Step(String fqmn, Object[] args, Class[] types, String transceiver, HashMap<String, Object> callOptions,String scenarioId)throws Exception{
         future = new CallFuture<>();
-        logger.debug("invoking " +fqmn);
+        logger.debug(JDRY,"invoking " +fqmn);
         callOptions.put("scenarioId",scenarioId);
         new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
     }
 
-    /*
-    public Step(String fqmn, Object[] args, Class[] types, String transceiver, HashMap<String, Object> callOptions)throws Exception{
-        future = new CallFuture<>();
-        logger.debug("invoking " +fqmn);
-        new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
-    }
-
-     */
-
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,String scenarioId, CallFuture<T> future)throws Exception{
 
-            logger.debug("invoking " + fqmn);
+            logger.debug(JDRY,"invoking " + fqmn);
             callOptions.put("scenarioId", scenarioId);
             new InvocationHandler().invoke(fqmn, args, types, future, transceiver, callOptions);
 
     }
 
-    /*
-    public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions, org.apache.avro.ipc.Callback<T> future)throws Exception{
-        logger.debug("invoking " +fqmn);
-        new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
-    }
-
-     */
-
-
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,org.apache.avro.ipc.Callback<Object> future)throws Exception{
 
-            logger.debug("invoking " + fqmn);
+            logger.debug(JDRY,"invoking " + fqmn);
             this.fqmn = fqmn;
             this.args = args;
             this.types = types;
@@ -186,20 +182,18 @@ public class Step implements IStep{
             this.setTransceiver(transceiver);
             this.setCallOptions(callOptions);
 
-        //new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+
     }
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions)throws Exception{
 
-            logger.debug("invoking " + fqmn);
+            logger.debug(JDRY,"invoking " + fqmn);
             this.fqmn = fqmn;
             this.args = args;
             this.types = types;
             this.setTransceiver(transceiver);
             this.setCallOptions(callOptions);
 
-        //this.callback = future;
-        //new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
     }
 
     public <RespT> Step invoke() throws Exception {
@@ -225,32 +219,12 @@ public class Step implements IStep{
         return this;
     }
 
-   /*
-    public <RespT> Step invoke() throws Exception {
 
-            if (this.callback == null) {
-                result = new InvocationHandler().invoke(fqmn, args, types, transceiver, callOptions);
-            } else {
-                new InvocationHandler().invoke(fqmn, args, types, callback, transceiver, callOptions);
-
-                //String newContent = new String(((ByteBuffer)((CallFuture)callback).getResult()).array(), StandardCharsets.UTF_8);
-                //result =  new ObjectMapper().readValue(newContent,Object.class);
-            }
-
-      //Object o = new StepService().setCallOptions(callOptions).setTransceiver(transceiver).invokeUnaryMethod(fqmn,types,args);
-      //System.out.println(o);
-      return this;
-      //CallFuture<Object> callFuture = new CallFuture<>();
-      //new InvocationHandler().invoke(fqmn,args,types,callFuture,transceiver,callOptions);
-      //return callFuture.get();
-     // return   new Step(fqmn, args, types, transceiver, callOptions, callback);
-    }
-    */
 
     public Step(String fqmn, Object[] args, Class[] types, String transceiver,CallOptions callOptions,String scenarioId)throws Exception{
 
             future = new CallFuture<>();
-            logger.debug("invoking " + fqmn);
+            logger.debug(JDRY,"invoking " + fqmn);
             callOptions.getOptions().put("scenarioId", scenarioId);
             new InvocationHandler().invoke(fqmn, args, types, future, transceiver, callOptions.getOptions());
 
@@ -259,7 +233,7 @@ public class Step implements IStep{
     public Step(String fqmn, Object[] args, Class[] types, String transceiver,CallOptions callOptions)throws Exception{
 
             future = new CallFuture<>();
-            logger.debug("invoking " + fqmn);
+            logger.debug(JDRY,"invoking " + fqmn);
             new InvocationHandler().invoke(fqmn, args, types, future, transceiver, callOptions.getOptions());
 
     }
@@ -268,7 +242,7 @@ public class Step implements IStep{
     public Step(String fqmn, Object[] args, Class[] types, String transceiver) throws Exception {
 
             this.future = new CallFuture();
-            logger.debug("invoking " + fqmn);
+            logger.debug(JDRY,"invoking " + fqmn);
             (new InvocationHandler()).invoke(fqmn, args, types, this.future, transceiver);
 
     }
@@ -276,7 +250,7 @@ public class Step implements IStep{
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver, CallFuture<T> future)throws Exception{
 
-            logger.debug("invoking " + fqmn);
+            logger.debug(JDRY,"invoking " + fqmn);
             new InvocationHandler().invoke(fqmn, args, types, future, transceiver);
 
     }

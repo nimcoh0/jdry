@@ -1,6 +1,8 @@
 package org.softauto.jaxrs.service;
 
 import com.google.common.base.Preconditions;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentMap;
@@ -9,6 +11,8 @@ public class TestDefinition {
     TestDescriptor testDescriptor;
     Map<String, StepDefinition> steps;
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(TestDefinition.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public static Builder builder(TestDescriptor testDescriptor) {
         return new Builder(testDescriptor);
@@ -32,7 +36,6 @@ public class TestDefinition {
 
 
     public static final class Builder {
-        //private final String serviceName;
         private final TestDescriptor testDescriptor;
         private final Map<String, StepDefinition> steps;
 

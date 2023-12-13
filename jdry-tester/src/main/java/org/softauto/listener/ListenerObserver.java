@@ -1,5 +1,7 @@
 package org.softauto.listener;
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,9 @@ import java.util.List;
 public class ListenerObserver {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerObserver.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     private  List<HashMap<String,Object>> channels = null;
 
     private static ListenerObserver listenerObserver = null;
@@ -42,9 +47,9 @@ public class ListenerObserver {
                 HashMap<String, Object> hm = new HashMap<>();
                 hm.put(key, value);
                 channels.add(hm);
-                logger.debug("ListenerObserver register " + key);
+                logger.debug(JDRY,"ListenerObserver register " + key);
         }catch (Exception e){
-            logger.error("fail to register listener impl class "+ key);
+            logger.error(JDRY,"fail to register listener impl class "+ key);
         }
     }
 
@@ -54,7 +59,7 @@ public class ListenerObserver {
             if(k.equals(key)){
                 v = null;
                 i.put(k,v);
-                logger.debug("ListenerObserver unregister " + key);
+                logger.debug(JDRY,"ListenerObserver unregister " + key);
             }
           });
         });
@@ -73,11 +78,11 @@ public class ListenerObserver {
                     return chanel.get(key);
                 }
             }
-            logger.debug("observer channel for " + key + " fail ");
+            logger.debug(JDRY,"observer channel for " + key + " fail ");
         }catch (Exception e){
-            logger.error(" fail to get channel by "+ key,e);
+            logger.error(JDRY," fail to get channel by "+ key,e);
         }
-        logger.debug("observer channel for " + key + " not found  ");
+        logger.debug(JDRY,"observer channel for " + key + " not found  ");
         return null;
     }
 
@@ -95,9 +100,9 @@ public class ListenerObserver {
                         l.add(chanel.get(key));
                 }
             }
-            logger.debug("observer channel for " + key + " found " + l.size());
+            logger.debug(JDRY,"observer channel for " + key + " found " + l.size());
         }catch (Exception e){
-            logger.error("fail to get observer channel for " + key );
+            logger.error(JDRY,"fail to get observer channel for " + key );
         }
         return l;
     }
@@ -114,9 +119,9 @@ public class ListenerObserver {
                     l.add(v);
                 });
             }
-            logger.debug("observer channels for  found " + l.size());
+            logger.debug(JDRY,"observer channels for  found " + l.size());
         }catch (Exception e){
-            logger.error("fail to get observer channels  "  );
+            logger.error(JDRY,"fail to get observer channels  "  );
         }
         return l;
     }

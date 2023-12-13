@@ -20,7 +20,6 @@ public class Serializer {
 				objectMapper = new ObjectMapper();
 				SimpleModule userModule = new SimpleModule();
 				objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-				//userModule.addSerializer(HttpServletRequestWrapper.class, new HttpServletRequestSerializer());
 				objectMapper.registerModule(userModule);
 			}
 		} catch (Exception e) {

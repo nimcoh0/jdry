@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.Configuration;
 import org.softauto.core.Context;
 import org.softauto.core.ServiceLocator;
@@ -13,6 +15,8 @@ import org.softauto.serializer.service.SerializerService;
 public class ListenerServerProviderImpl  {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerServerProviderImpl.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     private static ListenerServerProviderImpl listenerProviderImpl = null;
 
@@ -37,9 +41,9 @@ public class ListenerServerProviderImpl  {
                     .addService(AvroGrpcServer.createServiceDefinition(SerializerService.class, new ListenerServiceImpl()))
                     .build();
             server.start();
-            logger.info("listener server load successfully on port "+ Configuration.get(Context.LISTENER_PORT).asString());
+            logger.info(JDRY,"listener server load successfully on port "+ Configuration.get(Context.LISTENER_PORT).asString());
         }catch (Exception e) {
-            logger.error("start Listener server fail  ", e);
+            logger.error(JDRY,"start Listener server fail  ", e);
         }
 
         return this;
