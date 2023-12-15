@@ -12,9 +12,6 @@ import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 import java.lang.reflect.Method;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -33,10 +30,8 @@ public abstract class Tracer {
 
 	};
 
-	//@Before("execution(* *(..))  && !within(org.softauto..*)")
 	@Before(value = "tracePointcut() ")
 	public synchronized void trace(JoinPoint joinPoint) throws Throwable {
-		//if(!joinPoint.getSourceLocation().getWithinType().isEnum()) {
 			if (joinPoint.getSignature() instanceof MethodSignature) {
 				if (domain == null) {
 					domain = joinPoint.getSignature().getDeclaringType().getPackage().getName();
@@ -49,23 +44,20 @@ public abstract class Tracer {
 				}
 				handleConstructor(joinPoint);
 			}
-		//}
-		//return joinPoint.proceed();
+
 	}
 
 
 
-	//@AfterReturning(pointcut = "execution(* *(..)) && !within(org.softauto..*)", returning = "result")
 	@AfterReturning(value = "tracePointcut() ", returning = "result")
 	public synchronized   void returning(JoinPoint joinPoint,Object result) throws Throwable{
-		//if(!joinPoint.getSourceLocation().getWithinType().isEnum()) {
 			if (joinPoint.getSignature() instanceof MethodSignature) {
 				handleExitMethod(joinPoint, result);
 			}
 			if (joinPoint.getSignature() instanceof ConstructorSignature) {
 				handleExitConstructor(joinPoint, result);
 			}
-		//}
+
 	}
 
 
@@ -77,28 +69,12 @@ public abstract class Tracer {
 		CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
 		ConstructorSignature constructorSignature = (ConstructorSignature) joinPoint.getSignature();
 		org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(constructorSignature.getDeclaringType());
-		//Logger logger = LoggerFactory.getLogger(constructorSignature.getDeclaringType());
-		String clazz = constructorSignature.getDeclaringType().getTypeName();
-		//Log annotation = (Log) constructorSignature.getConstructor().getAnnotation(Log.class);
-		//LogLevel level = LogLevel.DEBUG;
 		Level level = Level.DEBUG;
-		ChronoUnit unit = ChronoUnit.MILLIS;
 		boolean showArgs = true;
-		boolean showResult = true;
-		boolean showExecutionTime = true;
 		Object[] args = joinPoint.getArgs();
 		Class[] parameterTypes = codeSignature.getParameterTypes();
 		String[] params = codeSignature.getParameterNames();
 		logger.log(level,TRACER, entry(constructorSignature.getConstructor().getName(), showArgs, params, args, parameterTypes));
-		//log(logger, level,
-			//	entry(constructorSignature.getConstructor().getName(), showArgs, params, args, parameterTypes));
-		Temporal start = Instant.now();
-
-		Temporal end = Instant.now();
-		String duration = String.format("%s %s", unit.between(start, end), unit.name().toLowerCase());
-		//log(logger, level, exit(constructorSignature.getConstructor().getName(), duration, null, showResult,
-				//showExecutionTime));
-
 	}
 
 	public synchronized void handleMethod(JoinPoint joinPoint) throws Throwable {
@@ -106,85 +82,35 @@ public abstract class Tracer {
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();
 		org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(method.getDeclaringClass());
-		//Logger logger = LoggerFactory.getLogger(method.getDeclaringClass());
-		String clazz = method.getDeclaringClass().getTypeName();
-		//Log annotation = method.getAnnotation(Log.class);
-		//LogLevel level = LogLevel.DEBUG;
 		Level level = Level.DEBUG;
-		ChronoUnit unit = ChronoUnit.MILLIS;
 		boolean showArgs = true;
-		boolean showResult = true;
-		boolean showExecutionTime = true;
-		//Marker marker = new MarkerManager();
 		String methodName = method.getName();
 		Object[] methodArgs = joinPoint.getArgs();
 		Class[] parameterTypes = codeSignature.getParameterTypes();
 		String[] methodParams = codeSignature.getParameterNames();
-		//log(logger, level, entry(methodName, showArgs, methodParams, methodArgs, parameterTypes));
 		logger.log(level,TRACER,entry(methodName, showArgs, methodParams, methodArgs, parameterTypes));
-		Temporal start = Instant.now();
-
-		Temporal end = Instant.now();
-		String duration = String.format("%s %s", unit.between(start, end), unit.name().toLowerCase());
-		//log(logger, level, exit(methodName, duration, null, showResult, showExecutionTime));
-		//logger.log(level, exit(methodName, showArgs, methodParams, methodArgs, parameterTypes));
 	}
 
 	public  synchronized void handleExitConstructor(JoinPoint joinPoint,Object result) throws Throwable {
-		CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
 		ConstructorSignature constructorSignature = (ConstructorSignature) joinPoint.getSignature();
 		org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(constructorSignature.getDeclaringType());
-		//Logger logger = LoggerFactory.getLogger(constructorSignature.getDeclaringType());
-		String clazz = constructorSignature.getDeclaringType().getTypeName();
-		//Log annotation = (Log) constructorSignature.getConstructor().getAnnotation(Log.class);
-		//LogLevel level = LogLevel.DEBUG;
 		Level level = Level.DEBUG;
-		ChronoUnit unit = ChronoUnit.MILLIS;
-		boolean showArgs = true;
 		boolean showResult = true;
 		boolean showExecutionTime = true;
-		Object[] args = joinPoint.getArgs();
-		Class[] parameterTypes = codeSignature.getParameterTypes();
-		String[] params = codeSignature.getParameterNames();
-		//logger.log(level,TESTER, entry(constructorSignature.getConstructor().getName(), showArgs, params, args, parameterTypes));
-		//log(logger, level,
-		//	entry(constructorSignature.getConstructor().getName(), showArgs, params, args, parameterTypes));
-		Temporal start = Instant.now();
-
-		Temporal end = Instant.now();
-		String duration = String.format("%s %s", unit.between(start, end), unit.name().toLowerCase());
-		logger.log(level,TRACER, exit(constructorSignature.getConstructor().getName(), duration, result, showResult,
+		logger.log(level,TRACER, exit(constructorSignature.getConstructor().getName(), result, showResult,
 			showExecutionTime));
 
 	}
 
 	public synchronized void handleExitMethod(JoinPoint joinPoint,Object result) throws Throwable {
-		CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();
 		org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(method.getDeclaringClass());
-		//Logger logger = LoggerFactory.getLogger(method.getDeclaringClass());
-		String clazz = method.getDeclaringClass().getTypeName();
-		//Log annotation = method.getAnnotation(Log.class);
-		//LogLevel level = LogLevel.DEBUG;
 		Level level = Level.DEBUG;
-		ChronoUnit unit = ChronoUnit.MILLIS;
-		boolean showArgs = true;
 		boolean showResult = true;
 		boolean showExecutionTime = true;
-		//Marker marker = new MarkerManager();
 		String methodName = method.getName();
-		Object[] methodArgs = joinPoint.getArgs();
-		Class[] parameterTypes = codeSignature.getParameterTypes();
-		String[] methodParams = codeSignature.getParameterNames();
-		//log(logger, level, entry(methodName, showArgs, methodParams, methodArgs, parameterTypes));
-		//logger.log(level,TESTER,entry(methodName, showArgs, methodParams, methodArgs, parameterTypes));
-		Temporal start = Instant.now();
-
-		Temporal end = Instant.now();
-		String duration = String.format("%s %s", unit.between(start, end), unit.name().toLowerCase());
-		logger.log(level,TRACER, exit(methodName, duration, result, showResult, showExecutionTime));
-		//logger.log(level, exit(methodName, showArgs, methodParams, methodArgs, parameterTypes));
+		logger.log(level,TRACER, exit(methodName, result, showResult, showExecutionTime));
 	}
 
 
@@ -201,12 +127,10 @@ public abstract class Tracer {
 		return message.toString();
 	}
 
-	static String exit(String methodName, String duration, Object result, boolean showResult,
+	static String exit(String methodName,  Object result, boolean showResult,
 			boolean showExecutionTime) {
 		StringJoiner message = new StringJoiner(" ").add("Finished").add(methodName).add("method");
-		if (showExecutionTime) {
-			message.add("in").add(duration);
-		}
+
 		if (showResult) {
 			if (result != null) {
 				if(result.getClass().getTypeName().contains(domain))
