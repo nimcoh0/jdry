@@ -78,7 +78,7 @@ public class JdryUtils {
         Type[] parameterTypes = method.getParameterTypes();
         if(parameterTypes.length > 0) {
             if ((parameterTypes.length > 0) && (parameterTypes[parameterTypes.length - 1] instanceof Class)
-                    && org.apache.avro.ipc.CallFuture.class.isAssignableFrom(((Class<?>) parameterTypes[parameterTypes.length - 1]))) {
+                    && org.softauto.core.CallFuture.class.isAssignableFrom(((Class<?>) parameterTypes[parameterTypes.length - 1]))) {
                 Type[] finalTypes = Arrays.copyOf(parameterTypes, parameterTypes.length - 1);
                 return Arrays.stream(finalTypes).map(t -> (Class) t).collect(Collectors.toList()).toArray(new Class[finalTypes.length]);
             }

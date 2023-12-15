@@ -3,8 +3,8 @@ package org.softauto.grpc;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.avro.ipc.CallFuture;
-import org.apache.avro.ipc.Callback;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.ClassType;
 import org.softauto.core.Utils;
 import org.softauto.injector.Injector;
@@ -21,6 +21,9 @@ import java.util.*;
 public class SerializerServiceImpl implements SerializerService{
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(SerializerServiceImpl.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     Injector injector = null;
 
 
@@ -29,77 +32,6 @@ public class SerializerServiceImpl implements SerializerService{
     }
 
 
-/*
-    @Override
-    public <RespT> void execute(ByteBuffer mess, org.apache.avro.ipc.Callback<RespT> callback) throws Exception {
-        Object methodResponse = null;
-        try{
-
-            String newContent = new String(mess.array(), StandardCharsets.UTF_8);
-            Message message = new ObjectMapper().readValue(newContent,Message.class);
-            String fullClassName = Utils.getFullClassName(message.getDescriptor());
-            String methodName = Utils.getMethodName(message.getDescriptor());
-            HashMap<String, Object> callOption = null;
-            if(message.getData().containsKey("callOption")) {
-                callOption = (HashMap<String, Object>) message.getData().get("callOption");
-            }
-            Object serviceImpl;
-            String classType = ClassType.INITIALIZE_IF_NOT_EXIST.name();
-            if(callOption != null && callOption.get("classType") != null) {
-                classType = callOption.get("classType").toString();
-            }
-            if(injector != null && !fullClassName.equals("org.softauto.system.SystemServiceImpl") && callOption != null) {
-                //if(classType.equals(ClassType.INITIALIZE) && !Utils.getClassName(fullClassName).equals(methodName)){
-                logger.debug("got request to method "+methodName+"  . trying to load class");
-                Class[] types = Utils.extractConstructorArgsTypes(fullClassName);
-                Object[] args = Utils.getConstructorArgsValues(callOption,types);
-                serviceImpl = injector.inject(fullClassName,args,types, ClassType.fromString(classType));
-                if(serviceImpl == null){
-                    logger.error("fail to initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
-                }else {
-                    logger.debug("successfully initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
-                }
-
-            }else {
-                serviceImpl = SystemServiceImpl.getInstance();
-            }
-            if(serviceImpl instanceof Object[]){
-                serviceImpl = ((Object[])serviceImpl)[0];
-            }
-            Method m = Utils.getMethod(serviceImpl, methodName, message.getTypes());
-            logger.debug("invoking " + message.getDescriptor());
-            m.setAccessible(true);
-            Object[] args = buildArgs(message);
-            if (Modifier.isStatic(m.getModifiers())) {
-                methodResponse = m.invoke(null, args);
-            } else {
-                methodResponse = m.invoke(serviceImpl, args);
-            }
-
-            logger.debug("successfully invoke "+message.getDescriptor()+ " with args "+ Utils.result2String(message.getArgs())+ " on " +serviceImpl.getClass().getName());
-
-        }catch (Exception e){
-            methodResponse = e;
-            e.printStackTrace();
-        }
-
-        byte[] m = new ObjectMapper().writeValueAsBytes(methodResponse);
-        ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-        callback.handleResult((RespT) byteBuffer);
-    }
-
-
- */
-
-
-    /*
-    @Override
-    public void execute(ByteBuffer mes, CallFuture<Object> callback) throws Exception {
-        ByteBuffer methodResponse = (ByteBuffer) doExecute(mes);
-        callback.handleResult(methodResponse);
-    }
-
-     */
 
     @Override
     public Object execute(ByteBuffer mes) throws Exception {
@@ -120,16 +52,15 @@ public class SerializerServiceImpl implements SerializerService{
                 classType = callOption.get("classType").toString();
             }
             if(injector != null && !fullClassName.equals("org.softauto.system.SystemServiceImpl") && callOption != null) {
-                //if(classType.equals(ClassType.INITIALIZE) && !Utils.getClassName(fullClassName).equals(methodName)){
-                logger.debug("got request to method "+methodName+"  . trying to load class");
+                logger.debug(JDRY,"got request to method "+methodName+"  . trying to load class");
                 List<String> constructorTypes = buildConstructorTypes(callOption);
                 Class[] types = Utils.extractConstructorArgsTypes(fullClassName,constructorTypes);
                 Object[] args = Utils.getConstructorArgsValues(callOption,types);
                 serviceImpl = injector.inject(fullClassName,args,types, ClassType.fromString(classType));
                 if(serviceImpl == null){
-                    logger.error("fail to initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
+                    logger.error(JDRY,"fail to initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
                 }else {
-                    logger.debug("successfully initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
+                    logger.debug(JDRY,"successfully initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
                 }
 
             }else {
@@ -139,7 +70,7 @@ public class SerializerServiceImpl implements SerializerService{
                 serviceImpl = ((Object[])serviceImpl)[0];
             }
             Method m = Utils.getMethod(serviceImpl, methodName, message.getTypes());
-            logger.debug("invoking " + message.getDescriptor());
+            logger.debug(JDRY,"invoking " + message.getDescriptor());
             m.setAccessible(true);
             Object[] args = buildArgs(message);
             if (Modifier.isStatic(m.getModifiers())) {
@@ -148,7 +79,7 @@ public class SerializerServiceImpl implements SerializerService{
                 methodResponse = m.invoke(serviceImpl, args);
             }
 
-            logger.debug("successfully invoke "+message.getDescriptor()+ " with args "+ Utils.result2String(message.getArgs())+ " on " +serviceImpl.getClass().getName());
+            logger.debug(JDRY,"successfully invoke "+message.getDescriptor()+ " with args "+ Utils.result2String(message.getArgs())+ " on " +serviceImpl.getClass().getName());
 
         }catch (Exception e){
             methodResponse = e;
@@ -196,120 +127,5 @@ public class SerializerServiceImpl implements SerializerService{
     }
 
 
-
-/*
-    private Object doExecute(ByteBuffer mes) throws Exception {
-        Object methodResponse = null;
-        try{
-
-            String newContent = new String(mes.array(), StandardCharsets.UTF_8);
-            Message message = new ObjectMapper().readValue(newContent,Message.class);
-            String fullClassName = Utils.getFullClassName(message.getDescriptor());
-            String methodName = Utils.getMethodName(message.getDescriptor());
-            HashMap<String, Object> callOption = null;
-            if(message.getData().containsKey("callOption")) {
-                callOption = (HashMap<String, Object>) message.getData().get("callOption");
-            }
-            Object serviceImpl;
-            String classType = ClassType.INITIALIZE_IF_NOT_EXIST.name();
-            if(callOption != null && callOption.get("classType") != null) {
-                classType = callOption.get("classType").toString();
-            }
-            if(injector != null && !fullClassName.equals("org.softauto.system.SystemServiceImpl") && callOption != null) {
-                //if(classType.equals(ClassType.INITIALIZE) && !Utils.getClassName(fullClassName).equals(methodName)){
-                    logger.debug("got request to method "+methodName+"  . trying to load class");
-                    Class[] types = Utils.extractConstructorArgsTypes(fullClassName);
-                    Object[] args = Utils.getConstructorArgsValues(callOption,types);
-                    serviceImpl = injector.inject(fullClassName,args,types, ClassType.fromString(classType));
-                    if(serviceImpl == null){
-                        logger.error("fail to initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
-                    }else {
-                        logger.debug("successfully initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
-                    }
-
-            }else {
-                serviceImpl = SystemServiceImpl.getInstance();
-            }
-                if(serviceImpl instanceof Object[]){
-                    serviceImpl = ((Object[])serviceImpl)[0];
-                }
-                Method m = Utils.getMethod(serviceImpl, methodName, message.getTypes());
-                logger.debug("invoking " + message.getDescriptor());
-                m.setAccessible(true);
-                Object[] args = buildArgs(message);
-                if (Modifier.isStatic(m.getModifiers())) {
-                    methodResponse = m.invoke(null, args);
-                } else {
-                    methodResponse = m.invoke(serviceImpl, args);
-                }
-
-            logger.debug("successfully invoke "+message.getDescriptor()+ " with args "+ Utils.result2String(message.getArgs())+ " on " +serviceImpl.getClass().getName());
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        byte[] m = new ObjectMapper().writeValueAsBytes(methodResponse);
-        ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-        return byteBuffer;
-    }
-
-    private <RespT> Object doExecute(ByteBuffer mes,org.apache.avro.ipc.Callback<RespT> callback) throws Exception {
-        Object methodResponse = null;
-        try{
-
-            String newContent = new String(mes.array(), StandardCharsets.UTF_8);
-            Message message = new ObjectMapper().readValue(newContent,Message.class);
-            String fullClassName = Utils.getFullClassName(message.getDescriptor());
-            String methodName = Utils.getMethodName(message.getDescriptor());
-            HashMap<String, Object> callOption = null;
-            if(message.getData().containsKey("callOption")) {
-                callOption = (HashMap<String, Object>) message.getData().get("callOption");
-            }
-            Object serviceImpl;
-            String classType = ClassType.INITIALIZE_IF_NOT_EXIST.name();
-            if(callOption != null && callOption.get("classType") != null) {
-                classType = callOption.get("classType").toString();
-            }
-            if(injector != null && !fullClassName.equals("org.softauto.system.SystemServiceImpl") && callOption != null) {
-                //if(classType.equals(ClassType.INITIALIZE) && !Utils.getClassName(fullClassName).equals(methodName)){
-                logger.debug("got request to method "+methodName+"  . trying to load class");
-                Class[] types = Utils.extractConstructorArgsTypes(fullClassName);
-                Object[] args = Utils.getConstructorArgsValues(callOption,types);
-                serviceImpl = injector.inject(fullClassName,args,types, ClassType.fromString(classType));
-                if(serviceImpl == null){
-                    logger.error("fail to initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
-                }else {
-                    logger.debug("successfully initialize class " +fullClassName+ "with types "+ Arrays.toString(types) + " and args "+ Arrays.toString( args));
-                }
-
-            }else {
-                serviceImpl = SystemServiceImpl.getInstance();
-            }
-            if(serviceImpl instanceof Object[]){
-                serviceImpl = ((Object[])serviceImpl)[0];
-            }
-            Method m = Utils.getMethod(serviceImpl, methodName, message.getTypes());
-            logger.debug("invoking " + message.getDescriptor());
-            m.setAccessible(true);
-            Object[] args = buildArgs(message);
-            if (Modifier.isStatic(m.getModifiers())) {
-                methodResponse = m.invoke(null, args);
-            } else {
-                methodResponse = m.invoke(serviceImpl, args);
-            }
-
-            logger.debug("successfully invoke "+message.getDescriptor()+ " with args "+ Utils.result2String(message.getArgs())+ " on " +serviceImpl.getClass().getName());
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        byte[] m = new ObjectMapper().writeValueAsBytes(methodResponse);
-        ByteBuffer byteBuffer = ByteBuffer.wrap(m);
-        return byteBuffer;
-    }
-
- */
 
 }

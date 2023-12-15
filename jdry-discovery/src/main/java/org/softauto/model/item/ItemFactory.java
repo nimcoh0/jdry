@@ -3,6 +3,8 @@ package org.softauto.model.item;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.flow.FlowObject;
 import org.softauto.handlers.annotations.HandelClassAnnotation;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class ItemFactory {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     Item item;
 
@@ -71,7 +75,7 @@ public class ItemFactory {
 
 
         }catch (Exception e){
-            logger.error("fail build item ",e.getMessage());
+            logger.error(JDRY,"fail build item ",e.getMessage());
         }
         return this;
     }

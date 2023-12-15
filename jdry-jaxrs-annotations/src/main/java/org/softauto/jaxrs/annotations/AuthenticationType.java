@@ -3,9 +3,6 @@ package org.softauto.jaxrs.annotations;
 public enum AuthenticationType {
 
     BASIC("BASIC"),
-    DIGEST("DIGEST"),
-    CERT("CERT"),
-    OAUTH2("OAUTH2"),
     JWT("JWT"),
     NONE("NONE");
 

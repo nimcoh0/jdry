@@ -2,6 +2,8 @@ package org.softauto.analyzer.base.tree;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.base.source.*;
 import org.softauto.analyzer.base.source.Tree;
 import org.softauto.analyzer.core.system.scanner.AbstractAnnotationScanner;
@@ -19,8 +21,7 @@ public abstract class BaseTree implements Tree {
 
     private static Logger logger = LogManager.getLogger(BaseTree.class);
 
-    //public static GenericItem genericItem;
-
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public static class Item  implements ItemTree {
 

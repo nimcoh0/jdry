@@ -114,7 +114,6 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
                 .setArgs(newArgs.toArray())
                 .setPath(newPath)
                 .setPort(port)
-                //.setBaseUrl(base_url)
                 .build()
                 .getChannelDescriptor();
     }
@@ -128,7 +127,6 @@ public class JwtStepDescriptorImpl extends AbstractStepDescriptorImpl {
                 Object token = TestContext.getScenario().getProperty("token");
                 mm.add("Authorization", "Bearer " + token.toString());
             }
-            //String scenarioId = Threadlocal.getInstance().get("scenarioId").toString();
             mm.add("scenarioId", scenarioId);
         }
 

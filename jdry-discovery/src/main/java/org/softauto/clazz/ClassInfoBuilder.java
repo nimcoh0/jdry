@@ -2,11 +2,15 @@ package org.softauto.clazz;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 
 public class ClassInfoBuilder {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public static Builder newBuilder() { return new Builder();}
 
@@ -126,7 +130,7 @@ public class ClassInfoBuilder {
                 classInfo.setEntity(entity);
                 classInfo.setHasParameters(hasParameters);
             } catch (Exception e) {
-                logger.error("fail build class info " ,e);
+                logger.error(JDRY,"fail build class info " ,e);
             }
             return new ClassInfoBuilder(classInfo);
         }

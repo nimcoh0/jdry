@@ -101,14 +101,14 @@ public class SystemState {
     public Boolean startTest(String testname,String scenarioId)throws Exception{
         ListenerObserver.getInstance().reset();
         boolean r = new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_startTest", new Object[]{scenarioId,testname}, new Class[]{java.lang.String.class,String.class});
-        TestContext.setStepState(StepLifeCycle.START);
+
         TestContext.getScenario().setState(ScenarioLifeCycle.START.name());
         return r;
     }
 
     public Boolean endTest(String testname,String scenarioId)throws Exception{
         boolean r = new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_endTest", new Object[]{scenarioId,testname}, new Class[]{java.lang.String.class,String.class});
-        TestContext.setStepState(StepLifeCycle.STOP);
+        //TestContext.setStepState(StepLifeCycle.STOP);
         TestContext.getScenario().setState(ScenarioLifeCycle.STOP.name());
         ListenerServerProviderImpl.getInstance().shutdown();
         return r;

@@ -3,6 +3,9 @@ package org.softauto.grpc.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.grpc.ManagedChannel;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.softauto.core.Callback;
 import org.softauto.core.ClassType;
 import org.softauto.core.ServiceLocator;
 import org.softauto.plugin.api.Provider;
@@ -21,6 +24,8 @@ public class RpcProviderImpl implements Provider {
 
     private static RpcProviderImpl rpcProviderImpl = null;
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(RpcProviderImpl.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -75,7 +80,7 @@ public class RpcProviderImpl implements Provider {
 
 
 
-    public <RespT> void exec(String name, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions,String scenarioId){
+    public <RespT> void exec(String name, Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions, String scenarioId){
         Object result = null;
         try {
             logger.debug("exec rpc call "+ name);
@@ -95,10 +100,10 @@ public class RpcProviderImpl implements Provider {
             }
 
             Message message = MessageBuilder.newBuilder().setScenarioId(scenarioId).setDescriptor(name).setType(messageType).setArgs((Object[]) args).setTypes(types).addData("callOption",callOptions).build().getMessage();
-            serializer.write(message,callback);
+            serializer.write(message,(org.apache.avro.ipc.Callback<RespT>)callback);
 
         }catch (Exception e){
-            logger.error("fail exec rpc call "+ name, e);
+            logger.error(JDRY,"fail exec rpc call "+ name, e);
         }
     }
 
@@ -126,7 +131,7 @@ public class RpcProviderImpl implements Provider {
             result = serializer.write(message);
 
         }catch (Exception e){
-            logger.error("fail exec rpc call "+ name, e);
+            logger.error(JDRY,"fail exec rpc call "+ name, e);
         }
         return result;
     }

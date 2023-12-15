@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -22,7 +24,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class Compiler {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Compiler.class);
-
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
     private VelocityEngine velocityEngine;
     private List<Object> additionalVelocityTools = Collections.emptyList();
     private static String templateDir;
@@ -76,14 +78,12 @@ public class Compiler {
         }
 
         initializeVelocity();
-        logger.debug("set templateDir to " +templateDir);
+        logger.debug(JDRY,"set templateDir to " +templateDir);
     }
 
     private void initializeVelocity() {
         this.velocityEngine = new VelocityEngine();
 
-        // These properties tell Velocity to use its own classpath-based
-        // loader, then drop down to check the root and the current folder
         velocityEngine.addProperty("resource.loaders", "class, file");
         velocityEngine.addProperty("resource.loader.class.class",
                 "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
@@ -91,13 +91,9 @@ public class Compiler {
                 "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
         velocityEngine.addProperty("resource.loader.file.path", "/, .");
         velocityEngine.setProperty("runtime.strict_mode.enable", true);
-        //velocityEngine.addProperty("userdirective", "org.softauto.compiler.directive.Serialize");
-        //velocityEngine.addProperty("userdirective", "org.softauto.compiler.directive.Deserialize");
-        //velocityEngine.addProperty("userdirective", "org.softauto.compiler.directive.ValidateReturnType");
-        // Set whitespace gobbling to Backward Compatible (BC)
-        // https://velocity.apache.org/engine/2.0/developer-guide.html#space-gobbling
+
         velocityEngine.setProperty("parser.space_gobbling", "bc");
-        //context.put("jdryTools", JdryVelocityTool.class);
+
 
     }
 
@@ -203,14 +199,12 @@ public class Compiler {
             suite.put("name",jsonNode.get("name").asText());
             suite.put("namespace",jsonNode.get("namespace").asText());
             for(JsonNode node : jsonNode.get("steps")) {
-                //if(node.get("type").asText().equals("method")) {
                     ((ObjectNode) node).put("fullname", (node.get("namespce").asText() + "." + node.get("name").asText()).replace(".", "_"));
                     parseStep(node);
-                //}
             }
             suite.set("steps",steps);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(JDRY,"fail parse Steps",e);
         }
     }
 
@@ -223,7 +217,7 @@ public class Compiler {
             ArrayNode steps = parseSteps(src);
             Compiler compiler = new Compiler();
             compiler.compileToSteps(src, dest);
-            logger.debug("compile successfully " + src.getName());
+            logger.debug(JDRY,"compile successfully " + src.getName());
         }
 
     }
@@ -249,14 +243,12 @@ public class Compiler {
             suite.put("name",jsonNode.get("name").asText());
             suite.put("namespace",jsonNode.get("namespace").asText());
             for(JsonNode node : jsonNode.get("listeners")) {
-               // if(node.get("type").asText().equals("listener")) {
                     ((ObjectNode) node).put("fullname", (node.get("namespce").asText() + "." + node.get("name").asText()).replace(".", "_"));
                     parseListener(node);
-               // }
             }
             suite.set("listeners",listeners);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(JDRY,"fail parse Listeners",e);
         }
     }
 
@@ -269,7 +261,7 @@ public class Compiler {
             JsonNode listeners = parseListeners(src);
             Compiler compiler = new Compiler();
             compiler.compileToListeners(src, dest);
-            logger.debug("compile successfully " + src.getName());
+            logger.debug(JDRY,"compile successfully " + src.getName());
         }
 
     }
@@ -294,12 +286,12 @@ public class Compiler {
 
             template = this.velocityEngine.getTemplate(templateName);
         } catch (Exception e) {
-            logger.error("fail rendering template ",e);
+            logger.error(JDRY,"fail rendering template ",e);
             throw new RuntimeException(e);
         }
         StringWriter writer = new StringWriter();
         template.merge(context, writer);
-        logger.debug("render template successfully " + templateName);
+        logger.debug(JDRY,"render template successfully " + templateName);
         return writer.toString();
     }
 
@@ -321,7 +313,7 @@ public class Compiler {
         outputFile.path = makePath(mangledName, suite.get("namespace").asText());
         outputFile.contents = out;
         outputFile.outputCharacterEncoding = outputCharacterEncoding;
-        logger.debug("write output to " + outputFile);
+        logger.debug(JDRY,"write output to " + outputFile);
         return outputFile;
     }
 
@@ -341,7 +333,7 @@ public class Compiler {
         outputFile.path = makePath(mangledName, suite.get("namespace").asText());
         outputFile.contents = out;
         outputFile.outputCharacterEncoding = outputCharacterEncoding;
-        logger.debug("write output to " + outputFile);
+        logger.debug(JDRY,"write output to " + outputFile);
         return outputFile;
     }
 
@@ -365,31 +357,29 @@ public class Compiler {
     }
 
     public static void main(String[] args) throws Exception {
-        //loadConfiguration(args);
-        logger.info("-------------- compile all ---------------- ");
-        //compileSuite(new File(args[0]), new File(args[1]));
+        logger.info(JDRY,"-------------- compile all ---------------- ");
         compileStepsInterface(new File(args[0]), new File(args[1]));
         compileListenerInterface(new File(args[0]), new File(args[1]));
-        logger.debug("input file "+ args[0]);
-        logger.debug("output file "+ args[1]);
-        logger.info("tests compile finsh successfully");
+        logger.debug(JDRY,"input file "+ args[0]);
+        logger.debug(JDRY,"output file "+ args[1]);
+        logger.info(JDRY,"tests compile finsh successfully");
     }
 
 
     public static void compileListeners(String analyzer,String output)throws Exception{
-        logger.info("-------------- compile listeners ---------------- ");
+        logger.info(JDRY,"-------------- compile listeners ---------------- ");
         compileListenerInterface(new File(analyzer), new File(output));
-        logger.debug("input file "+ analyzer);
-        logger.debug("output file "+ output);
-        logger.info("listeners compile finsh successfully");
+        logger.debug(JDRY,"input file "+ analyzer);
+        logger.debug(JDRY,"output file "+ output);
+        logger.info(JDRY,"listeners compile finsh successfully");
     }
 
     public static void compileSteps(String analyzer,String output)throws Exception{
-        logger.info("-------------- compile steps  ---------------- ");
+        logger.info(JDRY,"-------------- compile steps  ---------------- ");
         compileStepsInterface(new File(analyzer), new File(output));
-        logger.debug("input file "+ analyzer);
-        logger.debug("output file "+ output);
-        logger.info("Steps compile finsh successfully");
+        logger.debug(JDRY,"input file "+ analyzer);
+        logger.debug(JDRY,"output file "+ output);
+        logger.info(JDRY,"Steps compile finsh successfully");
     }
 
     public void setOutputCharacterEncoding(String outputCharacterEncoding) {
@@ -423,10 +413,8 @@ public class Compiler {
 
     static final List<String> PRIMITIVES = new ArrayList<>();
     static {
-        //PRIMITIVES.add("string");
         PRIMITIVES.add("bytes");
         PRIMITIVES.add("int");
-        //PRIMITIVES.add("integer");
         PRIMITIVES.add("long");
         PRIMITIVES.add("float");
         PRIMITIVES.add("double");
@@ -442,7 +430,7 @@ public class Compiler {
             Class c = ClassUtils.getClass(type);
             return ClassUtils.primitiveToWrapper(c).getTypeName();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(JDRY,"fail primitive To Object",e);
         }
         return null;
     }

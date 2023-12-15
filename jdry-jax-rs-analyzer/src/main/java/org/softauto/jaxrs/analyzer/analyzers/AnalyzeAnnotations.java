@@ -2,6 +2,8 @@ package org.softauto.jaxrs.analyzer.analyzers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.core.system.config.Configuration;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 
@@ -10,6 +12,8 @@ import java.util.*;
 public class AnalyzeAnnotations {
 
     private static Logger logger = LogManager.getLogger(AnalyzeAnnotations.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     private GenericItem tree;
 
@@ -68,10 +72,8 @@ public class AnalyzeAnnotations {
                 LinkedHashMap<String, Object> hm = new LinkedHashMap<>();
                 if(tree.getAnnotations().containsKey("class")) {
                     classList.put(tree.getNamespce(), tree.getAnnotations().get("class"));
-                    //classList.putAll(hm);
                 }
             }
-           // for(LinkedHashMap<String, Object> hm : classList){
                 boolean start = false;
                 for (Map.Entry entry : classList.entrySet()) {
                     if(isEndPoint() && entry.getKey().equals(tree.getNamespce())){
@@ -95,9 +97,9 @@ public class AnalyzeAnnotations {
                     }
                 }
            // }
-            logger.debug("successfully find produce  "+ produce);
+            logger.debug(JDRY,"successfully find produce  "+ produce);
         } catch (Exception e) {
-            logger.error("fail find Produce ",e);
+            logger.error(JDRY,"fail find Produce ",e);
         }
         return produce;
     }
@@ -110,10 +112,8 @@ public class AnalyzeAnnotations {
                 LinkedHashMap<String, Object> hm = new LinkedHashMap<>();
                 if(tree.getAnnotations().containsKey("class")) {
                     classList.put(tree.getNamespce(), tree.getAnnotations().get("class"));
-                    //classList.add(hm);
                 }
             }
-            //for(LinkedHashMap<String, Object> hm : classList){
                 boolean start = false;
                 for (Map.Entry entry : classList.entrySet()) {
                     if(isEndPoint() && entry.getKey().equals(tree.getNamespce())){
@@ -136,10 +136,9 @@ public class AnalyzeAnnotations {
                         }
                     }
                 }
-            //}
-            logger.debug("successfully find consume  "+ consume);
+            logger.debug(JDRY,"successfully find consume  "+ consume);
         } catch (Exception e) {
-            logger.error("fail find Consume ",e);
+            logger.error(JDRY,"fail find Consume ",e);
         }
         return consume;
     }
@@ -156,11 +155,9 @@ public class AnalyzeAnnotations {
                 LinkedHashMap<String, Object> hm = new LinkedHashMap<>();
                 if(tree.getAnnotations().containsKey("class")) {
                     classList.put(tree.getNamespce(), tree.getAnnotations().get("class"));
-                    //classList.add(hm);
                 }
             }
             String baseUrl = Configuration.has("base_uri") && Configuration.get("base_uri") != null ? Configuration.get("base_uri").asString() : "";
-           // for(LinkedHashMap<String, Object> hm : classList){
               if (isEndPoint() && classList.keySet().contains(tree.getNamespce())) {
                     String path = "";
                     boolean start = false;
@@ -193,10 +190,9 @@ public class AnalyzeAnnotations {
                         }
                     }
                 }
-           // }
-            logger.debug("successfully aggregatePath path "+ Arrays.toString(paths.toArray()));
+            logger.debug(JDRY,"successfully aggregatePath path "+ Arrays.toString(paths.toArray()));
         } catch (Exception e) {
-            logger.error("fail aggregatePath ",e);
+            logger.error(JDRY,"fail aggregatePath ",e);
         }
         return paths;
     }

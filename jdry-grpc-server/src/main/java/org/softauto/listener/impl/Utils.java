@@ -1,9 +1,14 @@
 package org.softauto.listener.impl;
 
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
 public class Utils {
 
     static org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Utils.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public static String buildMethodFQMN(String methodName, String clazz){
         return clazz.replace(".","_")+"_"+methodName;

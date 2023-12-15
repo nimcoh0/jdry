@@ -1,5 +1,10 @@
 package org.softauto.discovery;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.softauto.Discover;
 import soot.SootField;
 import soot.tagkit.AnnotationTag;
 import soot.tagkit.VisibilityAnnotationTag;
@@ -14,6 +19,10 @@ public class DiscoveryFieldByAnnotation implements IDiscovery {
     public void setAnnotations(List<Object> annotations) {
         this.annotations = annotations;
     }
+
+    private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     @Override
     public Object apply(Object o) {
@@ -32,8 +41,7 @@ public class DiscoveryFieldByAnnotation implements IDiscovery {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //logger.error("fail discovery for "+o.getClass().getTypeName());
+            logger.error(JDRY,"fail discovery for "+o.getClass().getTypeName());
         }
 
         return null;

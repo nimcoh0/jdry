@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.config.Context;
 import org.softauto.config.DefaultConfiguration;
 import org.softauto.core.Configuration;
@@ -27,22 +29,24 @@ public class Util {
 
     private static Logger logger = LogManager.getLogger(Util.class);
 
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
 
     public static void save(JsonNode items,String output){
         try {
             Util.toJson(output, items);
-            logger.debug("save discovery items to "+output);
+            logger.debug(JDRY,"save discovery items to "+output);
         } catch (Exception e) {
-            logger.error("fail save discovery items ",e.getMessage());
+            logger.error(JDRY,"fail save discovery items ",e.getMessage());
         }
     }
 
     public static void save(JsonNode items){
         try {
             Util.toJson(Configuration.get(Context.FILE_NAME).asString(), Configuration.get(Context.OUTPUT_FILE_PATH).asString(), items);
-            logger.debug("save discovery items to "+Configuration.get(Context.FILE_NAME).asString(), Configuration.get(Context.OUTPUT_FILE_PATH).asString());
+            logger.debug(JDRY,"save discovery items to "+Configuration.get(Context.FILE_NAME).asString(), Configuration.get(Context.OUTPUT_FILE_PATH).asString());
         } catch (Exception e) {
-            logger.error("fail save discovery items ",e.getMessage());
+            logger.error(JDRY,"fail save discovery items ",e.getMessage());
         }
     }
 
@@ -61,9 +65,9 @@ public class Util {
             objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS,false);
             String schema = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
             save(schema, path + filename);
-            logger.debug("obj save to json file "+ path + filename+".json successfully");
+            logger.debug(JDRY,"obj save to json file "+ path + filename+".json successfully");
         } catch (Exception e) {
-            logger.error("fail to save obj to json file ",e.getMessage());
+            logger.error(JDRY,"fail to save obj to json file ",e.getMessage());
         }
     }
 
@@ -73,9 +77,9 @@ public class Util {
             objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS,false);
             String schema = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
             save(schema, output);
-            logger.debug("obj save to json file "+ output+".json successfully");
+            logger.debug(JDRY,"obj save to json file "+ output+".json successfully");
         } catch (Exception e) {
-            logger.error("fail to save obj to json file ",e.getMessage());
+            logger.error(JDRY,"fail to save obj to json file ",e.getMessage());
         }
     }
     /**
@@ -92,9 +96,9 @@ public class Util {
             file = new FileWriter(path);
 
             file.write(json);
-            logger.debug("json save to file "+ path + " successfully");
+            logger.debug(JDRY,"json save to file "+ path + " successfully");
         }catch (Exception e){
-            logger.error("fail to save json to file " + path,e.getMessage());
+            logger.error(JDRY,"fail to save json to file " + path,e.getMessage());
         }finally {
             file.close();
         }
@@ -107,7 +111,7 @@ public class Util {
         try {
             Configuration.setConfiguration(DefaultConfiguration.getConfiguration());
         }catch(Exception e){
-            logger.error("fail to load defaultConfiguration ",e.getMessage());
+            logger.error(JDRY,"fail to load defaultConfiguration ",e.getMessage());
         }
     }
 
@@ -123,9 +127,9 @@ public class Util {
                 defaultConfiguration.putAll(map);
                 Configuration.setConfiguration(defaultConfiguration);
             }
-            logger.debug("configuration load successfully");
+            logger.debug(JDRY,"configuration load successfully");
         }catch (Exception e){
-           logger.error("fail to load configuration ",e.getMessage());
+           logger.error(JDRY,"fail to load configuration ",e.getMessage());
         }
     }
 
@@ -156,7 +160,7 @@ public class Util {
             }
 
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(JDRY,"fail todot",e);
         }
     }
     public static void addJarToClasspath(List<String> f) {
@@ -166,7 +170,7 @@ public class Util {
                 addURL(file, classLoader);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(JDRY,"fail add jar to classpath",e);
         }
     }
 
@@ -177,7 +181,7 @@ public class Util {
             method.setAccessible(true);
             method.invoke(sysloader, path);
         } catch (Throwable t) {
-            logger.error("fail add jar to classpath",t);
+            logger.error(JDRY,"fail add jar to classpath",t);
         }
     }
 

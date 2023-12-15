@@ -1,5 +1,8 @@
 package org.softauto.core;
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.Map;
 public class Configuration {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Configuration.class);
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
     static HashMap<String,Object> configuration = new HashMap<>();
     Object result;
 
@@ -27,7 +31,7 @@ public class Configuration {
         try {
             Configuration.configuration = configuration;
         }catch (Exception e){
-            logger.error("fail update configuration ", e);
+            logger.error(JDRY,"fail update configuration ", e);
         }
     }
 
@@ -35,7 +39,7 @@ public class Configuration {
         try {
             Configuration.configuration.putAll(configuration);;
         }catch (Exception e){
-            logger.error("fail update configuration ", e);
+            logger.error(JDRY,"fail update configuration ", e);
         }
     }
 
@@ -120,20 +124,6 @@ public class Configuration {
         return  false;
     }
 
-    /*
-    public  static <T> T get(String key){
-        try {
-            if (configuration.containsKey(key)) {
-               return  (T)configuration.get(key) ;
-            }
-        }catch (Exception e){
-            logger.error(e);
-        }
-        return null;
-    }
-
-     */
-
 
     public static void put(String key,Object value){
         configuration.put(key,value);
@@ -147,7 +137,7 @@ public class Configuration {
                 }
             }
         }catch (Exception e){
-            logger.error("",e);
+            logger.error(JDRY,"",e);
         }
         return  false;
     }
@@ -161,7 +151,7 @@ public class Configuration {
             }
 
         }catch (Exception e){
-            logger.error("",e);
+            logger.error(JDRY,"",e);
         }
         return null;
     }
@@ -176,7 +166,7 @@ public class Configuration {
             }
 
         }catch (Exception e){
-            logger.error("",e);
+            logger.error(JDRY,"",e);
         }
         return o;
     }

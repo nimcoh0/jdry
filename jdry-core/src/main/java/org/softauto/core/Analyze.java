@@ -6,12 +6,21 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Analyze {
+
+
+    private static final Logger logger = LogManager.getLogger(Analyze.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     String name;
 
@@ -101,7 +110,7 @@ public class Analyze {
             String schema = objectMapper.writeValueAsString(node);
             return schema;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(JDRY,"fail toJson",e);
         }
         return null;
     }
@@ -112,7 +121,7 @@ public class Analyze {
             objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             return objectMapper.readValue(json,Analyze.class);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            logger.error(JDRY,"fail parse",e);
         }
         return null;
     }

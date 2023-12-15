@@ -2,6 +2,8 @@ package org.softauto.analyzer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.core.system.config.Context;
 import org.softauto.analyzer.core.dao.api.ApiDataProvider;
 import org.softauto.core.Analyze;
@@ -18,6 +20,8 @@ public class Analyzer {
 
     private static Logger logger =  LogManager.getLogger(Analyzer.class);
 
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     public static Analyzer analyzer = null;
 
     public Analyzer(String configuration){
@@ -27,7 +31,7 @@ public class Analyzer {
     }
 
     public Analyzer(String[] args){
-        logger.info(" --- start analyzer ----");
+        logger.info(JDRY," --- start analyzer ----");
         init(args[0]);
         initializeArgs(args);
         initializeApi();
@@ -37,7 +41,7 @@ public class Analyzer {
     }
 
     public Analyzer(String conf, String discovery, String output){
-        logger.info(" --- start analyzer ----");
+        logger.info(JDRY," --- start analyzer ----");
         init(conf);
         Configuration.put(Context.DISCOVERY_INPUT_FILE, discovery);
         Configuration.put(Context.FILE_OUTPUT,output);
@@ -48,7 +52,7 @@ public class Analyzer {
     }
 
     public Analyzer(String conf, String discovery, String recorder, String output){
-        logger.info(" --- start analyzer ----");
+        logger.info(JDRY," --- start analyzer ----");
         init(conf);
         Configuration.put(Context.DISCOVERY_INPUT_FILE, discovery);
         Configuration.put(Context.FILE_OUTPUT,output);
@@ -72,9 +76,9 @@ public class Analyzer {
 
             registerPlugins();
             Utils.addJarToClasspath(Configuration.get(Context.JAR_PATH).asList());
-            logger.debug("initialize successfully");
+            logger.debug(JDRY,"initialize successfully");
         }catch (Exception e){
-            logger.error("fail initialize ",e);
+            logger.error(JDRY,"fail initialize ",e);
         }
         return this;
     }
@@ -92,10 +96,9 @@ public class Analyzer {
     public Analyzer save(Analyze analyze){
         try {
             Utils.save(analyze.toJson(), Configuration.get(Context.FILE_OUTPUT).asString() );
-            //Utils.toJson(Configuration.get(Context.FILE_OUTPUT).asString(),  trees);
-            logger.debug("Suite save successfully on "+Configuration.get(Context.FILE_OUTPUT).asString());
+            logger.debug(JDRY,"Suite save successfully on "+Configuration.get(Context.FILE_OUTPUT).asString());
         } catch (Exception e) {
-            logger.error("fail save Suite ",e);
+            logger.error(JDRY,"fail save Suite ",e);
         }
         return this;
     }
@@ -108,13 +111,12 @@ public class Analyzer {
                 if (plugins != null) {
                     for (Object s : (ArrayList) plugins) {
                         Utils.addJarToClasspath(Arrays.asList(new String[]{((HashMap)s).get("jar").toString()}));
-                        //registerProtocol(((HashMap)s).get("protocol").toString());
-                        logger.debug("plugin " + s.toString() + " register save successfully");
+                        logger.debug(JDRY,"plugin " + s.toString() + " register save successfully");
                     }
                 }
             }
         } catch (Exception e) {
-            logger.error("fail register Plugins ",e);
+            logger.error(JDRY,"fail register Plugins ",e);
         }
     }
 

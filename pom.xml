@@ -28,6 +28,7 @@
         <module>jdry-rpc-analyzer</module>
         <module>jdry-logger</module>
 
+
     </modules>
 
     <properties>

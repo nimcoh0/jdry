@@ -1,6 +1,8 @@
 package org.softauto.jaxrs.service;
 
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.Configuration;
 import org.softauto.jaxrs.auth.AuthFactory;
 
@@ -11,6 +13,8 @@ import java.util.concurrent.ConcurrentMap;
 public class TestDescriptor {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(TestDescriptor.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
     // cache for service descriptors.
     private  static ConcurrentMap<String, TestDescriptor> SERVICE_DESCRIPTORS = new ConcurrentHashMap<>();
     private  String serviceName;
@@ -29,35 +33,15 @@ public class TestDescriptor {
 
     private TestDescriptor(String serviceName) {
         this.serviceName = serviceName;
-        //this.test = test;
-
-    }
-
-/*
-    public static TestDescriptor create(Test test) {
-        String serviceName = Utils.getServiceName(test);
-        return SERVICE_DESCRIPTORS.computeIfAbsent(serviceName, key -> new TestDescriptor(test, serviceName));
     }
 
 
- */
     public static TestDescriptor create(String stepName) {
         SERVICE_DESCRIPTORS = new ConcurrentHashMap<>();
         String serviceName = stepName;
         return SERVICE_DESCRIPTORS.computeIfAbsent(serviceName, key -> new TestDescriptor(serviceName));
     }
 
-    /*
-    public StepDescriptor getStep(Item item) {
-        return steps.computeIfAbsent(item.getName().replace(".","_"),
-                key -> StepDescriptor.<Object[], Object>newBuilder()
-                        .setItem(item)
-                        .build());
-
-    }
-
-
-     */
     public IStepDescriptor getStep(String stepName, Object[] args,Class[] types, HashMap<String,Object> callOptions,String scenarioId) {
         String auto = Configuration.get("jaxrs").asMap().get("auth").toString();
         IStepDescriptor stepDescriptor = AuthFactory.getStepDescriptor(auto);
@@ -67,10 +51,8 @@ public class TestDescriptor {
                         .setArgs(args)
                         .setName(stepName)
                         .setTypes(types)
-                        //.setItem(item)
                         .setCallOptions(callOptions)
                         .setScenarioId(scenarioId)
-                        //.setTest(test)
                         .setStepDescriptor(stepDescriptor)
                         .build()
                         .getStepDescriptor());

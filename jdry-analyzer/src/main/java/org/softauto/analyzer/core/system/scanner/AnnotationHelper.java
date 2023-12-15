@@ -6,12 +6,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import java.util.*;
 
 public  class AnnotationHelper {
 
     private static Logger logger = LogManager.getLogger(AnnotationHelper.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     LinkedList<LinkedHashMap<String, Object>> mapList = new LinkedList();
 
@@ -122,7 +126,7 @@ public  class AnnotationHelper {
                 new AnnotationHelper(null);
             }
         } catch (Exception e) {
-           logger.error("fail get property "+path+"/"+ element);
+           logger.error(JDRY,"fail get property "+path+"/"+ element);
         }
         return new AnnotationHelper(mapList);
     }
@@ -148,7 +152,7 @@ public  class AnnotationHelper {
                return new AnnotationHelper(null);
            }
         } catch (Exception e) {
-           logger.error("fail get annotation for "+ path);
+           logger.error(JDRY,"fail get annotation for "+ path);
         }
         return new AnnotationHelper(mapList);
     }

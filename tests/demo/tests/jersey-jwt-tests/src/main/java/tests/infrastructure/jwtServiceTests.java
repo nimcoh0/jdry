@@ -8,7 +8,7 @@ import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.avro.ipc.CallFuture;
+import org.softauto.core.CallFuture;
 import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Assert;
 import org.softauto.jaxrs.filter.RequestClientFilter;
@@ -122,18 +122,18 @@ public class jwtServiceTests extends AbstractTesterImpl {
     @Test
     public void loginUsingJdryJaxrsClientProxyAndAsyncRestCallWithListenerBefore(){
         try {
-            CallFuture<java.lang.String> future_com_cassiomolin_example_user_api_model_QueryPersonResult = new CallFuture();
+            CallFuture<java.lang.String> future_com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting = new CallFuture();
             Listener listener = listeners.com_cassiomolin_example_greeting_service_GreetingService_getGreetingForUser();
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("admin");
             credentials.setPassword("password");
             tests.com_cassiomolin_example_security_jwt_resource_AuthenticationResource_authenticate(credentials).setExpected("#result != null").invoke().isSuccesses(res ->{
-                testsCallback.com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting(future_com_cassiomolin_example_user_api_model_QueryPersonResult).invoke()
+                testsCallback.com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting(future_com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting).invoke()
                         .then(listener.waitTo(r -> {
                             return "aaa";
                          }));
             });
-            java.lang.String result = future_com_cassiomolin_example_user_api_model_QueryPersonResult.get();
+            java.lang.String result = future_com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting.get();
             Assert.assertTrue(result.equals("Hello aaa!"));
         }catch (Exception e){
             e.printStackTrace();
@@ -149,7 +149,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     public void loginUsingJdryJaxrsClientProxyAndAsyncRestCallWithListenerAfter(){
         try {
 
-            CallFuture<java.lang.String> future_com_cassiomolin_example_user_api_resource_PersonResource_getUsers = new CallFuture();
+            org.softauto.core.CallFuture<java.lang.String> future_com_cassiomolin_example_greeting_service_GreetingService_getGreetingForUser1 = new org.softauto.core.CallFuture();
 
             java.util.function.Consumer<Object> ff = new java.util.function.Consumer<Object>() {
 
@@ -169,11 +169,11 @@ public class jwtServiceTests extends AbstractTesterImpl {
 
 
             tests.com_cassiomolin_example_security_jwt_resource_AuthenticationResource_authenticate(credentials).setExpected("#result != null").invoke().isSuccesses(res ->{
-                testsCallback.com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting1(future_com_cassiomolin_example_user_api_resource_PersonResource_getUsers).invoke()
+                testsCallback.com_cassiomolin_example_greeting_api_resource_GreetingResource_getProtectedGreeting1(future_com_cassiomolin_example_greeting_service_GreetingService_getGreetingForUser1).invoke()
                         .then(listener.waitTo(ff));
             });
 
-            java.lang.String result = future_com_cassiomolin_example_user_api_resource_PersonResource_getUsers.get();
+            java.lang.String result = future_com_cassiomolin_example_greeting_service_GreetingService_getGreetingForUser1.get();
             Assert.assertTrue(result.equals("Hello admin!"));
 
         }catch (Exception e){
@@ -299,7 +299,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
      * the test show the use of rpc call
      */
     @Test
-    public void publicGreetingUsingJdryRpc(){
+    public void publicGreetingUsingJdryJaxrs(){
         try {
             String  greeting =  tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().invoke().get_Result();
             Assert.assertTrue(greeting.equals("Hello from the other side!") );
@@ -307,6 +307,19 @@ public class jwtServiceTests extends AbstractTesterImpl {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void publicGreetingUsingJdryRpc(){
+        try {
+            org.softauto.core.CallFuture<java.lang.String> future_com_cassiomolin_example_user_service_PersonService_publicRpcCall = new org.softauto.core.CallFuture();
+            testsCallback.com_cassiomolin_example_user_service_PersonService_publicRpcCall("aaaa",future_com_cassiomolin_example_user_service_PersonService_publicRpcCall).invoke();
+            String result1 = future_com_cassiomolin_example_user_service_PersonService_publicRpcCall.get();
+            Assert.assertTrue(result1.equals("aaaa") );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * the test show the use of rpc call

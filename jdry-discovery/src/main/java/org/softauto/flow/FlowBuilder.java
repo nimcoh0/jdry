@@ -3,6 +3,8 @@ package org.softauto.flow;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.clazz.ClassInfo;
 import soot.SootMethod;
@@ -13,6 +15,8 @@ import java.util.List;
 public class FlowBuilder {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public static Builder newBuilder() { return new Builder();}
 
@@ -121,9 +125,9 @@ public class FlowBuilder {
                 flowObject.setStatic(isStatic);
                 flowObject.setReturnType(returnType);
 
-                logger.debug("successfully build flowObject for "+ clazz + "." + method);
+                logger.debug(JDRY,"successfully build flowObject for "+ clazz + "." + method);
             } catch (Exception e) {
-                logger.error("fail build flowObject for "+ clazz + "." + method);
+                logger.error(JDRY,"fail build flowObject for "+ clazz + "." + method);
             }
             return new FlowBuilder(flowObject);
         }

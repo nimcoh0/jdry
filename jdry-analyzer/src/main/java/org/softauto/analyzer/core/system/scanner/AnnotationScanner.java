@@ -3,6 +3,8 @@ package org.softauto.analyzer.core.system.scanner;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,7 +16,7 @@ public class AnnotationScanner extends AbstractAnnotationScanner{
 
     private static Logger logger = LogManager.getLogger(AnnotationScanner.class);
 
-
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
 
     public  AnnotationScanner scanner(){
@@ -53,7 +55,7 @@ public class AnnotationScanner extends AbstractAnnotationScanner{
                 return mapList;
             }
         } catch (Exception e) {
-          logger.error("fail retrieve annotation for "+path,e);
+          logger.error(JDRY,"fail retrieve annotation for "+path,e);
         }
         return null;
     }

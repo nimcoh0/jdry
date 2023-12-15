@@ -46,7 +46,7 @@ public class Multimap {
                for(Map.Entry entry : ((Multimap) value).getMap().entrySet()){
                    hm.put(entry.getKey().toString(),  entry.getValue());
                }
-               //hm.putAll((HashMap<String, Object>) o);
+
                list.add(hm);
                list.add(o);
                map.put(key, list);
@@ -59,12 +59,12 @@ public class Multimap {
         }else {
 
             if(value instanceof Multimap){
-                //List<Object> list = new ArrayList<>();
+
                 HashMap<String, Object> hm = new HashMap<>();
                 for(Map.Entry entry : ((Multimap) value).getMap().entrySet()){
                     hm.put(entry.getKey().toString(),  entry.getValue());
                 }
-                //list.add(hm);
+
                 map.put(key, hm);
             }else {
                map.put(key, value);

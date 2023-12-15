@@ -2,6 +2,8 @@ package org.softauto.jaxrs.analyzer.handlers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.core.system.scanner.AbstractAnnotationScanner;
 import org.softauto.analyzer.core.system.scanner.AnnotationScanner;
 import org.softauto.analyzer.model.genericItem.GenericItem;
@@ -13,6 +15,8 @@ import java.util.Map;
 public class HandleRequestType {
 
     protected static Logger logger = LogManager.getLogger(HandleRequestType.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     protected LinkedHashMap<String,Object> argumentsRequestType = new LinkedHashMap();
 
@@ -42,7 +46,7 @@ public class HandleRequestType {
             handleFormParam();
             handleDefault();
         } catch (Exception e) {
-            logger.error("fail Handle Request ",e);
+            logger.error(JDRY,"fail Handle Request ",e);
         }
         return this;
     }
@@ -62,7 +66,7 @@ public class HandleRequestType {
                 arglist.add(hm);
             }
         } catch (NumberFormatException e) {
-            logger.error("fail build Arg List ",e);
+            logger.error(JDRY,"fail build Arg List ",e);
         }
         return arglist;
     }
@@ -70,13 +74,9 @@ public class HandleRequestType {
     protected LinkedList<LinkedHashMap<String, Object>> buildArgList(){
         LinkedList<LinkedHashMap<String, Object>> arglist = new LinkedList();
         try {
-            //if(scanner != null && scanner.getMapList().size() > 0){
             if(tree.getParametersTypes().size() > 0){
                 LinkedHashMap<String, Object> hm = new LinkedHashMap();
-                //for(String type : tree.getParametersTypes()){
                 for(int i=0;i<tree.getParametersTypes().size();i++){
-                    //Integer index = Integer.valueOf(scanner.get("index").asString());
-                    //String type = tree.getParametersTypes().get(index);
                     hm.put("index",i);
                     hm.put("name",tree.getArgumentsNames().get(i));
                     hm.put("type",tree.getParametersTypes().get(i));
@@ -84,7 +84,7 @@ public class HandleRequestType {
                 arglist.add(hm);
             }
         } catch (NumberFormatException e) {
-            logger.error("fail build Arg List ",e);
+            logger.error(JDRY,"fail build Arg List ",e);
         }
         return arglist;
     }

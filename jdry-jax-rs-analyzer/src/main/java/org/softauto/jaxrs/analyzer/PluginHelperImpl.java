@@ -4,6 +4,9 @@ package org.softauto.jaxrs.analyzer;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -14,7 +17,7 @@ public class PluginHelperImpl {
 
     private static Logger logger = LogManager.getLogger(PluginHelperImpl.class);
 
-
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
 
     public static LinkedHashMap<String, Object> getCallOption(List<LinkedHashMap<String, Object>> mapList) {
@@ -30,7 +33,7 @@ public class PluginHelperImpl {
                 }
             }
         } catch (Exception e) {
-            logger.error("fail create callOptions  ",e);
+            logger.error(JDRY,"fail create callOptions  ",e);
         }
 
         return callOption;
@@ -49,7 +52,7 @@ public class PluginHelperImpl {
                 return s;
             }
         } catch (Exception e) {
-            logger.error("fail get Path ",e);
+            logger.error(JDRY,"fail get Path ",e);
         }
         return null;
     }
@@ -61,7 +64,7 @@ public class PluginHelperImpl {
                 return request.get("Method").asText();
             }
         } catch (Exception e) {
-            logger.error("fail get Method ",e);
+            logger.error(JDRY,"fail get Method ",e);
         }
         return null;
     }
@@ -74,7 +77,7 @@ public class PluginHelperImpl {
                 return type + "/" + subType;
             }
         } catch (Exception e) {
-            logger.error("fail get MediaType ",e);
+            logger.error(JDRY,"fail get MediaType ",e);
         }
         return null;
     }

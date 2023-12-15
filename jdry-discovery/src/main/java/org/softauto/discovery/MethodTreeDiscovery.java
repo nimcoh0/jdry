@@ -2,6 +2,8 @@ package org.softauto.discovery;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.config.Context;
 import org.softauto.core.Configuration;
@@ -10,7 +12,7 @@ import org.softauto.filter.IFilter;
 import org.softauto.clazz.ClassInfo;
 import org.softauto.clazz.ClassInfoBuilder;
 import org.softauto.handlers.HandleReturnType;
-import org.softauto.espl.Espl;
+import org.softauto.spel.SpEL;
 import org.softauto.flow.*;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
@@ -23,6 +25,8 @@ import java.util.List;
 public class MethodTreeDiscovery implements IFlow {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     CallGraph cg ;
 
@@ -43,7 +47,7 @@ public class MethodTreeDiscovery implements IFlow {
     private List<String> evaluateList(List<String> beforeEvaluateList){
         List<String> afterEvaluateList = new ArrayList<>();
         for(String str : beforeEvaluateList){
-            Object o = Espl.getInstance().evaluate(str);
+            Object o = SpEL.getInstance().evaluate(str);
             if(o != null)
             afterEvaluateList.add(o.toString());
         }
@@ -60,20 +64,17 @@ public class MethodTreeDiscovery implements IFlow {
         FlowObject flowObject = null;
         try {
             SootMethod m = (SootMethod) o;
-            Espl.getInstance().addProperty("method",m);
+            SpEL.getInstance().addProperty("method",m);
 
             flowObject =  FlowBuilder.newBuilder().setStaticInitializer(m.isStaticInitializer()).setStatic(m.isStatic()).setConstructor(m.isConstructor()).setClassInfo(getClassInfo(m)).setCg(cg).setName(m.getName()).setClazz(m.getDeclaringClass().getName()).setMethod(m).build().getFlowObject();
-            //flowObject.setEntity(HandleEntity.isEntity(m.getDeclaringClass().getName()));
-            //if(Configuration.has("unbox_return_type") && Configuration.get("unbox_return_type").asList().contains(m.getReturnType().toString())) {
             List<String> tags = null;
             if(m.hasTag(ParamNamesTag.NAME)){
                 tags = ((ParamNamesTag) m.getTag(ParamNamesTag.NAME)).getInfo();
-                //tags = m.getTag(ParamNamesTag.NAME);
             }
             List<String> unboxList = Configuration.has(Context.UNBOX_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_RETURN_TYPE).asList()): null;
             List<String> unboxExcludeList = Configuration.has(Context.UNBOX_EXCLUDE_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_EXCLUDE_RETURN_TYPE).asList()): null;
             if(unboxList.contains(m.getReturnType().toString())) {
-                //String returnType = new HandleReturnType().setTags(tags).setExcludeResponseObject(unboxExcludeList).setResponseObject(m.getReturnType().toString()).setText(cg.iterator().next().getSrc().method().getActiveBody().toString()).parser();
+
                 String returnType = new HandleReturnType().setBody(cg.iterator().next().getSrc().method().getActiveBody()).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList).parser(m.getReturnType().toString());
                 if (returnType != null) {
                     if (returnType.contains("$")) {
@@ -82,17 +83,12 @@ public class MethodTreeDiscovery implements IFlow {
                     flowObject.setReturnType(returnType);
                 }
             }
-
-            //HandleEntityCrud1 handleEntityCrud = new HandleEntityCrud1().setCg(cg).build();
-            //flowObject.setCrudToSubject(handleEntityCrud.getCrudToEntity());
-
-
             List<Integer> use = new ArrayList<>();
             buildTree(m,cg,flowObject,use);
             flowObject.setArgsname(getArgsName(m));
-            logger.debug("build object flow for " + ((SootMethod) o).getName() );
+            logger.debug(JDRY,"build object flow for " + ((SootMethod) o).getName() );
         } catch (Exception e) {
-           logger.error("fail build object flow for "+o.getClass().getTypeName());
+           logger.error(JDRY,"fail build object flow for "+o.getClass().getTypeName());
         }
         return flowObject;
     }
@@ -119,7 +115,6 @@ public class MethodTreeDiscovery implements IFlow {
                         use.add(method.getNumber());
                         FlowObject flowObject1 = FlowBuilder.newBuilder().setClassInfo(getClassInfo(sootMethod)).setCg(cg).setName(method.getName()).setClazz(method.getDeclaringClass().getName()).setMethod(method).build().getFlowObject();
                         flowObject1.setArgsname(getArgsName(method));
-                        //flowObject.setEntity(HandleEntity.isEntity(method.getDeclaringClass().getName()));
                         buildTree(method, cg, flowObject1, use);
                         if (flowObject1.getName().equals("<init>")) {
                             flowObject1.setReturnType(flowObject1.getClazz());
@@ -130,10 +125,10 @@ public class MethodTreeDiscovery implements IFlow {
                     }
                 }
                 flowObject.setArgsname(getArgsName(flowObject.getMethod()));
-                logger.debug("successfully build CallGraph for " + sootMethod.getName());
+                logger.debug(JDRY,"successfully build CallGraph for " + sootMethod.getName());
             }
         } catch (Exception e) {
-            logger.error("fail build method CallGraph for "+ sootMethod.getName());
+            logger.error(JDRY,"fail build method CallGraph for "+ sootMethod.getName());
         }
         return flowObject;
     }
@@ -194,11 +189,10 @@ public class MethodTreeDiscovery implements IFlow {
                     .setStatic(sootClass.isStatic())
                     .setInnerClass(sootClass.isInnerClass())
                     .setHasParameters(hasParameters)
-                    //.setEntity(HandleEntity.isEntity(sootClass.getName()))
                     .build()
                     .getClassInfo();
         } catch (Exception e) {
-           logger.error("fail geting class info ",e.getMessage());
+           logger.error(JDRY,"fail geting class info ",e.getMessage());
         }
         return null;
     }
@@ -213,9 +207,9 @@ public class MethodTreeDiscovery implements IFlow {
                     sootMethods.add(tgt);
                 }
             }
-            logger.debug("successfully got childes for " + sootMethod);
+            logger.debug(JDRY,"successfully got childes for " + sootMethod);
         } catch (Exception e) {
-            logger.error("fail childes discovery for "+sootMethod,e.getMessage() );
+            logger.error(JDRY,"fail childes discovery for "+sootMethod,e.getMessage() );
         }
         return sootMethods;
     }

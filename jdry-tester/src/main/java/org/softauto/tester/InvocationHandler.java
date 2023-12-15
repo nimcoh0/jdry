@@ -1,6 +1,6 @@
 package org.softauto.tester;
 
-import org.apache.avro.ipc.CallFuture;
+import org.softauto.core.CallFuture;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.Configuration;
@@ -20,12 +20,12 @@ public class InvocationHandler {
 
     private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
-    public  void invoke(String methodName, Object[] args, Class[] types, CallFuture callback, String transceiver)  {
+    public <T> void invoke(String methodName, Object[] args, Class[] types, org.softauto.core.Callback<T> callback, String transceiver)  {
         try {
             Provider provider = ProviderManager.provider(transceiver).create();
             logger.debug(JDRY,"invoke method " + methodName+ " using protocol "+ transceiver);
             provider.exec( methodName, callback,null,args,types,null,SystemState.getInstance().getScenarioId());
-            logger.debug(JDRY,"callback value  get error "+callback.getError());
+            //logger.debug(JDRY,"callback value  get error "+callback.getError());
         } catch (Throwable e) {
             logger.error(JDRY,"fail invoke method "+ methodName+ " with args "+ Arrays.toString(args),e);
         }
@@ -34,7 +34,7 @@ public class InvocationHandler {
 
 
 
-    public  void invoke(String methodName, Object[] args, Class[] types, org.apache.avro.ipc.Callback callback, String transceiver, HashMap<String,Object> callOptions)  {
+    public <T> void invoke(String methodName, Object[] args, Class[] types, org.softauto.core.Callback<T> callback, String transceiver, HashMap<String,Object> callOptions)  {
         try {
             Provider provider = ProviderManager.provider(transceiver).create();
             logger.debug(JDRY,"invoke method " + methodName+ " using protocol "+ transceiver);

@@ -3,6 +3,8 @@ package org.softauto.handlers.annotations;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.utils.Multimap;
 import soot.tagkit.*;
 
@@ -12,6 +14,8 @@ import java.util.*;
 public class HandleAnnotations {
 
     private static Logger logger = LogManager.getLogger(HandleAnnotations.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     List<Tag> tags;
 
@@ -85,7 +89,7 @@ public class HandleAnnotations {
                     }
             }
         } catch (Exception e) {
-            logger.error("fail build annotations ",e.getMessage());
+            logger.error(JDRY,"fail build annotations ",e.getMessage());
         }
         return annotations.getMap();
     }
@@ -181,7 +185,7 @@ public class HandleAnnotations {
             }
 
         } catch (Exception e) {
-            logger.error("fail resolve "+ annotationElem.getName(),e.getMessage());
+            logger.error(JDRY,"fail resolve "+ annotationElem.getName(),e.getMessage());
         }
         return hm;
     }

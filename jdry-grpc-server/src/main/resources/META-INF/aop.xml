@@ -1,8 +1,8 @@
 <aspectj>
     <aspects>
         <aspect name="org.softauto.listener.impl.Listener"/>
-        <aspect name="org.softauto.listener.impl.ExternalListener"/>
-        <aspect name="org.softauto.logger.Tracer"/>
+        <!--aspect name="org.softauto.listener.impl.ExternalListener"/-->
+        <!--aspect name="org.softauto.logger.Tracer"/-->
         <weaver options="-verbose "/>
 
     </aspects>

@@ -42,10 +42,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -76,10 +76,10 @@
           "final" : false,
           "abstract" : false,
           "private" : false,
-          "applicationClass" : true,
-          "libraryClass" : false,
           "innerClass" : false,
-          "javaLibraryClass" : false
+          "javaLibraryClass" : false,
+          "applicationClass" : true,
+          "libraryClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -122,10 +122,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -155,10 +155,10 @@
           "final" : false,
           "abstract" : false,
           "private" : false,
-          "applicationClass" : true,
-          "libraryClass" : false,
           "innerClass" : false,
-          "javaLibraryClass" : false
+          "javaLibraryClass" : false,
+          "applicationClass" : true,
+          "libraryClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -201,10 +201,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -234,10 +234,10 @@
           "final" : false,
           "abstract" : false,
           "private" : false,
-          "applicationClass" : true,
-          "libraryClass" : false,
           "innerClass" : false,
-          "javaLibraryClass" : false
+          "javaLibraryClass" : false,
+          "applicationClass" : true,
+          "libraryClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -271,10 +271,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -306,10 +306,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -341,10 +341,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -373,9 +373,9 @@
       },
       "parametersTypes" : [ "com.cassiomolin.example.security.jwt.model.UserCredentials" ],
       "argumentsNames" : [ "credentials" ],
-      "id" : 17037,
+      "id" : 17030,
       "type" : "method",
-      "returnType" : "java.lang.String",
+      "returnType" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
       "classInfo" : {
         "hasParameters" : true,
         "entity" : false,
@@ -387,10 +387,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -418,7 +418,7 @@
       },
       "parametersTypes" : [ ],
       "argumentsNames" : [ ],
-      "id" : 17038,
+      "id" : 17031,
       "type" : "method",
       "returnType" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
       "classInfo" : {
@@ -432,10 +432,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -463,7 +463,7 @@
       },
       "parametersTypes" : [ ],
       "argumentsNames" : [ ],
-      "id" : 17060,
+      "id" : 17053,
       "type" : "method",
       "returnType" : "java.util.List",
       "classInfo" : {
@@ -477,10 +477,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -517,7 +517,7 @@
       },
       "parametersTypes" : [ "java.lang.Long" ],
       "argumentsNames" : [ "userId" ],
-      "id" : 17061,
+      "id" : 17054,
       "type" : "method",
       "returnType" : "com.cassiomolin.example.user.api.model.QueryPersonResult",
       "classInfo" : {
@@ -531,10 +531,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -563,9 +563,9 @@
       },
       "parametersTypes" : [ ],
       "argumentsNames" : [ ],
-      "id" : 17062,
+      "id" : 17055,
       "type" : "method",
-      "returnType" : "com.cassiomolin.example.user.api.model.QueryPersonResult",
+      "returnType" : "java.util.HashSet",
       "classInfo" : {
         "hasParameters" : false,
         "entity" : false,
@@ -577,10 +577,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -607,7 +607,7 @@
       },
       "parametersTypes" : [ "java.lang.String" ],
       "argumentsNames" : [ "name" ],
-      "id" : 16886,
+      "id" : 16931,
       "type" : "method",
       "returnType" : "java.lang.String",
       "classInfo" : {
@@ -621,10 +621,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -651,7 +651,7 @@
       },
       "parametersTypes" : [ "java.lang.String" ],
       "argumentsNames" : [ "name" ],
-      "id" : 16887,
+      "id" : 16932,
       "type" : "method",
       "returnType" : "java.lang.String",
       "classInfo" : {
@@ -665,10 +665,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -695,7 +695,7 @@
       },
       "parametersTypes" : [ "java.lang.String" ],
       "argumentsNames" : [ "name" ],
-      "id" : 16888,
+      "id" : 16933,
       "type" : "method",
       "returnType" : "java.lang.String",
       "classInfo" : {
@@ -709,10 +709,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "applicationClass" : true,
-        "libraryClass" : false,
         "innerClass" : false,
-        "javaLibraryClass" : false
+        "javaLibraryClass" : false,
+        "applicationClass" : true,
+        "libraryClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]

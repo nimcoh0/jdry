@@ -19,9 +19,6 @@ public class ScenarioContext {
 
     private List<String> listeners = new ArrayList<>();
 
-    //private List<Listener> listeners = new ArrayList<>();
-
-
     private HashMap<String,Object> configuration = new HashMap<>();
 
     private String id;

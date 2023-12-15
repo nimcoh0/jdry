@@ -1,7 +1,7 @@
 package org.softauto.handlers;
 
 import org.softauto.core.Configuration;
-import org.softauto.espl.Espl;
+import org.softauto.spel.SpEL;
 import soot.*;
 import soot.jimple.internal.*;
 
@@ -41,7 +41,7 @@ public class HandleReturnType {
     private boolean isModel(Type type){
         if(Configuration.has("entity_identify")){
            String schema =  Configuration.get("entity_identify").asString();
-            return (Boolean)Espl.getInstance().addProperty("type",type).evaluate(schema);
+            return (Boolean) SpEL.getInstance().addProperty("type",type).evaluate(schema);
         }
         return false;
     }
@@ -66,9 +66,7 @@ public class HandleReturnType {
                             }
                         }
                     }
-                }//else if (valueBox.getValue() instanceof FieldRef) {
-                  ///  return  ((FieldRef) valueBox.getValue()).getFieldRef().name();
-               // }
+                }
             }
         }
         return responseObject;

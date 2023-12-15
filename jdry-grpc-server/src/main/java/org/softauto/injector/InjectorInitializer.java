@@ -3,8 +3,9 @@ package org.softauto.injector;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.Configuration;
-//import org.softauto.injector.jvm.HeapHelperInitializer;
 import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FileReader;
@@ -19,6 +20,7 @@ public class InjectorInitializer {
 
     Injector injector = null;
     private static final Logger logger = LogManager.getLogger(InjectorInitializer.class);
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
     private static InjectorInitializer injectorProviderImpl = null;
     public ObjectMapper objectMapper = null;
     Yaml yaml = new Yaml();
@@ -40,24 +42,20 @@ public class InjectorInitializer {
     public InjectorInitializer initialize() throws IOException {
         try {
                 loadConfiguration();
-                //HeapHelperInitializer.getInstance().initialize();
                 injector = new Injector();
-                logger.info("Injector successfully initialize");
+                logger.info(JDRY,"Injector successfully initialize");
         }catch (Throwable e){
-            logger.fatal("fail to load injector ", e);
-            System.exit(1);
+            logger.fatal(JDRY,"fail to load injector ", e);
         }
         return this;
     }
     public InjectorInitializer initialize(HashMap<String, Object> map) throws IOException {
         try {
             loadConfiguration(map);
-            //HeapHelperInitializer.getInstance().initialize();
             injector = new Injector();
-            logger.info("Injector successfully initialize");
+            logger.info(JDRY,"Injector successfully initialize");
         }catch (Throwable e){
-            logger.fatal("fail to load injector ", e);
-            System.exit(1);
+            logger.fatal(JDRY,"fail to load injector ", e);
         }
         return this;
     }
@@ -67,14 +65,13 @@ public class InjectorInitializer {
         try {
             if(new File(System.getProperty("user.dir")+ "/Configuration.yaml").isFile()) {
                 HashMap<String, Object> map = (HashMap<String, Object>) yaml.load(new FileReader(System.getProperty("user.dir") + "/Configuration.yaml"));
-                //JsonNode userConfiguration = objectMapper.readTree(new File(System.getProperty("user.dir") + "/Configuration.yaml"));
                 HashMap<String,Object> defaultConfiguration = Configuration.getConfiguration();
                 defaultConfiguration.putAll(map);
                 Configuration.setConfiguration(defaultConfiguration);
             }
-            logger.debug("configuration load successfully " + Configuration.getConfiguration());
+            logger.debug(JDRY,"configuration load successfully " + Configuration.getConfiguration());
         }catch(Exception e){
-            logger.error("fail load listener configuration ",e);
+            logger.error(JDRY,"fail load listener configuration ",e);
         }
         return this;
     }
@@ -84,9 +81,9 @@ public class InjectorInitializer {
             HashMap<String,Object> defaultConfiguration = Configuration.getConfiguration();
             defaultConfiguration.putAll(map);
             Configuration.setConfiguration(defaultConfiguration);
-            logger.debug("configuration load successfully " + Configuration.getConfiguration());
+            logger.debug(JDRY,"configuration load successfully " + Configuration.getConfiguration());
         }catch(Exception e){
-            logger.error("fail load listener configuration ",e);
+            logger.error(JDRY,"fail load listener configuration ",e);
         }
         return this;
     }

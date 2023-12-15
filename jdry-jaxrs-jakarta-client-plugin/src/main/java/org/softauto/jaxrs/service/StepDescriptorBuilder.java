@@ -89,14 +89,9 @@ public class StepDescriptorBuilder {
         public StepDescriptorBuilder build(){
             stepDescriptor.setCallOptions(callOptions);
             stepDescriptor.setArgs(args);
-            //stepDescriptor.setConfiguration(configuration);
             stepDescriptor.setFullMethodName(name);
             stepDescriptor.setTypes(types);
             stepDescriptor.setScenarioId(scenarioId);
-            //stepDescriptor.setItem(item);
-            //stepDescriptor.setTest(test);
-
-
             return new StepDescriptorBuilder(stepDescriptor.build());
         }
     }

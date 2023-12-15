@@ -2,6 +2,8 @@ package org.softauto.analyzer.core.system.config;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import java.util.*;
 
@@ -12,6 +14,8 @@ import java.util.*;
 public class Configuration {
 
     private static Logger logger = LogManager.getLogger(Configuration.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
     static HashMap<String,Object> configuration = new HashMap<>();
     Object result;
 
@@ -27,7 +31,7 @@ public class Configuration {
         try {
             Configuration.configuration = configuration;
         }catch (Exception e){
-            logger.error("fail update configuration ", e);
+            logger.error(JDRY,"fail update configuration ", e);
         }
     }
 
@@ -53,21 +57,6 @@ public class Configuration {
         }
         return null;
     }
-
-    /*
-    public <T>  LinkedList<T> asLinkedList(){
-        if(result !=null) {
-            LinkedList<Object> l = new LinkedList();
-            if (result instanceof LinkedList) {
-                return (LinkedList<T>) result;
-            }
-            l.add(result);
-            return (LinkedList<T>) l;
-        }
-        return null;
-    }
-
-     */
 
     public HashMap<String,Object> asMap(){
         if(result !=null && result instanceof Map){
@@ -99,7 +88,7 @@ public class Configuration {
                 return  new Configuration(configuration.get(key));
             }
         }catch (Exception e){
-            logger.error("",e);
+            logger.error(JDRY,"",e);
         }
         return  new Configuration(null);
     }
@@ -110,24 +99,11 @@ public class Configuration {
                 return  true;
             }
         }catch (Exception e){
-            logger.error("",e);
+            logger.error(JDRY,"",e);
         }
         return  false;
     }
 
-    /*
-    public  static <T> T get(String key){
-        try {
-            if (configuration.containsKey(key)) {
-               return  (T)configuration.get(key) ;
-            }
-        }catch (Exception e){
-            logger.error(e);
-        }
-        return null;
-    }
-
-     */
 
 
     public static void put(String key,Object value){
@@ -142,7 +118,7 @@ public class Configuration {
                 }
             }
         }catch (Exception e){
-            logger.error("",e);
+            logger.error(JDRY,"",e);
         }
         return  false;
     }
@@ -156,7 +132,7 @@ public class Configuration {
             }
 
         }catch (Exception e){
-            logger.error("",e);
+            logger.error(JDRY,"",e);
         }
         return null;
     }
@@ -170,7 +146,7 @@ public class Configuration {
             }
 
         }catch (Exception e){
-            logger.error("",e);
+            logger.error(JDRY,"",e);
         }
         return null;
     }
@@ -185,7 +161,7 @@ public class Configuration {
             }
 
         }catch (Exception e){
-            logger.error("",e);
+            logger.error(JDRY,"",e);
         }
         return o;
     }

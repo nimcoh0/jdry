@@ -1,6 +1,8 @@
 package org.softauto.plugin;
 
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.plugin.api.Provider;
 import org.softauto.plugin.spi.PluginProvider;
 import java.util.*;
@@ -11,6 +13,8 @@ import java.util.*;
 public class ProviderManager {
 
     private static org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ProviderManager.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
 
     /**
@@ -23,11 +27,11 @@ public class ProviderManager {
             ServiceLoader<PluginProvider> loader = ServiceLoader.load(PluginProvider.class, ProviderManager.class.getClassLoader());
             loader.forEach(provider -> {
                     services.add(provider);
-                    logger.debug("found plugin " + provider.getName());
+                    logger.debug(JDRY,"found plugin " + provider.getName());
             });
-            logger.debug("found " + services.size() + " plugins");
+            logger.debug(JDRY,"found " + services.size() + " plugins");
         }catch (Exception e){
-            logger.error("fail get providers ",e);
+            logger.error(JDRY,"fail get providers ",e);
         }
         return services;
     }
@@ -47,13 +51,13 @@ public class ProviderManager {
             while (it.hasNext()) {
                 PluginProvider provider = it.next();
                 if (providerName.equals(provider.getName())) {
-                    logger.debug("found plugin " + provider.getName());
+                    logger.debug(JDRY,"found plugin " + provider.getName());
                     return provider;
                 }
             }
-            logger.warn("provider " + providerName + " not found");
+            logger.warn(JDRY,"provider " + providerName + " not found");
         }catch (Exception e){
-            logger.error("provider " + providerName + " not found",e);
+            logger.error(JDRY,"provider " + providerName + " not found",e);
         }
         return null;
     }
@@ -70,9 +74,9 @@ public class ProviderManager {
             for (PluginProvider p : pluginProviders) {
                     providers.add(p.create());
             }
-            logger.debug("found " + providers.size() + " providers " + Arrays.toString(providers.toArray()));
+            logger.debug(JDRY,"found " + providers.size() + " providers " + Arrays.toString(providers.toArray()));
         }catch (Exception e){
-            logger.error("fail getting provider list ",e);
+            logger.error(JDRY,"fail getting provider list ",e);
         }
         return providers;
     }

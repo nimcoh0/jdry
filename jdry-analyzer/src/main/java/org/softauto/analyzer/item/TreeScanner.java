@@ -4,6 +4,8 @@ package org.softauto.analyzer.item;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.base.tree.BaseScanner;
 import org.softauto.analyzer.base.tree.BaseTree;
 import org.softauto.analyzer.core.dao.api.ApiDataProvider;
@@ -18,6 +20,8 @@ import java.util.List;
 public class TreeScanner {
 
     private static Logger logger = LogManager.getLogger(TreeScanner.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     List<GenericItem> trees;
 
@@ -41,15 +45,15 @@ public class TreeScanner {
         trees = apiDataProvider.getTrees();
         List<GenericItem> steps = new ArrayList<>();
         List<GenericItem> listeners = new ArrayList<>();
-        logger.debug("number of trees to analyze  " + trees.size());
+        logger.debug(JDRY,"number of trees to analyze  " + trees.size());
         for (GenericItem tree : trees) {
-            logger.debug(" ----------- analyze  tree " + tree.getName() + " -------------------");
+            logger.debug(JDRY," ----------- analyze  tree " + tree.getName() + " -------------------");
             if (tree.getType().equals("method") || tree.getType().equals("listener"))
                 new TreeImpl().walkOnTree(tree, new TreeVisitor() {
 
                     @Override
                     public Item visitBase(GenericItem tree) {
-                        logger.debug(" ***** analyze  meta phase for " + tree.getName() + " ***** ");
+                        logger.debug(JDRY," ***** analyze  meta phase for " + tree.getName() + " ***** ");
                         new BaseTree.Item().accept(new BaseScanner(), tree, null, null);
                         if(tree.getType().equals("method")){
                             steps.add(tree);

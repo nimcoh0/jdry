@@ -1,7 +1,7 @@
 package org.softauto.service;
 
 
-import org.apache.avro.ipc.Callback;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
@@ -65,9 +65,13 @@ public class JdryClient {
 
                 GenericItem tree = JdryUtils.getStep(method,analyze);
                 if(tree.getType().equals("method")){
-                   return invokeStep(tree,method,args);
+                   TestContext.put("step_name",method.getName());
+                   TestContext.setStepState(StepLifeCycle.START);
+                   Object r =  invokeStep(tree,method,args);
+                   return r;
                 }
                 if(tree.getType().equals("listener")){
+                    TestContext.put("listener_name",method.getName());
                     return invokeListener(tree,method,args);
                 }
             } catch (Exception e) {
@@ -93,10 +97,8 @@ public class JdryClient {
                                 args = new Object[]{};
                             }
                             logger.debug(JDRY,"invoke method " + method.getName() + " with args " + Arrays.toString(args));
-                            if (TestContext.getStepState().equals(StepLifeCycle.START)) {
-                                Object r =  invokeUnaryMethod(method, args);
-                                TestContext.setStepState(StepLifeCycle.STOP);
-                                return r;
+                            if (TestContext.getScenario().getState().equals(ScenarioLifeCycle.START.name())) {
+                                return  invokeUnaryMethod(method, args);
                             } else {
                                 TestContext.setStepState(StepLifeCycle.SKIP);
                                 logger.debug(JDRY,"step skip due test status  " + TestContext.getScenario().getState() + " on " + TestContext.getScenario().getProperty("method"));
@@ -111,13 +113,13 @@ public class JdryClient {
         private Object invokeUnaryMethod(Method method, Object[] args) throws Exception {
             Type[] parameterTypes = method.getParameterTypes();
             if ((parameterTypes.length > 0) && (parameterTypes[parameterTypes.length - 1] instanceof Class)
-                    && org.apache.avro.ipc.CallFuture.class.isAssignableFrom(((Class<?>) parameterTypes[parameterTypes.length - 1]))) {
+                    && org.softauto.core.CallFuture.class.isAssignableFrom(((Class<?>) parameterTypes[parameterTypes.length - 1]))) {
                 Type[] finalTypes = Arrays.copyOf(parameterTypes, parameterTypes.length - 1);
                 // get the callback argument from the end
                 Level level = Level.DEBUG;
                 logger.log(level,JDRY,"invoke sync request :" + method.getName() +" transceiver: "+ transceiver+ " callOptions: "+callOptions);
                 Object[] finalArgs = Arrays.copyOf(args, args.length - 1);
-                Callback<Object> callback = (Callback<Object>) args[args.length - 1];
+                org.softauto.core.Callback<Object> callback = (org.softauto.core.Callback<Object>) args[args.length - 1];
                 Class[] classList  = Arrays.stream(finalTypes).map(t -> (Class)t).collect(Collectors.toList()).toArray(new Class[1]);
                 return  new Step(method.getName(), finalArgs, classList, transceiver, callOptions,callback);
             } else {
@@ -126,5 +128,7 @@ public class JdryClient {
                 return new Step(method.getName(), args, method.getParameterTypes(), transceiver, callOptions);
             }
         }
+
+
     }
 }

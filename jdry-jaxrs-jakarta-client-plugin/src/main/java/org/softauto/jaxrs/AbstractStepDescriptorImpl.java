@@ -1,6 +1,8 @@
 package org.softauto.jaxrs;
 
 import jakarta.ws.rs.core.MediaType;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.TestContext;
 import org.softauto.core.Utils;
 import org.softauto.jaxrs.service.ChannelDescriptor;
@@ -14,6 +16,8 @@ import java.util.Map;
 public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(AbstractStepDescriptorImpl.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     /**
      * additional data for call operation
@@ -162,10 +166,10 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
                 method = new RestService.DELETEMethodHandler();
             }else
             {
-                logger.error("no method found ");
+                logger.error(JDRY,"no method found ");
             }
         } catch (Exception e) {
-            logger.error("fail getting method ",e);
+            logger.error(JDRY,"fail getting method ",e);
         }
         return method;
     }

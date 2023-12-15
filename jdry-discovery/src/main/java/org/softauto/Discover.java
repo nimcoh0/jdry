@@ -3,6 +3,8 @@ package org.softauto;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.config.Context;
 import org.softauto.core.Configuration;
 import org.softauto.discovery.Discovery;
@@ -13,6 +15,8 @@ public class Discover {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
 
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     public Discover(String...args){
         initialize(args);
         JsonNode discovery = new Discovery().discover().getDiscovery();
@@ -22,9 +26,9 @@ public class Discover {
             }else {
                 Util.save(discovery);
             }
-            logger.debug("discovery finish successfully");
+            logger.debug(JDRY,"discovery finish successfully");
         }else {
-            logger.error("discovery fail no items found ");
+            logger.error(JDRY,"discovery fail no items found ");
         }
     }
 
@@ -42,7 +46,7 @@ public class Discover {
             }
             initializeArgs(args);
         }catch (Exception e){
-           logger.error("initialize discovery fail ",e.getMessage());
+           logger.error(JDRY,"initialize discovery fail ",e.getMessage());
         }
     }
 

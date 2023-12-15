@@ -3,10 +3,12 @@ package org.softauto.serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.grpc.*;
+import org.apache.avro.ipc.Callback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+//import org.softauto.core.Callback;
 import org.softauto.serializer.grpc.AvroGrpcClient;
 import org.softauto.serializer.service.Message;
 import org.softauto.serializer.service.SerializerService;
@@ -82,7 +84,7 @@ public class Serializer {
 
 
 
-    public <RespT> void write(Message message,org.apache.avro.ipc.Callback<RespT> callback) throws Exception {
+    public <RespT> void write(Message message, Callback<RespT> callback) throws Exception {
         try {
             if(connectivityState.equals(ConnectivityState.READY) || connectivityState.equals(ConnectivityState.IDLE)) {
                 byte[] m = new ObjectMapper().writeValueAsBytes(message);

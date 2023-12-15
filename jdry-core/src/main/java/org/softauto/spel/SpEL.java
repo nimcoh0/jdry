@@ -1,4 +1,4 @@
-package org.softauto.espl;
+package org.softauto.spel;
 
 
 import org.softauto.core.Multimap;
@@ -9,31 +9,23 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Espl {
+public class SpEL {
 
     StandardEvaluationContext  itemContext = new StandardEvaluationContext();
     ExpressionParser parser = new SpelExpressionParser();
-    private static Espl espl;
+    private static SpEL spEL;
     Multimap publish;
 
-    public static Espl getInstance(){
-        if(espl == null){
-            espl = new Espl();
+    public static SpEL getInstance(){
+        if(spEL == null){
+            spEL = new SpEL();
 
         }
-        return espl;
+        return spEL;
     }
 
-    private Espl(){
-        try {
-            itemContext.setVariable("exec", EsplFunctions.class.getDeclaredMethod("exec",String.class));
-            itemContext.setVariable("run", EsplFunctions.class.getDeclaredMethod("run",String.class,Object.class));
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public Espl setPublish(Multimap publish) {
+    public SpEL setPublish(Multimap publish) {
         this.publish = publish;
         return this;
     }
@@ -48,21 +40,21 @@ public class Espl {
 
 
 
-    public static Espl reset(){
-        return espl = new Espl();
+    public static SpEL reset(){
+        return spEL = new SpEL();
     }
 
-    public Espl addProperty(String key, Object value){
+    public SpEL addProperty(String key, Object value){
         itemContext.setVariable(key,value);
         return this;
     }
 
-    public Espl addProperties(Map<String,Object> map){
+    public SpEL addProperties(Map<String,Object> map){
         itemContext.setVariables(map);
         return this;
     }
 
-    public Espl addRootObject(Object o){
+    public SpEL addRootObject(Object o){
         itemContext.setRootObject(o);
         return this;
     }

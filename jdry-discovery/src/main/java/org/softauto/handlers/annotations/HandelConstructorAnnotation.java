@@ -3,6 +3,8 @@ package org.softauto.handlers.annotations;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.utils.Multimap;
 import soot.SootClass;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 public class HandelConstructorAnnotation {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     SootClass sootClass ;
 
@@ -37,9 +41,9 @@ public class HandelConstructorAnnotation {
                         annotations.putAll(hm);
                 }
             }
-            logger.debug("successfully analyze Constructor Annotation for " +sootClass.getName());
+            logger.debug(JDRY,"successfully analyze Constructor Annotation for " +sootClass.getName());
         } catch (Exception e) {
-            logger.error("fail analyze Constructor Annotation",e.getMessage());
+            logger.error(JDRY,"fail analyze Constructor Annotation",e.getMessage());
         }
         return annotations.getMap();
     }

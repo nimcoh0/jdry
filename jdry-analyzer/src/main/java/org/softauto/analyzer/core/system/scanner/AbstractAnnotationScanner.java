@@ -2,11 +2,16 @@ package org.softauto.analyzer.core.system.scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
 import java.util.*;
 
 public abstract class AbstractAnnotationScanner extends AnnotationHelper{
 
     private static Logger logger = LogManager.getLogger(AbstractAnnotationScanner.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public abstract AnnotationScanner scanner();
 

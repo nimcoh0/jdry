@@ -28,6 +28,11 @@ public class GreetingResource {
     @Inject
     private GreetingService greetingService;
 
+
+    //public GreetingResource(){
+      //  greetingService = new GreetingService();
+   // }
+
     @GET
     @Path("public")
     @Produces(MediaType.TEXT_PLAIN)

@@ -2,6 +2,8 @@ package org.softauto.model.field;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.handlers.annotations.HandleFieldAnnotation;
 import org.softauto.model.item.Item;
@@ -13,6 +15,8 @@ import java.util.HashMap;
 public class FieldFactory {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     Item item;
 
@@ -40,7 +44,7 @@ public class FieldFactory {
                     .build()
                     .getItem();
         } catch (Exception e) {
-            logger.error("fail build field item for "+ sootField.getName());
+            logger.error(JDRY,"fail build field item for "+ sootField.getName());
         }
         return this;
     }

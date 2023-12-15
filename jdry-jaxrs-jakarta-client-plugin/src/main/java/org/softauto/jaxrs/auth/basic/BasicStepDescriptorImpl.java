@@ -5,6 +5,8 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.Cookie;
 import jakarta.ws.rs.core.MultivaluedHashMap;
 import jakarta.ws.rs.core.MultivaluedMap;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
@@ -27,6 +29,8 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(BasicStepDescriptorImpl.class);
 
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     @Override
     public Cookie getCookie(){
         Cookie cookie = null;
@@ -34,9 +38,9 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
             if(TestContext.getScenario().getProperty("JSESSIONID") != null){
                 cookie = (Cookie) TestContext.getScenario().getProperty("JSESSIONID");
             }
-            logger.debug("successfully build cookie ");
+            logger.debug(JDRY,"successfully build cookie ");
         } catch (Exception e) {
-            logger.error("fail build cookie",e);
+            logger.error(JDRY,"fail build cookie",e);
         }
         return cookie;
     }
@@ -50,9 +54,9 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
             clientConfig.register(ResponseClientFilter.class);
             clientConfig.register(MultiPartFeature.class);
             client =  jakarta.ws.rs.client.ClientBuilder.newBuilder().withConfig(clientConfig).build();
-            logger.debug("successfully build client ");
+            logger.debug(JDRY,"successfully build client ");
         }catch (Exception e){
-            logger.error("fail build client ",e);
+            logger.error(JDRY,"fail build client ",e);
         }
         return client;
     }
@@ -82,9 +86,9 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
                     .setPort(port)
                     .build()
                     .getChannelDescriptor();
-            logger.debug("successfully build channel ");
+            logger.debug(JDRY,"successfully build channel ");
         } catch (Exception e) {
-            logger.error("fail build channel ",e);
+            logger.error(JDRY,"fail build channel ",e);
         }
         return channelDescriptor;
     }
@@ -111,9 +115,9 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
             if(callOptions != null && callOptions.containsKey("headers") && callOptions.get("headers") != null){
                 mm.putAll((javax.ws.rs.core.MultivaluedMap<String, Object>)callOptions.get("headers"));
             }
-            logger.debug("successfully build headers ");
+            logger.debug(JDRY,"successfully build headers ");
         } catch (Exception e) {
-            logger.error("fail build headers ",e);
+            logger.error(JDRY,"fail build headers ",e);
         }
         return mm;
     }
@@ -124,9 +128,9 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
         try {
             List<String> argumentsNames = (ArrayList)callOptions.get("argumentsNames");
             entity = (Entity<?>) EntityBuilder.newBuilder().setCallOptions(callOptions).setProduce(consume).setArgs(args).setArgsNames(argumentsNames).build().getEntity();
-            logger.debug("successfully build entity ");
+            logger.debug(JDRY,"successfully build entity ");
         } catch (Exception e) {
-            logger.error("fail build entity",e);
+            logger.error(JDRY,"fail build entity",e);
         }
         return entity;
     }

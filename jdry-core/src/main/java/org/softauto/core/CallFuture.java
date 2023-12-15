@@ -1,36 +1,12 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package org.softauto.core;
 
-//import org.apache.avro.ipc.Callback;
-
-//import java.util.concurrent.Future;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent.*;
 
 /**
  * A Future implementation for RPCs base on Avro.
  */
-public class CallFuture<T> implements Future<T> {
+public class CallFuture<T> implements Future<T>, Callback<T> {
   private final CountDownLatch latch = new CountDownLatch(1);
   private final Callback<T> chainedCallback;
   private T result = null;
@@ -40,7 +16,7 @@ public class CallFuture<T> implements Future<T> {
   private boolean succeeded= false;
   private boolean failed = false;
   private Throwable cause;
-  //private static final org.softauto.logger.Logger logger = org.softauto.logger.LogManager.getLogger(CallFuture.class);
+
 
   /**
    * Creates a CallFuture.
@@ -73,19 +49,21 @@ public class CallFuture<T> implements Future<T> {
   /**
    * Sets the RPC response, and unblocks all threads waiting on {@link #get()} or
    * {@link #get(long, TimeUnit)}.
-   * 
+   *
    * @param result the RPC result to set.
    */
 
-  public CallFuture handleResult(T result) {
+  public void handleResult(T result) {
     this.result = result;
     latch.countDown();
     if (chainedCallback != null) {
       chainedCallback.handleResult(result);
     }
     succeeded = true;
-    return this;
+    TestContext.setStepState(StepLifeCycle.STOP);
   }
+
+
 
   /**
    * Sets an error thrown during RPC execution, and unblocks all threads waiting
@@ -94,7 +72,7 @@ public class CallFuture<T> implements Future<T> {
    * @param error the RPC error to set.
    */
 
-  public CallFuture handleError(Throwable error) {
+  public void handleError(Throwable error) {
     this.error = error;
     latch.countDown();
     if (chainedCallback != null) {
@@ -102,7 +80,7 @@ public class CallFuture<T> implements Future<T> {
     }
     failed = true;
     cause = error;
-    return this;
+    TestContext.setStepState(StepLifeCycle.STOP);
   }
 
   public Object[] getArguments() {
@@ -196,33 +174,5 @@ public class CallFuture<T> implements Future<T> {
     return latch.getCount() <= 0;
   }
 
-  @Override
-  public T result() {
-    return result;
-  }
 
-  @Override
-  public Object[] arguments() {
-    return new Object[0];
-  }
-
-  @Override
-  public Class[] argumentsType() {
-    return new Class[0];
-  }
-
-  @Override
-  public Throwable cause() {
-    return cause;
-  }
-
-  @Override
-  public boolean succeeded() {
-    return succeeded;
-  }
-
-  @Override
-  public boolean failed() {
-    return failed;
-  }
 }

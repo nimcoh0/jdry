@@ -5,13 +5,13 @@
  */
 package org.softauto.tester;
 
-import org.apache.avro.ipc.CallFuture;
+import org.softauto.core.CallFuture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.*;
-import org.softauto.espl.Espl;
+import org.softauto.spel.SpEL;
 import org.softauto.plugin.ProviderManager;
 import org.softauto.plugin.api.Provider;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class Step implements IStep{
     CallFuture<Object> future = null;
     protected HashMap<String,Object> callOptions = null;
     private static final Marker JDRY = MarkerManager.getMarker("JDRY");
-    org.apache.avro.ipc.Callback<Object> callback;
+    org.softauto.core.Callback<Object> callback;
 
     /**
      * step result
@@ -63,26 +63,26 @@ public class Step implements IStep{
      */
     boolean state;
 
-    public <T> void isSuccesses(Handler<AsyncResult<T>> resultHandler){
+    public <T> void isSuccesses(Handler<T> resultHandler){
             try {
-                resultHandler.handle(Future.handleResult((T) result));
+                resultHandler.handle((T) result);
             } catch (Exception e) {
                 logger.error(JDRY,"fail handle step success",e);
             }
     }
 
     public boolean isSuccesses(){
-        Object o = Espl.getInstance().addProperty("result",result).evaluate(expected.toString());
+        Object o = SpEL.getInstance().addProperty("result",result).evaluate(expected.toString());
         if(o != null && o instanceof Boolean){
             return true;
         }
       return false;
     }
 
-    public <T> boolean isFail(Handler<AsyncResult<T>> resultHandler){
+    public <T> boolean isFail(Handler<T> resultHandler){
         if(!state){
             try {
-                resultHandler.handle(Future.handleResult((T) result));
+                resultHandler.handle((T) result);
             } catch (Exception e) {
                 logger.error(JDRY,"fail handle step fail",e);
             }
@@ -91,7 +91,7 @@ public class Step implements IStep{
     }
 
     public boolean isFail(){
-        Object o = Espl.getInstance().addProperty("result",result).evaluate(expected.toString());
+        Object o = SpEL.getInstance().addProperty("result",result).evaluate(expected.toString());
         if(o == null ){
             return true;
         }
@@ -157,22 +157,22 @@ public class Step implements IStep{
 
 
     public Step(String fqmn, Object[] args, Class[] types, String transceiver, HashMap<String, Object> callOptions,String scenarioId)throws Exception{
-        future = new CallFuture<>();
+        future = new CallFuture<Object>();
         logger.debug(JDRY,"invoking " +fqmn);
         callOptions.put("scenarioId",scenarioId);
-        new InvocationHandler().invoke(fqmn,args,types,future,transceiver,callOptions);
+        new InvocationHandler().invoke(fqmn,args,types,(org.softauto.core.Callback)future,transceiver,callOptions);
     }
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,String scenarioId, CallFuture<T> future)throws Exception{
 
             logger.debug(JDRY,"invoking " + fqmn);
             callOptions.put("scenarioId", scenarioId);
-            new InvocationHandler().invoke(fqmn, args, types, future, transceiver, callOptions);
+            new InvocationHandler().invoke(fqmn, args, types, (org.softauto.core.Callback)future, transceiver, callOptions);
 
     }
 
 
-    public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,org.apache.avro.ipc.Callback<Object> future)throws Exception{
+    public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions,org.softauto.core.Callback<Object> future)throws Exception{
 
             logger.debug(JDRY,"invoking " + fqmn);
             this.fqmn = fqmn;
@@ -184,6 +184,9 @@ public class Step implements IStep{
 
 
     }
+
+
+
 
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver,HashMap<String, Object> callOptions)throws Exception{
 
@@ -199,6 +202,7 @@ public class Step implements IStep{
     public <RespT> Step invoke() throws Exception {
         if (this.callback == null) {
             result = new InvocationHandler().invoke(fqmn, args, types, transceiver, callOptions);
+            TestContext.setStepState(StepLifeCycle.STOP);
         } else {
             new InvocationHandler().invoke(fqmn, args, types, callback, transceiver, callOptions);
         }
@@ -226,7 +230,7 @@ public class Step implements IStep{
             future = new CallFuture<>();
             logger.debug(JDRY,"invoking " + fqmn);
             callOptions.getOptions().put("scenarioId", scenarioId);
-            new InvocationHandler().invoke(fqmn, args, types, future, transceiver, callOptions.getOptions());
+            new InvocationHandler().invoke(fqmn, args, types, (org.softauto.core.Callback)future, transceiver, callOptions.getOptions());
 
     }
 
@@ -234,7 +238,7 @@ public class Step implements IStep{
 
             future = new CallFuture<>();
             logger.debug(JDRY,"invoking " + fqmn);
-            new InvocationHandler().invoke(fqmn, args, types, future, transceiver, callOptions.getOptions());
+            new InvocationHandler().invoke(fqmn, args, types, (org.softauto.core.Callback)future, transceiver, callOptions.getOptions());
 
     }
 
@@ -243,7 +247,7 @@ public class Step implements IStep{
 
             this.future = new CallFuture();
             logger.debug(JDRY,"invoking " + fqmn);
-            (new InvocationHandler()).invoke(fqmn, args, types, this.future, transceiver);
+            (new InvocationHandler()).invoke(fqmn, args, types, (org.softauto.core.Callback)future, transceiver);
 
     }
 
@@ -251,7 +255,7 @@ public class Step implements IStep{
     public <T> Step(String fqmn, Object[] args, Class[] types, String transceiver, CallFuture<T> future)throws Exception{
 
             logger.debug(JDRY,"invoking " + fqmn);
-            new InvocationHandler().invoke(fqmn, args, types, future, transceiver);
+            new InvocationHandler().invoke(fqmn, args, types, (org.softauto.core.Callback)future, transceiver);
 
     }
 
@@ -268,7 +272,7 @@ public class Step implements IStep{
 
 
         public void then(String expression)throws Exception{
-            Object result = Espl.getInstance().evaluate(expression);
+            Object result = SpEL.getInstance().evaluate(expression);
             future.handleResult(result);
         }
 

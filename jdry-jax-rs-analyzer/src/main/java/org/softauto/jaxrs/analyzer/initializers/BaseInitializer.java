@@ -2,6 +2,8 @@ package org.softauto.jaxrs.analyzer.initializers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.core.system.plugin.api.Provider;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.analyzer.core.utils.Analyzer;
@@ -14,6 +16,8 @@ import java.util.*;
 public class BaseInitializer implements Analyzer {
 
     private static Logger logger = LogManager.getLogger(BaseInitializer.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     static GenericItem tree;
 
@@ -42,16 +46,15 @@ public class BaseInitializer implements Analyzer {
                                 .getCallOption();
                         callOption.put("argumentsNames", tree.getArgumentsNames());
                         callOption.put("protocol", "JAXRS");
-                        //callOption.put("argumentsRequestType", tree.getParametersTypes());
                         HashMap<String, Object> argumentsRequestType = HandleRequestType.setTree(tree).build().getArgumentsRequestType();
                         if (argumentsRequestType.size() > 0) {
                             callOption.put("argumentsRequestType", argumentsRequestType);
                         }
 
-                        logger.debug("successfully initialize plugin data " + tree.getName());
+                        logger.debug(JDRY,"successfully initialize plugin data " + tree.getName());
                         return callOption;
                 } catch(Exception e){
-                    logger.error("fail initialize " + tree.getName(), e);
+                    logger.error(JDRY,"fail initialize " + tree.getName(), e);
                 }
 
 

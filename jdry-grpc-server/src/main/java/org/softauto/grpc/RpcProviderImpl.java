@@ -1,12 +1,12 @@
 package org.softauto.grpc;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.grpc.ManagedChannel;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.apache.avro.ipc.CallFuture;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.ClassType;
 import org.softauto.core.Configuration;
 import org.softauto.core.ServiceLocator;
@@ -32,6 +32,8 @@ public class RpcProviderImpl  {
 
     private static RpcProviderImpl rpcProviderImpl = null;
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(RpcProviderImpl.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     /** default listener host **/
     String host = "localhost";
@@ -73,14 +75,12 @@ public class RpcProviderImpl  {
         try {
             server = ServerBuilder.forPort(port)
                     .addService(AvroGrpcServer.createServiceDefinition(SerializerService.class, new SerializerServiceImpl()))
-                    //.addService(AvroGrpcServer.createServiceDefinition(SerializerService.Callback.class, new SerializerServiceImpl()))
                     .build();
             server.start();
-            //server.getServices();
-            logger.info("Grpc Server load successfully on port "+port);
+            logger.info(JDRY,"Grpc Server load successfully on port "+port);
             loadConfiguration();
         }catch (Exception e){
-            logger.fatal("fail to start Serializer server ", e);
+            logger.fatal(JDRY,"fail to start Serializer server ", e);
             System.exit(1);
         }
         return this;
@@ -94,9 +94,9 @@ public class RpcProviderImpl  {
                 HashMap<String, Object> map = (HashMap<String, Object>) new Yaml().load(new FileReader(System.getProperty("user.dir") + "/global.yaml"));
                 Configuration.addConfiguration(map);
             }
-            logger.debug("configuration load successfully");
+            logger.debug(JDRY,"configuration load successfully");
         }catch (Exception e){
-            logger.error("fail load configuration " + System.getProperty("user.dir") + "/global.yaml",e.getMessage());
+            logger.error(JDRY,"fail load configuration " + System.getProperty("user.dir") + "/global.yaml",e.getMessage());
         }
     }
 
@@ -109,7 +109,7 @@ public class RpcProviderImpl  {
         try {
             doExec(name,  channel,  args,  types,  callOptions);
         }catch (Exception e){
-            logger.error("fail exec rpc call "+ name, e);
+            logger.error(JDRY,"fail exec rpc call "+ name, e);
         }
     }
 
@@ -118,16 +118,16 @@ public class RpcProviderImpl  {
         try {
             result = doExec(name,  channel,  args,  types,  callOptions);
         }catch (Exception e){
-            logger.error("fail exec rpc call "+ name, e);
+            logger.error(JDRY,"fail exec rpc call "+ name, e);
         }
         callback.handleResult((RespT) result);
-        logger.debug("callback value "+callback.getResult()+" get error "+callback.getError());
+        logger.debug(JDRY,"callback value "+callback.getResult()+" get error "+callback.getError());
     }
 
     private Object doExec(String name,  ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions){
         Object result = null;
         try {
-            logger.debug("exec rpc call "+ name);
+            logger.debug(JDRY,"exec rpc call "+ name);
             Serializer serializer;
             if(channel != null) {
                 serializer = new Serializer().setChannel(channel);
@@ -148,7 +148,7 @@ public class RpcProviderImpl  {
             result = serializer.write(message);
 
         }catch (Exception e){
-            logger.error("fail exec rpc call "+ name, e);
+            logger.error(JDRY,"fail exec rpc call "+ name, e);
         }
         return result;
     }

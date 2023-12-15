@@ -1,20 +1,13 @@
 package org.softauto.listener.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.node.ArrayNode;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.softauto.annotations.ListenerType;
-import org.softauto.core.Configuration;
-import org.softauto.core.TestContext;
-import org.softauto.espl.Espl;
-import org.softauto.system.ScenarioContext;
-import org.softauto.system.Scenarios;
-//import javax.servlet.http.HttpServletRequest;
+import org.softauto.spel.SpEL;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -22,6 +15,8 @@ import java.util.ArrayList;
 public abstract class ExternalListener {
 
     static org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ExternalListener.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     static org.softauto.listener.manager.ListenerServiceImpl serviceImpl = new org.softauto.listener.manager.ListenerServiceImpl();
 
@@ -47,7 +42,7 @@ public abstract class ExternalListener {
                 args[i] = new ObjectMapper().readValue(json,types[i]);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+           logger.error(JDRY,"fail cast to org type",e);
         }
         return args;
     }
@@ -78,36 +73,30 @@ public abstract class ExternalListener {
         try {
             if(thisJoinPoint.getArgs() != null && thisJoinPoint.getArgs().length > 0){
                 if(thisJoinPoint.getArgs()[0].getClass().getTypeName().equals("org.glassfish.jersey.server.ContainerRequest")) {
-                    String scenarioId = Espl.getInstance().addProperty("args", thisJoinPoint.getArgs()).evaluate("#args[0].getHeaders().get('scenarioId').get(0)").toString();
+                    String scenarioId = SpEL.getInstance().addProperty("args", thisJoinPoint.getArgs()).evaluate("#args[0].getHeaders().get('scenarioId').get(0)").toString();
                     Threadlocal.getInstance().add("scenarioId", scenarioId);
                 }
                 if(thisJoinPoint.getArgs()[0].getClass().getTypeName().equals("javax.servlet.http.HttpServletRequest")) {
-                    String scenarioId = Espl.getInstance().addProperty("args",thisJoinPoint.getArgs()).evaluate("#args[0].getHeader('scenarioId')").toString();
+                    String scenarioId = SpEL.getInstance().addProperty("args",thisJoinPoint.getArgs()).evaluate("#args[0].getHeader('scenarioId')").toString();
                     Threadlocal.getInstance().add("scenarioId", scenarioId);
                 }
             }
         } catch (Throwable e) {
-            logger.error("fail get scenarioId ",e);
+            logger.error(JDRY,"fail get scenarioId ",e);
         }
     }
 
     @Around(value = "listenerBeforePointcut() && !within(org.softauto..*)")
     public synchronized Object captureBeforeListener(ProceedingJoinPoint joinPoint)throws Throwable {
         Object o = null;
-        //AtomicReference<String> fqmn = new AtomicReference();
         try {
             if(serviceImpl != null ){
                 MethodSignature sig = (MethodSignature) joinPoint.getSignature();
                 Method method = serviceImpl.getClass().getDeclaredMethod("executeBefore", new Class[]{String.class, Object[].class, Class[].class});
                 String fqmn = sig.getDeclaringType().getName().replace(".","_")+"_"+sig.getName();
-                //ScenarioContext scenarioContext = Scenarios.getScenario(getScenarioId());
-                //if(scenarioContext.getConfiguration().containsKey("listener")){
-                    //ArrayNode listeners = (ArrayNode) scenarioContext.getConfiguration().get("listener");
-                    //for(JsonNode node : listeners){
-                       // if(node.get("listener").asText().equals(fqmn) && node.get("type").asText().equals(ListenerType.BEFORE.name())){
                             try {
 
-                                logger.debug("invoke listener on " + serviceImpl + " fqmn: " + fqmn + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
+                                logger.debug(JDRY,"invoke listener on " + serviceImpl + " fqmn: " + fqmn + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
                                 method.setAccessible(true);
                                 Object[] args = null;
                                 synchronized (this) {
@@ -120,51 +109,40 @@ public abstract class ExternalListener {
                                 args = castToOrgType(args,sig.getMethod().getParameterTypes());
                                 o = joinPoint.proceed(args);
                             } catch (Exception e) {
-                                logger.error("send message " + fqmn + " fail  ", e);
+                                logger.error(JDRY,"send message " + fqmn + " fail  ", e);
                             }
                 }else {
                   o = joinPoint.proceed();
                 }
         } catch (Throwable e) {
-            //logger.error("capture message "+fqmn.get()+" fail  ",e );
+            logger.error(JDRY,"capture message  fail  ",e );
         }
         return o;
     }
 
-    //@AfterReturning(pointcut = "execution(* *(..))  && @annotation(org.softauto.annotations.ListenerForTesting)  ", returning = "result")
-    //@AfterReturning(value = ("@annotation(org.softauto.annotations.ListenerForTesting)"), returning="result")
+
     @AfterReturning(value = "listenerAfterPointcut() && !within(org.softauto..*)", returning="result")
     public synchronized   void captureAfterListener(JoinPoint joinPoint,Object result) {
         try {
             if(serviceImpl != null) {
-
                 Method method = serviceImpl.getClass().getDeclaredMethod("executeAfter", new Class[]{String.class, Object[].class, Class[].class});
                 MethodSignature sig = (MethodSignature) joinPoint.getSignature();
-                //Thread currentThread = Thread.currentThread();
                 String fqmn = Utils.buildMethodFQMN(sig.getName(), sig.getDeclaringType().getName());
-                //if(sig.getMethod().getAnnotation(org.softauto.annotations.ListenerForTesting.class) != null ) {
-                 //   org.softauto.annotations.ListenerForTesting annotation = sig.getMethod().getAnnotation(org.softauto.annotations.ListenerForTesting.class);
-                   // if (annotation.type().toString().equals(ListenerType.AFTER.name())) {
-
                         if (!sig.getMethod().getReturnType().getName().equals("void")) {
                             try {
-
-                                logger.debug("invoke returning listener on " + serviceImpl + " fqmn:" + fqmn + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
+                                logger.debug(JDRY,"invoke returning listener on " + serviceImpl + " fqmn:" + fqmn + " args:" + joinPoint.getArgs().toString() + " types:" + sig.getMethod().getParameterTypes());
                                 method.setAccessible(true);
                                 method.invoke(serviceImpl, new Object[]{fqmn, new Object[]{result}, new Class[]{sig.getMethod().getReturnType()}});
-
                             } catch (Exception e) {
-                                logger.error("sendResult returning fail for " + fqmn, e);
+                                logger.error(JDRY,"sendResult returning fail for " + fqmn, e);
                             }
-
                         } else {
                             try {
-
-                                logger.debug("invoke returning listener on " + serviceImpl + " fqmn:" + fqmn + " args:" + org.softauto.core.Utils.result2String(joinPoint.getArgs()) + " types:" + org.softauto.core.Utils.result2String(sig.getMethod().getParameterTypes()));
+                                logger.debug(JDRY,"invoke returning listener on " + serviceImpl + " fqmn:" + fqmn + " args:" + org.softauto.core.Utils.result2String(joinPoint.getArgs()) + " types:" + org.softauto.core.Utils.result2String(sig.getMethod().getParameterTypes()));
                                 method.setAccessible(true);
                                 method.invoke(serviceImpl, new Object[]{fqmn, Utils.getArgs(joinPoint.getArgs()), Utils.getTypes(sig.getMethod().getParameterTypes())});
                             } catch (Exception e) {
-                                logger.error("sendResult returning fail for " + fqmn, e);
+                                logger.error(JDRY,"sendResult returning fail for " + fqmn, e);
                             }
                         }
             }

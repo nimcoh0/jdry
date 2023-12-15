@@ -68,31 +68,7 @@
             <artifactId>jdry-model</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-annotations-analyzer</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-base-analyzer</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-data-generator-analyzer</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-data-recorder-analyzer</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-name-recognition-analyzer</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency-->
+
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-core</artifactId>

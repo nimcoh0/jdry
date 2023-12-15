@@ -24,15 +24,15 @@ org.softauto.tester.Step  $name(##
 #end
 #if($this.isPrimitive($response))
 #if($step.get("parametersTypes"))
-  ,org.apache.avro.ipc.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
+  ,org.softauto.core.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
 #else
-  org.apache.avro.ipc.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
+  org.softauto.core.CallFuture<$this.primitiveToObject($response)> callback) throws java.io.IOException;
 #end
 #else
 #if($step.get("parametersTypes"))
- ,org.apache.avro.ipc.CallFuture<$response> callback) throws java.io.IOException;
+ ,org.softauto.core.CallFuture<$response> callback) throws java.io.IOException;
 #else
-  org.apache.avro.ipc.CallFuture<$response> callback) throws java.io.IOException;
+  org.softauto.core.CallFuture<$response> callback) throws java.io.IOException;
 #end
 #end
 

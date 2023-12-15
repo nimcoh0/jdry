@@ -21,6 +21,8 @@ import java.util.List;
 public class NoneStepDescriptorImpl extends AbstractStepDescriptorImpl {
 
 
+
+
     @Override
     public Cookie getCookie(){
         if(TestContext.getScenario().getProperty("JSESSIONID") != null){

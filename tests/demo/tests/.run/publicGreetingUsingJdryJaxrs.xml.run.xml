@@ -1,18 +1,12 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="jwtServiceTests.asyncLoginUsingJersey" type="TestNG" nameIsGenerated="true">
+  <configuration default="false" name="jwtServiceTests.publicGreetingUsingJdryJaxrs" type="TestNG" nameIsGenerated="true">
     <module name="jersey-jwt-tests" />
     <shortenClasspath name="NONE" />
     <useClassPathOnly />
-    <extension name="coverage">
-      <pattern>
-        <option name="PATTERN" value="tests.infrastructure.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
-    </extension>
     <option name="SUITE_NAME" value="" />
     <option name="PACKAGE_NAME" value="tests.infrastructure" />
     <option name="MAIN_CLASS_NAME" value="tests.infrastructure.jwtServiceTests" />
-    <option name="METHOD_NAME" value="asyncLoginUsingJersey" />
+    <option name="METHOD_NAME" value="publicGreetingUsingJdryJaxrs" />
     <option name="GROUP_NAME" value="" />
     <option name="TEST_OBJECT" value="METHOD" />
     <option name="PARAMETERS" value="" />
@@ -22,9 +16,7 @@
     </option>
     <option name="PROPERTIES_FILE" value="" />
     <properties />
-    <listeners>
-      <listener class="org.softauto.testng.JdryTestListener" />
-    </listeners>
+    <listeners />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

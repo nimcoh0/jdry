@@ -3,6 +3,8 @@ package org.softauto.discovery;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import soot.SootMethod;
 import soot.tagkit.AnnotationTag;
@@ -16,6 +18,8 @@ import java.util.List;
 public class DiscoveryByAnnotation implements IDiscovery {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     List<Object> annotations;
 
@@ -39,7 +43,7 @@ public class DiscoveryByAnnotation implements IDiscovery {
                 }
             }
         } catch (Exception e) {
-            logger.error("fail discovery for "+o.getClass().getTypeName());
+            logger.error(JDRY,"fail discovery for "+o.getClass().getTypeName());
         }
 
         return null;

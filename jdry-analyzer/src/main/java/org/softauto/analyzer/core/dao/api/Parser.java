@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -15,6 +17,8 @@ import java.util.*;
 public class Parser {
 
     private static Logger logger = LogManager.getLogger(Parser.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     JsonNode json;
 
@@ -36,11 +40,11 @@ public class Parser {
             if(Paths.get(path).toFile().exists()) {
                 json = objectMapper.readValue(Paths.get(path).toFile(), JsonNode.class);
             }else {
-                logger.error("file not exist "+ path);
+                logger.error(JDRY,"file not exist "+ path);
             }
-            logger.debug("successfully parser "+path);
+            logger.debug(JDRY,"successfully parser "+path);
         } catch (IOException e) {
-            logger.error("parser fail on "+path,e);
+            logger.error(JDRY,"parser fail on "+path,e);
         }
     }
 
@@ -56,7 +60,7 @@ public class Parser {
                 }
             }
         }
-        logger.debug(list.size() > 0 ? "successfully build class list " :"class list is empty" );
+        logger.debug(JDRY,list.size() > 0 ? "successfully build class list " :"class list is empty" );
         return list;
     }
 
@@ -66,13 +70,12 @@ public class Parser {
             for(Map.Entry entry : hm.entrySet()){
                 if(entry.getKey().toString().contains(genericItem.getNamespce())){
                     list.add(hm);
-                    //genericItem.setAnnotationsHelper(buildAnnotationsHelper(genericItem));
                     break;
                 }
             }
         }
         if(list.size() == 0) {
-            logger.warn("no Clazz List found for " + genericItem.getNamespce());
+            logger.warn(JDRY,"no Clazz List found for " + genericItem.getNamespce());
         }
         return list;
     }
@@ -95,12 +98,12 @@ public class Parser {
                     } else {
                         GenericItem newGenericItem = SerializationUtils.clone(genericItem);
                         genericItems.add(newGenericItem);
-                        logger.debug("successfully create genericItem for " + genericItem.getName());
+                        logger.debug(JDRY,"successfully create genericItem for " + genericItem.getName());
                     }
                 }
             }
         } catch (JsonProcessingException e) {
-            logger.error("fail create  genericItem ",e);
+            logger.error(JDRY,"fail create  genericItem ",e);
         }
 
         return this;

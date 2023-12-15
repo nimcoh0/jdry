@@ -2,6 +2,8 @@ package org.softauto.discovery;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.config.Context;
 import org.softauto.core.Configuration;
@@ -13,6 +15,8 @@ import java.util.LinkedList;
 public class ClassInheritanceDiscovery {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     private LinkedList<SootClass> buildTree(SootClass sootClass,String domain){
         LinkedList<SootClass> sootClassList = new LinkedList<>();
@@ -31,9 +35,9 @@ public class ClassInheritanceDiscovery {
             if(sootClass.getPackageName().contains(domain)) {
                 sootClassList.add(sootClass);
             }
-            logger.debug("successfully build class Inheritance for "+sootClass.getName());
+            logger.debug(JDRY,"successfully build class Inheritance for "+sootClass.getName());
         } catch (Exception e) {
-            logger.error("fail build class Inheritance for "+sootClass.getName(),e);
+            logger.error(JDRY,"fail build class Inheritance for "+sootClass.getName(),e);
         }
         return sootClassList;
     }
@@ -46,7 +50,7 @@ public class ClassInheritanceDiscovery {
             LinkedList<SootClass> list = buildTree(sootClass,domain);
             return list;
         } catch (Exception e) {
-            logger.error("fail build tree for "+ ((SootClass)o).getName());
+            logger.error(JDRY,"fail build tree for "+ ((SootClass)o).getName());
         }
         return null;
     }

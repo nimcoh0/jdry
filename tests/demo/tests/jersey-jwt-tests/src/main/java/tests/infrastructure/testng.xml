@@ -1,6 +1,9 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name = "jwtService" verbose="10">
+    <listeners>
+        <listener class-name="org.softauto.testng.JdryTestListener"></listener>
+    </listeners>
 <suite-files>
     <suite-file path="asyncLoginUsingJersey.xml"/>
     <suite-file path="loginUsingJdryJaxrsClientWithSetCallOptions.xml"/>
@@ -12,6 +15,7 @@
     <suite-file path="syncLoginAndGreetingUsingJdryJaxrsClientWithProxy.xml"/>
     <suite-file path="findAllUsersUsingJdryJaxrs.xml"/>
     <suite-file path="publicGreetingUsingJdryRpc.xml"/>
+    <suite-file path="publicGreetingUsingJdryJaxrs.xml"/>
     <suite-file path="publicRpcCall.xml"/>
     <suite-file path="privateRpcCall.xml"/>
     <suite-file path="publicStaticRpcCall.xml"/>

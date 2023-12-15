@@ -82,7 +82,7 @@ public class JaxrsProviderImpl implements Provider {
     }
 
     @Override
-    public <RespT> void exec(String stepName, org.apache.avro.ipc.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions,String scenarioId) {
+    public <RespT> void exec(String stepName, org.softauto.core.Callback<RespT> callback, ManagedChannel channel, Object[] args, Class[] types, HashMap<String,Object> callOptions,String scenarioId) {
         try {
             executor.submit(()->{
                 try {

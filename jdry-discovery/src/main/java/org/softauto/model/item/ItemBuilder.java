@@ -2,6 +2,8 @@ package org.softauto.model.item;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.clazz.ClassInfo;
 import org.softauto.flow.FlowObject;
@@ -14,6 +16,8 @@ import java.util.List;
 public class ItemBuilder {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public static Builder newBuilder() { return new Builder();}
 
@@ -144,9 +148,9 @@ public class ItemBuilder {
                 item.setClassInfo(classInfo);
                 item.setArgumentsNames(argumentsNames);
                 item.setModifier(modifier);
-                logger.debug("sucessfully build item "+namespce+"."+name);
+                logger.debug(JDRY,"sucessfully build item "+namespce+"."+name);
             } catch (Exception e) {
-                logger.error("fail build Item ",e.getMessage());
+                logger.error(JDRY,"fail build Item ",e.getMessage());
             }
             return new ItemBuilder(item);
         }

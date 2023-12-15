@@ -7,6 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.core.system.config.Context;
 import org.softauto.analyzer.core.system.config.DefaultConfiguration;
 import org.softauto.analyzer.model.argument.Argument;
@@ -28,6 +30,8 @@ import java.util.stream.Collectors;
 public class Utils {
 
     private static Logger logger = LogManager.getLogger(Utils.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     public static void toJson(String filename, String path, List<GenericItem> trees)throws Exception{
         String json = new ObjectMapper().writeValueAsString(trees);
@@ -114,9 +118,9 @@ public class Utils {
     public static void loadDefaultConfiguration()  {
         try {
             Configuration.setConfiguration(DefaultConfiguration.getConfiguration());
-            logger.debug("Default Configuration load successfully");
+            logger.debug(JDRY,"Default Configuration load successfully");
         }catch(Exception e){
-            logger.error("fail load Default Configuration ",e);
+            logger.error(JDRY,"fail load Default Configuration ",e);
         }
     }
 
@@ -132,9 +136,9 @@ public class Utils {
                 defaultConfiguration.putAll(map);
                 Configuration.setConfiguration(defaultConfiguration);
             }
-            logger.debug("Configuration load successfully");
+            logger.debug(JDRY,"Configuration load successfully");
         }catch (Exception e){
-            logger.error("fail loadConfiguration ",e);
+            logger.error(JDRY,"fail loadConfiguration ",e);
         }
     }
 
@@ -164,7 +168,7 @@ public class Utils {
                 addURL(file, classLoader);
             }
         } catch (Exception e) {
-            logger.error("fail add Jar To Classpath ",e);
+            logger.error(JDRY,"fail add Jar To Classpath ",e);
         }
     }
 
@@ -175,7 +179,7 @@ public class Utils {
             method.setAccessible(true);
             method.invoke(sysloader, path);
         } catch (Throwable t) {
-            logger.error("fail add jar to classpath",t);
+            logger.error(JDRY,"fail add jar to classpath",t);
         }
     }
 
@@ -194,7 +198,7 @@ public class Utils {
                 }
 
             } catch (Exception e) {
-                logger.error("fail build request ", e);
+                logger.error(JDRY,"fail build request ", e);
             }
             request.setArguments(arguments);
         }
@@ -219,7 +223,7 @@ public class Utils {
                 return fullName.substring(fullName.lastIndexOf("_")+1);
             }
         } catch (Exception e) {
-            logger.error("fail build Short Name ",e);
+            logger.error(JDRY,"fail build Short Name ",e);
         }
         return fullName;
     }
@@ -240,7 +244,7 @@ public class Utils {
                 return result.getValue();
             }
         } catch (Exception e) {
-            logger.error("fail build result as Object ",e);
+            logger.error(JDRY,"fail build result as Object ",e);
         }
         return null;
     }
@@ -282,7 +286,7 @@ public class Utils {
             }
             return Configuration.get("default_protocol").asString();
         } catch (Exception e) {
-            logger.error("fail build protocol ",e);
+            logger.error(JDRY,"fail build protocol ",e);
         }
         return null;
     }
@@ -296,7 +300,7 @@ public class Utils {
 
 
         } catch (Exception e) {
-            logger.error("fail build return type ",e);
+            logger.error(JDRY,"fail build return type ",e);
         }
 
         return null;
@@ -311,7 +315,7 @@ public class Utils {
                 _types.put(names.get(i),types.get(i));
             }
         } catch (Exception e) {
-           logger.error("fail get Args Type As String ",e);
+           logger.error(JDRY,"fail get Args Type As String ",e);
         }
         return _types;
     }
@@ -356,7 +360,7 @@ public class Utils {
 
             }
         } catch (Exception e) {
-            logger.error("fail get Args As Object ",e);
+            logger.error(JDRY,"fail get Args As Object ",e);
         }
         return args;
     }
@@ -422,7 +426,7 @@ public class Utils {
                 return "org.junit.Assert.assertTrue("+value+" != null)";
             }
         } catch (Exception e) {
-            logger.error("fail get Default Assert By Type ",e);
+            logger.error(JDRY,"fail get Default Assert By Type ",e);
         }
         return null;
     }
@@ -445,7 +449,7 @@ public class Utils {
             p.load(new StringReader(s));
             return p;
         } catch (IOException e) {
-            logger.error("fail string To Properties ",e);
+            logger.error(JDRY,"fail string To Properties ",e);
         }
         return null;
     }
@@ -465,18 +469,12 @@ public class Utils {
 
     static final List<String> PRIMITIVES = new ArrayList<>();
     static {
-        //PRIMITIVES.add("string");
         PRIMITIVES.add("bytes");
         PRIMITIVES.add("int");
-        //PRIMITIVES.add("integer");
         PRIMITIVES.add("long");
         PRIMITIVES.add("float");
         PRIMITIVES.add("double");
         PRIMITIVES.add("boolean");
-        //PRIMITIVES.add("null");
-        //PRIMITIVES.add("void");
-        //PRIMITIVES.add("com.fasterxml.jackson.databind.node.IntNode");
-        //PRIMITIVES.add("com.fasterxml.jackson.databind.node.NullNode");
     }
 
     public static Class getPrimitiveClass(String clazz){
@@ -517,7 +515,7 @@ public class Utils {
             }
             return Class.forName(type,false,ClassLoader.getSystemClassLoader());
         } catch (ClassNotFoundException e) {
-            logger.warn("fail retrieve class type "+type);
+            logger.warn(JDRY,"fail retrieve class type "+type);
         }
         return null;
     }
@@ -625,7 +623,7 @@ public class Utils {
             case "java.util.ArrayList" : return "new java.util.ArrayList();";
             case "java.util.LinkedList" : return "new java.util.LinkedList();";
             default: return  type ;
-            //default: return "new "+ type+ "()";
+
         }
     }
 
@@ -652,7 +650,7 @@ public class Utils {
                 }
             }
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            logger.error(JDRY,"fail get method ",e);
         }
         return null;
     }
@@ -693,8 +691,7 @@ public class Utils {
 
     public static boolean isInheritFrom(String type,String superclass){
         try {
-            //if(Suite.hasEntity(type)) {
-             //   type = Suite.getEntityClass(type);
+
                 Class c = ClassUtils.getClass(type);
                 List<Class<?>> superclasses = ClassUtils.getAllSuperclasses(c);
                 for (Class clazz : superclasses) {
@@ -702,7 +699,7 @@ public class Utils {
                         return true;
                     }
                 }
-            //}
+
         } catch (Throwable e) {
             return false;
         }

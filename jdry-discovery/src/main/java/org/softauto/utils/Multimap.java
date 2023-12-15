@@ -1,8 +1,17 @@
 package org.softauto.utils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
 import java.util.*;
 
 public class Multimap {
+
+    private static Logger logger = LogManager.getLogger(Util.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     LinkedHashMap<String, Object> map = new LinkedHashMap();
 
@@ -47,7 +56,7 @@ public class Multimap {
                } else if (value instanceof Multimap) {
                    ((List<Object>) o).add(((Multimap) value).getMap());
                } else {
-                   System.out.println("Multimap didn't put " + value.getClass().getTypeName());
+                   logger.warn(JDRY,"Multimap didn't put " + value.getClass().getTypeName());
                }
            }else if(o instanceof LinkedList<?>){
                    if(value instanceof String && !((LinkedList<Object>)o).contains(value)){
@@ -55,7 +64,7 @@ public class Multimap {
                    }else if(value instanceof Multimap){
                        ((LinkedList<Object>) o).add(((Multimap) value).getMap());
                    }else {
-                       System.out.println("Multimap didn't put " + value.getClass().getTypeName());
+                       logger.warn(JDRY,"Multimap didn't put " + value.getClass().getTypeName());
                    }
            }else if(value instanceof Multimap){
                LinkedList<Object> list = new LinkedList();
@@ -66,7 +75,6 @@ public class Multimap {
                }
 
                list.add(hm);
-               //list.add(o);
                map.put(key, list);
             }else {
                LinkedList<Object> list = new LinkedList();

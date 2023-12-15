@@ -17,7 +17,7 @@ public class JdryTestListener implements ITestListener, IInvokedMethodListener, 
     public void onTestStart(ITestResult result) {
         try {
             System.setProperty("logFilename", result.getName());
-            TestContext.put("step_name",result.getName());
+
             if(SystemState.getInstance().startTest(result.getName(),TestContext.getScenario().getId())){
                 logger.debug(TESTER,"successfully start test " + result.getName());
                 } else {

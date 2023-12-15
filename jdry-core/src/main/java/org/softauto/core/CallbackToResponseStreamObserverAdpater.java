@@ -2,18 +2,21 @@ package org.softauto.core;
 
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
-import org.apache.avro.ipc.CallFuture;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 
 import java.io.Serializable;
 
 public class CallbackToResponseStreamObserverAdpater<T> implements StreamObserver<Object>, Serializable {
-    private org.apache.avro.ipc.Callback<Object> callback;
+    private org.softauto.core.Callback<Object> callback;
     private ManagedChannel channel;
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(CallbackToResponseStreamObserverAdpater.class);
 
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
-    public CallbackToResponseStreamObserverAdpater(org.apache.avro.ipc.Callback<Object> callback, ManagedChannel channel) {
+
+    public CallbackToResponseStreamObserverAdpater(org.softauto.core.Callback<Object> callback, ManagedChannel channel) {
         this.callback = callback;
         this.channel = channel;
     }

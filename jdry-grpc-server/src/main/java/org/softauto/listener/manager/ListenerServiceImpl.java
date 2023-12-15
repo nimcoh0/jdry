@@ -1,10 +1,11 @@
 package org.softauto.listener.manager;
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.annotations.ListenerType;
 import org.softauto.core.Configuration;
 import org.softauto.core.Context;
 import org.softauto.core.ScenarioLifeCycle;
-import org.softauto.core.StepLifeCycle;
 import org.softauto.listener.ListenerService;
 import org.softauto.listener.impl.Threadlocal;
 import org.softauto.serializer.Serializer;
@@ -19,6 +20,8 @@ public class ListenerServiceImpl implements ListenerService {
 
 
     private  final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerServiceImpl.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     private HashMap<String,Object> getConfiguration(String scenarioId){
         if(scenarioId != null) {
@@ -40,7 +43,6 @@ public class ListenerServiceImpl implements ListenerService {
         try {
             String scenarioId = getScenarioId();
             if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
-               // if(Scenarios.getScenario(scenarioId).isListenerExist(methodName)) {
                     HashMap<String, Object> configuration = getConfiguration(scenarioId);
                     if (configuration != null) {
                         Serializer serializer = new Serializer().setHost(configuration.get(Context.TEST_MACHINE).toString()).setPort(Integer.valueOf(configuration.get(Context.LISTENER_PORT).toString())).build();
@@ -48,25 +50,24 @@ public class ListenerServiceImpl implements ListenerService {
                         result = serializer.write(message);
                         logger.debug("send message successfully " + methodName);
                     }
-               // }
             }
 
         } catch (Exception e) {
             if (e.getCause().toString().contains("UNAVAILABLE")) {
-                logger.debug("fail on UNAVAILABLE ", e);
+                logger.debug(JDRY,"fail on UNAVAILABLE ", e);
                 return (new Object[]{});
             }
-            logger.debug("send message "+methodName+" fail  ",e );
+            logger.debug(JDRY,"send message "+methodName+" fail  ",e );
         }
         if(result == null){
-            logger.debug("returning from rexecuteBefore" );
+            logger.debug(JDRY,"returning from rexecuteBefore" );
             return (new Object[]{});
         }
         if(result instanceof Object[]){
-            logger.debug("returning from rexecuteBefore" );
+            logger.debug(JDRY,"returning from rexecuteBefore" );
             return (Object[])result;
         }
-        logger.debug("returning from rexecuteBefore" );
+        logger.debug(JDRY,"returning from rexecuteBefore" );
         return new Object[]{result};
     }
 
@@ -75,26 +76,23 @@ public class ListenerServiceImpl implements ListenerService {
 
         try {
             String scenarioId = getScenarioId();
-            //if(TestContext.getTestState().equals(TestLifeCycle.START)) {
             if(Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
-               // if(Scenarios.getScenario(scenarioId).isListenerExist(methodName)) {
                     HashMap<String, Object> configuration = getConfiguration(scenarioId);
                     if (configuration != null) {
                         Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
                         Message message = MessageBuilder.newBuilder().setState(ListenerType.AFTER.name()).setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
                         serializer.write(message);
-                        logger.debug("send message successfully " + methodName);
+                        logger.debug(JDRY,"send message successfully " + methodName);
                     }
-               // }
             }
         } catch (Exception e) {
             if (e.getCause().toString().contains("UNAVAILABLE")) {
-                logger.debug("fail on UNAVAILABLE ", e);
+                logger.debug(JDRY,"fail on UNAVAILABLE ", e);
 
             }
-            logger.debug("send message "+methodName+" fail  ",e );
+            logger.debug(JDRY,"send message "+methodName+" fail  ",e );
         }
-        logger.debug("returning from executeAfter" );
+        logger.debug(JDRY,"returning from executeAfter" );
 
     }
 
@@ -103,24 +101,19 @@ public class ListenerServiceImpl implements ListenerService {
         Object result = null;
         try {
             String scenarioId = getScenarioId();
-           // if(TestContext.getTestState().equals(TestLifeCycle.START)) {
             if(Scenarios.getScenarios().size() > 0 && Scenarios.getScenario(scenarioId).getScenarioState().equals(ScenarioLifeCycle.START)) {
                 HashMap<String,Object> configuration = getConfiguration(scenarioId);
                 if(configuration != null) {
                     Serializer serializer = new Serializer().setHost(Configuration.get(Context.TEST_MACHINE).asString()).setPort(Configuration.get(Context.LISTENER_PORT).asInteger()).build();
                     Message message = MessageBuilder.newBuilder().setState("Exception").setDescriptor(methodName).setArgs(args).setTypes(types).build().getMessage();
                     result = serializer.write(message);
-                    logger.debug("send message successfully " + methodName);
+                    logger.debug(JDRY,"send message successfully " + methodName);
                 }
             }
         } catch (Exception e) {
-            //if (e.getCause().toString().contains("UNAVAILABLE")) {
-             //   logger.debug("fail on UNAVAILABLE ", e);
-
-            //}
-            logger.debug("send message "+methodName+" fail  ",e );
+            logger.debug(JDRY,"send message "+methodName+" fail  ",e );
         }
-        logger.debug("returning from Exception" );
+        logger.debug(JDRY,"returning from Exception" );
         return result;
     }
 

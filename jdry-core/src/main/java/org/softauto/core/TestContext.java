@@ -12,8 +12,6 @@ public class TestContext {
 
     static HashMap<String,Object> hm = new HashMap<>();
 
-    //static HashMap<String, Scenario> scenarios = new HashMap<>();
-
     public static Object get(String name){
         return hm.get(name);
     }
@@ -52,7 +50,7 @@ public class TestContext {
             case SKIP : jdryStepListener.onStepSkipped();
                         break;
         }
-        //logger.debug("test state change to "+ testState);
+
     }
 
     public static boolean has(String name){
@@ -75,33 +73,12 @@ public class TestContext {
         }
     }
 
-    //public static String getScenarioKey(){
-    //       return   scenarios.keySet().toArray(new String[1])[0].toString();
-   // }
-
-   // public static Scenario getScenario(String id){
-      //  if(id == null){
-       //   String key =   scenarios.keySet().toArray(new String[1])[0].toString();
-      //    return scenarios.values().toArray(new Scenario[1])[0];
-     //   }
-      //  return scenarios.get(id);
-   // }
 
     public static Scenario getScenario(){
        return scenario;
     }
 
 
-    //public static Scenario getScenarioByName(String name){
-     //   if(name == null){
-         //   for(Map.Entry entry : scenarios.entrySet()){
-           //     if(((Scenario)entry.getValue()).getSuiteName().equals(name)){
-             //       return (Scenario)entry.getValue();
-             //   }
-            //}
-      //  }
-      //  return null;
-    //}
 
     public static void setScenario(Scenario scenario){
         TestContext.scenario = scenario;

@@ -11,6 +11,8 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +35,8 @@ public class Utils {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Utils.class);
 
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     /**
      * get local Machine Ip
      * @return
@@ -41,7 +45,7 @@ public class Utils {
         try {
             return Inet4Address.getLocalHost().getHostAddress();
         }catch (Exception e){
-            e.printStackTrace();
+           logger.error(JDRY,"fail get Machine Ip",e);
         }
         return null;
     }
@@ -54,7 +58,7 @@ public class Utils {
         try {
             return Inet4Address.getLocalHost().getHostName();
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(JDRY,"fail get Machine name",e);
         }
         return null;
     }
@@ -70,7 +74,7 @@ public class Utils {
             m.setAccessible(true);
             return m;
         }catch (Exception e){
-            logger.error("fail get method "+ fullMethodName,e);
+            logger.error(JDRY,"fail get method "+ fullMethodName,e);
         }
         return  null;
     }
@@ -81,8 +85,7 @@ public class Utils {
             List<HashMap<String,String>> args = (List<HashMap<String,String>>) callOption.get("constructor");
             if(args != null && args.size() > 0) {
                 for(int i=0;i<args.size();i++) {
-                    //for(HashMap<String,String> map : args)
-                    for (Map.Entry entry : args.get(i).entrySet()) {
+                   for (Map.Entry entry : args.get(i).entrySet()) {
                         try {
                             String value = entry.getValue().toString();
                             String s = new ObjectMapper().writeValueAsString(value);
@@ -95,7 +98,7 @@ public class Utils {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(JDRY,"fail Constructor Args Values",e);
         }
         return objs.toArray();
     }
@@ -119,7 +122,7 @@ public class Utils {
                 }
             }
         }catch (Exception e){
-            logger.error("fail extract Args Types for "+fullClassName,e);
+            logger.error(JDRY,"fail extract Args Types for "+fullClassName,e);
         }
         return new Class[0];
     }
@@ -152,7 +155,7 @@ public class Utils {
                 }
             }
         }catch(Exception e){
-            logger.warn("result to String fail on  ",e.getMessage());
+            logger.warn(JDRY,"result to String fail on  ",e.getMessage());
         }
         return "";
     }
@@ -165,7 +168,7 @@ public class Utils {
             Class c =   Thread.currentThread().getContextClassLoader().loadClass(fullClassName);
             return c;
         }catch (Exception e){
-            logger.error("find Class fail " + fullClassName,e);
+            logger.error(JDRY,"find Class fail " + fullClassName,e);
         }
         return null;
     }
@@ -194,10 +197,7 @@ public class Utils {
         builtInMap.put("boolean", Boolean.TYPE );
         builtInMap.put("char", Character.TYPE );
         builtInMap.put("byte", Byte.TYPE );
-       // builtInMap.put("void", Void.TYPE );
         builtInMap.put("short", Short.TYPE );
-       // builtInMap.put("string", String.class );
-
     }
 
     public static boolean isJson(String str){
@@ -234,18 +234,13 @@ public class Utils {
 
     static final List<String> PRIMITIVES = new ArrayList<>();
     static {
-        //PRIMITIVES.add("string");
         PRIMITIVES.add("bytes");
         PRIMITIVES.add("int");
-        //PRIMITIVES.add("integer");
         PRIMITIVES.add("long");
         PRIMITIVES.add("float");
         PRIMITIVES.add("double");
         PRIMITIVES.add("boolean");
-        //PRIMITIVES.add("null");
-       // PRIMITIVES.add("void");
-        //PRIMITIVES.add("com.fasterxml.jackson.databind.node.IntNode");
-        //PRIMITIVES.add("com.fasterxml.jackson.databind.node.NullNode");
+
     }
 
 
@@ -281,7 +276,6 @@ public class Utils {
                 }
                 if (name.equals("boolean")) return jsonType.asBoolean();
                 if (name.equals("byte")) return jsonType.binaryValue();
-                //if( javaType.equals("short") ) return jsonType.as;
                 if (name.equals("integer")) return Integer.valueOf(jsonType.asText());
                 if (name.equals("int")) return jsonType.asInt();
                 if (name.equals("long")) return jsonType.asLong();
@@ -290,7 +284,7 @@ public class Utils {
                 if (name.equals("string")) return jsonType.asText();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(JDRY,"find json Node To Java Type" ,e);
         }
         return jsonType;
     }

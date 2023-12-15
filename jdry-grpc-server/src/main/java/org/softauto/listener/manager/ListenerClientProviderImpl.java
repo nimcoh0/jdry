@@ -1,14 +1,18 @@
 package org.softauto.listener.manager;
 
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.ServiceLocator;
-import org.softauto.listener.impl.*;
 import java.io.IOException;
 
 
 public class ListenerClientProviderImpl  {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ListenerClientProviderImpl.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     private static ListenerClientProviderImpl listenerClientProviderImpl = null;
 
 

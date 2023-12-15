@@ -2,6 +2,8 @@ package org.softauto.model.clazz;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.handlers.annotations.HandelClassAnnotation;
 import org.softauto.model.item.Item;
@@ -15,6 +17,8 @@ import java.util.LinkedList;
 public class ClassFactory {
 
     private static Logger logger = LogManager.getLogger(Discover.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
 
     Item item;
 
@@ -47,12 +51,11 @@ public class ClassFactory {
             for(SootClass sootClass :sootClassList){
                 HashMap<String, Object> annotations = new HandelClassAnnotation(sootClass).analyze();
                 annotationsList.put(sootClass.getName(),annotations);
-                //item.setEntity(HandleEntity.isEntity(sootClass.getName()));
             }
             item = ItemBuilder.newBuilder().setNamespce(root.getPackageName()).setName(root.getName()).setAnnotations(annotationsList).setType("clazz").build().getItem();
 
         } catch (Exception e) {
-            logger.error("fail build class items");
+            logger.error(JDRY,"fail build class items");
         }
         return this;
     }

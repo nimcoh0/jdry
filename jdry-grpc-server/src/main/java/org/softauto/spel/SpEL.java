@@ -1,11 +1,11 @@
-package org.softauto.espl;
+package org.softauto.spel;
 
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.softauto.core.Multimap;
 import org.softauto.listener.impl.ExternalListener;
-import org.springframework.expression.EvaluationException;
 import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.ParseException;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
@@ -13,33 +13,27 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Espl {
+public class SpEL {
 
     static org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(ExternalListener.class);
 
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
     StandardEvaluationContext  itemContext = new StandardEvaluationContext();
     ExpressionParser parser = new SpelExpressionParser();
-    private static Espl espl;
+    private static SpEL spEL;
     Multimap publish;
 
-    public static Espl getInstance(){
-        if(espl == null){
-            espl = new Espl();
+    public static SpEL getInstance(){
+        if(spEL == null){
+            spEL = new SpEL();
 
         }
-        return espl;
+        return spEL;
     }
 
-    private Espl(){
-        try {
-            itemContext.setVariable("exec", EsplFunctions.class.getDeclaredMethod("exec",String.class));
-            itemContext.setVariable("run", EsplFunctions.class.getDeclaredMethod("run",String.class,Object.class));
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public Espl setPublish(Multimap publish) {
+    public SpEL setPublish(Multimap publish) {
         this.publish = publish;
         return this;
     }
@@ -54,21 +48,21 @@ public class Espl {
 
 
 
-    public static Espl reset(){
-        return espl = new Espl();
+    public static SpEL reset(){
+        return spEL = new SpEL();
     }
 
-    public Espl addProperty(String key, Object value){
+    public SpEL addProperty(String key, Object value){
         itemContext.setVariable(key,value);
         return this;
     }
 
-    public Espl addProperties(Map<String,Object> map){
+    public SpEL addProperties(Map<String,Object> map){
         itemContext.setVariables(map);
         return this;
     }
 
-    public Espl addRootObject(Object o){
+    public SpEL addRootObject(Object o){
         itemContext.setRootObject(o);
         return this;
     }
@@ -104,7 +98,7 @@ public class Espl {
                 return o;
             }
         } catch (Throwable e) {
-            logger.warn("fail evaluate "+ expression,e);
+            logger.warn(JDRY,"fail evaluate "+ expression,e);
             return expression;
         }
         return expression;

@@ -75,8 +75,6 @@ public class RequestClientFilter implements ClientRequestFilter {
             e.printStackTrace();
         }
 
-        //Response r = new Response.ResponseBuilder().header().header("Content-Type","application/json");
-        //requestContext.abortWith(Response.ok(Entity.entity(result, MediaType.APPLICATION_JSON),MediaType.APPLICATION_JSON).build());
         requestContext.abortWith(Response.ok(result,MediaType.APPLICATION_JSON).build());
     }
 }
