@@ -5,9 +5,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <artifactId>jdry</artifactId>
+        <groupId>org.softauto</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <artifactId>jdry-logger</artifactId>
-    <groupId>org.softauto</groupId>
-    <version>1.0-SNAPSHOT</version>
+
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

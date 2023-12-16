@@ -4,10 +4,10 @@ schema_name: "JwtService"
 domain: "om.cassiomolin.example"
 auth: "JWT"
 plugin_jars:
-  - {jar : "C:/work/myprojects/java/jdry2/jdry-jax-rs-analyzer/target/jdry-jax-rs-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",protocol: "JAXRS"}
-  - {jar : "C:/work/myprojects/java/jdry2/jdry-rpc-analyzer/target/jdry-rpc-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",protocol: "RPC"}
+  - {jar : "C:/work/myprojects/java/jdry/jdry-jax-rs-analyzer/target/jdry-jax-rs-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",protocol: "JAXRS"}
+  - {jar : "C:/work/myprojects/java/jdry/jdry-rpc-analyzer/target/jdry-rpc-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",protocol: "RPC"}
 jar_path:
-  - "C:/work/myprojects/java/jdry2/tests/demo/applications/jersey-jwt-master/target/jersey-jwt-1.0.jar"
+  - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/target/jersey-jwt-1.0.jar"
 api_annotations:
   - "Ljavax/ws/rs/POST;"
   - "Ljavax/ws/rs/GET;"

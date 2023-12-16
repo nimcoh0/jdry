@@ -1,11 +1,11 @@
 ---
 jar_path:
-    - "C:/work/myprojects/java/jdry2/tests/demo/applications/jersey-jwt-master/jersey-jwt-1.0.jar"
+    - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/jersey-jwt-1.0.jar"
 file_path: "target/generated-sources/"
 file_name: "jwt"
 file_namespace: "tests.infrastructure"
 class_dir:
-    - "C:/work/myprojects/java/jdry2/tests/demo/applications/jersey-jwt-master/target/classes"
+    - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/target/classes"
 main_class: "com.cassiomolin.example.Application"
 domain: "com.cassiomolin.example"
 discover_by_annotation:

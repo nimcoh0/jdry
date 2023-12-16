@@ -3,6 +3,7 @@ package com.cassiomolin.example;
 import com.cassiomolin.example.common.api.config.JerseyConfig;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
+import io.undertow.server.HttpHandler;
 import io.undertow.server.handlers.PathHandler;
 import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.servlet.Servlets;
@@ -15,6 +16,7 @@ import org.jboss.weld.environment.servlet.Listener;
 import javax.servlet.ServletException;
 import java.util.logging.Logger;
 
+import static io.undertow.Handlers.path;
 import static io.undertow.servlet.Servlets.listener;
 
 /**
@@ -51,15 +53,6 @@ public class Application {
 
         LOGGER.info(String.format("Starting server on port %d", port));
 
-        PathHandler path = Handlers.path();
-
-        server = Undertow.builder()
-                .addHttpListener(port, "localhost")
-                .setHandler(path)
-                .build();
-        server.start();
-
-        LOGGER.info(String.format("Server started on port %d", port));
 
 
         DeploymentInfo servletBuilder = Servlets.deployment()
@@ -78,9 +71,18 @@ public class Application {
         try {
         deploymentManager = Servlets.defaultContainer().addDeployment(servletBuilder);
         deploymentManager.deploy();
-        //deploymentManager.start();
 
-            path.addPrefixPath("/", deploymentManager.start());
+
+            HttpHandler servletHandler = deploymentManager.start();
+            PathHandler path = Handlers.path();
+            path = path(Handlers.redirect("/")).addPrefixPath("/", servletHandler);
+
+            server = Undertow.builder()
+                    .addHttpListener(port, "localhost")
+                    .setHandler(path)
+                    .build();
+            server.start();
+
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
