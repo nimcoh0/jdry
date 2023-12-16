@@ -21,13 +21,13 @@
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
 
         </dependency>
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-serializer</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
 
         </dependency>
     </dependencies>
