@@ -20,23 +20,23 @@
         <dependency>
             <groupId>net.sf.jopt-simple</groupId>
             <artifactId>jopt-simple</artifactId>
-            <version>5.0.4</version>
+            <version>${jopt-simple}</version>
         </dependency>
         <dependency>
             <artifactId>jdry-discovery</artifactId>
             <groupId>org.softauto</groupId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
         </dependency>
 
         <dependency>
             <artifactId>Jdry-compiler</artifactId>
             <groupId>org.softauto</groupId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
         </dependency>
         <dependency>
             <artifactId>jdry-analyzer</artifactId>
             <groupId>org.softauto</groupId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
         </dependency>
     </dependencies>
 

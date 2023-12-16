@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-analyzer</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
         </dependency>
 
 

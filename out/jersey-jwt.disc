@@ -42,10 +42,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -76,10 +76,10 @@
           "final" : false,
           "abstract" : false,
           "private" : false,
-          "innerClass" : false,
-          "javaLibraryClass" : false,
           "applicationClass" : true,
-          "libraryClass" : false
+          "libraryClass" : false,
+          "javaLibraryClass" : false,
+          "innerClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -122,10 +122,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -155,10 +155,10 @@
           "final" : false,
           "abstract" : false,
           "private" : false,
-          "innerClass" : false,
-          "javaLibraryClass" : false,
           "applicationClass" : true,
-          "libraryClass" : false
+          "libraryClass" : false,
+          "javaLibraryClass" : false,
+          "innerClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -201,10 +201,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ {
@@ -234,10 +234,10 @@
           "final" : false,
           "abstract" : false,
           "private" : false,
-          "innerClass" : false,
-          "javaLibraryClass" : false,
           "applicationClass" : true,
-          "libraryClass" : false
+          "libraryClass" : false,
+          "javaLibraryClass" : false,
+          "innerClass" : false
         },
         "modifier" : 0,
         "childes" : [ ]
@@ -271,10 +271,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -306,10 +306,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -341,10 +341,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -387,10 +387,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -420,7 +420,7 @@
       "argumentsNames" : [ ],
       "id" : 17031,
       "type" : "method",
-      "returnType" : "com.cassiomolin.example.security.jwt.model.AuthenticationToken",
+      "returnType" : "java.lang.String",
       "classInfo" : {
         "hasParameters" : false,
         "entity" : false,
@@ -432,10 +432,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -477,10 +477,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -531,10 +531,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -577,10 +577,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -621,10 +621,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -665,10 +665,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]
@@ -709,10 +709,10 @@
         "final" : false,
         "abstract" : false,
         "private" : false,
-        "innerClass" : false,
-        "javaLibraryClass" : false,
         "applicationClass" : true,
-        "libraryClass" : false
+        "libraryClass" : false,
+        "javaLibraryClass" : false,
+        "innerClass" : false
       },
       "modifier" : 0,
       "childes" : [ ]

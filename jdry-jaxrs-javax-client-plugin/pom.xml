@@ -23,38 +23,38 @@
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
 
         </dependency>
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
 
         </dependency>
 
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-multipart</artifactId>
-            <version>2.27</version>
+            <version>${jersey}</version>
         </dependency>
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-jaxrs-annotations</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.1.1</version>
+            <version>${javax.ws.rs-api}</version>
         </dependency>
 
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
-            <version>2.27</version>
+            <version>${jersey}</version>
         </dependency>
     </dependencies>
 

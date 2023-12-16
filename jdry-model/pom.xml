@@ -53,7 +53,7 @@
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-annotations</artifactId>
-            <version>${jdry-annotations}</version>
+            <version>${jdry}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.0.0</version>
+            <version>${testng}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -32,12 +32,12 @@
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
         </dependency>
         <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-tester</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${jdry}</version>
             <scope>compile</scope>
         </dependency>
 
