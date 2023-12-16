@@ -36,20 +36,23 @@ public class AnalyzeAnnotations {
         return consume;
     }
 
+    private Set<String> jaxrsEndPoints = Collections
+            .unmodifiableSet(new HashSet<>(Arrays.asList("/ws/rs/POST","/ws/rs/GET","/ws/rs/DELETE","/ws/rs/PUT")));
+
     public AnalyzeAnnotations setTree(GenericItem tree) {
         this.tree = tree;
         return this;
     }
 
     private boolean isEndPoint(){
-        if(Configuration.has("jax_rs_end_point")){
-          List<String> endPointsList =   Configuration.get("jax_rs_end_point").asList();
-          for(String s : endPointsList ){
+        //if(Configuration.has("jax_rs_end_point")){
+         // List<String> endPointsList =   Configuration.get("jax_rs_end_point").asList();
+          for(String s : jaxrsEndPoints ){
               if(tree.getAnnotations().toString().contains(s)){
                   return true;
               }
           }
-        }
+       // }
        return false;
     }
 

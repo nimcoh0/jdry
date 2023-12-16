@@ -35,10 +35,20 @@ public abstract class BaseTree implements Tree {
             return Kind.ITEM;
         }
 
+
+        private List<String> getPathList(){
+            List<String> pathlist = new ArrayList<>();
+            List<String> l = Configuration.get("api_annotations").asList();
+            for(String s : l){
+                pathlist.add(("L"+s+";").replace(".","/"));
+            }
+            return pathlist;
+        }
+
         @Override
         public <R,T,D> R accept(TreeVisitor<R,T,D> visitor, T t, D d, R r) {
             HashMap<String,Object>  callOption = null;
-            List<String> l = Configuration.get("api_annotations").asList();
+            List<String> l = getPathList();
             LinkedList<String> pathList = (LinkedList<String>) ((ArrayList)l).stream().collect(Collectors.toCollection(LinkedList::new));
             if(AnnotationHelper.isExist(pathList,((GenericItem)t).getAnnotations())) {
                 for (PluginProvider plugin : ProviderManager.providers(ClassLoader.getSystemClassLoader())) {

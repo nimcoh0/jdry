@@ -157,7 +157,7 @@ public  class AnnotationHelper {
         return new AnnotationHelper(mapList);
     }
 
-    public static boolean isContains(LinkedList<String> pathList,LinkedHashMap<String, Object> annotations){
+    public static boolean isContains(Set<String> pathList,LinkedHashMap<String, Object> annotations){
         for(String path : pathList) {
             boolean result =  isContains(path, annotations);
             if(result){

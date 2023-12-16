@@ -9,9 +9,7 @@ import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.analyzer.core.utils.Analyzer;
 import org.softauto.jaxrs.analyzer.initializers.BaseInitializer;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PluginFactory<R>  implements Provider {
@@ -32,6 +30,9 @@ public class PluginFactory<R>  implements Provider {
     }
 
 
+    private Set<String> jaxrsEndPoints = Collections
+            .unmodifiableSet(new HashSet<>(Arrays.asList("/ws/rs/POST","/ws/rs/GET","/ws/rs/DELETE","/ws/rs/PUT")));
+
     private Object getObject(Object[] objs,String clazz){
         for(Object o : objs){
             if(o != null && o.getClass().getTypeName().equals(clazz)){
@@ -42,9 +43,10 @@ public class PluginFactory<R>  implements Provider {
     }
 
     public boolean isInterest(GenericItem tree){
-        List<String> l = Configuration.get("jax_rs_end_point").asList();
-        LinkedList<String> pathList = (LinkedList<String>) ((ArrayList)l).stream().collect(Collectors.toCollection(LinkedList::new));
-        if(AnnotationHelper.isContains(pathList,(tree.getAnnotations()))) {
+        //List<String> l = Configuration.get("jax_rs_end_point").asList();
+        //LinkedList<String> pathList = (LinkedList<String>) ((ArrayList)l).stream().collect(Collectors.toCollection(LinkedList::new));
+
+        if(AnnotationHelper.isContains(jaxrsEndPoints,(tree.getAnnotations()))) {
             return true;
         }
         return false;
