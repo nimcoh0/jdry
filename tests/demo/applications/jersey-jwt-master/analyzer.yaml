@@ -1,13 +1,19 @@
 ---
+#output package
 file_namespace: "tests.infrastructure"
+#output filename
 schema_name: "JwtService"
+#the application domain
 domain: "om.cassiomolin.example"
+#authentication type . can be JWT,BASIC,NONE
 auth: "JWT"
-plugin_jars:
-  - {jar : "C:/work/myprojects/java/jdry/jdry-jax-rs-analyzer/target/jdry-jax-rs-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",protocol: "JAXRS"}
-  - {jar : "C:/work/myprojects/java/jdry/jdry-rpc-analyzer/target/jdry-rpc-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",protocol: "RPC"}
-jar_path:
-  - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/target/jersey-jwt-1.0.jar"
+
+#plugin_jars:
+#  - {jar : "C:/work/myprojects/java/jdry/jdry-jax-rs-analyzer/target/jdry-jax-rs-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",protocol: "JAXRS"}
+#  - {jar : "C:/work/myprojects/java/jdry/jdry-rpc-analyzer/target/jdry-rpc-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",protocol: "RPC"}
+#jar_path:
+  #- "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/target/jersey-jwt-1.0.jar"
+#api annotations
 api_annotations:
   - "Ljavax/ws/rs/POST;"
   - "Ljavax/ws/rs/GET;"
@@ -15,10 +21,13 @@ api_annotations:
   - "Ljavax/ws/rs/PUT;"
   - "Lorg/softauto/annotations/ApiForTesting;"
   - "Lorg/softauto/annotations/InitializeForTesting;"
+#default protocol
 default_protocol: "RPC"
+#jaxrs end points
 jax_rs_end_point:
   - "/ws/rs/POST"
   - "/ws/rs/GET"
   - "/ws/rs/DELETE"
   - "/ws/rs/PUT"
+#base uri
 base_uri: "/api"

@@ -74,8 +74,8 @@ public class Analyzer {
                 Utils.loadConfiguration(null);
             }
 
-            registerPlugins();
-            Utils.addJarToClasspath(Configuration.get(Context.JAR_PATH).asList());
+            //registerPlugins();
+            //Utils.addJarToClasspath(Configuration.get(Context.JAR_PATH).asList());
             logger.debug(JDRY,"initialize successfully");
         }catch (Exception e){
             logger.error(JDRY,"fail initialize ",e);

@@ -65,6 +65,21 @@
         </dependency>
         <dependency>
             <groupId>org.softauto</groupId>
+            <artifactId>jdry-jax-rs-analyzer</artifactId>
+            <version>${jdry}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-core-analyzer</artifactId>
+            <version>${jdry}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-rpc-analyzer</artifactId>
+            <version>${jdry}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.softauto</groupId>
             <artifactId>jdry-model</artifactId>
             <version>${jdry}</version>
         </dependency>

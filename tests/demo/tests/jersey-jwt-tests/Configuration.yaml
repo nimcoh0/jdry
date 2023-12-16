@@ -1,11 +1,18 @@
 ---
+#jdry grpc server/agent machine  - should be the java application machine
 host: "localhost"
+#jdry grpc server/agent port
 port: 8085
 jaxrs:
+  #restful server machine
   host: "localhost"
+  #restful server port
   port: "8080"
+  #restful server protocol can be http or https
   protocol: "HTTP"
+  #authentication type . can be JWT,BASIC,NONE
   auth: "JWT"
+  #base url if exist
   base_url: "/api"
 
 

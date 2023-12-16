@@ -1,13 +1,21 @@
 ---
+#the application to be test jar
 jar_path:
     - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/jersey-jwt-1.0.jar"
+#the generated path
 file_path: "target/generated-sources/"
+#output file name
 file_name: "jwt"
+#output package
 file_namespace: "tests.infrastructure"
+#full path to the application class
 class_dir:
     - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/target/classes"
+#application main class
 main_class: "com.cassiomolin.example.Application"
+#application domain
 domain: "com.cassiomolin.example"
+#annotation to be discovery
 discover_by_annotation:
     - "org.softauto.annotations.ApiForTesting"
     - "org.softauto.annotations.ListenerForTesting"
@@ -19,8 +27,10 @@ discover_by_annotation:
     - "javax.ws.rs.GET"
     - "javax.ws.rs.DELETE"
     - "javax.ws.rs.PUT"
+#replace return type with the real return type
 unbox_return_type:
     - "javax.ws.rs.core.Response"
     - "javax.ws.rs.core.Response$Status"
+#ignore in process of discovery return real type
 unbox_exclude_return_type:
     - "java.lang.Exception"

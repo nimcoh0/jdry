@@ -1,6 +1,6 @@
 package org.softauto.rpc.analyzer;
 
-import org.softauto.analyzer.core.system.config.Configuration;
+
 import org.softauto.analyzer.core.system.plugin.api.Provider;
 import org.softauto.analyzer.core.system.scanner.AbstractAnnotationScanner;
 import org.softauto.analyzer.core.system.scanner.AnnotationHelper;
@@ -9,10 +9,6 @@ import org.softauto.analyzer.core.utils.Analyzer;
 import org.softauto.analyzer.model.Item;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class PluginImpl implements Provider {
     @Override

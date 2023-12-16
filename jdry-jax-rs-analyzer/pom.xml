@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>org.softauto</groupId>
-            <artifactId>jdry-analyzer</artifactId>
+            <artifactId>jdry-core-analyzer</artifactId>
             <version>${jdry}</version>
         </dependency>
 
