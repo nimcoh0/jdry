@@ -48,7 +48,11 @@ Jdry works as client server architecture . it uses the SUT code impl as the buil
 
 # Getting Started
 
-	
+1. disovery
+2. analyzer
+3. compile
+4. setup application for testing
+5. create new test project	
 
 for more details see (https://github.com/nimcoh0/Jdry/wiki/)
 
