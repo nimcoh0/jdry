@@ -36,12 +36,13 @@ public class DiscoveryByAnnotation implements IDiscovery {
             if (tag != null) {
                 for (AnnotationTag annotation : tag.getAnnotations()) {
                     for (Object obj : annotations) {
-                        if (annotation.getType().contains(obj.toString().replace(".","/"))) {
+                        if (annotation.getType().contains("L"+obj.toString().replace(".","/")+";")) {
                             return sootMethod;
                         }
                     }
                 }
             }
+
         } catch (Exception e) {
             logger.error(JDRY,"fail discovery for "+o.getClass().getTypeName());
         }

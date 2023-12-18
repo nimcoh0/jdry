@@ -14,6 +14,6 @@ public class Context {
     public final static String DISCOVER_FIELD_BY_ANNOTATION = "discover_field_by_annotation";
     public final static String UNBOX_EXCLUDE_RETURN_TYPE = "unbox_exclude_return_type";
     public final static String UNBOX_RETURN_TYPE = "unbox_return_type";
-
+    public final static String JAR_PATH = "jar_path";
 
 }

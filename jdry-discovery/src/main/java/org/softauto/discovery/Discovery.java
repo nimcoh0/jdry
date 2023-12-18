@@ -23,6 +23,7 @@ import org.softauto.handlers.annotations.HandelClassAnnotation;
 import org.softauto.model.clazz.ClassFactory;
 import org.softauto.model.field.FieldFactory;
 import org.softauto.model.item.*;
+import org.softauto.utils.Util;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CHATransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
@@ -91,7 +92,9 @@ public class Discovery extends AbstractDiscovery {
         try {
             CHATransformer.v().transform();
             CallGraph cg = Scene.v().getCallGraph();
-            for(SootClass sc : Scene.v().getApplicationClasses()) {
+            List<SootClass> sootClasses = Util.getSootClassListFromJar("C:\\work\\myprojects\\java\\jdry\\tests\\demo\\applications\\jersey-jwt-master\\target\\jersey-jwt-1.0.jar");
+            //for(SootClass sc : Scene.v().getApplicationClasses()) {
+            for(SootClass sc : sootClasses) {
                 if (Filter.filter(new FilterByDomain().set(Configuration.get(Context.DOMAIN).asString()), sc)) {
                     SpEL.getInstance().addProperty("class",sc);
                     if(sc.getModifiers() > 0) {

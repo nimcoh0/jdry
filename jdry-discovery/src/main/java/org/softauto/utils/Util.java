@@ -13,6 +13,8 @@ import org.softauto.core.Configuration;
 import org.softauto.flow.FlowObject;
 import org.yaml.snakeyaml.Yaml;
 import soot.MethodOrMethodContext;
+import soot.Scene;
+import soot.SootClass;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.util.dot.DotGraph;
@@ -22,8 +24,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class Util {
 
@@ -185,5 +191,27 @@ public class Util {
         }
     }
 
+    public static List<SootClass> getSootClassListFromJar(String jarFilePath) {
+        List<SootClass> files = new ArrayList<>();
+        try (JarFile jarFile = new JarFile(jarFilePath)) {
+            Enumeration<JarEntry> entries = jarFile.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+                if(entry.getName().endsWith(".class")&& entry.getName().contains(Configuration.get(Context.DOMAIN).asString().replace(".","/"))) {
+                    String name = entry.getName().replace(".class","");
+                    if(!name.equals(Configuration.get(Context.MAIN_CLASS).asString().replace(".","/"))) {
+                            SootClass ret = Scene.v().forceResolve(name.replace("/", "."), SootClass.BODIES | SootClass.HIERARCHY | SootClass.SIGNATURES);
+                            if (!ret.isPhantom()) {
+                                ret = Scene.v().loadClass(name.replace("/", "."), SootClass.BODIES);
+                            }
+                            files.add(ret);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return files;
+    }
 
 }

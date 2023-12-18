@@ -1,16 +1,13 @@
 ---
-#the application to be test jar
+#the application to be test jar path
 jar_path:
-    - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/jersey-jwt-1.0.jar"
+    - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/target"
 #the generated path
 file_path: "target/generated-sources/"
 #output file name
 file_name: "jwt"
 #output package
 file_namespace: "tests.infrastructure"
-#full path to the application class
-class_dir:
-    - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/target/classes"
 #application main class
 main_class: "com.cassiomolin.example.Application"
 #application domain
