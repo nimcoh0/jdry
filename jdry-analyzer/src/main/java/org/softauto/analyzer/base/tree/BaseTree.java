@@ -36,19 +36,12 @@ public abstract class BaseTree implements Tree {
         }
 
 
-        private List<String> getPathList(){
-            List<String> pathlist = new ArrayList<>();
-            List<String> l = Configuration.get("api_annotations").asList();
-            for(String s : l){
-                pathlist.add(("L"+s+";").replace(".","/"));
-            }
-            return pathlist;
-        }
+
 
         @Override
         public <R,T,D> R accept(TreeVisitor<R,T,D> visitor, T t, D d, R r) {
             HashMap<String,Object>  callOption = null;
-            List<String> l = getPathList();
+            List<String> l = Configuration.get("api_annotations").asList();
             LinkedList<String> pathList = (LinkedList<String>) ((ArrayList)l).stream().collect(Collectors.toCollection(LinkedList::new));
             if(AnnotationHelper.isExist(pathList,((GenericItem)t).getAnnotations())) {
                 for (PluginProvider plugin : ProviderManager.providers(ClassLoader.getSystemClassLoader())) {
@@ -72,7 +65,7 @@ public abstract class BaseTree implements Tree {
 
     public static class ClassType  implements ClassTypeTree {
 
-        private static final String path = "Lorg/softauto/annotations/InitializeForTesting;";
+        private static final String path = "org.softauto.annotations.InitializeForTesting";
 
         @Override
         public Kind getKind() {
@@ -90,13 +83,10 @@ public abstract class BaseTree implements Tree {
                 if(scanner.has("parameters")){
                    Object p =  scanner.get("parameters").asObject();
                     List<HashMap<String, Object>> constructorParameters = new ArrayList<>();
-
                    if(p instanceof Map){
-                     //for(Map.Entry entry :  ((HashMap<String,String>)p).entrySet()) {
                          HashMap<String, Object> parameter = new HashMap<>();
                          parameter.put(((HashMap<String, String>) p).get("type"), ((HashMap<String, String>) p).get("value"));
                          constructorParameters.add(parameter);
-                     //}
                    }
                    if(p instanceof ArrayList){
                        for(Object o : (ArrayList)p){

@@ -92,11 +92,11 @@ public class HandleRequestType {
 
     protected void handleQueryParam(){
         AbstractAnnotationScanner scanner = null;
-        if(tree.getAnnotations().containsKey("Ljakarta/ws/rs/QueryParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljakarta/ws/rs/QueryParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("jakarta.ws.rs.QueryParam")) {
+            scanner = new AnnotationScanner().setPath("jakarta.ws.rs.QueryParam").setAnnotations(tree.getAnnotations()).scanner();
         }
-        if(tree.getAnnotations().containsKey("Ljavax/ws/rs/QueryParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljavax/ws/rs/QueryParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("javax.ws.rs.QueryParam")) {
+            scanner = new AnnotationScanner().setPath("javax.ws.rs.QueryParam").setAnnotations(tree.getAnnotations()).scanner();
         }
         if(scanner != null ){
             LinkedList<LinkedHashMap<String, Object>> args = buildArgList(scanner);
@@ -106,11 +106,11 @@ public class HandleRequestType {
 
     protected void handleFormParam(){
         AbstractAnnotationScanner scanner = null;
-        if(tree.getAnnotations().containsKey("Ljakarta/ws/rs/FormParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljakarta/ws/rs/FormParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("jakarta.ws.rs.FormParam")) {
+            scanner = new AnnotationScanner().setPath("jakarta.ws.rs.FormParam").setAnnotations(tree.getAnnotations()).scanner();
         }
-        if(tree.getAnnotations().containsKey("Ljavax/ws/rs/FormParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljavax/ws/rs/FormParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("javax.ws.rs.FormParam")) {
+            scanner = new AnnotationScanner().setPath("javax.ws.rs.FormParam").setAnnotations(tree.getAnnotations()).scanner();
         }
         if(scanner != null ){
             LinkedList<LinkedHashMap<String, Object>> args = buildArgList(scanner);
@@ -128,11 +128,11 @@ public class HandleRequestType {
 
     protected void handlePathParam(){
         AbstractAnnotationScanner scanner = null;
-        if(tree.getAnnotations().containsKey("Ljakarta/ws/rs/PathParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljakarta/ws/rs/PathParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("jakarta.ws.rs.PathParam")) {
+            scanner = new AnnotationScanner().setPath("jakarta.ws.rs.PathParam").setAnnotations(tree.getAnnotations()).scanner();
         }
-        if(tree.getAnnotations().containsKey("Ljavax/ws/rs/PathParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljavax/ws/rs/PathParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("javax.ws.rs.PathParam")) {
+            scanner = new AnnotationScanner().setPath("javax.ws.rs.PathParam").setAnnotations(tree.getAnnotations()).scanner();
         }
         if(scanner != null ){
             LinkedList<LinkedHashMap<String, Object>> args = buildArgList(scanner);
@@ -142,11 +142,11 @@ public class HandleRequestType {
 
     protected void handleBeanParam(){
         AbstractAnnotationScanner scanner = null;
-        if(tree.getAnnotations().containsKey("Ljakarta/ws/rs/BeanParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljakarta/ws/rs/BeanParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("jakarta.ws.rs.BeanParam")) {
+            scanner = new AnnotationScanner().setPath("jakarta.ws.rs.BeanParam").setAnnotations(tree.getAnnotations()).scanner();
         }
-        if(tree.getAnnotations().containsKey("Ljavax/ws/rs/BeanParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljavax/ws/rs/BeanParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("javax.ws.rs.BeanParam")) {
+            scanner = new AnnotationScanner().setPath("javax.ws.rs.BeanParam").setAnnotations(tree.getAnnotations()).scanner();
         }
         if(scanner != null ){
             LinkedList<LinkedHashMap<String, Object>> args = buildArgList(scanner);
@@ -156,11 +156,11 @@ public class HandleRequestType {
 
     protected void handleHeaderParam(){
         AbstractAnnotationScanner scanner = null;
-        if(tree.getAnnotations().containsKey("Ljakarta/ws/rs/HeaderParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljakarta/ws/rs/HeaderParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("jakarta.ws.rs.HeaderParam")) {
+            scanner = new AnnotationScanner().setPath("jakarta.ws.rs.HeaderParam").setAnnotations(tree.getAnnotations()).scanner();
         }
-        if(tree.getAnnotations().containsKey("Ljavax/ws/rs/HeaderParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljavax/ws/rs/HeaderParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("javax.ws.rs.HeaderParam")) {
+            scanner = new AnnotationScanner().setPath("javax.ws.rs.HeaderParam").setAnnotations(tree.getAnnotations()).scanner();
         }
         if(scanner != null ){
             LinkedList<LinkedHashMap<String, Object>> args = buildArgList(scanner);
@@ -170,11 +170,11 @@ public class HandleRequestType {
 
     protected void handleMatrixParam(){
         AbstractAnnotationScanner scanner = null;
-        if(tree.getAnnotations().containsKey("Ljakarta/ws/rs/MatrixParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljakarta/ws/rs/MatrixParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("jakarta.ws.rs.MatrixParam")) {
+            scanner = new AnnotationScanner().setPath("jakarta.ws.rs.MatrixParam").setAnnotations(tree.getAnnotations()).scanner();
         }
-        if(tree.getAnnotations().containsKey("Ljavax/ws/rs/MatrixParam;")) {
-            scanner = new AnnotationScanner().setPath("Ljavax/ws/rs/MatrixParam;").setAnnotations(tree.getAnnotations()).scanner();
+        if(tree.getAnnotations().containsKey("javax.ws.rs.MatrixParam")) {
+            scanner = new AnnotationScanner().setPath("javax.ws.rs.MatrixParam").setAnnotations(tree.getAnnotations()).scanner();
         }
         if(scanner != null ){
             LinkedList<LinkedHashMap<String, Object>> args = buildArgList(scanner);

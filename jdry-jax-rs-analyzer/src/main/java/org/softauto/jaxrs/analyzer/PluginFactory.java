@@ -31,7 +31,7 @@ public class PluginFactory<R>  implements Provider {
 
 
     private Set<String> jaxrsEndPoints = Collections
-            .unmodifiableSet(new HashSet<>(Arrays.asList("/ws/rs/POST","/ws/rs/GET","/ws/rs/DELETE","/ws/rs/PUT")));
+            .unmodifiableSet(new HashSet<>(Arrays.asList(".ws.rs.POST",".ws.rs.GET",".ws.rs.DELETE",".ws.rs.PUT")));
 
     private Object getObject(Object[] objs,String clazz){
         for(Object o : objs){
@@ -43,9 +43,6 @@ public class PluginFactory<R>  implements Provider {
     }
 
     public boolean isInterest(GenericItem tree){
-        //List<String> l = Configuration.get("jax_rs_end_point").asList();
-        //LinkedList<String> pathList = (LinkedList<String>) ((ArrayList)l).stream().collect(Collectors.toCollection(LinkedList::new));
-
         if(AnnotationHelper.isContains(jaxrsEndPoints,(tree.getAnnotations()))) {
             return true;
         }

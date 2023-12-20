@@ -23,8 +23,8 @@ public class PluginImpl implements Provider {
 
     @Override
     public boolean isInterest(GenericItem tree) {
-            if(AnnotationHelper.isExist("Lorg/softauto/annotations/ApiForTesting;",tree.getAnnotations(),"protocol")){
-                AbstractAnnotationScanner scanner = new AnnotationScanner().setPath("Lorg/softauto/annotations/ApiForTesting;").setAnnotations(tree.getAnnotations()).scanner();
+            if(AnnotationHelper.isExist("org.softauto.annotations.ApiForTesting",tree.getAnnotations(),"protocol")){
+                AbstractAnnotationScanner scanner = new AnnotationScanner().setPath("org.softauto.annotations.ApiForTesting").setAnnotations(tree.getAnnotations()).scanner();
                 if(scanner != null){
                     if(scanner.get("protocol").asString().equals("RPC")){
                         return true;

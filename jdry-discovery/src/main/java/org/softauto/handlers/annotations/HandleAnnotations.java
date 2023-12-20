@@ -51,7 +51,8 @@ public class HandleAnnotations {
                                                     hm1.put(key, entry.getValue());
                                                 }
                                             }
-                                            annotations.put(annotation.getType(), hm1);
+                                            String realType = (annotation.getType().substring(1,annotation.getType().length()-1)).replace("/",".");
+                                            annotations.put(realType, hm1);
                                     }
                             }
                         }
@@ -81,7 +82,8 @@ public class HandleAnnotations {
                                                         }
                                                     }
                                                     hm1.put("index",i,false);
-                                                    annotations.put(annotation.getType(), hm1);
+                                                    String realType = (annotation.getType().substring(1,annotation.getType().length()-1)).replace("/",".");
+                                                    annotations.put(realType, hm1);
                                             }
                                     }
                               }

@@ -56,22 +56,22 @@ public class CallOptionBuilder {
 
         private String findMethod(){
             for(Map.Entry map : tree.getAnnotations().entrySet()) {
-                if (map.getKey().toString().contains("/ws/rs/POST;")) {
+                if (map.getKey().toString().contains(".ws.rs.POST")) {
                     return "POST";
                 }
             }
             for(Map.Entry map : tree.getAnnotations().entrySet()) {
-                if (map.getKey().toString().contains("/ws/rs/DELETE;")) {
+                if (map.getKey().toString().contains(".ws.rs.DELETE")) {
                     return "DELETE";
                 }
             }
             for(Map.Entry map : tree.getAnnotations().entrySet()) {
-                if (map.getKey().toString().contains("/ws/rs/GET;")) {
+                if (map.getKey().toString().contains(".ws.rs.GET")) {
                     return "GET";
                 }
             }
             for(Map.Entry map : tree.getAnnotations().entrySet()) {
-                if (map.getKey().toString().contains("/ws/rs/PUT;")) {
+                if (map.getKey().toString().contains(".ws.rs.PUT")) {
                     return "PUT";
                 }
             }

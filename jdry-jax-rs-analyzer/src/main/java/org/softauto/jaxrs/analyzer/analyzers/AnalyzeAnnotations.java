@@ -37,7 +37,7 @@ public class AnalyzeAnnotations {
     }
 
     private Set<String> jaxrsEndPoints = Collections
-            .unmodifiableSet(new HashSet<>(Arrays.asList("/ws/rs/POST","/ws/rs/GET","/ws/rs/DELETE","/ws/rs/PUT")));
+            .unmodifiableSet(new HashSet<>(Arrays.asList(".ws.rs.POST",".ws.rs.GET",".ws.rs.DELETE",".ws.rs.PUT")));
 
     public AnalyzeAnnotations setTree(GenericItem tree) {
         this.tree = tree;
@@ -45,14 +45,11 @@ public class AnalyzeAnnotations {
     }
 
     private boolean isEndPoint(){
-        //if(Configuration.has("jax_rs_end_point")){
-         // List<String> endPointsList =   Configuration.get("jax_rs_end_point").asList();
           for(String s : jaxrsEndPoints ){
               if(tree.getAnnotations().toString().contains(s)){
                   return true;
               }
           }
-       // }
        return false;
     }
 
@@ -85,16 +82,16 @@ public class AnalyzeAnnotations {
                     if (start && ((Map) entry.getValue()).size() > 0) {
                         LinkedHashMap<String, Object> l = (LinkedHashMap<String, Object>) entry.getValue();
                         for (Map.Entry k : l.entrySet()) {
-                            if (k.getKey().toString().contains("/ws/rs/Produces;")) {
+                            if (k.getKey().toString().contains(".ws.rs.Produces")) {
                                 produce = ((Map) k.getValue()).get("value").toString() ;
 
                             }
                         }
-                        if (tree.getAnnotations().containsKey("Ljakarta/ws/rs/Produces;")) {
-                            produce = ((Map) tree.getAnnotations().get("Ljakarta/ws/rs/Produces;")).get("value").toString() ;
+                        if (tree.getAnnotations().containsKey("jakarta.ws.rs.Produces")) {
+                            produce = ((Map) tree.getAnnotations().get("jakarta.ws.rs.Produces")).get("value").toString() ;
 
-                        }else if (tree.getAnnotations().containsKey("Ljavax/ws/rs/Produces;")) {
-                            produce = ((Map) tree.getAnnotations().get("Ljavax/ws/rs/Produces;")).get("value").toString() ;
+                        }else if (tree.getAnnotations().containsKey("javax.ws.rs.Produces")) {
+                            produce = ((Map) tree.getAnnotations().get("javax.ws.rs.Produces")).get("value").toString() ;
 
                         }
                     }
@@ -125,16 +122,16 @@ public class AnalyzeAnnotations {
                     if (start && ((Map) entry.getValue()).size() > 0) {
                         LinkedHashMap<String, Object> l = (LinkedHashMap<String, Object>) entry.getValue();
                         for (Map.Entry k : l.entrySet()) {
-                            if (k.getKey().toString().contains("/ws/rs/Consumes;")) {
+                            if (k.getKey().toString().contains(".ws.rs.Consumes")) {
                                 consume = ((Map) k.getValue()).get("value").toString() ;
 
                             }
                         }
-                        if (tree.getAnnotations().containsKey("Ljakarta/ws/rs/Consumes;")) {
-                            consume = ((Map) tree.getAnnotations().get("Ljakarta/ws/rs/Consumes;")).get("value").toString() ;
+                        if (tree.getAnnotations().containsKey("jakarta.ws.rs.Consumes")) {
+                            consume = ((Map) tree.getAnnotations().get("jakarta.ws.rs.Consumes")).get("value").toString() ;
 
-                        }else if (tree.getAnnotations().containsKey("Ljavax/ws/rs/Consumes;")) {
-                            consume = ((Map) tree.getAnnotations().get("Ljavax/ws/rs/Consumes;")).get("value").toString() ;
+                        }else if (tree.getAnnotations().containsKey("javax.ws.rs.Consumes")) {
+                            consume = ((Map) tree.getAnnotations().get("javax.ws.rs.Consumes")).get("value").toString() ;
 
                         }
                     }
@@ -171,19 +168,19 @@ public class AnalyzeAnnotations {
                         if (start && ((Map) entry.getValue()).size() > 0) {
                             LinkedHashMap<String, Object> l = (LinkedHashMap<String, Object>) entry.getValue();
                             for (Map.Entry k : l.entrySet()) {
-                                if (k.getKey().toString().contains("Ljakarta/ws/rs/Path;")) {
+                                if (k.getKey().toString().contains("jakarta.ws.rs.Path")) {
                                     path = ((Map) k.getValue()).get("value") + "/" + path;
 
-                                }else if (k.getKey().toString().contains("Ljavax/ws/rs/Path;")) {
+                                }else if (k.getKey().toString().contains("javax.ws.rs.Path")) {
                                     path = ((Map) k.getValue()).get("value") + "/" + path;
 
                                 }
 
                             }
-                            if (tree.getAnnotations().containsKey("Ljakarta/ws/rs/Path;")) {
-                                path = path + ((Map) tree.getAnnotations().get("Ljakarta/ws/rs/Path;")).get("value");
-                            }else if (tree.getAnnotations().containsKey("Ljavax/ws/rs/Path;")) {
-                                path = path + ((Map) tree.getAnnotations().get("Ljavax/ws/rs/Path;")).get("value");
+                            if (tree.getAnnotations().containsKey("jakarta.ws.rs.Path")) {
+                                path = path + ((Map) tree.getAnnotations().get("jakarta.ws.rs.Path")).get("value");
+                            }else if (tree.getAnnotations().containsKey("javax.ws.rs.Path")) {
+                                path = path + ((Map) tree.getAnnotations().get("javax.ws.rs.Path")).get("value");
                             }
                             if(baseUrl != null && !baseUrl.isEmpty()) {
                                 paths.add(baseUrl + "/" + path);

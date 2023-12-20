@@ -94,19 +94,7 @@
             <version>1.38.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>uk.co.jemos.podam</groupId>
-            <artifactId>podam</artifactId>
-            <version>7.0.3.RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
 
-
-        </dependency>
 
     </dependencies>
 
