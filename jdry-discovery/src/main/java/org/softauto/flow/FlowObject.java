@@ -4,6 +4,7 @@ import org.softauto.clazz.ClassInfo;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -143,7 +144,5 @@ public class FlowObject {
     public void setMethod(SootMethod method) {
         this.method = method;
     }
-
-
 
 }

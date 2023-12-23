@@ -111,7 +111,7 @@ public class Utils {
             Constructor[] constructors = c.getDeclaredConstructors();
             for(Constructor constructor: constructors){
                 boolean found = true;
-                if(constructor.getParameters().length >0 && constructor.getParameters().length == constructorTypes.size()){
+                if(constructorTypes != null &&constructor.getParameters().length >0 && constructor.getParameters().length == constructorTypes.size()){
                     for(int i=0;i<constructor.getParameters().length;i++){
                         if(!constructor.getParameters()[i].getType().getTypeName().contains(constructorTypes.get(i))){
                             found = false;

@@ -92,9 +92,9 @@ public class Discovery extends AbstractDiscovery {
         try {
             CHATransformer.v().transform();
             CallGraph cg = Scene.v().getCallGraph();
-            List<SootClass> sootClasses = Util.getSootClassListFromJar("C:\\work\\myprojects\\java\\jdry\\tests\\demo\\applications\\jersey-jwt-master\\target\\jersey-jwt-1.0.jar");
-            //for(SootClass sc : Scene.v().getApplicationClasses()) {
-            for(SootClass sc : sootClasses) {
+            //List<SootClass> sootClasses = Util.getSootClassListFromJar("C:\\work\\myprojects\\java\\iotback\\core\\target\\core-0.0.1-SNAPSHOT-jar-with-dependencies.jar");
+            for(SootClass sc : Scene.v().getApplicationClasses()) {
+            //for(SootClass sc : sootClasses) {
                 if (Filter.filter(new FilterByDomain().set(Configuration.get(Context.DOMAIN).asString()), sc)) {
                     SpEL.getInstance().addProperty("class",sc);
                     if(sc.getModifiers() > 0) {

@@ -55,8 +55,8 @@ public abstract class AbstractDiscovery {
 
         }));
         args = argsList.toArray(new String[argsList.size()]);
-        Options.v().set_process_jar_dir(Configuration.get(Context.JAR_PATH).asList());
-        //Options.v().set_process_dir(Configuration.get(Context.CLASS_DIR).asList());
+        //Options.v().set_process_jar_dir(Configuration.get(Context.JAR_PATH).asList());
+        Options.v().set_process_dir(Configuration.get(Context.CLASS_DIR).asList());
         Options.v().set_whole_program(true);
         Options.v().set_app(true);
         Options.v().set_exclude(getExcludePackagesList());
