@@ -1,8 +1,9 @@
 package org.softauto.system;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import org.softauto.analyzer.model.scenario.Scenario;
+import org.softauto.model.scenario.Scenario;
 import org.softauto.core.Configuration;
 import org.softauto.core.ScenarioLifeCycle;
 import org.softauto.core.StepLifeCycle;
@@ -79,8 +80,9 @@ public class SystemServiceImpl {
     }
 
 
-    public boolean configuration(String scenarioId, Scenario scenario) {
+    public boolean configuration(String scenarioId, String json) {
         try {
+            Scenario scenario = new ObjectMapper().readValue(json,Scenario.class);
             Scenarios.addScenario(scenarioId,scenario);
             Scenarios.getScenario(scenarioId).setScenarioState(ScenarioLifeCycle.INITIALIZE);
             Configuration.addConfiguration(scenario.getConfiguration());

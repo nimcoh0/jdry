@@ -85,8 +85,9 @@ public class SystemState {
 
     public Boolean sendConfiguration(Scenario scenario){
         try {
+            String json = new ObjectMapper().writeValueAsString(scenario);
             TestContext.getScenario().setState(ScenarioLifeCycle.INITIALIZE.name());
-            return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_configuration", new Object[]{scenario.getId(), scenario}, new Class[]{java.lang.String.class,Scenario.class});
+            return new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_configuration", new Object[]{scenario.getId(), json}, new Class[]{java.lang.String.class,java.lang.String.class});
         }catch (Exception e){
             logger.error(JDRY,"fail send configuration",e);
         }

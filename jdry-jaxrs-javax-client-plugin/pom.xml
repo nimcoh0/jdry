@@ -20,18 +20,7 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-core</artifactId>
-            <version>${jdry}</version>
-
-        </dependency>
-        <dependency>
-            <groupId>org.softauto</groupId>
-            <artifactId>jdry-model</artifactId>
-            <version>${jdry}</version>
-
-        </dependency>
+        
 
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
@@ -44,7 +33,12 @@
             <version>${jdry}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.softauto</groupId>
+            <artifactId>jdry-core</artifactId>
+            <version>${jdry}</version>
 
+        </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
@@ -55,6 +49,16 @@
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
             <version>${jersey}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j}</version>
         </dependency>
     </dependencies>
 

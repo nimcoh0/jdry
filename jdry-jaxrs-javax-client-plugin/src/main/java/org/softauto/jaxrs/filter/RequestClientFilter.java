@@ -28,7 +28,7 @@ public class RequestClientFilter implements ClientRequestFilter {
         Object result= null;
         int status = -1;
         try {
-            TestContext.setStepState(StepLifeCycle.START);
+            //TestContext.setStepState(StepLifeCycle.START);
             Cookie cookie = requestContext.getCookies().values().size() > 0 ? requestContext.getCookies().values().toArray(new Cookie[requestContext.getCookies().values().size()])[0] : null;
             String scenarioId = TestContext.getScenario().getId();
             String auto = Configuration.get("jaxrs").asMap().get("auth").toString();
@@ -77,7 +77,7 @@ public class RequestClientFilter implements ClientRequestFilter {
             e.printStackTrace();
         }
 
-        TestContext.setStepState(StepLifeCycle.STOP);
+        //TestContext.setStepState(StepLifeCycle.STOP);
         requestContext.abortWith(Response.ok(result,MediaType.APPLICATION_JSON).build());
     }
 }

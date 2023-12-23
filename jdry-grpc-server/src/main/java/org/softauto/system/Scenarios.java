@@ -2,7 +2,7 @@ package org.softauto.system;
 
 
 
-import org.softauto.analyzer.model.scenario.Scenario;
+import org.softauto.model.scenario.Scenario;
 
 import java.util.HashMap;
 
