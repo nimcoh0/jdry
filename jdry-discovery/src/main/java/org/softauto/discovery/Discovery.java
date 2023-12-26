@@ -218,7 +218,7 @@ public class Discovery extends AbstractDiscovery {
         Scene.v().setMainClass(appClass);
         Scene.v().loadNecessaryClasses();
         Main.main(args);
-
+        //PackManager.v().runPacks();
         return this;
     }
 

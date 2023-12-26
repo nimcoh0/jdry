@@ -35,6 +35,8 @@ public class FlowObject {
 
     private String returnType = "void";
 
+    private String returnTypeName ;
+
     private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
 
     public List<HashMap<String,String>> getCrudToSubject() {
@@ -55,6 +57,14 @@ public class FlowObject {
 
     public String getReturnType() {
         return returnType;
+    }
+
+    public String getReturnTypeName() {
+        return returnTypeName;
+    }
+
+    public void setReturnTypeName(String returnTypeName) {
+        this.returnTypeName = returnTypeName;
     }
 
     public void setReturnType(String returnType) {

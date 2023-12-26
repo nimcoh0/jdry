@@ -24,6 +24,8 @@ public class Item {
 
     private String returnType;
 
+    private String returnTypeName;
+
     private ClassInfo classInfo;
 
     private int modifier;
@@ -42,6 +44,14 @@ public class Item {
 
     public void setArgumentsNames(List<String> argumentsNames) {
         this.argumentsNames = argumentsNames;
+    }
+
+    public String getReturnTypeName() {
+        return returnTypeName;
+    }
+
+    public void setReturnTypeName(String returnTypeName) {
+        this.returnTypeName = returnTypeName;
     }
 
     List<Item> childes = new ArrayList<>();

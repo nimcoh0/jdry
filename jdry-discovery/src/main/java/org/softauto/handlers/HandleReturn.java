@@ -7,7 +7,7 @@ import soot.jimple.internal.*;
 
 import java.util.List;
 
-public class HandleReturnType {
+public class HandleReturn {
 
     private String responseObject;
 
@@ -17,23 +17,35 @@ public class HandleReturnType {
 
     private Body body;
 
-    public HandleReturnType setUnboxExcludeList(List<String> unboxExcludeList) {
+    String type;
+
+    String name;
+
+    public String getType() {
+        return type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public HandleReturn setUnboxExcludeList(List<String> unboxExcludeList) {
         this.unboxExcludeList = unboxExcludeList;
         return this;
     }
 
-    public HandleReturnType setUnboxList(List<String> unboxList) {
+    public HandleReturn setUnboxList(List<String> unboxList) {
         this.unboxList = unboxList;
         return this;
     }
 
-    public HandleReturnType setBody(Body body) {
+    public HandleReturn setBody(Body body) {
         this.body = body;
         return this;
     }
 
 
-    public HandleReturnType setResponseObject(String responseObject) {
+    public HandleReturn setResponseObject(String responseObject) {
         this.responseObject = responseObject;
         return this;
     }
@@ -54,11 +66,12 @@ public class HandleReturnType {
                     if (className.contains(responseObject)) {
                         if (((AbstractInvokeExpr) valueBox.getValue()).getArgs() != null && ((AbstractInvokeExpr) valueBox.getValue()).getArgs().size() > 0) {
                             for(Value value : ((AbstractInvokeExpr) valueBox.getValue()).getArgs()) {
-                                String type = value.getType().toString();
-                                String name = value.toString();
+                                type = value.getType().toString();
+                                name = value.toString();
                                 if (unboxList.contains(type)) {
                                     responseObject = parser(type);
-                                }else if(isModel(value.getType().getDefaultFinalType())){
+                                //}else if(isModel(value.getType().getDefaultFinalType())){
+                                }else if(isModel(value.getType())){
                                     return type;
                                 }else if(value instanceof JimpleLocal ){
                                     responseObject = value.getType().toString();

@@ -1,7 +1,7 @@
 ---
 #the application to be test jar path
-jar_path:
-    - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/jersey-jwt-1.0.jar"
+#jar_path:
+#    - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/jersey-jwt-1.0.jar"
 #the generated path
 file_path: "target/generated-sources/"
 #output file name
@@ -12,7 +12,7 @@ file_namespace: "tests.infrastructure"
 class_dir:
    - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/target/classes"
 #application main class
-main_class: "com.cassiomolin.example.Application"
+main_class: "com.cassiomolin.example.Example"
 #application domain
 domain: "com.cassiomolin.example"
 #annotation to be discovery

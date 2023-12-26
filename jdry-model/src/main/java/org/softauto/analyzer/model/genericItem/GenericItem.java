@@ -56,6 +56,8 @@ public class GenericItem implements   Cloneable, Serializable {
      */
     protected String returnType;
 
+    protected String returnTypeName;
+
     /**
      * call methods with interest
      */
@@ -82,6 +84,14 @@ public class GenericItem implements   Cloneable, Serializable {
 
     public List<HashMap<String, String>> getConstructorParameter() {
         return constructorParameter;
+    }
+
+    public String getReturnTypeName() {
+        return returnTypeName;
+    }
+
+    public void setReturnTypeName(String returnTypeName) {
+        this.returnTypeName = returnTypeName;
     }
 
     public void setConstructorParameters(List<HashMap<String, String>> parameters) {

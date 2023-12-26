@@ -12,6 +12,8 @@ import org.softauto.config.Context;
 import org.softauto.core.Configuration;
 import soot.*;
 import soot.options.Options;
+
+import java.io.File;
 import java.util.*;
 
 public abstract class AbstractDiscovery {
@@ -63,7 +65,16 @@ public abstract class AbstractDiscovery {
         Options.v().set_no_bodies_for_excluded(true);
         Options.v().set_allow_phantom_refs(true);
         Options.v().setPhaseOption("jb","use-original-names:true");
+        Options.v().setPhaseOption("jb","optimize:false");
+        String javapath = System.getProperty("java.class.path");
+        Options.v().set_soot_classpath("VIRTUAL_FS_FOR_JDK" + File.pathSeparator + javapath);
+        Options.v().set_ignore_classpath_errors(true);
 
+
+
+        //Options.v().set_process_dir(Arrays.asList(applicationClassPath().split(File.pathSeparator)));
+        Options.v().setPhaseOption("jb.sils", "enabled:false");
+        //Options.v().setPhaseOption("jb.cp-ule", "enabled:false");
         //Scene.v().getSootClassPath();
 
     }

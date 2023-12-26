@@ -11,13 +11,13 @@ import org.softauto.filter.FilterByAnnotation;
 import org.softauto.filter.IFilter;
 import org.softauto.clazz.ClassInfo;
 import org.softauto.clazz.ClassInfoBuilder;
-import org.softauto.handlers.HandleReturnType;
+import org.softauto.handlers.HandleReturn;
 import org.softauto.spel.SpEL;
 import org.softauto.flow.*;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Targets;
-import soot.tagkit.ParamNamesTag;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -68,14 +68,18 @@ public class MethodTreeDiscovery implements IFlow {
 
             flowObject =  FlowBuilder.newBuilder().setStaticInitializer(m.isStaticInitializer()).setStatic(m.isStatic()).setConstructor(m.isConstructor()).setClassInfo(getClassInfo(m)).setCg(cg).setName(m.getName()).setClazz(m.getDeclaringClass().getName()).setMethod(m).build().getFlowObject();
             List<String> tags = null;
-            if(m.hasTag(ParamNamesTag.NAME)){
-                tags = ((ParamNamesTag) m.getTag(ParamNamesTag.NAME)).getInfo();
-            }
+            //if(m.hasTag(ParamNamesTag.NAME)){
+              //  tags = ((ParamNamesTag) m.getTag(ParamNamesTag.NAME)).getInfo();
+           // }
+
             List<String> unboxList = Configuration.has(Context.UNBOX_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_RETURN_TYPE).asList()): null;
             List<String> unboxExcludeList = Configuration.has(Context.UNBOX_EXCLUDE_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_EXCLUDE_RETURN_TYPE).asList()): null;
             if(unboxList.contains(m.getReturnType().toString())) {
-
-                String returnType = new HandleReturnType().setBody(cg.iterator().next().getSrc().method().getActiveBody()).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList).parser(m.getReturnType().toString());
+                //getLocalUnsafe(cg.iterator().next().getSrc().method().getActiveBody());
+                HandleReturn handleReturn = new HandleReturn().setBody(cg.iterator().next().getSrc().method().getActiveBody()).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList);
+                handleReturn.parser(m.getReturnType().toString());
+                String returnType = handleReturn.getType();
+                flowObject.setReturnTypeName(handleReturn.getName());
                 if (returnType != null) {
                     if (returnType.contains("$")) {
                         returnType = returnType.replace("$", ".");
@@ -92,6 +96,9 @@ public class MethodTreeDiscovery implements IFlow {
         }
         return flowObject;
     }
+
+
+
 
     @Override
     public String getName() {

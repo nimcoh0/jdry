@@ -55,8 +55,12 @@ public class ItemBuilder {
 
         private int modifier;
 
+        private String returnTypeName;
 
-
+        public Builder setReturnTypeName(String returnTypeName) {
+            this.returnTypeName = returnTypeName;
+            return this;
+        }
 
         public Builder setModifier(int modifier) {
             this.modifier = modifier;
@@ -148,6 +152,7 @@ public class ItemBuilder {
                 item.setClassInfo(classInfo);
                 item.setArgumentsNames(argumentsNames);
                 item.setModifier(modifier);
+                item.setReturnTypeName(returnTypeName);
                 logger.debug(JDRY,"sucessfully build item "+namespce+"."+name);
             } catch (Exception e) {
                 logger.error(JDRY,"fail build Item ",e.getMessage());
