@@ -12,7 +12,7 @@ file_namespace: "tests.infrastructure"
 class_dir:
    - "C:/work/myprojects/java/jdry/tests/demo/applications/jersey-jwt-master/target/classes"
 #application main class
-main_class: "com.cassiomolin.example.Example"
+main_class: "com.cassiomolin.example.Application"
 #application domain
 domain: "com.cassiomolin.example"
 #annotation to be discovery

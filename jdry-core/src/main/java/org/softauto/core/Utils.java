@@ -332,4 +332,18 @@ public class Utils {
         return str;
     }
 
+    public static String getShortName(String fullName){
+        try {
+            if(fullName.contains(".")){
+                return fullName.substring(fullName.lastIndexOf(".")+1);
+            }
+            if(fullName.contains("_")){
+                return fullName.substring(fullName.lastIndexOf("_")+1);
+            }
+        } catch (Exception e) {
+            logger.error("fail build Short Name ",e);
+        }
+        return fullName;
+    }
+
 }

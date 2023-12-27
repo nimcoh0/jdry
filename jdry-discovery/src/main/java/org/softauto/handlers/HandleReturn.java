@@ -17,9 +17,9 @@ public class HandleReturn {
 
     private Body body;
 
-    String type;
+    private  String type;
 
-    String name;
+    private String name;
 
     public String getType() {
         return type;
@@ -58,19 +58,20 @@ public class HandleReturn {
         return false;
     }
 
+
+
     public String parser(String responseObject) {
-        for(Unit unit : body.getUnits().getElementsUnsorted()){
-            for(ValueBox valueBox : unit.getUseBoxes()) {
+        for(Unit unit : body.getUnits()){
+            for(ValueBox valueBox : unit.getUseAndDefBoxes()) {
                 if (valueBox.getValue() instanceof AbstractInvokeExpr) {
-                    String className = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName();
+                    String  className = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName();
                     if (className.contains(responseObject)) {
                         if (((AbstractInvokeExpr) valueBox.getValue()).getArgs() != null && ((AbstractInvokeExpr) valueBox.getValue()).getArgs().size() > 0) {
                             for(Value value : ((AbstractInvokeExpr) valueBox.getValue()).getArgs()) {
                                 type = value.getType().toString();
                                 name = value.toString();
-                                if (unboxList.contains(type)) {
+                                if (unboxList.contains(type) || name.contains("$stack")) {
                                     responseObject = parser(type);
-                                //}else if(isModel(value.getType().getDefaultFinalType())){
                                 }else if(isModel(value.getType())){
                                     return type;
                                 }else if(value instanceof JimpleLocal ){

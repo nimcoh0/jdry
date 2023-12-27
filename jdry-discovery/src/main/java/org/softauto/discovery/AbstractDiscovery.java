@@ -69,13 +69,7 @@ public abstract class AbstractDiscovery {
         String javapath = System.getProperty("java.class.path");
         Options.v().set_soot_classpath("VIRTUAL_FS_FOR_JDK" + File.pathSeparator + javapath);
         Options.v().set_ignore_classpath_errors(true);
-
-
-
-        //Options.v().set_process_dir(Arrays.asList(applicationClassPath().split(File.pathSeparator)));
         Options.v().setPhaseOption("jb.sils", "enabled:false");
-        //Options.v().setPhaseOption("jb.cp-ule", "enabled:false");
-        //Scene.v().getSootClassPath();
 
     }
 
