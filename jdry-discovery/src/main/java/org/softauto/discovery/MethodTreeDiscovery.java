@@ -76,7 +76,8 @@ public class MethodTreeDiscovery implements IFlow {
                 String returnType = handleReturn.getType();
                 String name = handleReturn.getName();
                 if(name == null || name.contains("$stack")){
-                    flowObject.setReturnTypeName(Utils.getShortName(m.getReturnType().toString().toLowerCase()));
+                    //flowObject.setReturnTypeName(Utils.getShortName(m.getReturnType().toString().toLowerCase()));
+                    flowObject.setReturnTypeName(null);
                 }else {
                     flowObject.setReturnTypeName(name);
                 }

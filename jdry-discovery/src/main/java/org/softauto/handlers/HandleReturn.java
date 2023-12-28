@@ -3,6 +3,7 @@ package org.softauto.handlers;
 import org.softauto.core.Configuration;
 import org.softauto.spel.SpEL;
 import soot.*;
+import soot.jimple.StringConstant;
 import soot.jimple.internal.*;
 
 import java.util.List;
@@ -68,16 +69,21 @@ public class HandleReturn {
                     if (className.contains(responseObject)) {
                         if (((AbstractInvokeExpr) valueBox.getValue()).getArgs() != null && ((AbstractInvokeExpr) valueBox.getValue()).getArgs().size() > 0) {
                             for(Value value : ((AbstractInvokeExpr) valueBox.getValue()).getArgs()) {
-                                type = value.getType().toString();
-                                name = value.toString();
-                                if (unboxList.contains(type) || name.contains("$stack")) {
-                                    responseObject = parser(type);
-                                }else if(isModel(value.getType())){
-                                    return type;
-                                }else if(value instanceof JimpleLocal ){
-                                    responseObject = value.getType().toString();
+                                if(value instanceof StringConstant) {
+                                    name = ((StringConstant) value).value;
+                                } else {
+                                    name = value.toString();
+                                    type = value.getType().toString();
+
+                                    if (unboxList.contains(type) || name.contains("$stack")) {
+                                        responseObject = parser(type);
+                                    } else if (isModel(value.getType())) {
+                                        return type;
+                                    } else if (value instanceof JimpleLocal) {
+                                        responseObject = value.getType().toString();
+                                    }
                                 }
-                            }
+                             }
                         }
                     }
                 }
