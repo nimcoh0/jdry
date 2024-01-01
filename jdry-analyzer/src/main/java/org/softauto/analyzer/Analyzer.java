@@ -15,10 +15,7 @@ import org.softauto.analyzer.core.utils.Utils;
 import org.softauto.analyzer.core.system.config.Configuration;
 import org.softauto.analyzer.item.TreeScanner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class Analyzer {
@@ -136,7 +133,7 @@ public class Analyzer {
               Provider provider = plugin.create(new Object[]{});
               //List<String> apiAnnotations = Configuration.get("api_annotations").asList();
               //apiAnnotations.addAll(provider.getApiAnnotations());
-              Configuration.add("api_annotations",provider.getApiAnnotations());
+              Configuration.add("api_annotations", provider.getApiAnnotations());
           }
       }
     }

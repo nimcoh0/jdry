@@ -15,8 +15,8 @@ public class DefaultConfiguration {
         configuration.put(Context.MAIN_CLASS,"");
         configuration.put(Context.DOMAIN,"");
         //configuration.put(Context.DISCOVER_BY_ANNOTATION,new Object[]{"ApiForTesting", "ListenerForTesting"});
-        configuration.put(Context.UNBOX_EXCLUDE_RETURN_TYPE,"java.lang.Exception");
-        configuration.put(Context.UNBOX_RETURN_TYPE,"${#method.getReturnType().toString()}");
+        //configuration.put(Context.UNBOX_EXCLUDE_RETURN_TYPE,"java.lang.Exception");
+        //configuration.put(Context.UNBOX_RETURN_TYPE,new ArrayList<String>"${#method.getReturnType().toString()}");
     }
 
     public static HashMap<String,Object> getConfiguration() {

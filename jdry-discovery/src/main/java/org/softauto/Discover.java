@@ -14,6 +14,7 @@ import org.softauto.discovery.plugin.spi.PluginProvider;
 import org.softauto.utils.Util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -72,9 +73,9 @@ public class Discover {
                 Provider provider = plugin.create(new Object[]{});
                 //List<String> apiAnnotations = Configuration.get("api_annotations").asList();
                 //apiAnnotations.addAll(provider.getApiAnnotations());
-                Configuration.add("discover_by_annotation",provider.getDiscoverByAnnotation());
-                Configuration.add("unbox_return_type",provider.getUnboxReturnType());
-                Configuration.add("unbox_exclude_return_type",provider.getUnboxEexcludeReturnType());
+                Configuration.add("discover_by_annotation", provider.getDiscoverByAnnotation());
+                Configuration.add("unbox_return_type", provider.getUnboxReturnType());
+                Configuration.add("unbox_exclude_return_type", provider.getUnboxEexcludeReturnType());
             }
         }
     }

@@ -209,7 +209,7 @@ public class Discovery extends AbstractDiscovery {
                                   }
                             }
                     } catch (Exception e) {
-                        logger.error(JDRY,"fail discovery for "+ ((SootMethod)o).getName(),e);
+                        logger.error(JDRY,"fail discovery ",e);
                     }
                 }
             }

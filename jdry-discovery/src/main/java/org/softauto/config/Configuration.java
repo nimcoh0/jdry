@@ -111,28 +111,34 @@ public class Configuration {
     }
 
     public static void add(String key,Object value){
-        Object o = configuration.get(key);
-        if(o ==null){
-            configuration.put(key,value);
-            return;
-        }
-        if(o instanceof ArrayList<?>){
-            ((List<Object>)o).addAll((Collection<?>) value);
-        }else {
-            logger.error("can't add object to non list element");
+        if(value != null ) {
+            Object o = configuration.get(key);
+            if (o == null) {
+                List<Object> list = new ArrayList<>();
+                list.add(value);
+                configuration.put(key, list);
+                return;
+            }
+            if (o instanceof ArrayList<?>) {
+                ((List<Object>) o).addAll((Collection<?>) value);
+            } else {
+                logger.error("can't add object to non list element");
+            }
         }
     }
 
-    public static void add(String key,List<Object> value){
-        Object o = configuration.get(key);
-        if(o ==null){
-            configuration.put(key,value);
-            return;
-        }
-        if(o instanceof ArrayList<?>){
-            ((List<Object>)o).addAll(value);
-        }else {
-            logger.error("can't add object to non list element");
+    public static <T> void add(String key,List<T> value){
+        if(value != null && value.size() > 0) {
+            List<T> o = (List<T>) configuration.get(key);
+            if (o == null) {
+                configuration.put(key, (List<T>) value);
+                return;
+            }
+            if (o instanceof ArrayList<T>) {
+                ((List<Object>) o).addAll(value);
+            } else {
+                logger.error("can't add object to non list element");
+            }
         }
     }
 
