@@ -56,7 +56,6 @@ public class AbstractTesterImpl  {
             TestContext.setScenario(scenario);
             TestContext.setTestContext(testContext);
             SystemState.getInstance().initialize(scenario);
-            ListenerServerProviderImpl.getInstance().initialize().register();
             loadPlugins();
         } catch (IOException e) {
            logger.error(JDRY,"fail before Scenario",e);

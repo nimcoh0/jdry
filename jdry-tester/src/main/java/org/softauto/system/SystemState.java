@@ -60,15 +60,21 @@ public class SystemState {
         this.scenario = scenario;
         loadConfiguration();
         scenario.setConfiguration(Configuration.getConfiguration());
-        if(sayHello(scenario.getId())){
-               logger.debug(JDRY,"successfully say hello");
-               if(sendConfiguration(scenario)) {
-                   logger.debug(JDRY,"successfully send configuration");
-               }else {
-                   logger.error(JDRY,"fail send configuration ");
-               }
-           }else {
-               logger.error(JDRY,"fail say hello ");
+        if(Configuration.get(Context.TESTER_MODE).asString().equals("agent")) {
+            logger.info("load tester in agent mode");
+            ListenerServerProviderImpl.getInstance().initialize().register();
+            if (sayHello(scenario.getId())) {
+                logger.debug(JDRY, "successfully say hello");
+                if (sendConfiguration(scenario)) {
+                    logger.debug(JDRY, "successfully send configuration");
+                } else {
+                    logger.error(JDRY, "fail send configuration ");
+                }
+            } else {
+                logger.error(JDRY, "fail say hello ");
+            }
+        }else {
+            logger.info("load tester in agentless mode");
         }
     }
 
@@ -100,19 +106,25 @@ public class SystemState {
     }
 
     public Boolean startTest(String testname,String scenarioId)throws Exception{
-        ListenerObserver.getInstance().reset();
-        boolean r = new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_startTest", new Object[]{scenarioId,testname}, new Class[]{java.lang.String.class,String.class});
+        if(Configuration.get(Context.TESTER_MODE).asString().equals("agent")) {
+            ListenerObserver.getInstance().reset();
+            boolean r = new org.softauto.tester.InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_startTest", new Object[]{scenarioId, testname}, new Class[]{java.lang.String.class, String.class});
 
-        TestContext.getScenario().setState(ScenarioLifeCycle.START.name());
-        return r;
+            TestContext.getScenario().setState(ScenarioLifeCycle.START.name());
+            return r;
+        }
+        return true;
     }
 
     public Boolean endTest(String testname,String scenarioId)throws Exception{
-        boolean r = new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_endTest", new Object[]{scenarioId,testname}, new Class[]{java.lang.String.class,String.class});
-        //TestContext.setStepState(StepLifeCycle.STOP);
-        TestContext.getScenario().setState(ScenarioLifeCycle.STOP.name());
-        ListenerServerProviderImpl.getInstance().shutdown();
-        return r;
+        if(Configuration.get(Context.TESTER_MODE).asString().equals("agent")) {
+            boolean r = new InvocationHandler().invoke("org_softauto_system_SystemServiceImpl_endTest", new Object[]{scenarioId, testname}, new Class[]{java.lang.String.class, String.class});
+            //TestContext.setStepState(StepLifeCycle.STOP);
+            TestContext.getScenario().setState(ScenarioLifeCycle.STOP.name());
+            ListenerServerProviderImpl.getInstance().shutdown();
+            return r;
+        }
+        return true;
     }
 
     public static void loadDefaultConfiguration()  {

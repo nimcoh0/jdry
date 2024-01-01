@@ -5,6 +5,8 @@ import org.softauto.analyzer.core.utils.Analyzer;
 import org.softauto.analyzer.model.Item;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 
+import java.util.List;
+
 public interface Provider {
 
       Analyzer getAnalyzer(GenericItem tree);
@@ -13,5 +15,5 @@ public interface Provider {
 
       boolean isInterest(GenericItem tree);
 
-
+      List<String> getApiAnnotations();
 }

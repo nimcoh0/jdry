@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.config.Context;
-import org.softauto.core.Configuration;
+import org.softauto.config.Configuration;
 import org.softauto.core.Utils;
 import org.softauto.filter.FilterByAnnotation;
 import org.softauto.filter.IFilter;

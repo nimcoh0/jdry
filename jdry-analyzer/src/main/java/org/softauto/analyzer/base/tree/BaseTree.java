@@ -42,8 +42,9 @@ public abstract class BaseTree implements Tree {
         public <R,T,D> R accept(TreeVisitor<R,T,D> visitor, T t, D d, R r) {
             HashMap<String,Object>  callOption = null;
             List<String> l = Configuration.get("api_annotations").asList();
-            LinkedList<String> pathList = (LinkedList<String>) ((ArrayList)l).stream().collect(Collectors.toCollection(LinkedList::new));
-            if(AnnotationHelper.isExist(pathList,((GenericItem)t).getAnnotations())) {
+            List<String> pathList = new ArrayList<>();
+            pathList = (LinkedList<String>) ((ArrayList) l).stream().collect(Collectors.toCollection(LinkedList::new));
+            if(AnnotationHelper.isExist((LinkedList)pathList,((GenericItem)t).getAnnotations())) {
                 for (PluginProvider plugin : ProviderManager.providers(ClassLoader.getSystemClassLoader())) {
                     if (plugin.getType() != null && plugin.getType().equals("protocol")) {
                         Provider provider = plugin.create((GenericItem) t);

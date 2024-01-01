@@ -54,5 +54,6 @@ public class Context {
     public final static String CACHE_IMPL = "cache_impl";
     public final static String ENTITY_NAME_POSTFIX = "entity_name_postfix";
     public final static String ENTITY_NAME_PREFIX = "entity_name_prefix";
+    public final static String TESTER_MODE = "tester_mode";
 
 }

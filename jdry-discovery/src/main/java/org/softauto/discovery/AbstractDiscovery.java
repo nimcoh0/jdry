@@ -8,9 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
+import org.softauto.config.Configuration;
 import org.softauto.config.Context;
-import org.softauto.core.Configuration;
-import soot.*;
 import soot.options.Options;
 
 import java.io.File;

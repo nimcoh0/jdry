@@ -6,6 +6,10 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.analyzer.core.system.config.Context;
 import org.softauto.analyzer.core.dao.api.ApiDataProvider;
+import org.softauto.analyzer.core.system.plugin.ProviderManager;
+import org.softauto.analyzer.core.system.plugin.api.Provider;
+import org.softauto.analyzer.core.system.plugin.spi.PluginProvider;
+import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.core.Analyze;
 import org.softauto.analyzer.core.utils.Utils;
 import org.softauto.analyzer.core.system.config.Configuration;
@@ -14,6 +18,7 @@ import org.softauto.analyzer.item.TreeScanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Analyzer {
@@ -21,6 +26,9 @@ public class Analyzer {
     private static Logger logger =  LogManager.getLogger(Analyzer.class);
 
     private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
+    private List<String> apiAnnotations = new ArrayList<>();
+
 
     public static Analyzer analyzer = null;
 
@@ -67,15 +75,16 @@ public class Analyzer {
 
     public Analyzer init(String conf){
         try {
+            apiAnnotations.add("org.softauto.annotations.ApiForTesting");
+
             Utils.loadDefaultConfiguration();
             if(conf != null){
                 Utils.loadConfiguration(conf);
             }else {
                 Utils.loadConfiguration(null);
             }
-
-            //registerPlugins();
-            //Utils.addJarToClasspath(Configuration.get(Context.JAR_PATH).asList());
+            Configuration.add("api_annotations",apiAnnotations);
+            initializePlugins();
             logger.debug(JDRY,"initialize successfully");
         }catch (Exception e){
             logger.error(JDRY,"fail initialize ",e);
@@ -104,6 +113,7 @@ public class Analyzer {
     }
 
 
+
     private static void registerPlugins(){
         try {
             if(Configuration.has(Context.PLUGIN_JARS)) {
@@ -118,6 +128,17 @@ public class Analyzer {
         } catch (Exception e) {
             logger.error(JDRY,"fail register Plugins ",e);
         }
+    }
+
+    public void initializePlugins(){
+      for(PluginProvider plugin : ProviderManager.providers(ClassLoader.getSystemClassLoader())){
+          if (plugin.getType() != null && plugin.getType().equals("protocol")) {
+              Provider provider = plugin.create(new Object[]{});
+              //List<String> apiAnnotations = Configuration.get("api_annotations").asList();
+              //apiAnnotations.addAll(provider.getApiAnnotations());
+              Configuration.add("api_annotations",provider.getApiAnnotations());
+          }
+      }
     }
 
     public ApiDataProvider initializeApi(){

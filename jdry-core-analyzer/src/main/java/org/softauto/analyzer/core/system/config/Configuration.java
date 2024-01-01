@@ -110,6 +110,36 @@ public class Configuration {
         configuration.put(key,value);
     }
 
+    public static void add(String key,Object value){
+        Object o = configuration.get(key);
+        if(o ==null){
+            configuration.put(key,value);
+            return;
+        }
+        if(o instanceof ArrayList<?>){
+            ((List<Object>)o).addAll((Collection<?>) value);
+        }else {
+            logger.error("can't add object to non list element");
+        }
+    }
+
+    public static void add(String key,List<Object> value){
+        Object o = configuration.get(key);
+        if(o ==null){
+            configuration.put(key,value);
+            return;
+        }
+        if(o instanceof ArrayList<?>){
+            ((List<Object>)o).addAll(value);
+        }else {
+            logger.error("can't add object to non list element");
+        }
+    }
+
+    public static void putAll(HashMap<String,Object> value){
+        configuration.putAll(value);
+    }
+
     public  static boolean contains(String key){
         try {
             for(Map.Entry entry : configuration.entrySet()){

@@ -30,6 +30,15 @@ public class PluginFactory<R>  implements Provider {
     }
 
 
+    public List<String> getApiAnnotations(){
+        List<String> apiAnnotations = new ArrayList<>();
+        apiAnnotations.add("javax.ws.rs.POST");
+        apiAnnotations.add("javax.ws.rs.GET");
+        apiAnnotations.add("javax.ws.rs.DELETE");
+        apiAnnotations.add("javax.ws.rs.PUT");
+        return apiAnnotations;
+    }
+
     private Set<String> jaxrsEndPoints = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(".ws.rs.POST",".ws.rs.GET",".ws.rs.DELETE",".ws.rs.PUT")));
 

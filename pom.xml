@@ -28,6 +28,11 @@
         <module>jdry-rpc-analyzer</module>
         <module>jdry-logger</module>
         <module>jdry-core-analyzer</module>
+        <module>jdry-web-spring-analyzer</module>
+        <module>jdry-jaxrs-discovery-plugin</module>
+        <module>jdry-rpc-discovery-plugin</module>
+        <module>jdry-web-spring-discovery-plugin</module>
+        <module>jdry-core-discovery</module>
 
 
     </modules>

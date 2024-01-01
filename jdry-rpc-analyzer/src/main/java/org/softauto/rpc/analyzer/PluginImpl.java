@@ -9,6 +9,9 @@ import org.softauto.analyzer.core.utils.Analyzer;
 import org.softauto.analyzer.model.Item;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class PluginImpl implements Provider {
     @Override
@@ -19,6 +22,12 @@ public class PluginImpl implements Provider {
     @Override
     public Item Analyze(GenericItem tree, Item item) {
         return null;
+    }
+
+    public List<String> getApiAnnotations(){
+        List<String> apiAnnotations = new ArrayList<>();
+        apiAnnotations.add("org.softauto.annotations.InitializeForTesting");
+        return apiAnnotations;
     }
 
     @Override

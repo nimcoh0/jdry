@@ -4,7 +4,7 @@
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="org.softauto.tool.Main" />
     <module name="jdry-tools" />
-    <option name="PROGRAM_PARAMETERS" value="discovery -conf $PROJECT_DIR$/tests/demo/applications/jersey-jwt-master/discovery.yaml -output $PROJECT_DIR$/../jdr/out/jersey-jwt.disc" />
+    <option name="PROGRAM_PARAMETERS" value="discovery -conf $PROJECT_DIR$/tests/demo/applications/jersey-jwt-master/discovery.yaml -output $PROJECT_DIR$/out/jersey-jwt.disc" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

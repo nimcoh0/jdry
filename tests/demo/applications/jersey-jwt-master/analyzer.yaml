@@ -8,14 +8,15 @@ domain: "om.cassiomolin.example"
 #authentication type . can be JWT,BASIC,NONE
 auth: "JWT"
 #api annotations
-api_annotations:
-  - "javax.ws.rs.POST"
-  - "javax.ws.rs.GET"
-  - "javax.ws.rs.DELETE"
-  - "javax.ws.rs.PUT"
-  - "org.softauto.annotations.ApiForTesting"
-  - "org.softauto.annotations.InitializeForTesting"
+#api_annotations:
+#  - "javax.ws.rs.POST"
+#  - "javax.ws.rs.GET"
+#  - "javax.ws.rs.DELETE"
+#  - "javax.ws.rs.PUT"
+#  - "org.softauto.annotations.ApiForTesting"
+ # - "org.softauto.annotations.InitializeForTesting"
 #default protocol
 default_protocol: "RPC"
 #base uri
 base_uri: "/api"
+

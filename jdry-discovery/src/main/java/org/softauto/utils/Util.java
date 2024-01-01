@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.config.Context;
 import org.softauto.config.DefaultConfiguration;
-import org.softauto.core.Configuration;
+import org.softauto.config.Configuration;
 import org.softauto.flow.FlowObject;
 import org.yaml.snakeyaml.Yaml;
 import soot.MethodOrMethodContext;

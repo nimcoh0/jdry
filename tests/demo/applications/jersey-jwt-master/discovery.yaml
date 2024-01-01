@@ -16,17 +16,17 @@ main_class: "com.cassiomolin.example.Application"
 #application domain
 domain: "com.cassiomolin.example"
 #annotation to be discovery
-discover_by_annotation:
-    - "org.softauto.annotations.ApiForTesting"
-    - "org.softauto.annotations.ListenerForTesting"
-    - "org.softauto.annotations.InitializeForTesting"
-    - "javax.ws.rs.Path"
-    - "javax.ws.rs.Consumes"
-    - "javax.ws.rs.Produces"
-    - "javax.ws.rs.POST"
-    - "javax.ws.rs.GET"
-    - "javax.ws.rs.DELETE"
-    - "javax.ws.rs.PUT"
+#discover_by_annotation:
+#    - "org.softauto.annotations.ApiForTesting"
+#    - "org.softauto.annotations.ListenerForTesting"
+#    - "org.softauto.annotations.InitializeForTesting"
+#    - "javax.ws.rs.Path"
+#    - "javax.ws.rs.Consumes"
+#    - "javax.ws.rs.Produces"
+#    - "javax.ws.rs.POST"
+#    - "javax.ws.rs.GET"
+#    - "javax.ws.rs.DELETE"
+#    - "javax.ws.rs.PUT"
 #replace return type with the real return type
 unbox_return_type:
     - "javax.ws.rs.core.Response"

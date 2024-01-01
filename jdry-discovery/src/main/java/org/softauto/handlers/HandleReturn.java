@@ -1,6 +1,6 @@
 package org.softauto.handlers;
 
-import org.softauto.core.Configuration;
+import org.softauto.config.Configuration;
 import org.softauto.spel.SpEL;
 import soot.*;
 import soot.jimple.StringConstant;

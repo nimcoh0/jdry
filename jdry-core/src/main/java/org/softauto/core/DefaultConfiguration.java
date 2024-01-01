@@ -33,6 +33,7 @@ public class DefaultConfiguration {
         configuration.put(Context.CACHE_IMPL,"org.softauto.core.Suite");
         configuration.put(Context.ENTITY_NAME_POSTFIX,"");
         configuration.put(Context.ENTITY_NAME_PREFIX,"");
+        configuration.put(Context.TESTER_MODE,"agent");
     }
 
     public static HashMap<String,Object> getConfiguration() {

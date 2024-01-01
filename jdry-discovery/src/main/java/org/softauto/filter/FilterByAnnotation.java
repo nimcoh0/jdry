@@ -1,7 +1,7 @@
 package org.softauto.filter;
 
+import org.softauto.config.Configuration;
 import org.softauto.config.Context;
-import org.softauto.core.Configuration;
 import soot.SootClass;
 import soot.SootField;
 import soot.SootMethod;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class FilterByAnnotation implements IFilter{
 
-    List<String> annotations = Configuration.get(Context.DISCOVER_BY_ANNOTATION).asList(String.class);
+    List<String> annotations = Configuration.get(Context.DISCOVER_BY_ANNOTATION).asList();
 
 
     @Override
