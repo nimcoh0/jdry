@@ -73,6 +73,8 @@ public class Discover {
                 //List<String> apiAnnotations = Configuration.get("api_annotations").asList();
                 //apiAnnotations.addAll(provider.getApiAnnotations());
                 Configuration.add("discover_by_annotation",provider.getDiscoverByAnnotation());
+                Configuration.add("unbox_return_type",provider.getUnboxReturnType());
+                Configuration.add("unbox_exclude_return_type",provider.getUnboxEexcludeReturnType());
             }
         }
     }

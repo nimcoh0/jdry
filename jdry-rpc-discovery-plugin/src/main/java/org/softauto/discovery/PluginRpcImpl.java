@@ -18,4 +18,14 @@ public class PluginRpcImpl implements Provider {
             return discoverAnnotations;
     }
 
+    @Override
+    public List<String> getUnboxReturnType() {
+        return null;
+    }
+
+    @Override
+    public List<String> getUnboxEexcludeReturnType() {
+        return null;
+    }
+
 }

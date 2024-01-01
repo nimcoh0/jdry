@@ -22,4 +22,19 @@ public class PluginJaxrsImpl implements Provider {
         return discoverAnnotations;
     }
 
+    @Override
+    public List<String> getUnboxReturnType(){
+        List<String> unboxReturnType = new ArrayList<>();
+        unboxReturnType.add("javax.ws.rs.core.Response");
+        unboxReturnType.add("javax.ws.rs.core.Response$Status");
+        return unboxReturnType;
+    }
+
+    @Override
+    public List<String> getUnboxEexcludeReturnType(){
+        List<String> unboxEexcludeReturnType = new ArrayList<>();
+        unboxEexcludeReturnType.add("java.lang.Exception");
+        return unboxEexcludeReturnType;
+    }
+
 }

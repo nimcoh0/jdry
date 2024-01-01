@@ -18,4 +18,18 @@ public class PluginWebSpringImpl implements Provider {
             return discoverAnnotations;
     }
 
+    @Override
+    public List<String> getUnboxReturnType(){
+        List<String> unboxReturnType = new ArrayList<>();
+        unboxReturnType.add("org.springframework.http.ResponseEntity");
+        return unboxReturnType;
+    }
+
+    @Override
+    public List<String> getUnboxEexcludeReturnType(){
+        List<String> unboxEexcludeReturnType = new ArrayList<>();
+        unboxEexcludeReturnType.add("java.lang.Exception");
+        return unboxEexcludeReturnType;
+    }
+
 }
