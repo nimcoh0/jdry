@@ -120,7 +120,7 @@ public class Configuration {
                 return;
             }
             if (o instanceof ArrayList<?>) {
-                ((List<Object>) o).addAll((Collection<?>) value);
+                ((List<Object>) o).add(value);
             } else {
                 logger.error("can't add object to non list element");
             }

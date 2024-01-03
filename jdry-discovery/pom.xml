@@ -119,11 +119,11 @@
             <artifactId>jdry-rpc-discovery-plugin</artifactId>
             <version>${jdry}</version>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>org.softauto</groupId>
             <artifactId>jdry-web-spring-discovery-plugin</artifactId>
             <version>${jdry}</version>
-        </dependency-->
+        </dependency>
     </dependencies>
 
     <build>
