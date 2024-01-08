@@ -17,13 +17,13 @@ public class WebCallOption extends AbstractCallOption {
 
     private String fullMethodName;
 
-    private String httpMethod;
+    private String method;
 
     private String scenarioId;
 
     private String path;
 
-    private String responseType;
+    private String response;
 
     private String[] argumentsNames;
 
@@ -36,12 +36,12 @@ public class WebCallOption extends AbstractCallOption {
         return this;
     }
 
-    public String getResponseType() {
-        return responseType;
+    public String getResponse() {
+        return response;
     }
 
-    public WebCallOption setResponseType(String responseType) {
-        this.responseType = responseType;
+    public WebCallOption setResponse(String response) {
+        this.response = response;
         return this;
     }
 
@@ -92,12 +92,12 @@ public class WebCallOption extends AbstractCallOption {
         return this;
     }
 
-    public String getHttpMethod() {
-        return httpMethod;
+    public String getMethod() {
+        return method;
     }
 
-    public WebCallOption setHttpMethod(String httpMethod) {
-        this.httpMethod = httpMethod;
+    public WebCallOption setMethod(String Method) {
+        this.method = Method;
         return this;
     }
 

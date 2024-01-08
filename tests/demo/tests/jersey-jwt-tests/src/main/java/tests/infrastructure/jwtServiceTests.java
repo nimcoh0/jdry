@@ -3,11 +3,11 @@ package tests.infrastructure;
 import com.cassiomolin.example.security.jwt.model.AuthenticationToken;
 import com.cassiomolin.example.security.jwt.model.UserCredentials;
 import com.cassiomolin.example.user.domain.Person;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.InvocationCallback;
-import javax.ws.rs.core.Configuration;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.InvocationCallback;
+import jakarta.ws.rs.core.Configuration;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.softauto.core.CallFuture;
 import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Assert;
@@ -73,7 +73,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
             credentials.setPassword("password");
-            javax.ws.rs.client.Client client = javax.ws.rs.client.ClientBuilder.newClient();
+            jakarta.ws.rs.client.Client client = jakarta.ws.rs.client.ClientBuilder.newClient();
             AuthenticationToken authenticationToken = client.target("http://localhost:8080").path("api").path("auth").request()
                     .post(Entity.entity(credentials, MediaType.APPLICATION_JSON), AuthenticationToken.class);
             String token = authenticationToken.getToken();
@@ -194,7 +194,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
             credentials.setUsername("user");
             credentials.setPassword("password");
 
-            javax.ws.rs.client.Client client = org.softauto.jaxrs.cli.ClientBuilder.newClient();
+            jakarta.ws.rs.client.Client client = org.softauto.jaxrs.cli.ClientBuilder.newClient();
             Future response = client.target("http://localhost:8080").path("/api/auth").request().async()
                     .post(Entity.entity(credentials, MediaType.APPLICATION_JSON),new InvocationCallback<String>() {
                         @Override
@@ -226,7 +226,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
             credentials.setUsername("admin");
             credentials.setPassword("password");
 
-            javax.ws.rs.client.Client client = org.softauto.jaxrs.cli.ClientBuilder.newClient();
+            jakarta.ws.rs.client.Client client = org.softauto.jaxrs.cli.ClientBuilder.newClient();
             Response response2 = client.target("http://localhost:8080").path("/api/auth").request().post(Entity.entity(credentials, MediaType.APPLICATION_JSON) );
             Object o = response2.readEntity(HashMap.class);
             Response response1 = client.target("http://localhost:8080").path("api").path("greetings").path("protected").request().get();
@@ -245,7 +245,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     public void syncGreetingUsingJdryJaxrsClientWithEmbeddedJersey(){
         try {
             Response response = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().setTransceiver("JAXRS")
-                    .setClientBuilder(javax.ws.rs.client.ClientBuilder.newClient((Configuration) clientConfig)).
+                    .setClientBuilder(jakarta.ws.rs.client.ClientBuilder.newClient((Configuration) clientConfig)).
                     target("http://localhost:8080").path("/api/greetings/public").request().get();
             Assert.assertTrue(response.readEntity(String.class).equals("Hello from the other side!"));
         }catch (Exception e){

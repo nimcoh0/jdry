@@ -113,7 +113,7 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
                 }
             }
             if(callOptions != null && callOptions.containsKey("headers") && callOptions.get("headers") != null){
-                mm.putAll((javax.ws.rs.core.MultivaluedMap<String, Object>)callOptions.get("headers"));
+                mm.putAll((jakarta.ws.rs.core.MultivaluedMap<String, Object>)callOptions.get("headers"));
             }
             logger.debug(JDRY,"successfully build headers ");
         } catch (Exception e) {

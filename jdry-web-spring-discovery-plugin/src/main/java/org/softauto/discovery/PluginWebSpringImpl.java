@@ -15,6 +15,8 @@ public class PluginWebSpringImpl implements Provider {
             discoverAnnotations.add("org.springframework.web.bind.annotation.DeleteMapping");
             discoverAnnotations.add("org.springframework.web.bind.annotation.GetMapping");
             discoverAnnotations.add("org.springframework.web.bind.annotation.PutMapping");
+            discoverAnnotations.add("org.springframework.web.bind.annotation.RequestMapping");
+            discoverAnnotations.add("org.springframework.web.bind.annotation.RestController");
             return discoverAnnotations;
     }
 

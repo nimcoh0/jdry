@@ -143,6 +143,14 @@ public class GenericItem implements   Cloneable, Serializable {
         this.modifier = modifier;
     }
 
+    public boolean isNamespaceChange() {
+        return namespaceChange;
+    }
+
+    public void setNamespaceChange(boolean namespaceChange) {
+        namespaceChange = namespaceChange;
+    }
+
     @JsonIgnore
     LinkedHashMap<String,Object> classList = new LinkedHashMap<>();
 
@@ -151,7 +159,21 @@ public class GenericItem implements   Cloneable, Serializable {
     @JsonIgnore
     protected Result response;
 
+    private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
 
+    public List<HashMap<String, String>> getCrudToSubject() {
+        return crudToSubject;
+    }
+
+    public void setCrudToSubject(List<HashMap<String, String>> crudToSubject) {
+        this.crudToSubject = crudToSubject;
+    }
+
+    public void addCrudToSubject(String crud,String entity) {
+        HashMap<String, String> hm = new HashMap<>();
+        hm.put(crud,entity);
+        this.crudToSubject.add(hm);
+    }
 
     public LinkedList<String> getAnnotationsHelper() {
         return annotationsHelper;

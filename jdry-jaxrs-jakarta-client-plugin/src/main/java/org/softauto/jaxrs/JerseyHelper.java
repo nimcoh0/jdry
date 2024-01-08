@@ -11,6 +11,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.softauto.jaxrs.util.Threadlocal;
 
 
+
 /**
  * Jersey helper
  */
@@ -27,7 +28,7 @@ public class JerseyHelper {
         return this;
     }
 
-    public <T> Response get(String url, String mediaType, MultivaluedMap<String, Object> headers, Class<?> response, Cookie cookie,String scenarioId)throws Exception{
+    public <T> Response get(String url, String mediaType, MultivaluedMap<String, Object> headers, Class<?> response, Cookie cookie, String scenarioId)throws Exception{
         Response res = null;
         try{
             Threadlocal.getInstance().add("scenarioId",scenarioId);

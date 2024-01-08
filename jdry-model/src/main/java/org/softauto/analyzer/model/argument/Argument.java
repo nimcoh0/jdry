@@ -18,34 +18,44 @@ public class Argument implements Cloneable , Serializable {
     /**
      * argument name
      */
-    String name;
+    private String name;
 
 
     /**
      * argument type
      */
-    String type;
+    private String type;
 
 
     /**
      * argument value
      */
-    List<Object> values = new ArrayList<>();
+    private List<Object> values = new ArrayList<>();
 
 
-    boolean modify = true;
+    private boolean modify = true;
 
-    String context;
+    private String context;
+
+    private String crud;
 
     /**
      * is type entity ?
      */
-    boolean entity = false;
+    private boolean entity = false;
 
     /**
      * is callback
      */
-    boolean callback = false;
+    private boolean callback = false;
+
+    public String getCrud() {
+        return crud;
+    }
+
+    public void setCrud(String crud) {
+        this.crud = crud;
+    }
 
     public boolean isCallback() {
         return callback;

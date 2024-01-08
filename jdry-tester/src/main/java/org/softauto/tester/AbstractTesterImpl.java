@@ -17,6 +17,7 @@ import org.softauto.system.SystemState;
 import org.testng.*;
 import org.testng.annotations.BeforeTest;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -56,6 +57,7 @@ public class AbstractTesterImpl  {
             TestContext.setScenario(scenario);
             TestContext.setTestContext(testContext);
             SystemState.getInstance().initialize(scenario);
+            //addJarToClasspath();
             loadPlugins();
         } catch (IOException e) {
            logger.error(JDRY,"fail before Scenario",e);
@@ -87,6 +89,27 @@ public class AbstractTesterImpl  {
         return null;
     }
 
+    public static void addJarToClasspath() {
+        try {
+            List<String> f = Configuration.get("jar_path").asList();
+            for(String file : f) {
+                ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+                addURL(file, classLoader);
+            }
+        } catch (Exception e) {
+            logger.error(JDRY,"fail add Jar To Classpath ",e);
+        }
+    }
 
+    public static void addURL(String path,ClassLoader sysloader)  {
+        try {
+            Method method = sysloader.getClass()
+                    .getDeclaredMethod("appendToClassPathForInstrumentation", String.class);
+            method.setAccessible(true);
+            method.invoke(sysloader, path);
+        } catch (Throwable t) {
+            logger.error(JDRY,"fail add jar to classpath",t);
+        }
+    }
 
 }

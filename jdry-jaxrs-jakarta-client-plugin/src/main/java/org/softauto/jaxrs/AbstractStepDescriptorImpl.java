@@ -62,7 +62,10 @@ public abstract class AbstractStepDescriptorImpl implements IStepDescriptor {
 
     public String getScenarioId() {
         if(callOptions.containsKey("scenarioId")) {
-            return scenarioId = callOptions.get("scenarioId").toString();
+             Object id = callOptions.get("scenarioId");
+            if(id != null ){
+                return id.toString();
+            }
         }
        return TestContext.getScenario().getId();
     }

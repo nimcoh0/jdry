@@ -32,6 +32,8 @@ public class PluginFactory  implements Provider{
         apiAnnotations.add("org.springframework.web.bind.annotation.DeleteMapping");
         apiAnnotations.add("org.springframework.web.bind.annotation.GetMapping");
         apiAnnotations.add("org.springframework.web.bind.annotation.PutMapping");
+        apiAnnotations.add("org.springframework.web.bind.annotation.RequestMapping");
+        apiAnnotations.add("org.springframework.web.bind.annotation.RestController");
         return apiAnnotations;
     }
 

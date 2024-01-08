@@ -4,7 +4,6 @@ package org.softauto.analyzer.model.scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 import java.util.LinkedList;
 
 public class ScenarioBuilder {
@@ -29,7 +28,7 @@ public class ScenarioBuilder {
 
         private Integer order;
 
-        String id ;
+        private String id;
 
         String namespace;
 
@@ -48,6 +47,12 @@ public class ScenarioBuilder {
         public Builder setId(String id) {
             this.id = id;
             return this;
+        }
+
+
+
+        public String getId() {
+            return id;
         }
 
         public Builder setOrder(Integer order) {
@@ -76,11 +81,11 @@ public class ScenarioBuilder {
             try {
                 scenario.setTests(tests);
                 scenario.setOrder(order);
-                scenario.setId(id);
+
                 scenario.setSuiteName(suiteName);
 
             } catch (Exception e) {
-                logger.error("fail build Scenario "+ e);
+                logger.error("fail build Scenario ",e);
             }
             return new ScenarioBuilder(scenario);
         }

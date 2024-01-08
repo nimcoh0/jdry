@@ -1,27 +1,31 @@
 package org.softauto.analyzer.model.scenario;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Scenario implements Cloneable, Serializable {
 
     /**
      * list of tests names that include in this scenario
      */
-    LinkedList<String> steps = new LinkedList<>();
+    private LinkedList<String> tests = new LinkedList<>();
 
-    LinkedList<String> listeners = new LinkedList<>();
+    private LinkedList<String> listeners = new LinkedList<>();
 
-    Integer order;
+    private Integer order;
 
     /**
      * scenario UUID
      */
-    String id ;
+    private String id ;
 
-    String namespace;
+    private String namespace;
 
     /**
      * scenario name
@@ -31,27 +35,36 @@ public class Scenario implements Cloneable, Serializable {
     /**
      * scenario state (can be run,pass,fail,skip)
      */
-    String state;
+    private String state;
 
     /**
      * list of errors
      */
-    List<Object> error = new ArrayList<>();
+    private List<Object> error = new ArrayList<>();
 
     /**
      * scenario configuration
      */
-    HashMap<String,Object> configuration = new HashMap<>();
+    private HashMap<String,Object> configuration = new HashMap<>();
 
-    HashMap<String,Object> properties = new HashMap<>();
+    private HashMap<String,Object> properties = new HashMap<>();
+
+    private boolean negative = false;
+
+    public boolean isNegative() {
+        return negative;
+    }
+
+    @JsonIgnore
+    public void setNegative(boolean negative) {
+        this.negative = negative;
+    }
 
     public HashMap<String, Object> getProperties() {
         return properties;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+
 
     public List<Object> getError() {
         return error;
@@ -98,11 +111,11 @@ public class Scenario implements Cloneable, Serializable {
     }
 
     public LinkedList<String> getTests() {
-        return steps;
+        return tests;
     }
 
-    public Scenario setTests(LinkedList<String> steps) {
-        this.steps = steps;
+    public Scenario setTests(LinkedList<String> tests) {
+        this.tests.addAll(tests) ;
         return this;
     }
 
@@ -119,16 +132,9 @@ public class Scenario implements Cloneable, Serializable {
         return id;
     }
 
-    public LinkedList<String> getListeners() {
-        return listeners;
-    }
-
-    public void setListeners(LinkedList<String> listeners) {
-        this.listeners = listeners;
-    }
-
-    public void addListeners(String listener) {
-        this.listeners.add(listener);
+    public Scenario setId(String id) {
+        this.id = id;
+        return this;
     }
 
     public String getNamespace() {
@@ -150,14 +156,24 @@ public class Scenario implements Cloneable, Serializable {
     }
 
     public Scenario addTest(String fullName) {
-        this.steps.add(fullName);
+        this.tests.add(fullName);
         return this;
     }
 
+    public LinkedList<String> getListeners() {
+        return listeners;
+    }
 
+    public void setListeners(LinkedList<String> listeners) {
+        this.listeners = listeners;
+    }
+
+    public void addListeners(String listener) {
+        this.listeners.add(listener);
+    }
 
     public boolean isExist(String name){
-        for(String s : steps){
+        for(String s : tests){
             if(s.equals(name)){
                 return true;
             }
