@@ -99,6 +99,7 @@ public class JaxrsProviderImpl implements Provider {
                     testDefinition = RestService.createTestDefinition(stepName,args,types,callOptions,scenarioId);
                     StepDefinition md = testDefinition.getStep(stepName);
                     RespT res = (RespT)md.getCallerHandler().startCall(md.getStepDescriptor(),args);
+                    res.getClass();
                     if (((Response)res).getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL) {
                         if(((Response)res).hasEntity()) {
                             Class c = ClassUtils.getClass(callOptions.get("response").toString());

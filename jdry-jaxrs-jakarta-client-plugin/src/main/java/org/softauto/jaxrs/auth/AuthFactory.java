@@ -3,6 +3,7 @@ package org.softauto.jaxrs.auth;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.jaxrs.AbstractStepDescriptorImpl;
+//import org.softauto.jaxrs.annotations.AuthenticationType;
 import org.softauto.jaxrs.annotations.AuthenticationType;
 import org.softauto.jaxrs.auth.basic.BasicStepDescriptorImpl;
 import org.softauto.jaxrs.auth.jwt.JwtStepDescriptorImpl;

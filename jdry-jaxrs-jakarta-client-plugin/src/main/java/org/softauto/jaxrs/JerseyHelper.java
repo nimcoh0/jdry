@@ -56,16 +56,16 @@ public class JerseyHelper {
 
 
     public <T> Response post(String url, String mediaType, MultivaluedMap<String, Object> headers, Class<?> response, Entity<?> entity,Cookie cookie,String scenarioId)throws Exception{
-        Response res = null;
+        Object res = null;
         try{
             Threadlocal.getInstance().add("scenarioId",scenarioId);
             WebTarget webTarget = client.target(url);
             res = webTarget.request(mediaType).headers(headers).cookie(cookie).post(entity);
         }catch(Exception e){
-            logger.error(JDRY,"post request fail for url "+ url + " status "+ res.getStatusInfo(),e);
-            throw new Exception(res.getStatusInfo().toString()) ;
+            //logger.error(JDRY,"post request fail for url "+ url + " status "+ res.getStatusInfo(),e);
+            //throw new Exception(res.getStatusInfo().toString()) ;
         }
-        return res;
+        return (Response) res;
     }
 
     public <T> Response delete(String url, String mediaType,   MultivaluedMap<String, Object> headers,Class<T> response,Cookie cookie,String scenarioId)throws Exception{

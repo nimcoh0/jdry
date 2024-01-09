@@ -49,9 +49,9 @@
 
         <dependency>
             <groupId>org.softauto</groupId>
-            <artifactId>jdry-jaxrs-annotations</artifactId>
+            <artifactId>jdry-jaxrs-jakarta-annotations</artifactId>
             <version>${jdry}</version>
-            <scope>compile</scope>
+
         </dependency>
 
         <dependency>

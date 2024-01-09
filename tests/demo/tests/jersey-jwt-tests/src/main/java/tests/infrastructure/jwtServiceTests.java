@@ -5,11 +5,11 @@ import com.cassiomolin.example.security.jwt.model.UserCredentials;
 import com.cassiomolin.example.user.domain.Person;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.InvocationCallback;
-import jakarta.ws.rs.core.Configuration;
+import javax.ws.rs.core.Configuration;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.softauto.core.CallFuture;
-import org.glassfish.jersey.client.ClientConfig;
+//import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Assert;
 import org.softauto.jaxrs.filter.RequestClientFilter;
 import org.softauto.jaxrs.cli.WebCallOption;
@@ -51,15 +51,15 @@ public class jwtServiceTests extends AbstractTesterImpl {
     /**
      * jersey configuration
      */
-    ClientConfig clientConfig;
+    //ClientConfig clientConfig;
 
     @BeforeTest
     public void init(){
         listeners = JdryClient.create(jwtListenerService.class);
         testsCallback = JdryClient.create(jwtService.Callback.class);
         tests = JdryClient.create(jwtService.class);
-        clientConfig = new ClientConfig();
-        clientConfig.register(RequestClientFilter.class);
+        //clientConfig = new ClientConfig();
+        //clientConfig.register(RequestClientFilter.class);
     }
 
     /**
@@ -73,7 +73,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
             UserCredentials credentials = new UserCredentials();
             credentials.setUsername("user");
             credentials.setPassword("password");
-            jakarta.ws.rs.client.Client client = jakarta.ws.rs.client.ClientBuilder.newClient();
+            jakarta.ws.rs.client.Client client = jakarta.ws.rs.client.ClientBuilder.newBuilder().build();
             AuthenticationToken authenticationToken = client.target("http://localhost:8080").path("api").path("auth").request()
                     .post(Entity.entity(credentials, MediaType.APPLICATION_JSON), AuthenticationToken.class);
             String token = authenticationToken.getToken();
@@ -245,7 +245,7 @@ public class jwtServiceTests extends AbstractTesterImpl {
     public void syncGreetingUsingJdryJaxrsClientWithEmbeddedJersey(){
         try {
             Response response = tests.com_cassiomolin_example_greeting_api_resource_GreetingResource_getPublicGreeting().setTransceiver("JAXRS")
-                    .setClientBuilder(jakarta.ws.rs.client.ClientBuilder.newClient((Configuration) clientConfig)).
+                    .setClientBuilder(jakarta.ws.rs.client.ClientBuilder.newBuilder().register(RequestClientFilter.class).build()).
                     target("http://localhost:8080").path("/api/greetings/public").request().get();
             Assert.assertTrue(response.readEntity(String.class).equals("Hello from the other side!"));
         }catch (Exception e){
