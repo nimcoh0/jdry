@@ -5,19 +5,22 @@ package $analyze.get("namespace").asText();
 public interface ${analyze.get("name").asText()}Service {
     public static final org.softauto.core.Analyze analyze = org.softauto.core.Analyze.parse("$this.javaEscape($analyze)");
 #foreach ($step in $analyze.get("steps"))
+#if($step.get("type").asText().equals("method"))
 #set ($name = $step.get("fullname").asText())
 org.softauto.tester.Step $name(##
 #foreach ($type in $step.get("parametersTypes"))##
 #*      *#$type.asText() $step.get("argumentsNames")[$foreach.index].asText() #if ($foreach.hasNext), #end ##
 #end
 ) throws Exception;
+#end
 
 #end
 public interface Callback extends ${analyze.get("name").asText()}Service {
     public static final org.softauto.core.Analyze analyze = tests.infrastructure.${analyze.get("name").asText()}Service.analyze;
 #foreach ($step in $analyze.get("steps"))
+#if($step.get("type").asText().equals("method"))
 #set ($name = $step.get("fullname").asText())
-#set ($response = $step.get("returnType").asText())
+#set ($response = $step.get("unboxReturnType").asText())
 org.softauto.tester.Step  $name(##
 #foreach ($type in $step.get("parametersTypes"))
 #*      *#$type.asText() $step.get("argumentsNames")[$foreach.index].asText() #if ($foreach.hasNext), #end ##
@@ -36,6 +39,7 @@ org.softauto.tester.Step  $name(##
 #end
 #end
 
+#end
 #end
 
     }

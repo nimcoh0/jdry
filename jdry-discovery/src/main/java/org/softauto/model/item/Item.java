@@ -2,9 +2,7 @@ package org.softauto.model.item;
 
 import org.softauto.clazz.ClassInfo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Item {
 
@@ -24,11 +22,31 @@ public class Item {
 
     private String returnType;
 
+    private String unboxReturnType;
+
     private String returnTypeName;
 
     private ClassInfo classInfo;
 
     private int modifier;
+
+    private List<String> responseChain = new ArrayList<>();
+
+    public List<String> getResponseChain() {
+        return responseChain;
+    }
+
+    public void setResponseChain(List<String> responseChain) {
+        this.responseChain = responseChain;
+    }
+
+    public String getUnboxReturnType() {
+        return unboxReturnType;
+    }
+
+    public void setUnboxReturnType(String unboxReturnType) {
+        this.unboxReturnType = unboxReturnType;
+    }
 
     public int getModifier() {
         return modifier;

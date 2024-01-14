@@ -69,6 +69,8 @@ public class ItemFactory {
                     .setChildes(flowObject.getChileds())
                     .setAnnotations(annotations)
                     .setClassInfo(flowObject.getClassInfo())
+                    .setUnboxReturnType(flowObject.getUnboxReturnType())
+                    .setResponseChain(flowObject.getResponseChain())
                     .setReturnTypeName(flowObject.getReturnTypeName())
                     .build()
                     .getItem();

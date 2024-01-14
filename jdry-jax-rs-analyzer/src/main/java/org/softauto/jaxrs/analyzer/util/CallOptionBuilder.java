@@ -108,7 +108,7 @@ public class CallOptionBuilder {
             argumentsNames = buildArgumentsNames();
             HashMap<String,Object> callOption = new HashMap<>();
             callOption.put("method",method);
-            callOption.put("response", tree.getReturnType());
+            callOption.put("response", tree.getUnboxReturnType() != null ? tree.getUnboxReturnType() : tree.getReturnType());
             callOption.put("path",path);
             callOption.put("produces",produce);
             callOption.put("consumes",consume);

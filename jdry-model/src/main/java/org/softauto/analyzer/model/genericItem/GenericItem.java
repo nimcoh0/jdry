@@ -56,6 +56,8 @@ public class GenericItem implements   Cloneable, Serializable {
      */
     protected String returnType;
 
+    protected String unboxReturnType;
+
     protected String returnTypeName;
 
     /**
@@ -80,7 +82,17 @@ public class GenericItem implements   Cloneable, Serializable {
     protected ClassType classType;
 
 
-    HashMap<String,Object>  properties = new HashMap<>();
+    private HashMap<String,Object>  properties = new HashMap<>();
+
+    private LinkedList<String> responseChain = new LinkedList<>();
+
+    public LinkedList<String> getResponseChain() {
+        return responseChain;
+    }
+
+    public void setResponseChain(LinkedList<String> responseChain) {
+        this.responseChain = responseChain;
+    }
 
     public List<HashMap<String, String>> getConstructorParameter() {
         return constructorParameter;
@@ -92,6 +104,14 @@ public class GenericItem implements   Cloneable, Serializable {
 
     public void setReturnTypeName(String returnTypeName) {
         this.returnTypeName = returnTypeName;
+    }
+
+    public String getUnboxReturnType() {
+        return unboxReturnType;
+    }
+
+    public void setUnboxReturnType(String unboxReturnType) {
+        this.unboxReturnType = unboxReturnType;
     }
 
     public void setConstructorParameters(List<HashMap<String, String>> parameters) {

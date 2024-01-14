@@ -33,6 +33,7 @@ public class Argument implements Cloneable , Serializable {
     private List<Object> values = new ArrayList<>();
 
 
+
     private boolean modify = true;
 
     private String context;
@@ -48,6 +49,8 @@ public class Argument implements Cloneable , Serializable {
      * is callback
      */
     private boolean callback = false;
+
+
 
     public String getCrud() {
         return crud;

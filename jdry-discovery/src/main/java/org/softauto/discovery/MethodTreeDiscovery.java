@@ -17,10 +17,12 @@ import org.softauto.spel.SpEL;
 import org.softauto.flow.*;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
+import soot.jimple.toolkits.callgraph.Edge;
 import soot.jimple.toolkits.callgraph.Targets;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MethodTreeDiscovery implements IFlow {
@@ -70,24 +72,37 @@ public class MethodTreeDiscovery implements IFlow {
             flowObject =  FlowBuilder.newBuilder().setStaticInitializer(m.isStaticInitializer()).setStatic(m.isStatic()).setConstructor(m.isConstructor()).setClassInfo(getClassInfo(m)).setCg(cg).setName(m.getName()).setClazz(m.getDeclaringClass().getName()).setMethod(m).build().getFlowObject();
             List<String> unboxList = Configuration.has(Context.UNBOX_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_RETURN_TYPE).asList()): null;
             List<String> unboxExcludeList = Configuration.has(Context.UNBOX_EXCLUDE_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_EXCLUDE_RETURN_TYPE).asList()): null;
-            if(unboxList.contains(m.getReturnType().toString())) {
-                HandleReturn handleReturn = new HandleReturn().setBody(cg.iterator().next().getSrc().method().getActiveBody()).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList);
-                handleReturn.parser(m.getReturnType().toString());
-                String returnType = handleReturn.getType();
-                String name = handleReturn.getName();
-                if(name == null || name.contains("$stack")){
-                    //flowObject.setReturnTypeName(Utils.getShortName(m.getReturnType().toString().toLowerCase()));
-                    flowObject.setReturnTypeName(null);
-                }else {
-                    flowObject.setReturnTypeName(name);
-                }
-                if (returnType != null) {
-                    if (returnType.contains("$")) {
-                        returnType = returnType.replace("$", ".");
-                    }
-                    flowObject.setReturnType(returnType);
-                }
+            String unboxReturnType = m.getReturnType().toString();
+            LinkedList<String> responseChain = new LinkedList<>();
+            HandleReturn handleReturn = null;
+            Iterator<MethodOrMethodContext> iter = cg.sourceMethods();
+            while (iter.hasNext() && unboxList.contains(unboxReturnType)) {
+                MethodOrMethodContext methodOrMethodContext = iter.next();
+                Body body = methodOrMethodContext.method().getActiveBody();
+                //returnType = edge.getSrc().method().getReturnType().toString();
+                //while (unboxList.contains(returnType)) {
+                    handleReturn = new HandleReturn().setBody(body).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList);
+                    handleReturn.parser(unboxReturnType);
+                    unboxReturnType = handleReturn.getType();
+                    responseChain.addAll(handleReturn.getResponseChain());
             }
+                    String name = handleReturn != null ? handleReturn.getName() : null;
+                    flowObject.setResponseChain(responseChain);
+                    if (name == null || name.contains("$stack")) {
+                        //flowObject.setReturnTypeName(Utils.getShortName(m.getReturnType().toString().toLowerCase()));
+                        flowObject.setReturnTypeName(null);
+                    } else {
+                        flowObject.setReturnTypeName(name);
+                    }
+                    if (unboxReturnType != null) {
+                        if (unboxReturnType.contains("$")) {
+                            unboxReturnType = unboxReturnType.replace("$", ".");
+                        }
+                        flowObject.setUnboxReturnType(unboxReturnType);
+                        flowObject.setReturnType(m.getReturnType().toString());
+                    }
+
+
             List<Integer> use = new ArrayList<>();
             buildTree(m,cg,flowObject,use);
             flowObject.setArgsname(getArgsName(m));

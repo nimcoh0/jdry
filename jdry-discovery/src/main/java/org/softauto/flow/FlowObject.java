@@ -35,7 +35,11 @@ public class FlowObject {
 
     private String returnType = "void";
 
+    private String unboxReturnType;
+
     private String returnTypeName ;
+
+    private List<String> responseChain = new ArrayList<>();
 
     private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
 
@@ -45,6 +49,22 @@ public class FlowObject {
 
     public void setCrudToSubject(List<HashMap<String,String>> crudToSubject) {
         this.crudToSubject = crudToSubject;
+    }
+
+    public List<String> getResponseChain() {
+        return responseChain;
+    }
+
+    public void setResponseChain(List<String> responseChain) {
+        this.responseChain = responseChain;
+    }
+
+    public String getUnboxReturnType() {
+        return unboxReturnType;
+    }
+
+    public void setUnboxReturnType(String unboxReturnType) {
+        this.unboxReturnType = unboxReturnType;
     }
 
     public boolean isEntity() {

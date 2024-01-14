@@ -6,7 +6,8 @@ import soot.*;
 import soot.jimple.StringConstant;
 import soot.jimple.internal.*;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class HandleReturn {
 
@@ -28,6 +29,18 @@ public class HandleReturn {
 
     public String getName() {
         return name;
+    }
+
+    private LinkedList<String> responseChain = new LinkedList<>();
+
+    public void addResponseChain(String clazz) {
+        if(!responseChain.contains(clazz)){
+            responseChain.add(clazz);
+        }
+    }
+
+    public LinkedList<String> getResponseChain() {
+        return responseChain;
     }
 
     public HandleReturn setUnboxExcludeList(List<String> unboxExcludeList) {
@@ -67,10 +80,14 @@ public class HandleReturn {
                 if (valueBox.getValue() instanceof AbstractInvokeExpr) {
                     String  className = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName();
                     if (className.contains(responseObject)) {
+                        if(unboxList.contains(responseObject)) {
+                            addResponseChain(responseObject);
+                        }
                         if (((AbstractInvokeExpr) valueBox.getValue()).getArgs() != null && ((AbstractInvokeExpr) valueBox.getValue()).getArgs().size() > 0) {
                             for(Value value : ((AbstractInvokeExpr) valueBox.getValue()).getArgs()) {
                                 if(value instanceof StringConstant) {
                                     name = ((StringConstant) value).value;
+                                    type = "java.lang.String";
                                 } else {
                                     name = value.toString();
                                     type = value.getType().toString();
