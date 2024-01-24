@@ -61,6 +61,7 @@ public class HandleReturn {
 
     public HandleReturn setResponseObject(String responseObject) {
         this.responseObject = responseObject;
+        this.type = responseObject;
         return this;
     }
 
@@ -72,17 +73,23 @@ public class HandleReturn {
         return false;
     }
 
-
+    List<String> ignoreUnite = new ArrayList<>();
 
     public String parser(String responseObject) {
+        if(type == null){
+            type = responseObject;
+        }
         for(Unit unit : body.getUnits()){
             for(ValueBox valueBox : unit.getUseAndDefBoxes()) {
                 if (valueBox.getValue() instanceof AbstractInvokeExpr) {
-                    String  className = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName();
-                    if (className.contains(responseObject)) {
+                    String  refClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName();
+                    //String  returnClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
+                    //String  className = ((AbstractInvokeExpr) valueBox.getValue()).getArgs().get(0).getType().toString();
+                    if (refClassName.contains(responseObject)  && !ignoreUnite.contains(unit.toString()) ) {
                         if(unboxList.contains(responseObject)) {
                             addResponseChain(responseObject);
                         }
+                        ignoreUnite.add(unit.toString());
                         if (((AbstractInvokeExpr) valueBox.getValue()).getArgs() != null && ((AbstractInvokeExpr) valueBox.getValue()).getArgs().size() > 0) {
                             for(Value value : ((AbstractInvokeExpr) valueBox.getValue()).getArgs()) {
                                 if(value instanceof StringConstant) {
@@ -93,15 +100,47 @@ public class HandleReturn {
                                     type = value.getType().toString();
 
                                     if (unboxList.contains(type) || name.contains("$stack")) {
-                                        responseObject = parser(type);
-                                    } else if (isModel(value.getType())) {
-                                        return type;
+                                        type = responseObject = parser(type);
+                                    //} else if (isModel(value.getType())) {
+                                     //   return type;
                                     } else if (value instanceof JimpleLocal) {
-                                        responseObject = value.getType().toString();
+                                        type = responseObject = value.getType().toString();
                                     }
                                 }
                              }
+                        }else {
+                          //  name = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getName();
+                          //  type = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
+
                         }
+
+                        /*
+                        String  returnClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
+                        if(unboxList.contains(returnClassName)) {
+                           if(((AbstractInvokeExpr) valueBox.getValue()).getArgs().size() > 0) {
+                               //for(Value v : ((AbstractInvokeExpr) valueBox.getValue()).getArgs()){
+                               for(int i=0;i< ((AbstractInvokeExpr) valueBox.getValue()).getArgs().size();i++){
+                                   Value v =  ((AbstractInvokeExpr) valueBox.getValue()).getArgs().get(i);
+                                   if (v instanceof StringConstant){
+                                       name = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(i).getValue().toString();
+                                       //type = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(0).getValue().getType().toString();
+                                   }
+                                   if(v instanceof JimpleLocal){
+                                       if(!((AbstractInvokeExpr) valueBox.getValue()).getArgBox(i).getValue().toString().contains("stack")) {
+                                           name = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(i).getValue().toString();
+                                       }
+                                       type =  ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(i).getValue().getType().toString();
+                                   }
+                               }
+
+                               //name = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(0).getValue().toString();
+                               //type = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(0).getValue().getType().toString();
+
+                           }
+                        }
+
+
+                         */
                     }
                 }
             }

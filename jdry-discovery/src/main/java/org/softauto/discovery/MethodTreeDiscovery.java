@@ -12,6 +12,7 @@ import org.softauto.filter.FilterByAnnotation;
 import org.softauto.filter.IFilter;
 import org.softauto.clazz.ClassInfo;
 import org.softauto.clazz.ClassInfoBuilder;
+import org.softauto.handlers.HandleGenericDiscovery;
 import org.softauto.handlers.HandleReturn;
 import org.softauto.spel.SpEL;
 import org.softauto.flow.*;
@@ -57,6 +58,18 @@ public class MethodTreeDiscovery implements IFlow {
         return afterEvaluateList;
     }
 
+    public void addResponseChain(String clazz,LinkedList<String> responseChain) {
+        if(!responseChain.contains(clazz)){
+            responseChain.add(clazz);
+        }
+    }
+
+    public void addResponseChain(List<String> clazz,LinkedList<String> responseChain) {
+        for(String c : clazz){
+            addResponseChain(c,responseChain);
+        }
+    }
+
     /**
      * build method flow
      * @param o
@@ -76,15 +89,17 @@ public class MethodTreeDiscovery implements IFlow {
             LinkedList<String> responseChain = new LinkedList<>();
             HandleReturn handleReturn = null;
             Iterator<MethodOrMethodContext> iter = cg.sourceMethods();
+            Body body = null;
             while (iter.hasNext() && unboxList.contains(unboxReturnType)) {
                 MethodOrMethodContext methodOrMethodContext = iter.next();
-                Body body = methodOrMethodContext.method().getActiveBody();
+                body = methodOrMethodContext.method().getActiveBody();
                 //returnType = edge.getSrc().method().getReturnType().toString();
                 //while (unboxList.contains(returnType)) {
                     handleReturn = new HandleReturn().setBody(body).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList);
                     handleReturn.parser(unboxReturnType);
-                    unboxReturnType = handleReturn.getType();
-                    responseChain.addAll(handleReturn.getResponseChain());
+                    //unboxReturnType = handleReturn.getType() != null ? handleReturn.getType() : unboxReturnType;
+                    unboxReturnType = handleReturn.getType() ;
+                    addResponseChain(handleReturn.getResponseChain(),responseChain);
             }
                     String name = handleReturn != null ? handleReturn.getName() : null;
                     flowObject.setResponseChain(responseChain);
@@ -106,6 +121,8 @@ public class MethodTreeDiscovery implements IFlow {
             List<Integer> use = new ArrayList<>();
             buildTree(m,cg,flowObject,use);
             flowObject.setArgsname(getArgsName(m));
+            new HandleGenericDiscovery().setFlowObject(flowObject).setTags(m.getTags()).build();
+            updateReturnTypeFromRequest(flowObject);
             logger.debug(JDRY,"build object flow for " + ((SootMethod) o).getName() );
         } catch (Exception e) {
            logger.error(JDRY,"fail build object flow for "+o.getClass().getTypeName());
@@ -113,7 +130,13 @@ public class MethodTreeDiscovery implements IFlow {
         return flowObject;
     }
 
-
+    private void updateReturnTypeFromRequest(FlowObject flowObject ){
+       for(int i=0;i<flowObject.getArgsname().size();i++){
+            if(flowObject.getReturnTypeName() != null && flowObject.getReturnTypeName().equals(flowObject.getArgsname().get(i))){
+                flowObject.setUnboxReturnType(flowObject.getMethod().getParameterType(i).toString());
+            }
+        }
+    }
 
 
     @Override

@@ -16,6 +16,10 @@ public class Item {
 
     protected List<String> argumentsNames = new ArrayList<>();
 
+    protected HashMap<Integer,Boolean> argsType = new HashMap<>();
+
+    protected boolean returnTypeGeneric ;
+
     protected int id;
 
     protected String type ;
@@ -148,5 +152,21 @@ public class Item {
 
     public void setParametersTypes(List<String> parametersTypes) {
         this.parametersTypes = parametersTypes;
+    }
+
+    public HashMap<Integer, Boolean> getArgsType() {
+        return argsType;
+    }
+
+    public void setArgsType(HashMap<Integer, Boolean> argsType) {
+        this.argsType = argsType;
+    }
+
+    public boolean isReturnTypeGeneric() {
+        return returnTypeGeneric;
+    }
+
+    public void setReturnTypeGeneric(boolean returnTypeGeneric) {
+        this.returnTypeGeneric = returnTypeGeneric;
     }
 }

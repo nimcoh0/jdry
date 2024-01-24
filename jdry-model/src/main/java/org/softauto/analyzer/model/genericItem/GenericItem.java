@@ -56,6 +56,8 @@ public class GenericItem implements   Cloneable, Serializable {
      */
     protected String returnType;
 
+    protected boolean returnTypeGeneric = false;
+
     protected String unboxReturnType;
 
     protected String returnTypeName;
@@ -81,10 +83,30 @@ public class GenericItem implements   Cloneable, Serializable {
 
     protected ClassType classType;
 
+    private Set<GenericItem> linkedMethods = new HashSet<>();
+
 
     private HashMap<String,Object>  properties = new HashMap<>();
 
     private LinkedList<String> responseChain = new LinkedList<>();
+
+    private HashMap<Integer,Boolean> argsType = new HashMap<>();
+
+    public boolean isReturnTypeGeneric() {
+        return returnTypeGeneric;
+    }
+
+    public void setReturnTypeGeneric(boolean returnTypeGeneric) {
+        this.returnTypeGeneric = returnTypeGeneric;
+    }
+
+    public HashMap<Integer, Boolean> getArgsType() {
+        return argsType;
+    }
+
+    public void setArgsType(HashMap<Integer, Boolean> argsType) {
+        this.argsType = argsType;
+    }
 
     public LinkedList<String> getResponseChain() {
         return responseChain;
@@ -122,6 +144,27 @@ public class GenericItem implements   Cloneable, Serializable {
         HashMap<String, String> map = new HashMap<>();
         map.put(key,value);
         this.constructorParameter.add(map);
+    }
+
+    public Set<GenericItem> getLinkedMethods() {
+        return linkedMethods;
+    }
+
+    public void setLinkedMethods(Set<GenericItem> linkedMethods) {
+        this.linkedMethods.addAll(linkedMethods);
+    }
+
+    public void replaceLinkedMethods(Set<GenericItem> linkedMethods) {
+        this.linkedMethods = linkedMethods;
+    }
+
+    public void addLinkedMethods(GenericItem linkedMethod) {
+        for(GenericItem genericItem : linkedMethods){
+            if((genericItem.getNamespce()+"."+genericItem.getName()).equals(linkedMethod.getNamespce()+"."+linkedMethod.getName())){
+                return;
+            }
+        }
+        this.linkedMethods.add(linkedMethod);
     }
 
     public ClassType getClassType() {

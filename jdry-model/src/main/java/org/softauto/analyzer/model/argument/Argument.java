@@ -50,7 +50,15 @@ public class Argument implements Cloneable , Serializable {
      */
     private boolean callback = false;
 
+    private boolean generic = false;
 
+    public boolean isGeneric() {
+        return generic;
+    }
+
+    public void setGeneric(boolean generic) {
+        this.generic = generic;
+    }
 
     public String getCrud() {
         return crud;

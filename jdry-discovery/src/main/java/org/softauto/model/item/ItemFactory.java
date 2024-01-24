@@ -71,6 +71,8 @@ public class ItemFactory {
                     .setClassInfo(flowObject.getClassInfo())
                     .setUnboxReturnType(flowObject.getUnboxReturnType())
                     .setResponseChain(flowObject.getResponseChain())
+                    .setArgsType(flowObject.getArgsType())
+                    .setReturnTypeGeneric(flowObject.isReturnTypeGeneric())
                     .setReturnTypeName(flowObject.getReturnTypeName())
                     .build()
                     .getItem();

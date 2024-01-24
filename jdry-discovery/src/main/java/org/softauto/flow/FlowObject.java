@@ -25,6 +25,10 @@ public class FlowObject {
 
     private List<String> argsname;
 
+    private HashMap<Integer,Boolean> argsType = new HashMap<>();
+
+    private boolean returnTypeGeneric ;
+
     private boolean isConstructor;
 
     private boolean isStaticInitializer;
@@ -49,6 +53,26 @@ public class FlowObject {
 
     public void setCrudToSubject(List<HashMap<String,String>> crudToSubject) {
         this.crudToSubject = crudToSubject;
+    }
+
+    public boolean isReturnTypeGeneric() {
+        return returnTypeGeneric;
+    }
+
+    public void setReturnTypeGeneric(boolean returnTypeGeneric) {
+        this.returnTypeGeneric = returnTypeGeneric;
+    }
+
+    public HashMap<Integer, Boolean> getArgsType() {
+        return argsType;
+    }
+
+    public void setArgsType(HashMap<Integer, Boolean> argsType) {
+        this.argsType = argsType;
+    }
+
+    public void addArgsType(Integer index,Boolean generic) {
+        this.argsType.put(index,generic);
     }
 
     public List<String> getResponseChain() {

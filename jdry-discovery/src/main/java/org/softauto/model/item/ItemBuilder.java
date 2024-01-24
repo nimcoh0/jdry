@@ -49,6 +49,8 @@ public class ItemBuilder {
 
         protected String returnType;
 
+        protected boolean returnTypeGeneric;
+
         private String unboxReturnType;
 
         protected List<FlowObject> childes = new ArrayList<>();
@@ -60,6 +62,18 @@ public class ItemBuilder {
         private String returnTypeName;
 
         private List<String> responseChain = new ArrayList<>();
+
+        protected HashMap<Integer,Boolean> argsType = new HashMap<>();
+
+        public Builder setReturnTypeGeneric(boolean returnTypeGeneric) {
+            this.returnTypeGeneric = returnTypeGeneric;
+            return this;
+        }
+
+        public Builder setArgsType(HashMap<Integer, Boolean> argsType) {
+            this.argsType = argsType;
+            return this;
+        }
 
         public Builder setResponseChain(List<String> responseChain) {
             this.responseChain = responseChain;
@@ -168,6 +182,8 @@ public class ItemBuilder {
                 item.setModifier(modifier);
                 item.setResponseChain(responseChain);
                 item.setUnboxReturnType(unboxReturnType);
+                item.setArgsType(argsType);
+                item.setReturnTypeGeneric(returnTypeGeneric);
                 item.setReturnTypeName(returnTypeName);
                 logger.debug(JDRY,"sucessfully build item "+namespce+"."+name);
             } catch (Exception e) {
