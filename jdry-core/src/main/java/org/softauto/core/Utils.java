@@ -3,11 +3,13 @@ package org.softauto.core;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.*;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -50,6 +52,9 @@ public class Utils {
         return null;
     }
 
+    public static String javaEscape(String o) {
+        return o.replace("\\", "\\\\").replace("\"", "\\\"");
+    }
     /**
      * get local Machine Name
      * @return
@@ -344,6 +349,26 @@ public class Utils {
             logger.error("fail build Short Name ",e);
         }
         return fullName;
+    }
+
+
+    public static String propertiesToJson(Object string) {
+        try {
+            if (string.toString().startsWith("{")) {
+                string = StringUtils.substringBetween(string.toString(), "{", "}");
+            }
+            ObjectNode node = new ObjectMapper().createObjectNode();
+            String[] propertis = string.toString().split(",");
+            for(String prop : propertis){
+                String[] props = prop.split("=");
+                node.put(props[0].trim(),props[1].trim());
+            }
+            return (new ObjectMapper()).writeValueAsString(node);
+        } catch (JsonProcessingException var6) {
+            var6.printStackTrace();
+        }
+
+        return null;
     }
 
 }

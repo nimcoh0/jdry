@@ -63,7 +63,7 @@
         <junit>4.12</junit>
         <slf4j>2.0.7</slf4j>
         <jersey>3.1.3</jersey>
-        <jakarta-jersey>3.1.3</jakarta-jersey>
+        <jakarta-jersey>3.0.1</jakarta-jersey>
         <javax-jersey>2.27</javax-jersey>
         <jakarta.ws.rs-api>3.1.0</jakarta.ws.rs-api>
         <javax.ws.rs-api>2.1.1</javax.ws.rs-api>

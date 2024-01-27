@@ -102,6 +102,9 @@ public class MethodTreeDiscovery implements IFlow {
                     addResponseChain(handleReturn.getResponseChain(),responseChain);
             }
                     String name = handleReturn != null ? handleReturn.getName() : null;
+                    if(name != null  && name.startsWith("class ")){
+                        name = name.substring(name.indexOf("L")+1,name.length() -2).replace("/",".");
+                    }
                     flowObject.setResponseChain(responseChain);
                     if (name == null || name.contains("$stack")) {
                         //flowObject.setReturnTypeName(Utils.getShortName(m.getReturnType().toString().toLowerCase()));
@@ -121,7 +124,10 @@ public class MethodTreeDiscovery implements IFlow {
             List<Integer> use = new ArrayList<>();
             buildTree(m,cg,flowObject,use);
             flowObject.setArgsname(getArgsName(m));
-            new HandleGenericDiscovery().setFlowObject(flowObject).setTags(m.getTags()).build();
+            HandleGenericDiscovery handleGenericDiscovery = new HandleGenericDiscovery().setFlowObject(flowObject).setTags(m.getTags()).build();
+            if(handleGenericDiscovery.getGlobalGeneric() != null && handleGenericDiscovery.getGlobalGeneric().equals(unboxReturnType)){
+                flowObject.setReturnTypeGeneric(true);
+            }
             updateReturnTypeFromRequest(flowObject);
             logger.debug(JDRY,"build object flow for " + ((SootMethod) o).getName() );
         } catch (Exception e) {

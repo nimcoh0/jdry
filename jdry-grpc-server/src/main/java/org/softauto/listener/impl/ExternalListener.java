@@ -72,14 +72,43 @@ public abstract class ExternalListener {
     public synchronized void captureScenarioId(JoinPoint thisJoinPoint)throws Throwable {
         try {
             if(thisJoinPoint.getArgs() != null && thisJoinPoint.getArgs().length > 0){
+                /*
                 if(thisJoinPoint.getArgs()[0].getClass().getTypeName().equals("org.glassfish.jersey.server.ContainerRequest")) {
                     String scenarioId = SpEL.getInstance().addProperty("args", thisJoinPoint.getArgs()).evaluate("#args[0].getHeaders().get('scenarioId').get(0)").toString();
+                    Threadlocal.getInstance().add("scenarioId", scenarioId);
+                }
+                if(thisJoinPoint.getArgs()[0].getClass().getTypeName().equals("jakarta.servlet.http.HttpServletRequest")) {
+                    String scenarioId = SpEL.getInstance().addProperty("args",thisJoinPoint.getArgs()).evaluate("#args[0].getHeader('scenarioId')").toString();
+                    Threadlocal.getInstance().add("scenarioId", scenarioId);
+                }
+
+                 */
+                Object o = SpEL.getInstance().addProperty("arg",thisJoinPoint.getArgs()[0]).evaluate("#arg instanceof T(jakarta.servlet.http.HttpServletRequest)");
+                if(o instanceof Boolean && ((boolean)o)){
+                    String scenarioId = SpEL.getInstance().addProperty("args",thisJoinPoint.getArgs()).evaluate("#args[0].getHeader('scenarioId')").toString();
+                    Threadlocal.getInstance().add("scenarioId", scenarioId);
+                }
+                Object o1 =  SpEL.getInstance().addProperty("arg",thisJoinPoint.getArgs()[0]).evaluate("#arg instanceof T(javax.servlet.http.HttpServletRequest)");
+                if(o1 instanceof Boolean && ((boolean)o1)){
+                    String scenarioId = SpEL.getInstance().addProperty("args",thisJoinPoint.getArgs()).evaluate("#args[0].getHeader('scenarioId')").toString();
+                    Threadlocal.getInstance().add("scenarioId", scenarioId);
+                }
+                Object o2 = SpEL.getInstance().addProperty("arg",thisJoinPoint.getArgs()[0]).evaluate("#arg instanceof T(org.glassfish.jersey.server.ContainerRequest)");
+                if(o2 instanceof Boolean && ((boolean)o2)){
+                    String scenarioId = SpEL.getInstance().addProperty("args",thisJoinPoint.getArgs()).evaluate("#args[0].getHeaders().get('scenarioId').get(0)").toString();
+                    Threadlocal.getInstance().add("scenarioId", scenarioId);
+                }
+                /*
+                if(thisJoinPoint.getArgs()[0].getClass().getTypeName().equals("org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest")) {
+                    String scenarioId = SpEL.getInstance().addProperty("args",thisJoinPoint.getArgs()).evaluate("#args[0].getHeader('scenarioId')").toString();
                     Threadlocal.getInstance().add("scenarioId", scenarioId);
                 }
                 if(thisJoinPoint.getArgs()[0].getClass().getTypeName().equals("javax.servlet.http.HttpServletRequest")) {
                     String scenarioId = SpEL.getInstance().addProperty("args",thisJoinPoint.getArgs()).evaluate("#args[0].getHeader('scenarioId')").toString();
                     Threadlocal.getInstance().add("scenarioId", scenarioId);
                 }
+
+                 */
             }
         } catch (Throwable e) {
             logger.error(JDRY,"fail get scenarioId ",e);

@@ -54,6 +54,7 @@ public class BasicStepDescriptorImpl extends AbstractStepDescriptorImpl {
             clientConfig.register(ResponseClientFilter.class);
             clientConfig.register(MultiPartFeature.class);
             client =  jakarta.ws.rs.client.ClientBuilder.newBuilder().withConfig(clientConfig).build();
+            //client =  jakarta.ws.rs.client.ClientBuilder.newBuilder().build();
             logger.debug(JDRY,"successfully build client ");
         }catch (Exception e){
             logger.error(JDRY,"fail build client ",e);
