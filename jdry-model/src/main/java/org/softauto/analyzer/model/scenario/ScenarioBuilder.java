@@ -24,7 +24,9 @@ public class ScenarioBuilder {
 
     public static class Builder {
 
-        private LinkedList<String> tests = new LinkedList<>();
+        //private LinkedList<String> tests = new LinkedList<>();
+
+        private LinkedList<Test> tests = new LinkedList<>();
 
         private Integer order;
 
@@ -60,19 +62,19 @@ public class ScenarioBuilder {
             return this;
         }
 
-        public Builder setTests(LinkedList<String> tests) {
+        public Builder setTests(LinkedList<Test> tests) {
             this.tests = tests;
             return this;
         }
 
 
 
-        public Builder addTest(String name) {
-            this.tests.add(name);
+        public Builder addTest(Test test) {
+            this.tests.add(test);
             return this;
         }
 
-        public LinkedList<String> getTests() {
+        public LinkedList<Test> getTests() {
             return tests;
         }
 

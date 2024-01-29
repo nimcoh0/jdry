@@ -100,6 +100,9 @@ public class HandleReturn {
                                     type = value.getType().toString();
 
                                     if (unboxList.contains(type) || name.contains("$stack")) {
+                                        if(unboxList.contains(type)) {
+                                            addResponseChain(type);
+                                        }
                                         type = responseObject = parser(type);
                                     //} else if (isModel(value.getType())) {
                                      //   return type;

@@ -14,7 +14,9 @@ public class Scenario implements Cloneable, Serializable {
     /**
      * list of tests names that include in this scenario
      */
-    private LinkedList<String> tests = new LinkedList<>();
+    //private LinkedList<String> tests = new LinkedList<>();
+
+    private LinkedList<Test> tests = new LinkedList<>();
 
     private LinkedList<String> listeners = new LinkedList<>();
 
@@ -46,6 +48,8 @@ public class Scenario implements Cloneable, Serializable {
      * scenario configuration
      */
     private HashMap<String,Object> configuration = new HashMap<>();
+
+
 
     private HashMap<String,Object> properties = new HashMap<>();
 
@@ -110,11 +114,11 @@ public class Scenario implements Cloneable, Serializable {
         this.state = state;
     }
 
-    public LinkedList<String> getTests() {
+    public LinkedList<Test> getTests() {
         return tests;
     }
 
-    public Scenario setTests(LinkedList<String> tests) {
+    public Scenario setTests(LinkedList<Test> tests) {
         this.tests.addAll(tests) ;
         return this;
     }
@@ -155,10 +159,11 @@ public class Scenario implements Cloneable, Serializable {
         return this;
     }
 
-    public Scenario addTest(String fullName) {
-        this.tests.add(fullName);
+    public Scenario addTest(Test test) {
+        this.tests.add(test);
         return this;
     }
+
 
     public LinkedList<String> getListeners() {
         return listeners;
@@ -172,6 +177,7 @@ public class Scenario implements Cloneable, Serializable {
         this.listeners.add(listener);
     }
 
+    /*
     public boolean isExist(String name){
         for(String s : tests){
             if(s.equals(name)){
@@ -180,4 +186,6 @@ public class Scenario implements Cloneable, Serializable {
         }
         return false;
     }
+
+     */
 }

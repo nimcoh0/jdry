@@ -101,6 +101,9 @@ public class MethodTreeDiscovery implements IFlow {
                     unboxReturnType = handleReturn.getType() ;
                     addResponseChain(handleReturn.getResponseChain(),responseChain);
             }
+                    if(unboxReturnType != null && !responseChain.contains(unboxReturnType) && !Utils.isPrimitive(unboxReturnType)){
+                        responseChain.add(unboxReturnType);
+                    }
                     String name = handleReturn != null ? handleReturn.getName() : null;
                     if(name != null  && name.startsWith("class ")){
                         name = name.substring(name.indexOf("L")+1,name.length() -2).replace("/",".");
