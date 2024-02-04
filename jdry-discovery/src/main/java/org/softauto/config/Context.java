@@ -15,5 +15,8 @@ public class Context {
     public final static String UNBOX_EXCLUDE_RETURN_TYPE = "unbox_exclude_return_type";
     public final static String UNBOX_RETURN_TYPE = "unbox_return_type";
     public final static String JAR_PATH = "jar_path";
+    public final static String SINGLETON_DEFINITION = "singleton_definition";
+    public final static String GENERIC_DEFINITION = "generic_definition";
+    public final static String ENTITY_IDENTIFY = "entity_identify";
 
 }

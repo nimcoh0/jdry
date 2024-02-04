@@ -20,10 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.net.Inet4Address;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -371,4 +368,23 @@ public class Utils {
         return null;
     }
 
+
+    public static Object mergeObjects(Object source, Object target) throws Exception {
+        Field[] allFields = source.getClass().getDeclaredFields();
+        for (Field field : allFields) {
+            if (Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers())) {
+                continue;
+            }
+
+            if (!field.isAccessible() && Modifier.isPrivate(field.getModifiers()))
+                field.setAccessible(true);
+            if (!field.isAccessible() && Modifier.isProtected(field.getModifiers()))
+                field.setAccessible(true);
+            if (field.get(source) != null) {
+                field.set(target, field.get(source));
+            }
+        }
+
+        return target;
+    }
 }

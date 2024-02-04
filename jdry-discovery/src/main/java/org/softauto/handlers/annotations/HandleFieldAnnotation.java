@@ -18,7 +18,10 @@ public class HandleFieldAnnotation {
 
 
     public HashMap<String, Object> analyze(){
-        LinkedList l = (LinkedList<HashMap<?, ?>>) ((ArrayList)sootField.getTags()).stream().collect(Collectors.toCollection(LinkedList::new));
-        return  new HandleAnnotations(l).build();
+        if(sootField.getTags() != null && sootField.getTags().size() > 0) {
+            LinkedList l = (LinkedList<HashMap<?, ?>>) ((ArrayList) sootField.getTags()).stream().collect(Collectors.toCollection(LinkedList::new));
+            return new HandleAnnotations(l).build();
+        }
+        return new HashMap<>();
     }
 }

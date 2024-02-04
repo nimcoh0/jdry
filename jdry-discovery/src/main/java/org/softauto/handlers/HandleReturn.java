@@ -1,13 +1,13 @@
 package org.softauto.handlers;
 
 import org.softauto.config.Configuration;
+import org.softauto.analyzer.model.genericItem.External;
 import org.softauto.spel.SpEL;
 import soot.*;
 import soot.jimple.StringConstant;
 import soot.jimple.internal.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class HandleReturn {
 
@@ -22,6 +22,9 @@ public class HandleReturn {
     private  String type;
 
     private String name;
+
+
+
 
     public String getType() {
         return type;
@@ -85,6 +88,7 @@ public class HandleReturn {
                     String  refClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName();
                     //String  returnClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
                     //String  className = ((AbstractInvokeExpr) valueBox.getValue()).getArgs().get(0).getType().toString();
+
                     if (refClassName.contains(responseObject)  && !ignoreUnite.contains(unit.toString()) ) {
                         if(unboxList.contains(responseObject)) {
                             addResponseChain(responseObject);
@@ -96,10 +100,10 @@ public class HandleReturn {
                                     name = ((StringConstant) value).value;
                                     type = "java.lang.String";
                                 } else {
-                                    name = value.toString();
+                                    name = value.toString().toString().contains("$") ? name : value.toString();
                                     type = value.getType().toString();
 
-                                    if (unboxList.contains(type) || name.contains("$stack")) {
+                                    if (unboxList.contains(type) || value.toString().contains("$stack")) {
                                         if(unboxList.contains(type)) {
                                             addResponseChain(type);
                                         }
@@ -149,6 +153,22 @@ public class HandleReturn {
             }
         }
         return responseObject;
+    }
+
+    private LinkedList<String> setArgs(List<Value> args) {
+        LinkedList<String> list = new LinkedList<>();
+        for(Value value : args){
+            list.add(value.toString());
+        }
+        return list;
+    }
+
+    private LinkedList<String> setTypes(List<Type> types) {
+        LinkedList<String> list = new LinkedList<>();
+        for(Type type : types){
+            list.add(type.toString());
+        }
+        return list;
     }
 
 }

@@ -7,22 +7,38 @@ package org.softauto.clazz;
 public class ClassInfo {
 
 
-    boolean isAbstract ;
-    boolean isApplicationClass ;
-    boolean isInnerClass ;
-    boolean isLibraryClass ;
-    boolean isEnum ;
-    boolean isInterface;
-    boolean isJavaLibraryClass;
-    boolean isPrivate;
-    boolean isStatic;
-    boolean isFinal ;
-    boolean isProtected ;
-    boolean isPublic ;
-    boolean hasParameters ;
-    boolean entity;
+    private boolean isAbstract ;
+    private boolean isApplicationClass ;
+    private boolean isInnerClass ;
+    private boolean isLibraryClass ;
+    private boolean isEnum ;
+    private boolean isInterface;
+    private boolean isJavaLibraryClass;
+    private boolean isPrivate;
+    private boolean isStatic;
+    private boolean isFinal ;
+    private boolean isProtected ;
+    private boolean isPublic ;
+    private boolean hasParameters ;
+    private boolean entity;
+    private boolean generic;
+    private boolean singleton;
 
+    public boolean isGeneric() {
+        return generic;
+    }
 
+    public void setGeneric(boolean generic) {
+        this.generic = generic;
+    }
+
+    public boolean isSingleton() {
+        return singleton;
+    }
+
+    public void setSingleton(boolean singleton) {
+        this.singleton = singleton;
+    }
 
     public boolean isAbstract() {
         return isAbstract;

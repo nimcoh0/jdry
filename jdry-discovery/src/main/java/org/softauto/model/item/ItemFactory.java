@@ -44,7 +44,7 @@ public class ItemFactory {
             if(flowObject.getMethod().getName().equals("<init>")) {
                 HashMap<String, Object> annotations1 = new HandelConstructorAnnotation(flowObject.getMethod().getDeclaringClass()).analyze();
                 annotations.put("constructor",annotations1);
-            }else {
+            }else if(flowObject.getMethod().getTags().size() > 0){
                 LinkedList l = (LinkedList<HashMap<?, ?>>) ((ArrayList)flowObject.getMethod().getTags()).stream().collect(Collectors.toCollection(LinkedList::new));
                 annotations = new HandleAnnotations(l).build();
             }
@@ -74,6 +74,7 @@ public class ItemFactory {
                     .setArgsType(flowObject.getArgsType())
                     .setReturnTypeGeneric(flowObject.isReturnTypeGeneric())
                     .setReturnTypeName(flowObject.getReturnTypeName())
+                    .setExternals(flowObject.getExternals())
                     .build()
                     .getItem();
 

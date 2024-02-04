@@ -92,6 +92,16 @@ public class GenericItem implements   Cloneable, Serializable {
 
     private HashMap<Integer,Boolean> argsType = new HashMap<>();
 
+    private List<External> externals = new ArrayList<>();
+
+    public List<External> getExternals() {
+        return externals;
+    }
+
+    public void setExternals(List<External> externals) {
+        this.externals = externals;
+    }
+
     public boolean isReturnTypeGeneric() {
         return returnTypeGeneric;
     }

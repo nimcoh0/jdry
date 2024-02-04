@@ -5,14 +5,16 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
+import org.softauto.clazz.ClassInfo;
 import org.softauto.handlers.annotations.HandelClassAnnotation;
 import org.softauto.model.item.Item;
 import org.softauto.model.item.ItemBuilder;
 import soot.SootClass;
+import soot.SootField;
+import soot.util.Chain;
+import soot.util.HashChain;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class ClassFactory {
 
@@ -23,6 +25,15 @@ public class ClassFactory {
     Item item;
 
     SootClass root;
+
+    ClassInfo classInfo;
+
+
+
+    public ClassFactory setClassInfo(ClassInfo classInfo) {
+        this.classInfo = classInfo;
+        return this;
+    }
 
     public ClassFactory setRoot(SootClass root) {
         this.root = root;
@@ -52,7 +63,7 @@ public class ClassFactory {
                 HashMap<String, Object> annotations = new HandelClassAnnotation(sootClass).analyze();
                 annotationsList.put(sootClass.getName(),annotations);
             }
-            item = ItemBuilder.newBuilder().setNamespce(root.getPackageName()).setName(root.getName()).setAnnotations(annotationsList).setType("clazz").build().getItem();
+            item = ItemBuilder.newBuilder().setClassInfo(classInfo).setNamespce(root.getPackageName()).setName(root.getName()).setAnnotations(annotationsList).setType("clazz").build().getItem();
 
         } catch (Exception e) {
             logger.error(JDRY,"fail build class items");

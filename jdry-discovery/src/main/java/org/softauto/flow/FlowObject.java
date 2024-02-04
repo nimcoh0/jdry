@@ -1,10 +1,10 @@
 package org.softauto.flow;
 
 import org.softauto.clazz.ClassInfo;
+import org.softauto.analyzer.model.genericItem.External;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +46,16 @@ public class FlowObject {
     private List<String> responseChain = new ArrayList<>();
 
     private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
+
+    private List<External> externals = new ArrayList<>();
+
+    public List<External> getExternals() {
+        return externals;
+    }
+
+    public void setExternals(List<External> externals) {
+        this.externals = externals;
+    }
 
     public List<HashMap<String,String>> getCrudToSubject() {
         return crudToSubject;

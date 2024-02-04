@@ -4,7 +4,7 @@ host: "localhost"
 #jdry grpc server/agent port
 port: 8085
 #mode agent or agentless
-tester_mode: "agent"
+tester_mode: "agentless"
 jaxrs:
   #restful server machine
   host: "localhost"

@@ -34,7 +34,7 @@ public class HandelConstructorAnnotation {
         Multimap annotations = new Multimap();
         try {
             for(SootMethod method : sootClass.getMethods()){
-                if(method.isConstructor()){
+                if(method.isConstructor() && method.getTags().size() > 0 ){
                     LinkedList l = (LinkedList<HashMap<?, ?>>) ((ArrayList)method.getTags()).stream().collect(Collectors.toCollection(LinkedList::new));
                     LinkedHashMap<String, Object> hm =  new HandleAnnotations(l).build();
                     if(hm != null && hm.size() > 0)

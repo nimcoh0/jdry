@@ -7,6 +7,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.clazz.ClassInfo;
 import org.softauto.flow.FlowObject;
+import org.softauto.analyzer.model.genericItem.External;
 import soot.Type;
 
 import java.util.ArrayList;
@@ -64,6 +65,13 @@ public class ItemBuilder {
         private List<String> responseChain = new ArrayList<>();
 
         protected HashMap<Integer,Boolean> argsType = new HashMap<>();
+
+        private List<External> externals = new ArrayList<>();
+
+        public Builder setExternals(List<External> externals) {
+            this.externals = externals;
+            return this;
+        }
 
         public Builder setReturnTypeGeneric(boolean returnTypeGeneric) {
             this.returnTypeGeneric = returnTypeGeneric;
@@ -185,6 +193,7 @@ public class ItemBuilder {
                 item.setArgsType(argsType);
                 item.setReturnTypeGeneric(returnTypeGeneric);
                 item.setReturnTypeName(returnTypeName);
+                item.setExternals(externals);
                 logger.debug(JDRY,"sucessfully build item "+namespce+"."+name);
             } catch (Exception e) {
                 logger.error(JDRY,"fail build Item ",e.getMessage());

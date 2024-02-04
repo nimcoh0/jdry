@@ -26,20 +26,32 @@ public class ClassInfoBuilder {
 
     public static class Builder {
 
-        boolean isAbstract ;
-        boolean isApplicationClass ;
-        boolean isInnerClass ;
-        boolean isLibraryClass ;
-        boolean isEnum ;
-        boolean isInterface;
-        boolean isJavaLibraryClass;
-        boolean isPrivate;
-        boolean isStatic;
-        boolean isFinal ;
-        boolean isProtected ;
-        boolean isPublic ;
-        boolean hasParameters ;
-        boolean entity;
+        private boolean isAbstract ;
+        private boolean isApplicationClass ;
+        private boolean isInnerClass ;
+        private boolean isLibraryClass ;
+        private boolean isEnum ;
+        private boolean isInterface;
+        private boolean isJavaLibraryClass;
+        private boolean isPrivate;
+        private boolean isStatic;
+        private boolean isFinal ;
+        private boolean isProtected ;
+        private boolean isPublic ;
+        private boolean hasParameters ;
+        private boolean entity;
+        private boolean generic;
+        private boolean singleton;
+
+        public Builder setGeneric(boolean generic) {
+            this.generic = generic;
+            return this;
+        }
+
+        public Builder setSingleton(boolean singleton) {
+            this.singleton = singleton;
+            return this;
+        }
 
         public Builder setEntity(boolean entity) {
             this.entity = entity;
@@ -128,6 +140,8 @@ public class ClassInfoBuilder {
                 classInfo.setPublic(isPublic);
                 classInfo.setStatic(isStatic);
                 classInfo.setEntity(entity);
+                classInfo.setSingleton(singleton);
+                classInfo.setGeneric(generic);
                 classInfo.setHasParameters(hasParameters);
             } catch (Exception e) {
                 logger.error(JDRY,"fail build class info " ,e);

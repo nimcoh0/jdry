@@ -1,6 +1,7 @@
 package org.softauto.model.item;
 
 import org.softauto.clazz.ClassInfo;
+import org.softauto.analyzer.model.genericItem.External;
 
 import java.util.*;
 
@@ -35,6 +36,16 @@ public class Item {
     private int modifier;
 
     private List<String> responseChain = new ArrayList<>();
+
+    private List<External> externals = new ArrayList<>();
+
+    public List<External> getExternals() {
+        return externals;
+    }
+
+    public void setExternals(List<External> externals) {
+        this.externals = externals;
+    }
 
     public List<String> getResponseChain() {
         return responseChain;
