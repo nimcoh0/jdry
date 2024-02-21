@@ -6,11 +6,11 @@ import java.util.Set;
 
 public class Constants {
 
-    public static final Set<String> CREATE = new HashSet<>(Arrays.asList("create", "save","add"));
+    public static final Set<String> CREATE = new HashSet<>(Arrays.asList("create", "save","add","set","new"));
 
     public static final Set<String> READ = new HashSet<>(Arrays.asList("get", "find"));
 
-    public static final Set<String> UPDATE = new HashSet<>(Arrays.asList("update"));
+    public static final Set<String> UPDATE = new HashSet<>(Arrays.asList("update","put","putAll","add","addAll"));
 
     public static final Set<String> DELETE = new HashSet<>(Arrays.asList("delete","remove"));
 

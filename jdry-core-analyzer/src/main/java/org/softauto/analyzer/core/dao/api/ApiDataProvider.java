@@ -11,6 +11,8 @@ public class ApiDataProvider {
 
     List<GenericItem> trees = new ArrayList<>();
 
+    List<GenericItem> entities = new ArrayList<>();
+
     Parser parser;
 
     public static ApiDataProvider getInstance(){
@@ -37,10 +39,14 @@ public class ApiDataProvider {
         return trees;
     }
 
+    public List<GenericItem> getEntities() {
+        return entities;
+    }
 
     public ApiDataProvider initialize(){
         Parser parser = this.parser.parseProcess();
         trees = parser.getGenericItems();
+        entities = parser.getEntities();
         return this;
     }
 }

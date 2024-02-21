@@ -10,6 +10,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.config.Configuration;
 import org.softauto.config.Context;
+import soot.jimple.spark.SparkTransformer;
 import soot.options.Options;
 
 import java.io.File;
@@ -41,6 +42,7 @@ public abstract class AbstractDiscovery {
     }
 
 
+
     /**
      * set soot configuration
      */
@@ -56,7 +58,6 @@ public abstract class AbstractDiscovery {
 
         }));
         args = argsList.toArray(new String[argsList.size()]);
-        //Options.v().set_process_jar_dir(Configuration.get(Context.JAR_PATH).asList());
         Options.v().set_process_dir(Configuration.get(Context.CLASS_DIR).asList());
         Options.v().set_whole_program(true);
         Options.v().set_app(true);
@@ -64,12 +65,7 @@ public abstract class AbstractDiscovery {
         Options.v().set_no_bodies_for_excluded(true);
         Options.v().set_allow_phantom_refs(true);
         Options.v().setPhaseOption("jb","use-original-names:true");
-        //Options.v().setPhaseOption("jb","optimize:false");
-        //String javapath = System.getProperty("java.class.path");
-        //Options.v().set_soot_classpath("VIRTUAL_FS_FOR_JDK" + File.pathSeparator + javapath);
-        //Options.v().set_ignore_classpath_errors(true);
         Options.v().setPhaseOption("jb.sils", "enabled:false");
-
     }
 
 

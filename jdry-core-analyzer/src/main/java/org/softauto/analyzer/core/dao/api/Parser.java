@@ -30,6 +30,15 @@ public class Parser {
         return json;
     }
 
+
+    List<GenericItem> entities = new ArrayList<>();
+
+
+    public List<GenericItem> getEntities() {
+        return entities;
+    }
+
+
     public List<GenericItem> getGenericItems() {
         return genericItems;
     }
@@ -100,6 +109,12 @@ public class Parser {
                         genericItems.add(newGenericItem);
                         logger.debug(JDRY,"successfully create genericItem for " + genericItem.getName());
                     }
+                }
+                for (JsonNode node : json.get("entities")) {
+                    String jsonString = objectMapper.writeValueAsString(node);
+                    GenericItem genericItem = objectMapper.readValue(jsonString, GenericItem.class);
+                    entities.add(genericItem);
+                    logger.debug("successfully create genericItem entity for " + genericItem.getName());
                 }
             }
         } catch (JsonProcessingException e) {

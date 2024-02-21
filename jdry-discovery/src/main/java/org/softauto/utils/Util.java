@@ -1,8 +1,9 @@
 package org.softauto.utils;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -11,15 +12,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.softauto.analyzer.model.genericItem.External;
+import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.config.Context;
 import org.softauto.config.DefaultConfiguration;
 import org.softauto.config.Configuration;
 import org.softauto.flow.FlowObject;
+import org.softauto.model.item.Item;
 import org.softauto.spel.SpEL;
 import org.yaml.snakeyaml.Yaml;
 import soot.MethodOrMethodContext;
 import soot.Scene;
 import soot.SootClass;
+import soot.jimple.parser.node.TClass;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.tagkit.SignatureTag;
@@ -27,9 +32,7 @@ import soot.tagkit.Tag;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.jar.JarEntry;
@@ -260,7 +263,7 @@ public class Util {
 
     public static boolean isEntity(SootClass sc){
         try {
-            Object result =  ApplyRule.setRule("entity_identify").addContext("type", sc).apply().getResult();
+            Object result =  ApplyRule.setRule("entity_identify").addContext("class", sc).apply().getResult();
             if(result != null && result instanceof Boolean){
                 return (boolean) result;
             }
@@ -301,10 +304,34 @@ public class Util {
     }
 
     public static <T> boolean isExist(List<T> list,T o1){
+        List<String> ignore = new ArrayList<>();
+        return isExist(list,o1,ignore);
+    }
+
+
+
+
+    public static boolean isExist(ObjectNode nodeList, Item o1){
+        List<String> ignore = null;
+        List<Item> list = new ArrayList<>();
+        try {
+            ignore = new ArrayList<>();
+            for(JsonNode node : nodeList){
+                String nodeAsString = new ObjectMapper().writeValueAsString(node);
+                Item item =  new ObjectMapper().readValue(nodeAsString, Item.class);
+                list.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isExist(list,o1,ignore);
+    }
+
+    public static <T> boolean isExist(List<T> list,T o1,List<String> ignore){
         if(list.size() > 0) {
             for (T o : list) {
                 //if(!mergeObjects(o, o1)){
-                if (equals(o, o1)) {
+                if (equals(o, o1,ignore)) {
                     return true;
                 }
             }
@@ -314,29 +341,41 @@ public class Util {
     }
 
     public static  <T> boolean isExist(List<T> list,List<T> list1){
+        List<String> ignore = new ArrayList<>();
+        return isExist(list,list1,ignore);
+    }
+
+    public static  <T> boolean isExist(List<T> list,List<T> list1,List<String> ignore){
         if(list.size() > 0) {
-            boolean isMatchs = list.stream().allMatch(el1 -> list1.stream().anyMatch(el2 -> equals(el1, el2)));
+            boolean isMatchs = list.stream().allMatch(el1 -> list1.stream().anyMatch(el2 -> equals(el1, el2,ignore)));
         }
         return false;
     }
 
     public static <T> boolean equals(Object source, Object target) {
+        List<String> ignore = new ArrayList<>();
+        return equals(source,target,ignore);
+    }
+
+    public static <T> boolean equals(Object source, Object target,List<String> ignore) {
         Field[] allFields = FieldUtils.getAllFields(source.getClass());
         try {
             if(FieldUtils.getAllFields(source.getClass()).length != FieldUtils.getAllFields(target.getClass()).length){
                 return false;
             }
             for (Field field : allFields) {
-                field.setAccessible(true);
-                if (field.get(source) == null && field.get(target)!= null){
-                    return false;
-                }
-                if (field.get(source) != null && field.get(target)== null){
-                    return false;
-                }
+                if (!ignore.contains(field.getName())) {
+                    field.setAccessible(true);
+                    if (field.get(source) == null && field.get(target) != null) {
+                        return false;
+                    }
+                    if (field.get(source) != null && field.get(target) == null) {
+                        return false;
+                    }
 
-                if (field.get(source) != null && field.get(target)!= null && !field.get(source).equals(field.get(target))) {
-                    return false;
+                    if (field.get(source) != null && field.get(target) != null && !field.get(source).equals(field.get(target))) {
+                        return false;
+                    }
                 }
             }
         } catch (IllegalAccessException e) {
@@ -345,15 +384,21 @@ public class Util {
         return true;
     }
 
-    public static <T> T merge(List<T> list,List<T> list1){
-        List<T> newList = new ArrayList<>();
+    public static <T> LinkedList<T> merge(LinkedList<T> list,LinkedList<T> list1){
+        List<String> ignore = new ArrayList<>();
+        return merge(list,list1,ignore);
+    }
+
+    public static <T> LinkedList<T> merge(LinkedList<T> list,LinkedList<T> list1,List<String> ignore){
+        LinkedList<T> newList = new LinkedList<>();
+        newList.addAll(list);
         for(T t : list1){
-            if(!isExist(list,t)){
+            if(!isExist(list,t,ignore)){
                 newList.add(t);
             }
         }
-        newList.addAll(list);
-        return (T) newList;
+
+        return (LinkedList<T>) newList;
     }
 
 
@@ -378,4 +423,58 @@ public class Util {
     }
 
  */
+
+    public static boolean isEntity(String name,List<GenericItem> entities){
+        Object result =  org.softauto.core.ApplyRule.setRule("entity_identify").addContext("type", name).apply().getResult();
+        if(result instanceof Boolean && ((Boolean)result)){
+            return (boolean) result;
+        }
+        String entityFullName = buildEntityName(name);
+        for(GenericItem genericItem : entities){
+            if(Util.getShortName(genericItem.getName()).toLowerCase().equals(Util.getShortName(entityFullName).toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String buildEntityName(String name){
+        String entityFullName =  addEntityPostfix(name);
+        entityFullName = addEntityPrefix(entityFullName);
+        return entityFullName;
+    }
+
+    public static String addEntityPostfix(String entityName){
+        if(entityName != null) {
+            String postfix = Configuration.has("entity_name_postfix") ? Configuration.get("entity_name_postfix").asString() : null;
+            if (postfix != null && !entityName.endsWith(postfix)) {
+                entityName = entityName+ postfix;
+            }
+        }
+        return entityName;
+    }
+
+    public static String addEntityPrefix(String entityName){
+        if(entityName != null) {
+            String prefix = Configuration.has("entity_name_prefix") ? Configuration.get("entity_name_prefix").asString() : null;
+            if (prefix != null && !entityName.startsWith(prefix)) {
+                entityName =prefix + Util.capitalizeFirstLetter(entityName);
+            }
+        }
+        return entityName;
+    }
+
+    public static String capitalizeFirstLetter(String str){
+        if(str != null && !str.isEmpty()) {
+            return str.toUpperCase().charAt(0) + str.substring(1, str.length());
+        }
+        return str;
+    }
+
+    public static String unCapitalizeFirstLetter(String str){
+        if(str != null && !str.isEmpty()) {
+            return str.toLowerCase().charAt(0) + str.substring(1, str.length());
+        }
+        return str;
+    }
 }

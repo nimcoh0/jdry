@@ -32,6 +32,9 @@ import org.softauto.model.item.*;
 import org.softauto.utils.Entity;
 import org.softauto.utils.Util;
 import soot.*;
+import soot.jimple.JimpleBody;
+import soot.jimple.Stmt;
+import soot.jimple.spark.SparkTransformer;
 import soot.jimple.toolkits.callgraph.CHATransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.ReachableMethods;
@@ -48,9 +51,33 @@ public class Discovery extends AbstractDiscovery {
 
     private static HashMap<String,Integer> nameCounter = new HashMap<>();
 
-    protected FlowObject flowDiscovery(SootMethod mainMethod){
-        FlowObject flowObject = null;
+    static {
+        soot.options.Options.v().set_keep_line_number(true);
+        soot.options.Options.v().set_whole_program(true);
+        soot.options.Options.v().setPhaseOption("cg","verbose:true");
+    }
+
+
+    private List<String> evaluateList(List<String> beforeEvaluateList){
+        List<String> afterEvaluateList = new ArrayList<>();
+        for(String str : beforeEvaluateList){
+            Object o = SpEL.getInstance().evaluate(str);
+            if(o != null)
+                afterEvaluateList.add(o.toString());
+        }
+        return afterEvaluateList;
+    }
+
+    List<String> unboxList = Configuration.has(Context.UNBOX_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_RETURN_TYPE).asList()): new ArrayList<>();
+    List<String> unboxExcludeList = Configuration.has(Context.UNBOX_EXCLUDE_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_EXCLUDE_RETURN_TYPE).asList()): new ArrayList<>();
+    List<String> unboxExcludeMethodList = Configuration.has("unbox_exclude_method") ? evaluateList(Configuration.get("unbox_exclude_method").asList()): new ArrayList<>();
+
+
+
+    protected List<FlowObject> flowDiscovery(SootMethod mainMethod){
+        List<FlowObject> flowObjects = new ArrayList<>();
         try {
+
             logger.debug(JDRY,"flow  discovery for " + mainMethod );
             SootClass c = Scene.v().loadClass(mainMethod.getDeclaringClass().toString(), SootClass.BODIES);
             c.setApplicationClass();
@@ -60,7 +87,6 @@ public class Discovery extends AbstractDiscovery {
             Scene.v().setEntryPoints(entryPoints);
             Scene.v().loadNecessaryClasses();
             CHATransformer.v().transform();
-
             CallGraph cg = Scene.v().getCallGraph();
 
             List<SootMethod> lm = Scene.v().getEntryPoints();
@@ -77,9 +103,11 @@ public class Discovery extends AbstractDiscovery {
                     if (momc != null) {
                         m = momc.method();
                         if (m.isConcrete()) {
-                            if (Filter.filter(new FilterByDomain().set(Configuration.get(Context.DOMAIN).asString()), m.getDeclaringClass())) {
-                                m.getActiveBody().getParameterLocals();
-                                return    HandleFlowDiscovery.handleFlowDiscovery(new MethodTreeDiscovery().setCallGraph(cg).setFilter(new FilterByDomain().set(Configuration.get(Context.DOMAIN).asString())), m);
+                            if (Filter.filter(new FilterByDomain().set(Configuration.get(Context.DOMAIN).asString()), m.getDeclaringClass()) && !m.getName().contains("$")) {
+                                if(!unboxList.contains(m.getDeclaringClass().getName()) && !unboxExcludeList.contains(m.getDeclaringClass().getName()) && !Util.isEntity(m.getDeclaringClass()))
+                                {
+                                    flowObjects.add(HandleFlowDiscovery.handleFlowDiscovery(new MethodTreeDiscovery().setCallGraph(cg).setFilter(new FilterByDomain().set(Configuration.get(Context.DOMAIN).asString())), m));
+                                }
                             }
                         }
 
@@ -90,18 +118,18 @@ public class Discovery extends AbstractDiscovery {
             logger.error(JDRY,"fail flow Discovery ",e.getMessage());
         }
 
-
-        return flowObject ;
+        return flowObjects;
     }
+
+
+
 
     protected List<Object> discovery(){
         List<Object> sootItems = new ArrayList<>();
         try {
             CHATransformer.v().transform();
             CallGraph cg = Scene.v().getCallGraph();
-            //List<SootClass> sootClasses = Util.getSootClassListFromJar("C:\\work\\myprojects\\java\\iotback\\core\\target\\core-0.0.1-SNAPSHOT-jar-with-dependencies.jar");
             for(SootClass sc : Scene.v().getApplicationClasses()) {
-            //for(SootClass sc : sootClasses) {
                 if (Filter.filter(new FilterByDomain().set(Configuration.get(Context.DOMAIN).asString()), sc)) {
                     SpEL.getInstance().addProperty("class",sc);
                     if(sc.getModifiers() > 0) {
@@ -124,10 +152,7 @@ public class Discovery extends AbstractDiscovery {
                             sootItems.add(sootMethod);
                         }
                     }
-                   // HashMap<String, Object> clazzMap =  new HandelClassAnnotation(sc).analyze();
-                    //if(clazzMap != null && clazzMap.size() >0 ){
-                        sootItems.add(sc);
-                    //}
+                    sootItems.add(sc);
                     HandleEntity handleEntity = new HandleEntity().setClazz(sc).build();
                     if(handleEntity.isEntity()){
                         sootItems.add(new Entity().setEntity(sc));
@@ -148,7 +173,7 @@ public class Discovery extends AbstractDiscovery {
            if (nameCounter.containsKey(item.getNamespce() + "." + item.getName())) {
                Integer i = nameCounter.get(item.getNamespce() + "." + item.getName());
                name = item.getNamespce() + "." + item.getName() + "_" + i;
-               nameCounter.put(item.getNamespce() + "." + item.getName(), i++);
+               nameCounter.put(item.getNamespce() + "." + item.getName(), i+1);
            } else {
                nameCounter.put(item.getNamespce() + "." + item.getName(), 0);
                name = item.getNamespce() + "." + item.getName();
@@ -157,40 +182,6 @@ public class Discovery extends AbstractDiscovery {
         return name;
     }
 
-    public static boolean isExist(Item item, JsonNode items){
-        if(item != null) {
-            try {
-                if (!items.has(item.getNamespce() + "." + item.getName())) {
-                    return false;
-                }
-                for (JsonNode node : items) {
-                    if (node.get("namespce") != null && node.get("namespce").asText().equals(item.getNamespce()) && node.get("name") != null && node.get("name").asText().equals(item.getName())) {
-                        if (((ArrayNode) node.get("parametersTypes")).size() != item.getParametersTypes().size()) {
-                            return false;
-                        }
-                        if(node.get("parametersTypes").size() > 0 ) {
-                            if (item.getParametersTypes().size() == node.get("parametersTypes").size()) {
-                                for (int i = 0; i < node.get("parametersTypes").size(); i++) {
-                                    if (!((ArrayNode) node.get("parametersTypes")).get(i).asText().equals(item.getParametersTypes().get(i))) {
-                                        return false;
-                                    }
-                                }
-                                return true;
-                            }else {
-                                return false;
-                            }
-                        }else {
-                            return true;
-                        }
-                    }
-                }
-                logger.debug(JDRY, "item not found " + item.getNamespce() + "." + item.getName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
 
     public Discovery discover(){
 
@@ -217,15 +208,17 @@ public class Discovery extends AbstractDiscovery {
                          if ((Boolean) new FilterByAnnotation().apply(o)) {
                              if (o instanceof SootMethod) {
                                  System.out.println("------------------"+((SootMethod) o).getDeclaringClass().getName()+"."+((SootMethod) o).getName());
-                                 FlowObject tree = flowDiscovery((SootMethod) o);
-                                 Item item = new ItemFactory().setFlowObject(tree).build().getItem();
-                                 if (!isExist(item, discovery.get("methods"))) {
-                                     String name = buildName(item);
-                                     String json = new ObjectMapper().writeValueAsString(item);
-                                     JsonNode node = new ObjectMapper().readTree(json);
-                                     ((ObjectNode) discovery.get("methods")).set(name, node);
+                                 List<FlowObject> trees = flowDiscovery((SootMethod) o);
+                                 for(FlowObject tree : trees) {
+                                     Item item = new ItemFactory().setFlowObject(tree).build().getItem();
+                                     if (!Util.isExist((ObjectNode) discovery.get("methods"),item)) {
+                                         String name = buildName(item);
+                                         String json = new ObjectMapper().writeValueAsString(item);
+                                         JsonNode node = new ObjectMapper().readTree(json);
+                                         ((ObjectNode) discovery.get("methods")).set(name, node);
+                                     }
+                                     logger.debug(JDRY, "successfully process tree for " + ((SootMethod) o).getName());
                                  }
-                                 logger.debug(JDRY, "successfully process tree for " + ((SootMethod) o).getName());
                              }
                          }
                                 if (o instanceof SootClass) {
@@ -253,7 +246,7 @@ public class Discovery extends AbstractDiscovery {
                             ((ObjectNode)discovery.get("entities")).set(item.getName(),node);
                             logger.debug(JDRY,"successfully process Entity for " + item.getName());
                         }
-                       // count++;
+
                     } catch (Throwable e) {
                         logger.error(JDRY,"fail discovery ",e);
                     }
@@ -285,7 +278,6 @@ public class Discovery extends AbstractDiscovery {
                     .setPublic(sootClass.isPublic())
                     .setStatic(sootClass.isStatic())
                     .setInnerClass(sootClass.isInnerClass())
-                    //.setHasParameters(hasParameters)
                     .setSingleton(org.softauto.utils.Util.isSingleton(sootClass))
                     .setGeneric(org.softauto.utils.Util.isGeneric(sootClass))
                     .setEntity(org.softauto.utils.Util.isEntity(sootClass))

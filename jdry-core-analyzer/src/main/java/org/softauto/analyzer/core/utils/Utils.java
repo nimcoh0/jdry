@@ -16,6 +16,7 @@ import org.softauto.analyzer.model.request.Request;
 import org.softauto.analyzer.model.result.Result;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.analyzer.core.system.config.Configuration;
+import org.softauto.core.ApplyRule;
 import org.yaml.snakeyaml.Yaml;
 import java.io.*;
 import java.lang.annotation.Annotation;
@@ -716,6 +717,46 @@ public class Utils {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public static boolean isEntity(String name,List<GenericItem> entities){
+         Object result =  ApplyRule.setRule("entity_identify").addContext("type", name).apply().getResult();
+          if(result instanceof Boolean && ((Boolean)result)){
+             return (boolean) result;
+         }
+        String entityFullName = buildEntityName(name);
+        for(GenericItem genericItem : entities){
+            if(Utils.getShortName(genericItem.getName()).toLowerCase().equals(Utils.getShortName(entityFullName).toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String buildEntityName(String name){
+        String entityFullName =  addEntityPostfix(name);
+        entityFullName = addEntityPrefix(entityFullName);
+        return entityFullName;
+    }
+
+    public static String addEntityPostfix(String entityName){
+        if(entityName != null) {
+            String postfix = Configuration.has("entity_name_postfix") ? Configuration.get("entity_name_postfix").asString() : null;
+            if (postfix != null && !entityName.endsWith(postfix)) {
+                entityName = entityName+ postfix;
+            }
+        }
+        return entityName;
+    }
+
+    public static String addEntityPrefix(String entityName){
+        if(entityName != null) {
+            String prefix = Configuration.has("entity_name_prefix") ? Configuration.get("entity_name_prefix").asString() : null;
+            if (prefix != null && !entityName.startsWith(prefix)) {
+                entityName =prefix + Utils.capitalizeFirstLetter(entityName);
+            }
+        }
+        return entityName;
     }
 }
 
