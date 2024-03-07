@@ -33,16 +33,19 @@ public class DiscoveryByAnnotation implements IDiscovery {
         try {
             SootMethod sootMethod = (SootMethod)o;
             VisibilityAnnotationTag tag = (VisibilityAnnotationTag) sootMethod.getTag("VisibilityAnnotationTag");
-            if (tag != null) {
-                for (AnnotationTag annotation : tag.getAnnotations()) {
-                    for (Object obj : annotations) {
-                        if (annotation.getType().contains("L"+obj.toString().replace(".","/")+";")) {
-                            return sootMethod;
+            if (annotations != null && annotations.size() > 0 ) {
+                if (tag != null) {
+                    for (AnnotationTag annotation : tag.getAnnotations()) {
+                        for (Object obj : annotations) {
+                            if (annotation.getType().contains("L" + obj.toString().replace(".", "/") + ";")) {
+                                return sootMethod;
+                            }
                         }
                     }
                 }
+            }else {
+                return sootMethod;
             }
-
         } catch (Exception e) {
             logger.error(JDRY,"fail discovery for "+o.getClass().getTypeName());
         }

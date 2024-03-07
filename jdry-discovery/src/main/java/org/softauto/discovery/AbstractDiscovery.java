@@ -10,11 +10,10 @@ import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
 import org.softauto.config.Configuration;
 import org.softauto.config.Context;
-import soot.jimple.spark.SparkTransformer;
+import soot.Scene;
 import soot.options.Options;
-
-import java.io.File;
 import java.util.*;
+
 
 public abstract class AbstractDiscovery {
 
@@ -32,6 +31,11 @@ public abstract class AbstractDiscovery {
 
     String [] args = null;
 
+    static {
+        soot.options.Options.v().set_keep_line_number(true);
+        soot.options.Options.v().set_whole_program(true);
+        soot.options.Options.v().setPhaseOption("cg","verbose:true");
+    }
     protected boolean isInClazzList(String name){
         for(String s : clazzes){
             if(s.equals(name)){
@@ -40,7 +44,6 @@ public abstract class AbstractDiscovery {
         }
         return false;
     }
-
 
 
     /**
@@ -59,6 +62,7 @@ public abstract class AbstractDiscovery {
         }));
         args = argsList.toArray(new String[argsList.size()]);
         Options.v().set_process_dir(Configuration.get(Context.CLASS_DIR).asList());
+        //Options.v().set_process_jar_dir(Configuration.get(Context.JAR_DIR).asList());
         Options.v().set_whole_program(true);
         Options.v().set_app(true);
         Options.v().set_exclude(getExcludePackagesList());
@@ -66,6 +70,8 @@ public abstract class AbstractDiscovery {
         Options.v().set_allow_phantom_refs(true);
         Options.v().setPhaseOption("jb","use-original-names:true");
         Options.v().setPhaseOption("jb.sils", "enabled:false");
+        Scene.v().loadNecessaryClasses();
+
     }
 
 

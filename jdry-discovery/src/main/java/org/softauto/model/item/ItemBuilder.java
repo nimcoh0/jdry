@@ -5,13 +5,12 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
-import org.softauto.clazz.ClassInfo;
 import org.softauto.flow.FlowObject;
-import org.softauto.analyzer.model.genericItem.External;
 import soot.Type;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ItemBuilder {
@@ -38,11 +37,13 @@ public class ItemBuilder {
 
         protected String name;
 
+        protected String fullname;
+
         protected String type;
 
         protected String namespce;
 
-        protected List<String> parametersTypes = new ArrayList<>();
+        protected LinkedList<String> parametersTypes = new LinkedList<>();
 
         protected List<String> argumentsNames = new ArrayList<>();
 
@@ -56,7 +57,7 @@ public class ItemBuilder {
 
         protected List<FlowObject> childes = new ArrayList<>();
 
-        private ClassInfo classInfo;
+
 
         private int modifier;
 
@@ -66,12 +67,37 @@ public class ItemBuilder {
 
         protected HashMap<Integer,Boolean> argsType = new HashMap<>();
 
-        private List<External> externals = new ArrayList<>();
+        private String subsignature;
 
-        public Builder setExternals(List<External> externals) {
-            this.externals = externals;
+
+
+        protected String resultParameterizedType;
+
+        private HashMap<Integer,String> parametersParameterizedType = new HashMap<>();
+
+        public Builder setFullname(String fullname) {
+            this.fullname = fullname;
             return this;
         }
+
+        public Builder setParametersParameterizedType(HashMap<Integer, String> parametersParameterizedType) {
+            this.parametersParameterizedType = parametersParameterizedType;
+            return this;
+        }
+
+        public Builder setResultParameterizedType(String resultParameterizedType) {
+            this.resultParameterizedType = resultParameterizedType;
+            return this;
+        }
+
+
+
+        public Builder setSubsignature(String subsignature) {
+            this.subsignature = subsignature;
+            return this;
+        }
+
+
 
         public Builder setReturnTypeGeneric(boolean returnTypeGeneric) {
             this.returnTypeGeneric = returnTypeGeneric;
@@ -118,10 +144,7 @@ public class ItemBuilder {
             return this;
         }
 
-        public Builder setClassInfo(ClassInfo classInfo) {
-            this.classInfo = classInfo;
-            return this;
-        }
+
 
         public Builder setAnnotations( HashMap<String, Object> annotations) {
             this.annotations = annotations;
@@ -145,8 +168,8 @@ public class ItemBuilder {
             return this;
         }
 
-        public Builder setParametersTypes(List<Type> parametersTypes) {
-            List<String> types = new ArrayList<>();
+        public Builder setParametersTypes(LinkedList<Type> parametersTypes) {
+            LinkedList<String> types = new LinkedList<>();
             for(Type type : parametersTypes){
                 types.add(type.toString());
             }
@@ -185,7 +208,7 @@ public class ItemBuilder {
                 item.setNamespce(namespce);
                 item.setParametersTypes(parametersTypes);
                 item.setReturnType(returnType);
-                item.setClassInfo(classInfo);
+
                 item.setArgumentsNames(argumentsNames);
                 item.setModifier(modifier);
                 item.setResponseChain(responseChain);
@@ -193,7 +216,11 @@ public class ItemBuilder {
                 item.setArgsType(argsType);
                 item.setReturnTypeGeneric(returnTypeGeneric);
                 item.setReturnTypeName(returnTypeName);
-                item.setExternals(externals);
+
+                item.setResultParameterizedType(resultParameterizedType);
+                item.setParametersParameterizedType(parametersParameterizedType);
+                item.setSubsignature(subsignature);
+                //item.setFullName(fullname);
                 logger.debug(JDRY,"sucessfully build item "+namespce+"."+name);
             } catch (Exception e) {
                 logger.error(JDRY,"fail build Item ",e.getMessage());

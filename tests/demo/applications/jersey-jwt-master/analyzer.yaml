@@ -7,16 +7,59 @@ schema_name: "JwtService"
 domain: "om.cassiomolin.example"
 #authentication type . can be JWT,BASIC,NONE
 auth: "JWT"
-#api annotations
-#api_annotations:
-#  - "javax.ws.rs.POST"
-#  - "javax.ws.rs.GET"
-#  - "javax.ws.rs.DELETE"
-#  - "javax.ws.rs.PUT"
-#  - "org.softauto.annotations.ApiForTesting"
- # - "org.softauto.annotations.InitializeForTesting"
+
 #default protocol
 default_protocol: "RPC"
 #base uri
 base_uri: "/api"
 
+
+################ rpc ###############################
+#api_annotations:
+#  - "org.softauto.annotations.ApiForTesting"
+#  - "org.softauto.annotations.ListenerForTesting"
+#  - "org.softauto.annotations.InitializeForTesting"
+
+################ rest < 2 ###############################
+#annotation to be discovery for jaxrs < 2.0
+api_annotations:
+  - "org.softauto.annotations.ApiForTesting"
+  - "org.softauto.annotations.ListenerForTesting"
+  - "org.softauto.annotations.InitializeForTesting"
+  - "javax.ws.rs.Path"
+  - "javax.ws.rs.Consumes"
+  - "javax.ws.rs.Produces"
+  - "javax.ws.rs.POST"
+  - "javax.ws.rs.GET"
+  - "javax.ws.rs.DELETE"
+  - "javax.ws.rs.PUT"
+
+
+################ jakarta rest > 2 ###############################
+
+#annotation to be discovery for jaxrs > 2.0 (jakarta)
+#api_annotations:
+# - "org.softauto.annotations.ApiForTesting"
+# - "org.softauto.annotations.ListenerForTesting"
+# - "org.softauto.annotations.InitializeForTesting"
+# - "jakarta.ws.rs.Path"
+# - "jakarta.ws.rs.Consumes"
+# - "jakarta.ws.rs.Produces"
+# - "jakarta.ws.rs.POST"
+# - "jakarta.ws.rs.GET"
+# - "jakarta.ws.rs.DELETE"
+# - "jakarta.ws.rs.PUT"
+
+
+################# spring ###############################
+#annotation to be discovery for sprint rest
+#api_annotations:
+# - "org.softauto.annotations.ApiForTesting"
+# - "org.softauto.annotations.ListenerForTesting"
+# - "org.softauto.annotations.InitializeForTesting"
+# - "org.springframework.web.bind.annotation.PostMapping"
+# - "org.springframework.web.bind.annotation.DeleteMapping"
+# - "org.springframework.web.bind.annotation.GetMapping"
+# - "org.springframework.web.bind.annotation.PutMapping"
+# - "org.springframework.web.bind.annotation.RequestMapping"
+# - "org.springframework.web.bind.annotation.RestController"

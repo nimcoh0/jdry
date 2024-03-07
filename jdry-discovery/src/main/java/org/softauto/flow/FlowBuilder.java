@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
-import org.softauto.clazz.ClassInfo;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class FlowBuilder {
 
         private String clazz;
 
-        private ClassInfo classInfo;
+
 
         private List<FlowObject> chileds = new ArrayList<>();
 
@@ -67,10 +66,7 @@ public class FlowBuilder {
             return this;
         }
 
-        public Builder setClassInfo(ClassInfo classInfo) {
-            this.classInfo = classInfo;
-            return this;
-        }
+
 
         public Builder setChileds(List<FlowObject> chileds) {
             this.chileds = chileds;
@@ -119,7 +115,7 @@ public class FlowBuilder {
                 flowObject.setName(name);
                 flowObject.setClazz(clazz);
                 flowObject.setChileds(chileds);
-                flowObject.setClassInfo(classInfo);
+
                 flowObject.setConstructor(isConstructor);
                 flowObject.setStaticInitializer(isStaticInitializer);
                 flowObject.setStatic(isStatic);

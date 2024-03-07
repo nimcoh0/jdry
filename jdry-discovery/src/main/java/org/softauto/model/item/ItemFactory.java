@@ -10,6 +10,7 @@ import org.softauto.flow.FlowObject;
 import org.softauto.handlers.annotations.HandelClassAnnotation;
 import org.softauto.handlers.annotations.HandelConstructorAnnotation;
 import org.softauto.handlers.annotations.HandleAnnotations;
+import soot.Type;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,19 +63,21 @@ public class ItemFactory {
                     .setName(flowObject.getName())
                     .setType(type)
                     .setNamespce(flowObject.getClazz())
-                    .setParametersTypes(flowObject.getMethod().getParameterTypes())
+                    .setParametersTypes(new LinkedList(flowObject.getMethod().getParameterTypes()))
                     .setArgumentsNames(flowObject.getArgsname())
                     .setReturnType(flowObject.getReturnType())
                     .setId(flowObject.getMethod().getNumber())
                     .setChildes(flowObject.getChileds())
                     .setAnnotations(annotations)
-                    .setClassInfo(flowObject.getClassInfo())
+
                     .setUnboxReturnType(flowObject.getUnboxReturnType())
                     .setResponseChain(flowObject.getResponseChain())
                     .setArgsType(flowObject.getArgsType())
                     .setReturnTypeGeneric(flowObject.isReturnTypeGeneric())
                     .setReturnTypeName(flowObject.getReturnTypeName())
-                    .setExternals(flowObject.getExternals())
+                    .setSubsignature(flowObject.getSubsignature())
+                    .setResultParameterizedType(flowObject.getResultParameterizedType())
+                    .setParametersParameterizedType(flowObject.getParametersParameterizedType())
                     .build()
                     .getItem();
 

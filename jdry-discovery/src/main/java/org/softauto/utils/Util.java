@@ -12,14 +12,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import org.softauto.analyzer.model.genericItem.External;
 import org.softauto.analyzer.model.genericItem.GenericItem;
 import org.softauto.config.Context;
 import org.softauto.config.DefaultConfiguration;
 import org.softauto.config.Configuration;
 import org.softauto.flow.FlowObject;
 import org.softauto.model.item.Item;
-import org.softauto.spel.SpEL;
 import org.yaml.snakeyaml.Yaml;
 import soot.MethodOrMethodContext;
 import soot.Scene;
@@ -223,66 +221,8 @@ public class Util {
     }
 
 
-    public static boolean isSingleton(SootClass sc){
-        Object result = ApplyRule.setRule("singleton_definition").addContext("class",sc).apply().getResult();
-        if(result != null){
-            if(result instanceof Boolean){
-                return (Boolean)result;
-            }else {
-                return false;
-            }
-        }
-        if(sc.getMethodUnsafe(sc.getName() + " getInstance()") != null){
-            return true;
-        }
-        return false;
-    }
 
-    public static boolean isGeneric(SootClass sc){
-        Object result = ApplyRule.setRule("generic_definition").addContext("class",sc).apply().getResult();
-        if(result != null){
-            if(result instanceof Boolean){
-                return (Boolean)result;
-            }else {
-                return false;
-            }
-        }
 
-        List<Tag> tags = sc.getTags();
-        for(Tag tag :tags ){
-            if (tag instanceof SignatureTag) {
-                SignatureTag t = (SignatureTag) tag;
-                String string =  StringUtils.substringBetween(t.getSignature(),"<",">");
-                if(string.startsWith("T")){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static boolean isEntity(SootClass sc){
-        try {
-            Object result =  ApplyRule.setRule("entity_identify").addContext("class", sc).apply().getResult();
-            if(result != null && result instanceof Boolean){
-                return (boolean) result;
-            }
-            if(sc.getName().contains(Configuration.get("domain").asString())) {
-                if(sc.getFieldUnsafe("java.lang.String id") != null
-                        || sc.getFieldUnsafe("java.lang.Long id") != null
-                        || sc.getFieldUnsafe("int id") != null
-                        || sc.getFieldUnsafe(Util.getShortName("java.lang.String "+sc.getName()).toLowerCase()+"id") != null
-                        || sc.getFieldUnsafe(Util.getShortName("java.lang.Long "+sc.getName()).toLowerCase()+"id") != null
-                        || sc.getFieldUnsafe(Util.getShortName("int "+sc.getName()).toLowerCase()+"id") != null){
-                    return true;
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     public static String getShortName(String fullName) {
         try {
@@ -424,19 +364,6 @@ public class Util {
 
  */
 
-    public static boolean isEntity(String name,List<GenericItem> entities){
-        Object result =  org.softauto.core.ApplyRule.setRule("entity_identify").addContext("type", name).apply().getResult();
-        if(result instanceof Boolean && ((Boolean)result)){
-            return (boolean) result;
-        }
-        String entityFullName = buildEntityName(name);
-        for(GenericItem genericItem : entities){
-            if(Util.getShortName(genericItem.getName()).toLowerCase().equals(Util.getShortName(entityFullName).toLowerCase())){
-                return true;
-            }
-        }
-        return false;
-    }
 
     public static String buildEntityName(String name){
         String entityFullName =  addEntityPostfix(name);
@@ -476,5 +403,14 @@ public class Util {
             return str.toLowerCase().charAt(0) + str.substring(1, str.length());
         }
         return str;
+    }
+
+    public static boolean isInclude(String name,List<String> list){
+        for(String s : list){
+            if(name.contains(s)){
+                return true;
+            }
+        }
+        return false;
     }
 }

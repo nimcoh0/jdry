@@ -15,22 +15,84 @@ class_dir:
 main_class: "com.cassiomolin.example.Application"
 #application domain
 domain: "com.cassiomolin.example"
-#annotation to be discovery
+
+
+
+
+
+include_domain:
+  - "com.cassiomolin.example"
+
+
+################ rpc ###############################
 #discover_by_annotation:
-#    - "org.softauto.annotations.ApiForTesting"
-#    - "org.softauto.annotations.ListenerForTesting"
-#    - "org.softauto.annotations.InitializeForTesting"
-#    - "javax.ws.rs.Path"
-#    - "javax.ws.rs.Consumes"
-#    - "javax.ws.rs.Produces"
-#    - "javax.ws.rs.POST"
-#    - "javax.ws.rs.GET"
-#    - "javax.ws.rs.DELETE"
-#    - "javax.ws.rs.PUT"
+#  - "org.softauto.annotations.ApiForTesting"
+#  - "org.softauto.annotations.ListenerForTesting"
+#  - "org.softauto.annotations.InitializeForTesting"
+
+################ rest < 2 ###############################
+#annotation to be discovery for jaxrs < 2.0
+discover_by_annotation:
+ - "org.softauto.annotations.ApiForTesting"
+ - "org.softauto.annotations.ListenerForTesting"
+ - "org.softauto.annotations.InitializeForTesting"
+ - "javax.ws.rs.Path"
+ - "javax.ws.rs.Consumes"
+ - "javax.ws.rs.Produces"
+ - "javax.ws.rs.POST"
+ - "javax.ws.rs.GET"
+ - "javax.ws.rs.DELETE"
+ - "javax.ws.rs.PUT"
+
 #replace return type with the real return type
 unbox_return_type:
-    - "javax.ws.rs.core.Response"
-    - "javax.ws.rs.core.Response$Status"
+ - "javax.ws.rs.core.Response"
+
 #ignore in process of discovery return real type
 unbox_exclude_return_type:
-    - "java.lang.Exception"
+ - "java.lang.Exception"
+
+################ jakarta rest > 2 ###############################
+
+#annotation to be discovery for jaxrs > 2.0 (jakarta)
+#discover_by_annotation:
+# - "org.softauto.annotations.ApiForTesting"
+# - "org.softauto.annotations.ListenerForTesting"
+# - "org.softauto.annotations.InitializeForTesting"
+# - "jakarta.ws.rs.Path"
+# - "jakarta.ws.rs.Consumes"
+# - "jakarta.ws.rs.Produces"
+# - "jakarta.ws.rs.POST"
+# - "jakarta.ws.rs.GET"
+# - "jakarta.ws.rs.DELETE"
+# - "jakarta.ws.rs.PUT"
+
+#replace return type with the real return type
+#unbox_return_type:
+# - "jakarta.ws.rs.core.Response"
+
+#ignore in process of discovery return real type
+#unbox_exclude_return_type:
+# - "jakarta.lang.Exception"
+
+################# spring ###############################
+#annotation to be discovery for sprint rest
+#discover_by_annotation:
+# - "org.softauto.annotations.ApiForTesting"
+# - "org.softauto.annotations.ListenerForTesting"
+# - "org.softauto.annotations.InitializeForTesting"
+# - "org.springframework.web.bind.annotation.PostMapping"
+# - "org.springframework.web.bind.annotation.DeleteMapping"
+# - "org.springframework.web.bind.annotation.GetMapping"
+# - "org.springframework.web.bind.annotation.PutMapping"
+# - "org.springframework.web.bind.annotation.RequestMapping"
+# - "org.springframework.web.bind.annotation.RestController"
+
+#replace return type with the real return type for spring
+#unbox_return_type:
+# - "org.springframework.http.ResponseEntity"
+
+
+#ignore in process of discovery return real type for spring
+#unbox_exclude_return_type:
+# - "java.lang.Exception"

@@ -59,7 +59,7 @@ public class Parser {
 
 
 
-    private List<LinkedHashMap<String,Object>> buildClazzList(JsonNode classes){
+    private List<LinkedHashMap<String,Object>> buildClazzListAnnotation(JsonNode classes){
         List<LinkedHashMap<String,Object>> list = new ArrayList<>();
         if(!classes.isNull() ){
             for(JsonNode node : classes){
@@ -92,7 +92,7 @@ public class Parser {
     public Parser parseProcess(){
         try {
             if(!json.isNull() ) {
-                List<LinkedHashMap<String, Object>> clazzList = buildClazzList(json.get("classes"));
+                List<LinkedHashMap<String, Object>> clazzList = buildClazzListAnnotation(json.get("classes"));
 
                 for (JsonNode node : json.get("methods")) {
                     String jsonString = objectMapper.writeValueAsString(node);
@@ -110,12 +110,12 @@ public class Parser {
                         logger.debug(JDRY,"successfully create genericItem for " + genericItem.getName());
                     }
                 }
-                for (JsonNode node : json.get("entities")) {
-                    String jsonString = objectMapper.writeValueAsString(node);
-                    GenericItem genericItem = objectMapper.readValue(jsonString, GenericItem.class);
-                    entities.add(genericItem);
-                    logger.debug("successfully create genericItem entity for " + genericItem.getName());
-                }
+                //for (JsonNode node : json.get("entities")) {
+                 //   String jsonString = objectMapper.writeValueAsString(node);
+                 //   GenericItem genericItem = objectMapper.readValue(jsonString, GenericItem.class);
+                 //   entities.add(genericItem);
+                  //  logger.debug("successfully create genericItem entity for " + genericItem.getName());
+                //}
             }
         } catch (JsonProcessingException e) {
             logger.error(JDRY,"fail create  genericItem ",e);

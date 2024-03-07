@@ -2,7 +2,8 @@ package org.softauto.utils;
 
 
 import org.softauto.config.Configuration;
-import org.softauto.espl.Espl;
+import org.softauto.spel.SpEL;
+
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class ApplyRule {
     }
 
     public ApplyRule addContext(String key, Object value) {
-        Espl.getInstance().addProperty(key,value);
+        SpEL.getInstance().addProperty(key,value);
         return this;
     }
 
@@ -44,10 +45,10 @@ public class ApplyRule {
             Object o= Configuration.get(rule).asObject();
             if(o instanceof ArrayList<?>){
                 for(Object s : (ArrayList)o){
-                    result = Espl.getInstance().addProperty("result",result).evaluate(s.toString());
+                    result = SpEL.getInstance().addProperty("result",result).evaluate(s.toString());
                 }
             }else {
-                result =  Espl.getInstance().evaluate(o.toString());
+                result =  SpEL.getInstance().evaluate(o.toString());
             }
         }
         return this;

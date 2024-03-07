@@ -1,11 +1,14 @@
 package org.softauto.handlers;
 
+import org.apache.commons.lang3.StringUtils;
 import org.softauto.config.Configuration;
-import org.softauto.analyzer.model.genericItem.External;
 import org.softauto.spel.SpEL;
 import soot.*;
 import soot.jimple.StringConstant;
 import soot.jimple.internal.*;
+import soot.tagkit.LineNumberTag;
+import soot.tagkit.SignatureTag;
+import soot.tagkit.Tag;
 
 import java.util.*;
 
@@ -19,19 +22,34 @@ public class HandleReturn {
 
     private Body body;
 
-    private  String type;
-
     private String name;
 
+    private String type;
 
+    private  Set<String> types = new HashSet<>();
 
+    private Set<String> names = new HashSet<>();
+
+    private String resultParameterizedType;
+
+    public String getResultParameterizedType() {
+        return resultParameterizedType;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public String getType() {
         return type;
     }
 
-    public String getName() {
-        return name;
+    public Set<String> getTypes() {
+        return types;
+    }
+
+    public Set<String> getNames() {
+        return names;
     }
 
     private LinkedList<String> responseChain = new LinkedList<>();
@@ -77,50 +95,79 @@ public class HandleReturn {
     }
 
     List<String> ignoreUnite = new ArrayList<>();
+    List<String> used = new ArrayList<>();
 
     public String parser(String responseObject) {
-        if(type == null){
-            type = responseObject;
-        }
-        for(Unit unit : body.getUnits()){
-            for(ValueBox valueBox : unit.getUseAndDefBoxes()) {
-                if (valueBox.getValue() instanceof AbstractInvokeExpr) {
-                    String  refClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName();
-                    //String  returnClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
-                    //String  className = ((AbstractInvokeExpr) valueBox.getValue()).getArgs().get(0).getType().toString();
+        if(unboxList.contains(responseObject)) {
+            if (type == null) {
+                type = responseObject;
+            }
+            for (Unit unit : body.getUnits()) {
+                for (ValueBox valueBox : unit.getUseAndDefBoxes()) {
+                    if (valueBox.getValue() instanceof AbstractInvokeExpr) {
+                        String refClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName();
+                        //String  returnClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
+                        //String  className = ((AbstractInvokeExpr) valueBox.getValue()).getArgs().get(0).getType().toString();
+                       if(!used.contains(unit.toString())){
+                        used.add(unit.toString());
 
-                    if (refClassName.contains(responseObject)  && !ignoreUnite.contains(unit.toString()) ) {
-                        if(unboxList.contains(responseObject)) {
-                            addResponseChain(responseObject);
-                        }
-                        ignoreUnite.add(unit.toString());
-                        if (((AbstractInvokeExpr) valueBox.getValue()).getArgs() != null && ((AbstractInvokeExpr) valueBox.getValue()).getArgs().size() > 0) {
-                            for(Value value : ((AbstractInvokeExpr) valueBox.getValue()).getArgs()) {
-                                if(value instanceof StringConstant) {
-                                    name = ((StringConstant) value).value;
-                                    type = "java.lang.String";
-                                } else {
-                                    name = value.toString().toString().contains("$") ? name : value.toString();
-                                    type = value.getType().toString();
+                        if (refClassName.contains(responseObject) && !ignoreUnite.contains(unit.toString())) {
+                            if (unboxList.contains(responseObject)) {
+                                addResponseChain(responseObject);
+                            }
+                            ignoreUnite.add(unit.toString());
+                            if (((AbstractInvokeExpr) valueBox.getValue()).getArgs() != null && ((AbstractInvokeExpr) valueBox.getValue()).getArgs().size() > 0) {
+                                for (Value value : ((AbstractInvokeExpr) valueBox.getValue()).getArgs()) {
+                                    if (value instanceof StringConstant) {
+                                        name = ((StringConstant) value).value;
+                                        type = "java.lang.String";
 
-                                    if (unboxList.contains(type) || value.toString().contains("$stack")) {
-                                        if(unboxList.contains(type)) {
-                                            addResponseChain(type);
+                                        String resultParameterizedType = getResultParameterizedType(unit.getTags());
+                                        if (resultParameterizedType != null) {
+                                            this.resultParameterizedType = resultParameterizedType;
                                         }
-                                        type = responseObject = parser(type);
-                                    //} else if (isModel(value.getType())) {
-                                     //   return type;
-                                    } else if (value instanceof JimpleLocal) {
-                                        type = responseObject = value.getType().toString();
+                                    } else {
+                                        name = value.toString().toString().contains("$") ? name : value.toString();
+                                        type = value.getType().toString();
+
+                                        String resultParameterizedType = getResultParameterizedType(unit.getTags());
+                                        if (resultParameterizedType != null) {
+                                            this.resultParameterizedType = resultParameterizedType;
+                                        }
+                                        if (unboxList.contains(type) || value.toString().contains("$stack")) {
+                                            if (unboxList.contains(type)) {
+                                                addResponseChain(type);
+                                            }
+                                            if(unboxList.contains(type)){
+                                                responseObject = type;
+                                                used = new ArrayList<>();
+                                            }else{
+                                                names.add(name);
+                                                types.add(type);
+                                            }
+
+                                            responseObject = parser(responseObject);
+                                            resultParameterizedType = getResultParameterizedType(unit.getTags());
+                                            if (resultParameterizedType != null) {
+                                                this.resultParameterizedType = resultParameterizedType;
+                                            }
+                                            //} else if (isModel(value.getType())) {
+                                            //   return type;
+                                        } else if (value instanceof JimpleLocal) {
+                                            type = responseObject = value.getType().toString();
+                                            resultParameterizedType = getResultParameterizedType(unit.getTags());
+                                            if (resultParameterizedType != null) {
+                                                this.resultParameterizedType = resultParameterizedType;
+                                            }
+                                        }
                                     }
                                 }
-                             }
-                        }else {
-                          //  name = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getName();
-                          //  type = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
+                            } else {
+                                //  name = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getName();
+                                //  type = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
 
+                            }
                         }
-
                         /*
                         String  returnClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
                         if(unboxList.contains(returnClassName)) {
@@ -148,12 +195,33 @@ public class HandleReturn {
 
 
                          */
+                        }
                     }
                 }
             }
         }
         return responseObject;
     }
+
+    public String getResultParameterizedType(List<Tag> tags) {
+        if(tags != null && tags.size() > 0) {
+            for (Tag tag : tags) {
+                if (tag instanceof SignatureTag) {
+                    SignatureTag t = (SignatureTag) tag;
+                    String string =  StringUtils.substringBetween(t.getSignature(),"<",">");
+                    if(string != null) {
+                        return string.substring(1, string.length() - 1).replace("/", ".");
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
+
+
+
 
     private LinkedList<String> setArgs(List<Value> args) {
         LinkedList<String> list = new LinkedList<>();

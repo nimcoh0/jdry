@@ -95,7 +95,7 @@ public class Listener {
                                 o = joinPoint.proceed();
                             }
                         } catch (Exception e) {
-                            logger.error(JDRY,"send message " + fqmn.get() + " fail  ", e);
+                            logger.error(JDRY,"send message " + fqmn.get() + " fail  ");
                             o = joinPoint.proceed();
                         }
                     }else {
@@ -108,7 +108,7 @@ public class Listener {
                 o = joinPoint.proceed();
             }
         } catch (Throwable e) {
-            logger.error(JDRY,"capture message "+fqmn.get()+" fail  ",e );
+            logger.error(JDRY,"capture message "+fqmn.get()+" fail  ");
         }
         return o;
 

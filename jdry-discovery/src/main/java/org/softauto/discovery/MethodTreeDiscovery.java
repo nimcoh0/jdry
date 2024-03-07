@@ -5,18 +5,20 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.softauto.Discover;
-import org.softauto.analyzer.model.genericItem.External;
-import org.softauto.config.Context;
 import org.softauto.config.Configuration;
 import org.softauto.core.Utils;
 import org.softauto.filter.IFilter;
 import org.softauto.handlers.HandleGenericDiscovery;
+import org.softauto.handlers.HandleParameterizedType;
+import org.softauto.handlers.HandleParametersParameterizedType;
+import org.softauto.flow.*;
 import org.softauto.handlers.HandleReturn;
 import org.softauto.spel.SpEL;
-import org.softauto.flow.*;
-import org.softauto.state.ExternalFactory;
+import org.softauto.utils.Util;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
+import soot.jimple.toolkits.callgraph.ReachableMethods;
+import soot.util.queue.QueueReader;
 
 
 import java.util.*;
@@ -30,12 +32,6 @@ public class MethodTreeDiscovery implements IFlow {
     CallGraph cg ;
 
     IFilter filter;
-
-
-
-
-
-
 
     @Override
     public IFlow setFilter(IFilter filter) {
@@ -80,41 +76,66 @@ public class MethodTreeDiscovery implements IFlow {
     public Object apply(Object o) {
         FlowObject flowObject = null;
         try {
-            SootMethod m = (SootMethod) o;
-            SpEL.getInstance().addProperty("method",m);
+            if(o != null) {
+                SootMethod m = (SootMethod) o;
+                flowObject = FlowBuilder.newBuilder().setStaticInitializer(m.isStaticInitializer()).setStatic(m.isStatic()).setConstructor(m.isConstructor()).setCg(cg).setName(m.getName()).setClazz(m.getDeclaringClass().getName()).setMethod(m).build().getFlowObject();
+                List<String> unboxList = Configuration.has(org.softauto.config.Context.UNBOX_RETURN_TYPE) ? evaluateList(Configuration.get(org.softauto.config.Context.UNBOX_RETURN_TYPE).asList()) : new ArrayList<>();
+                List<String> unboxExcludeList = Configuration.has(org.softauto.config.Context.UNBOX_EXCLUDE_RETURN_TYPE) ? evaluateList(Configuration.get(org.softauto.config.Context.UNBOX_EXCLUDE_RETURN_TYPE).asList()) : new ArrayList<>();
+                List<String> includeDomain = Configuration.has("include_domain") ? evaluateList(Configuration.get("include_domain").asList()): new ArrayList<>();
+                ReachableMethods rm = new ReachableMethods(cg, Collections.singleton(m));
+                rm.update();
+                QueueReader<MethodOrMethodContext> qr = rm.listener();
+                HandleReturn handleReturn = new HandleReturn();
+                String unboxReturnType = m.getReturnType().toString();
+                LinkedList<String> responseChain = new LinkedList<>();
+                flowObject.setSubsignature(m.getSubSignature());
+                while (qr.hasNext() && (unboxList.contains(unboxReturnType) || unboxReturnType == null)) {
+                    MethodOrMethodContext momc = qr.next();
+                    if (momc != null) {
+                        SootMethod  m1 = momc.method();
+                        if (m1.isConcrete()) {
+                            if (Util.isInclude(m1.getDeclaringClass().getName(),includeDomain) && !m1.getDeclaringClass().getName().contains("$") && !m1.getName().contains("$")) {
+                                Body body = m1.getActiveBody();
 
-            flowObject =  FlowBuilder.newBuilder().setStaticInitializer(m.isStaticInitializer()).setStatic(m.isStatic()).setConstructor(m.isConstructor()).setCg(cg).setName(m.getName()).setClazz(m.getDeclaringClass().getName()).setMethod(m).build().getFlowObject();
-            List<String> unboxList = Configuration.has(Context.UNBOX_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_RETURN_TYPE).asList()): new ArrayList<>();
-            List<String> unboxExcludeList = Configuration.has(Context.UNBOX_EXCLUDE_RETURN_TYPE) ? evaluateList(Configuration.get(Context.UNBOX_EXCLUDE_RETURN_TYPE).asList()): new ArrayList<>();
-            String unboxReturnType = m.getReturnType().toString();
-            LinkedList<String> responseChain = new LinkedList<>();
-            HandleReturn handleReturn = null;
+                                handleReturn = new HandleReturn().setBody(body).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList);
+                                handleReturn.parser(unboxReturnType);
+                                unboxReturnType = handleReturn.getType();
+                                addResponseChain(handleReturn.getResponseChain(), responseChain);
+                            }
+                        }
+                    }
+                }
+                Set<String> types = handleReturn.getTypes();
+                Set<String> names = handleReturn.getNames();
+                types.add(handleReturn.getType());
+                names.add(handleReturn.getName());
+                HandleParametersParameterizedType parametersParameterizedType = new HandleParametersParameterizedType().setFlowObject(flowObject).setTags(m.getTags()).build();
+                flowObject.setParametersParameterizedType(parametersParameterizedType.getParameterizedTypes());
+                flowObject.setResultParameterizedType(handleReturn.getResultParameterizedType());
 
-            UnitPatchingChain units = m.getActiveBody().getUnits();
+                if(types.size()> 1){
+                    HashMap<String,String> hm = new HashMap<>();
+                    for(int i=0;i<types.size();i++){
+                        String name = names.toArray()[i].toString();
+                        if (name != null && name.startsWith("class ")) {
+                            name = name.substring(name.indexOf("L") + 1, name.length() - 2).replace("/", ".");
+                        }
+                        hm.put(name,types.toArray()[i].toString());
+                    }
+                    responseChain.add("java.util.HashMap");
+                    unboxReturnType = "java.util.HashMap";
+                    flowObject.setReturnTypeName("result");
+                    flowObject.setUnboxReturnType("java.util.HashMap");
+                    flowObject.setReturnType(m.getReturnType().toString());
+                    flowObject.setResponseChain(responseChain);
+                }else {
 
-            LinkedList<External> externals = new LinkedList<>();
-            Body body = null;
-                body = m.getActiveBody();;
-                handleReturn = new HandleReturn().setBody(body).setUnboxList(unboxList).setUnboxExcludeList(unboxExcludeList);
-                handleReturn.parser(unboxReturnType);
-                unboxReturnType = handleReturn.getType();
-                addResponseChain(handleReturn.getResponseChain(), responseChain);
-
-            for(Unit unit : units){
-                ExternalFactory externalFactory = new ExternalFactory().setSootClass(m.getDeclaringClass()).setSootMethod(m).setAllExternals(externals).setUnit(unit).setId1(externals.size()).setBody(body).setApiClass(cg.iterator().next().src().getDeclaringClass().getName()).setApiMethod(cg.iterator().next().src().getName()).setMethod(m.getName()).setClazz(m.getDeclaringClass().getName()).build();
-                LinkedList<External> externals1 = externalFactory.getExternals();
-
-                externals.addAll(externals1);
-            }
-
-
-                    flowObject.setExternals(externals);
-                    if(unboxReturnType != null && !responseChain.contains(unboxReturnType) && !Utils.isPrimitive(unboxReturnType)){
+                    if (unboxReturnType != null && !responseChain.contains(unboxReturnType) && !Utils.isPrimitive(unboxReturnType)) {
                         responseChain.add(unboxReturnType);
                     }
                     String name = handleReturn != null ? handleReturn.getName() : null;
-                    if(name != null  && name.startsWith("class ")){
-                        name = name.substring(name.indexOf("L")+1,name.length() -2).replace("/",".");
+                    if (name != null && name.startsWith("class ")) {
+                        name = name.substring(name.indexOf("L") + 1, name.length() - 2).replace("/", ".");
                     }
 
                     flowObject.setResponseChain(responseChain);
@@ -124,6 +145,7 @@ public class MethodTreeDiscovery implements IFlow {
                     } else {
                         flowObject.setReturnTypeName(name);
                     }
+
                     if (unboxReturnType != null) {
                         if (unboxReturnType.contains("$")) {
                             unboxReturnType = unboxReturnType.replace("$", ".");
@@ -131,15 +153,19 @@ public class MethodTreeDiscovery implements IFlow {
                         flowObject.setUnboxReturnType(unboxReturnType);
                         flowObject.setReturnType(m.getReturnType().toString());
                     }
+                }
 
-
-            flowObject.setArgsname(getArgsName(m));
-            HandleGenericDiscovery handleGenericDiscovery = new HandleGenericDiscovery().setFlowObject(flowObject).setTags(m.getTags()).build();
-            if(handleGenericDiscovery.getGlobalGeneric() != null && handleGenericDiscovery.getGlobalGeneric().equals(unboxReturnType)){
-                flowObject.setReturnTypeGeneric(true);
+                flowObject.setArgsname(getArgsName(m));
+                HandleGenericDiscovery handleGenericDiscovery = new HandleGenericDiscovery().setFlowObject(flowObject).setTags(m.getTags()).build();
+                if (handleGenericDiscovery.getGlobalGeneric() != null && handleGenericDiscovery.getGlobalGeneric().equals(unboxReturnType)) {
+                    flowObject.setReturnTypeGeneric(true);
+                }
+                String resultParameterizedType = new HandleParameterizedType().setFlowObject(flowObject).setTags(m.getTags()).build().getParameterizedType();
+                if (flowObject.getResultParameterizedType() == null)
+                    flowObject.setResultParameterizedType(resultParameterizedType);
+                updateReturnTypeFromRequest(flowObject);
+                logger.debug(JDRY, "build object flow for " + ((SootMethod) o).getName());
             }
-            updateReturnTypeFromRequest(flowObject);
-            logger.debug(JDRY,"build object flow for " + ((SootMethod) o).getName() );
         } catch (Exception e) {
            logger.error(JDRY,"fail build object flow for "+o.getClass().getTypeName());
         }

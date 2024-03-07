@@ -8,6 +8,7 @@ public class Context {
     public final static String VERSION = "version";
     public final static String DOC = "doc";
     public final static String CLASS_DIR = "class_dir";
+    public final static String JAR_DIR = "jar_dir";
     public final static String MAIN_CLASS = "main_class";
     public final static String DOMAIN = "domain";
     public final static String DISCOVER_BY_ANNOTATION = "discover_by_annotation";
@@ -15,8 +16,6 @@ public class Context {
     public final static String UNBOX_EXCLUDE_RETURN_TYPE = "unbox_exclude_return_type";
     public final static String UNBOX_RETURN_TYPE = "unbox_return_type";
     public final static String JAR_PATH = "jar_path";
-    public final static String SINGLETON_DEFINITION = "singleton_definition";
-    public final static String GENERIC_DEFINITION = "generic_definition";
-    public final static String ENTITY_IDENTIFY = "entity_identify";
+
 
 }

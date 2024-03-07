@@ -1,7 +1,5 @@
 package org.softauto.model.item;
 
-import org.softauto.clazz.ClassInfo;
-import org.softauto.analyzer.model.genericItem.External;
 
 import java.util.*;
 
@@ -9,11 +7,13 @@ public class Item {
 
     protected String name;
 
+    protected String fullname;
+
     protected String namespce;
 
     private HashMap<String, Object> annotations ;
 
-    protected List<String> parametersTypes = new ArrayList<>();
+    protected LinkedList<String> parametersTypes = new LinkedList<>();
 
     protected List<String> argumentsNames = new ArrayList<>();
 
@@ -23,6 +23,10 @@ public class Item {
 
     protected int id;
 
+
+
+    protected String resultParameterizedType;
+
     protected String type ;
 
     private String returnType;
@@ -31,21 +35,46 @@ public class Item {
 
     private String returnTypeName;
 
-    private ClassInfo classInfo;
-
     private int modifier;
 
     private List<String> responseChain = new ArrayList<>();
 
-    private List<External> externals = new ArrayList<>();
+    private String subsignature;
 
-    public List<External> getExternals() {
-        return externals;
+    private HashMap<Integer,String> parametersParameterizedType = new HashMap<>();
+
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setExternals(List<External> externals) {
-        this.externals = externals;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
+
+    public HashMap<Integer, String> getParametersParameterizedType() {
+        return parametersParameterizedType;
+    }
+
+    public void setParametersParameterizedType(HashMap<Integer, String> parametersParameterizedType) {
+        this.parametersParameterizedType = parametersParameterizedType;
+    }
+
+    public String getResultParameterizedType() {
+        return resultParameterizedType;
+    }
+
+    public void setResultParameterizedType(String resultParameterizedType) {
+        this.resultParameterizedType = resultParameterizedType;
+    }
+
+    public String getSubsignature() {
+        return subsignature;
+    }
+
+    public void setSubsignature(String subsignature) {
+        this.subsignature = subsignature;
+    }
+
 
     public List<String> getResponseChain() {
         return responseChain;
@@ -89,13 +118,7 @@ public class Item {
 
     List<Item> childes = new ArrayList<>();
 
-    public ClassInfo getClassInfo() {
-        return classInfo;
-    }
 
-    public void setClassInfo(ClassInfo classInfo) {
-        this.classInfo = classInfo;
-    }
 
     public List<Item> getChildes() {
         return childes;
@@ -157,11 +180,11 @@ public class Item {
         this.annotations = annotations;
     }
 
-    public List<String> getParametersTypes() {
+    public LinkedList<String> getParametersTypes() {
         return parametersTypes;
     }
 
-    public void setParametersTypes(List<String> parametersTypes) {
+    public void setParametersTypes(LinkedList<String> parametersTypes) {
         this.parametersTypes = parametersTypes;
     }
 
@@ -180,4 +203,5 @@ public class Item {
     public void setReturnTypeGeneric(boolean returnTypeGeneric) {
         this.returnTypeGeneric = returnTypeGeneric;
     }
+
 }

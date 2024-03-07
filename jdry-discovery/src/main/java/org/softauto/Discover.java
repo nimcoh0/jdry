@@ -8,9 +8,6 @@ import org.apache.logging.log4j.MarkerManager;
 import org.softauto.config.Configuration;
 import org.softauto.config.Context;
 import org.softauto.discovery.Discovery;
-import org.softauto.discovery.plugin.ProviderManager;
-import org.softauto.discovery.plugin.api.Provider;
-import org.softauto.discovery.plugin.spi.PluginProvider;
 import org.softauto.utils.Util;
 
 import java.util.ArrayList;
@@ -53,8 +50,9 @@ public class Discover {
             }else {
                 Util.loadConfiguration(null);
             }
+            //Util.addJarToClasspath(Configuration.get(Context.JAR_PATH).asList());
             initializeArgs(args);
-            initializePlugins();
+
         }catch (Exception e){
            logger.error(JDRY,"initialize discovery fail ",e.getMessage());
         }
@@ -66,19 +64,6 @@ public class Discover {
         }
     }
 
-
-    public static void initializePlugins(){
-        for(PluginProvider plugin : ProviderManager.providers(ClassLoader.getSystemClassLoader())){
-            if (plugin.getType() != null && plugin.getType().equals("discovery")) {
-                Provider provider = plugin.create(new Object[]{});
-                //List<String> apiAnnotations = Configuration.get("api_annotations").asList();
-                //apiAnnotations.addAll(provider.getApiAnnotations());
-                Configuration.add("discover_by_annotation", provider.getDiscoverByAnnotation());
-                Configuration.add("unbox_return_type", provider.getUnboxReturnType());
-                Configuration.add("unbox_exclude_return_type", provider.getUnboxEexcludeReturnType());
-            }
-        }
-    }
 
 
 

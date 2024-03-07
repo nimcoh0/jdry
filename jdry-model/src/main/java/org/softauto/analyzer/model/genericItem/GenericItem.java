@@ -22,6 +22,8 @@ public class GenericItem implements   Cloneable, Serializable {
      */
     protected String name;
 
+
+
     /**
      * method type can be "method" or "class"
      */
@@ -32,7 +34,9 @@ public class GenericItem implements   Cloneable, Serializable {
      */
     protected String namespce;
 
-    boolean namespaceChange = false;
+    //boolean namespaceChange = false;
+
+    protected String resultParameterizedType;
 
     String fullname;
 
@@ -44,12 +48,14 @@ public class GenericItem implements   Cloneable, Serializable {
     /**
      * method parameters Types
       */
-    protected List<String> parametersTypes = new ArrayList<>();
+    protected LinkedList<String> parametersTypes = new LinkedList<>();
 
     /**
      * method id by soot
      */
     protected int id;
+
+    //protected int typeId;
 
     /**
      * method return type
@@ -67,7 +73,7 @@ public class GenericItem implements   Cloneable, Serializable {
      */
     protected LinkedList<GenericItem> childes = new LinkedList<>();
 
-    protected HashMap<String,Boolean> classInfo = new HashMap<>();
+    //protected HashMap<String,Boolean> classInfo = new HashMap<>();
 
     /**
      * method arguments name
@@ -83,8 +89,9 @@ public class GenericItem implements   Cloneable, Serializable {
 
     protected ClassType classType;
 
-    private Set<GenericItem> linkedMethods = new HashSet<>();
+    //private Set<GenericItem> linkedMethods = new HashSet<>();
 
+    private String subsignature;
 
     private HashMap<String,Object>  properties = new HashMap<>();
 
@@ -92,15 +99,35 @@ public class GenericItem implements   Cloneable, Serializable {
 
     private HashMap<Integer,Boolean> argsType = new HashMap<>();
 
-    private List<External> externals = new ArrayList<>();
 
-    public List<External> getExternals() {
-        return externals;
+
+    private HashMap<Integer,String> parametersParameterizedType = new HashMap<>();
+
+    public HashMap<Integer, String> getParametersParameterizedType() {
+        return parametersParameterizedType;
     }
 
-    public void setExternals(List<External> externals) {
-        this.externals = externals;
+    public void setParametersParameterizedType(HashMap<Integer, String> parametersParameterizedType) {
+        this.parametersParameterizedType = parametersParameterizedType;
     }
+
+    public String getResultParameterizedType() {
+        return resultParameterizedType;
+    }
+
+    public void setResultParameterizedType(String resultParameterizedType) {
+        this.resultParameterizedType = resultParameterizedType;
+    }
+
+    public String getSubsignature() {
+        return subsignature;
+    }
+
+    public void setSubsignature(String subsignature) {
+        this.subsignature = subsignature;
+    }
+
+
 
     public boolean isReturnTypeGeneric() {
         return returnTypeGeneric;
@@ -156,26 +183,7 @@ public class GenericItem implements   Cloneable, Serializable {
         this.constructorParameter.add(map);
     }
 
-    public Set<GenericItem> getLinkedMethods() {
-        return linkedMethods;
-    }
 
-    public void setLinkedMethods(Set<GenericItem> linkedMethods) {
-        this.linkedMethods.addAll(linkedMethods);
-    }
-
-    public void replaceLinkedMethods(Set<GenericItem> linkedMethods) {
-        this.linkedMethods = linkedMethods;
-    }
-
-    public void addLinkedMethods(GenericItem linkedMethod) {
-        for(GenericItem genericItem : linkedMethods){
-            if((genericItem.getNamespce()+"."+genericItem.getName()).equals(linkedMethod.getNamespce()+"."+linkedMethod.getName())){
-                return;
-            }
-        }
-        this.linkedMethods.add(linkedMethod);
-    }
 
     public ClassType getClassType() {
         return classType;
@@ -216,9 +224,7 @@ public class GenericItem implements   Cloneable, Serializable {
         this.modifier = modifier;
     }
 
-    public boolean isNamespaceChange() {
-        return namespaceChange;
-    }
+
 
     public void setNamespaceChange(boolean namespaceChange) {
         namespaceChange = namespaceChange;
@@ -238,15 +244,7 @@ public class GenericItem implements   Cloneable, Serializable {
         return crudToSubject;
     }
 
-    public void setCrudToSubject(List<HashMap<String, String>> crudToSubject) {
-        this.crudToSubject = crudToSubject;
-    }
 
-    public void addCrudToSubject(String crud,String entity) {
-        HashMap<String, String> hm = new HashMap<>();
-        hm.put(crud,entity);
-        this.crudToSubject.add(hm);
-    }
 
     public LinkedList<String> getAnnotationsHelper() {
         return annotationsHelper;
@@ -322,13 +320,7 @@ public class GenericItem implements   Cloneable, Serializable {
         this.argumentsNames = argumentsNames;
     }
 
-    public HashMap<String, Boolean> getClassInfo() {
-        return classInfo;
-    }
 
-    public void setClassInfo(HashMap<String, Boolean> classInfo) {
-        this.classInfo = classInfo;
-    }
 
     public LinkedList<GenericItem> getChildes() {
         return childes;
@@ -376,13 +368,15 @@ public class GenericItem implements   Cloneable, Serializable {
         this.annotations = annotations;
     }
 
-    public List<String> getParametersTypes() {
+    public LinkedList<String> getParametersTypes() {
         return parametersTypes;
     }
 
-    public void setParametersTypes(List<String> parametersTypes) {
+    public void setParametersTypes(LinkedList<String> parametersTypes) {
         this.parametersTypes = parametersTypes;
     }
+
+
 
     public String toJson(){
         try {

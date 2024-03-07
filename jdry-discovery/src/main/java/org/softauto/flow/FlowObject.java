@@ -1,7 +1,5 @@
 package org.softauto.flow;
 
-import org.softauto.clazz.ClassInfo;
-import org.softauto.analyzer.model.genericItem.External;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 
@@ -21,7 +19,7 @@ public class FlowObject {
 
     private SootMethod method ;
 
-    private ClassInfo classInfo;
+
 
     private List<String> argsname;
 
@@ -47,15 +45,39 @@ public class FlowObject {
 
     private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
 
-    private List<External> externals = new ArrayList<>();
 
-    public List<External> getExternals() {
-        return externals;
+
+    private String subsignature;
+
+    private String resultParameterizedType;
+
+    private HashMap<Integer,String> parametersParameterizedType = new HashMap<>();
+
+    public HashMap<Integer, String> getParametersParameterizedType() {
+        return parametersParameterizedType;
     }
 
-    public void setExternals(List<External> externals) {
-        this.externals = externals;
+    public void setParametersParameterizedType(HashMap<Integer, String> parametersParameterizedType) {
+        this.parametersParameterizedType = parametersParameterizedType;
     }
+
+    public String getResultParameterizedType() {
+        return resultParameterizedType;
+    }
+
+    public void setResultParameterizedType(String resultParameterizedType) {
+        this.resultParameterizedType = resultParameterizedType;
+    }
+
+    public String getSubsignature() {
+        return subsignature;
+    }
+
+    public void setSubsignature(String subsignature) {
+        this.subsignature = subsignature;
+    }
+
+
 
     public List<HashMap<String,String>> getCrudToSubject() {
         return crudToSubject;
@@ -157,13 +179,6 @@ public class FlowObject {
         this.argsname = argsname;
     }
 
-    public ClassInfo getClassInfo() {
-        return classInfo;
-    }
-
-    public void setClassInfo(ClassInfo classInfo) {
-        this.classInfo = classInfo;
-    }
 
     public List<FlowObject> getChileds() {
         return chileds;
