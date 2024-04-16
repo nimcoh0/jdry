@@ -9,6 +9,7 @@ import org.softauto.Discover;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class FlowBuilder {
@@ -37,7 +38,7 @@ public class FlowBuilder {
 
         private String clazz;
 
-
+        private LinkedList<String> parametersType = new LinkedList<>();
 
         private List<FlowObject> chileds = new ArrayList<>();
 
@@ -49,7 +50,10 @@ public class FlowBuilder {
 
         private boolean  isStatic;
 
-
+        public Builder setParametersType(LinkedList<String> parametersType) {
+            this.parametersType = parametersType;
+            return this;
+        }
 
         public Builder setStatic(boolean aStatic) {
             isStatic = aStatic;
@@ -115,7 +119,7 @@ public class FlowBuilder {
                 flowObject.setName(name);
                 flowObject.setClazz(clazz);
                 flowObject.setChileds(chileds);
-
+                //flowObject.setParametersType(parametersType);
                 flowObject.setConstructor(isConstructor);
                 flowObject.setStaticInitializer(isStaticInitializer);
                 flowObject.setStatic(isStatic);

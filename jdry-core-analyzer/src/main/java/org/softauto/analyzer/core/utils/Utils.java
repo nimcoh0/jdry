@@ -184,6 +184,7 @@ public class Utils {
             try {
                 for (int i = 0; i < genericItem.getArgumentsNames().size(); i++) {
                     Argument argument = new Argument();
+                    argument.setParameterizedType(genericItem.getParametersParameterizedType().get(i));
                     argument.setType(genericItem.getParametersTypes().get(i).replace("$", "."));
                     argument.setName(genericItem.getArgumentsNames().get(i));
                     arguments.add(argument);

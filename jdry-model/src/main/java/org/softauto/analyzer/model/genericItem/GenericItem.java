@@ -22,7 +22,7 @@ public class GenericItem implements   Cloneable, Serializable {
      */
     protected String name;
 
-
+    private String unboxReturnTypeTargetObject;
 
     /**
      * method type can be "method" or "class"
@@ -66,7 +66,7 @@ public class GenericItem implements   Cloneable, Serializable {
 
     protected String unboxReturnType;
 
-    protected String returnTypeName;
+    protected String returnName;
 
     /**
      * call methods with interest
@@ -99,7 +99,13 @@ public class GenericItem implements   Cloneable, Serializable {
 
     private HashMap<Integer,Boolean> argsType = new HashMap<>();
 
+    public String getUnboxReturnTypeTargetObject() {
+        return unboxReturnTypeTargetObject;
+    }
 
+    public void setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
+        this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
+    }
 
     private HashMap<Integer,String> parametersParameterizedType = new HashMap<>();
 
@@ -157,12 +163,12 @@ public class GenericItem implements   Cloneable, Serializable {
         return constructorParameter;
     }
 
-    public String getReturnTypeName() {
-        return returnTypeName;
+    public String getReturnName() {
+        return returnName;
     }
 
-    public void setReturnTypeName(String returnTypeName) {
-        this.returnTypeName = returnTypeName;
+    public void setReturnName(String returnName) {
+        this.returnName = returnName;
     }
 
     public String getUnboxReturnType() {

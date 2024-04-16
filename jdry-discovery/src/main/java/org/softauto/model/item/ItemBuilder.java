@@ -61,7 +61,7 @@ public class ItemBuilder {
 
         private int modifier;
 
-        private String returnTypeName;
+        private String returnName;
 
         private List<String> responseChain = new ArrayList<>();
 
@@ -69,11 +69,16 @@ public class ItemBuilder {
 
         private String subsignature;
 
-
+        private String unboxReturnTypeTargetObject;
 
         protected String resultParameterizedType;
 
         private HashMap<Integer,String> parametersParameterizedType = new HashMap<>();
+
+        public Builder  setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
+            this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
+            return this;
+        }
 
         public Builder setFullname(String fullname) {
             this.fullname = fullname;
@@ -119,8 +124,8 @@ public class ItemBuilder {
             return this;
         }
 
-        public Builder setReturnTypeName(String returnTypeName) {
-            this.returnTypeName = returnTypeName;
+        public Builder setReturnName(String returnName) {
+            this.returnName = returnName;
             return this;
         }
 
@@ -168,12 +173,10 @@ public class ItemBuilder {
             return this;
         }
 
-        public Builder setParametersTypes(LinkedList<Type> parametersTypes) {
-            LinkedList<String> types = new LinkedList<>();
-            for(Type type : parametersTypes){
-                types.add(type.toString());
-            }
-            this.parametersTypes = types;
+
+
+        public Builder setParametersTypes(LinkedList<String> parametersTypes) {
+            this.parametersTypes = parametersTypes;
             return this;
         }
 
@@ -208,14 +211,14 @@ public class ItemBuilder {
                 item.setNamespce(namespce);
                 item.setParametersTypes(parametersTypes);
                 item.setReturnType(returnType);
-
+                item.setUnboxReturnTypeTargetObject(unboxReturnTypeTargetObject);
                 item.setArgumentsNames(argumentsNames);
                 item.setModifier(modifier);
                 item.setResponseChain(responseChain);
                 item.setUnboxReturnType(unboxReturnType);
                 item.setArgsType(argsType);
                 item.setReturnTypeGeneric(returnTypeGeneric);
-                item.setReturnTypeName(returnTypeName);
+                item.setReturnName(returnName);
 
                 item.setResultParameterizedType(resultParameterizedType);
                 item.setParametersParameterizedType(parametersParameterizedType);

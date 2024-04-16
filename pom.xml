@@ -30,6 +30,7 @@
         <module>jdry-core-analyzer</module>
         <module>jdry-web-spring-analyzer</module>
 
+
         <!--module>jdry-jaxrs-javax-annotations</module-->
 
 

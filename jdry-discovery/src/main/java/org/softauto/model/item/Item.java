@@ -23,6 +23,7 @@ public class Item {
 
     protected int id;
 
+    private String unboxReturnTypeTargetObject;
 
 
     protected String resultParameterizedType;
@@ -33,7 +34,7 @@ public class Item {
 
     private String unboxReturnType;
 
-    private String returnTypeName;
+    private String returnName;
 
     private int modifier;
 
@@ -53,6 +54,14 @@ public class Item {
 
     public HashMap<Integer, String> getParametersParameterizedType() {
         return parametersParameterizedType;
+    }
+
+    public String getUnboxReturnTypeTargetObject() {
+        return unboxReturnTypeTargetObject;
+    }
+
+    public void setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
+        this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
     }
 
     public void setParametersParameterizedType(HashMap<Integer, String> parametersParameterizedType) {
@@ -108,12 +117,12 @@ public class Item {
         this.argumentsNames = argumentsNames;
     }
 
-    public String getReturnTypeName() {
-        return returnTypeName;
+    public String getReturnName() {
+        return returnName;
     }
 
-    public void setReturnTypeName(String returnTypeName) {
-        this.returnTypeName = returnTypeName;
+    public void setReturnName(String returnName) {
+        this.returnName = returnName;
     }
 
     List<Item> childes = new ArrayList<>();

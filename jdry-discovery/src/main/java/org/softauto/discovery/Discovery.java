@@ -4,6 +4,7 @@ package org.softauto.discovery;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -19,9 +20,14 @@ import org.softauto.model.item.*;
 import org.softauto.spel.SpEL;
 import org.softauto.utils.Util;
 import soot.*;
+import soot.jimple.internal.JAssignStmt;
+import soot.jimple.internal.JInstanceFieldRef;
+import soot.jimple.internal.JimpleLocal;
 import soot.jimple.toolkits.callgraph.CHATransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.ReachableMethods;
+import soot.jimple.toolkits.pointer.LocalMustNotAliasAnalysis;
+import soot.toolkits.graph.ExceptionalUnitGraph;
 import soot.util.queue.QueueReader;
 import java.util.*;
 
@@ -128,11 +134,13 @@ public class Discovery extends AbstractDiscovery {
                     if(!sc.getName().contains("$")) {
                         LinkedList<SootClass> list = new ClassInheritanceDiscovery().apply(sc);
                         Item item = new ClassFactory().setRoot(sc).setSootClass(list).build().getItem();
-                        String json = new ObjectMapper().writeValueAsString(item);
-                        JsonNode node = new ObjectMapper().readTree(json);
-                        ((ObjectNode) discovery.get("classes")).set(item.getName(), node);
+                        if(item != null) {
+                            String json = new ObjectMapper().writeValueAsString(item);
+                            JsonNode node = new ObjectMapper().readTree(json);
+                            ((ObjectNode) discovery.get("classes")).set(item.getName(), node);
 
-                        logger.debug(JDRY, "successfully process Class for " + (sc).getName());
+                            logger.debug(JDRY, "successfully process Class for " + (sc).getName());
+                        }
                     }
                 }
             }
@@ -159,7 +167,58 @@ public class Discovery extends AbstractDiscovery {
 
 
     public Discovery discover(){
+
+        PackManager.v().getPack("jtp").add(
+                new Transform("jtp.myTransform", new BodyTransformer() {
+
+                    protected void internalTransform(Body body, String phase, Map options) {
+
+                        try {
+
+
+                            if(body.getMethod().getDeclaringClass().getName().contains("Test1")) {
+                                for (Unit unit : body.getUnits()) {
+                                    for (ValueBox valueBox : unit.getUseAndDefBoxes()) {
+                                        if(valueBox.getValue() instanceof JInstanceFieldRef){
+                                            Class c = ClassUtils.getClass(((JInstanceFieldRef) valueBox.getValue()).getFieldRef().type().toString());
+                                            if(c.isPrimitive()){
+                                                //Singletons.Global g = new soot.Singletons.Global();
+                                                RefType refType = RefType.v("java.lang.Integer");
+                                                //JimpleLocal local = new JimpleLocal(((JInstanceFieldRef) valueBox.getValue()).getFieldRef().name(),((JInstanceFieldRef) valueBox.getValue()).getFieldRef().type());
+                                                JimpleLocal local = new JimpleLocal(((JInstanceFieldRef) valueBox.getValue()).getFieldRef().name(),refType);
+                                                valueBox.setValue(local);
+                                                body.getLocals().add(local);
+                                                //JimpleLocal local1 = new JimpleLocal(((JAssignStmt.LinkedRValueBox) valueBox.getValue().)..getFieldRef().name(),((JInstanceFieldRef) valueBox.getValue()).getFieldRef().type());
+                                                //valueBox.setOtherBox(valueBox);
+                                                //Class c1 = ClassUtils.primitiveToWrapper(c);
+                                                //SootFieldRef sootFieldRef = new JInstanceFieldRef();
+                                                //((JInstanceFieldRef) valueBox.getValue())..getFieldRef()..type().
+                                            }
+
+                                        }
+                                        if(valueBox instanceof JAssignStmt.LinkedVariableBox){
+                                            //((JAssignStmt.LinkedVariableBox) valueBox).setOtherBox( valueBox);
+                                        }
+
+
+                                        String s = valueBox.getValue().getType().toString();
+                                        System.out.println(s);
+                                    }
+                                }
+                            }
+
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }));
+
+
         PackManager.v().getPack("wjtp").add(new Transform("wjtp.myTrans", new SceneTransformer() {
+
 
             @Override
             protected void internalTransform(String phaseName, Map options) {

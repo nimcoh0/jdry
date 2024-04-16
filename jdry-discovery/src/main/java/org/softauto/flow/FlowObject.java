@@ -1,10 +1,12 @@
 package org.softauto.flow;
 
 import soot.SootMethod;
+import soot.Type;
 import soot.jimple.toolkits.callgraph.CallGraph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class FlowObject {
@@ -19,7 +21,7 @@ public class FlowObject {
 
     private SootMethod method ;
 
-
+    private String unboxReturnTypeTargetObject;
 
     private List<String> argsname;
 
@@ -39,13 +41,13 @@ public class FlowObject {
 
     private String unboxReturnType;
 
-    private String returnTypeName ;
+    private String returnName ;
 
     private List<String> responseChain = new ArrayList<>();
 
     private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
 
-
+    private LinkedList<String> parametersType = new LinkedList<>();
 
     private String subsignature;
 
@@ -55,6 +57,26 @@ public class FlowObject {
 
     public HashMap<Integer, String> getParametersParameterizedType() {
         return parametersParameterizedType;
+    }
+
+    public LinkedList<String> getParametersType() {
+        return parametersType;
+    }
+
+    public String getUnboxReturnTypeTargetObject() {
+        return unboxReturnTypeTargetObject;
+    }
+
+    public void setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
+        this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
+    }
+
+    public void setParametersType(List<Type> parametersType) {
+        LinkedList<String> _parametersType = new LinkedList<>();
+        for(Type t : parametersType){
+            _parametersType.add(t.toString());
+        }
+        this.parametersType = _parametersType;
     }
 
     public void setParametersParameterizedType(HashMap<Integer, String> parametersParameterizedType) {
@@ -135,12 +157,12 @@ public class FlowObject {
         return returnType;
     }
 
-    public String getReturnTypeName() {
-        return returnTypeName;
+    public String getReturnName() {
+        return returnName;
     }
 
-    public void setReturnTypeName(String returnTypeName) {
-        this.returnTypeName = returnTypeName;
+    public void setReturnName(String returnName) {
+        this.returnName = returnName;
     }
 
     public void setReturnType(String returnType) {

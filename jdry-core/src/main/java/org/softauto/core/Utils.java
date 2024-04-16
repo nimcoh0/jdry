@@ -216,9 +216,27 @@ public class Utils {
     }
 
 
+    public static boolean isPrimitive(String type) {
+        try {
+            if (type != null) {
+                Class c = ClassUtils.getClass(type);
+                if(type.equals("java.lang.Number")){
+                    return true;
+                }
+                if(type.equals("java.lang.String")){
+                    return true;
+                }
+                return ClassUtils.isPrimitiveOrWrapper(c);
 
 
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
 
+/*
     public static boolean isPrimitive(String type){
         if(type != null) {
             String name = null;
@@ -234,6 +252,8 @@ public class Utils {
         return false;
     }
 
+
+ */
     static final List<String> PRIMITIVES = new ArrayList<>();
     static {
         PRIMITIVES.add("bytes");

@@ -2,6 +2,7 @@ package org.softauto.handlers;
 
 import org.apache.commons.lang3.StringUtils;
 import org.softauto.config.Configuration;
+import org.softauto.config.Context;
 import org.softauto.spel.SpEL;
 import soot.*;
 import soot.jimple.StringConstant;
@@ -54,6 +55,12 @@ public class HandleReturn {
 
     private LinkedList<String> responseChain = new LinkedList<>();
 
+    private HashMap<SootClass,SootMethod> invokeMap = new HashMap<>();
+
+    public HashMap<SootClass,SootMethod> getInvokeMap() {
+        return invokeMap;
+    }
+
     public void addResponseChain(String clazz) {
         if(!responseChain.contains(clazz)){
             responseChain.add(clazz);
@@ -97,6 +104,8 @@ public class HandleReturn {
     List<String> ignoreUnite = new ArrayList<>();
     List<String> used = new ArrayList<>();
 
+
+
     public String parser(String responseObject) {
         if(unboxList.contains(responseObject)) {
             if (type == null) {
@@ -110,7 +119,16 @@ public class HandleReturn {
                         //String  className = ((AbstractInvokeExpr) valueBox.getValue()).getArgs().get(0).getType().toString();
                        if(!used.contains(unit.toString())){
                         used.add(unit.toString());
-
+                        if(valueBox.getValue() instanceof JVirtualInvokeExpr && !unboxList.contains(((JVirtualInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName()) &&((JVirtualInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName().toString().contains(Configuration.get(Context.DOMAIN).asString()) && !((JVirtualInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString().equals("void") && !((JVirtualInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString().contains("$") && !((JVirtualInvokeExpr) valueBox.getValue()).getMethodRef().getSubSignature().toString().contains("Exception")){
+                            //virtualInvokeList.add(((JVirtualInvokeExpr) valueBox.getValue()).getMethodRef().getSubSignature().toString());
+                            invokeMap.put(((JVirtualInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass(),((JVirtualInvokeExpr) valueBox.getValue()).getMethodRef().resolve());
+                            //virtualInvokeList.add(((JVirtualInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName());
+                        }
+                        if(valueBox.getValue() instanceof JStaticInvokeExpr && !unboxList.contains(((JStaticInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName()) && ((JStaticInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName().toString().contains(Configuration.get(Context.DOMAIN).asString()) && !((JStaticInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString().equals("void") && !((JStaticInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString().contains("$") && !((JStaticInvokeExpr) valueBox.getValue()).getMethodRef().getSubSignature().toString().contains("Exception")){
+                            //virtualInvokeList.add(((JStaticInvokeExpr) valueBox.getValue()).getMethodRef().getSubSignature().toString());
+                            invokeMap.put(((JStaticInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass(),((JStaticInvokeExpr) valueBox.getValue()).getMethodRef().resolve());
+                            //virtualInvokeList.add(((JStaticInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName());
+                        }
                         if (refClassName.contains(responseObject) && !ignoreUnite.contains(unit.toString())) {
                             if (unboxList.contains(responseObject)) {
                                 addResponseChain(responseObject);

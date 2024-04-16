@@ -7,7 +7,9 @@ import org.apache.commons.lang3.ClassUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * method call argument of return argument
@@ -32,13 +34,15 @@ public class Argument implements Cloneable , Serializable {
      */
     private List<Object> values = new ArrayList<>();
 
-
+    private String parameterizedType;
 
     private boolean modify = true;
 
     private String context;
 
     private String crud;
+
+    private String publishName;
 
     /**
      * is type entity ?
@@ -51,6 +55,22 @@ public class Argument implements Cloneable , Serializable {
     private boolean callback = false;
 
     private boolean generic = false;
+
+    public String getPublishName() {
+        return publishName;
+    }
+
+    public void setPublishName(String publishName) {
+        this.publishName = publishName;
+    }
+
+    public String getParameterizedType() {
+        return parameterizedType;
+    }
+
+    public void setParameterizedType(String parameterizedType) {
+        this.parameterizedType = parameterizedType;
+    }
 
     public boolean isGeneric() {
         return generic;

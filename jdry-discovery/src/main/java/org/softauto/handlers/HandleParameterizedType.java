@@ -45,15 +45,24 @@ public class HandleParameterizedType {
         return this;
     }
 
-
-
+    private String getResponseType(String s){
+        String string = StringUtils.substringAfter(s,"L");
+        string =  StringUtils.substringBefore(string,"<");
+        return string.replace("/",".");
+    }
 
 
     private void parser(String signature){
        String string =  signature.substring(signature.indexOf(")"));
-       string =  StringUtils.substringBetween(string,"<",">");
-       string = StringUtils.substringAfter(string,"L");
-       parameterizedType =   StringUtils.substringBefore(string,"<").replace("/",".");
+       String s = getResponseType(string);
+       if(flowObject.getUnboxReturnType() == null || s.equals(flowObject.getUnboxReturnType())) {
+           string = string != null ?  StringUtils.substringBetween(string,"<",">") : null;
+           string = string != null ?  StringUtils.substringAfter(string, "L"): null;
+           string = string != null ?  StringUtils.substringBefore(string, ";"): null;
+           string = string != null ?  StringUtils.substringBefore(string, "<"): null;
+           parameterizedType = string != null ?  string.replace("/", "."): null;
+       }
+      // parameterizedType =   StringUtils.substringBefore(string,"<").replace("/",".");
        //parameterizedType =  string.substring(1,string.length()-1).replace("/",".");
 
     }
