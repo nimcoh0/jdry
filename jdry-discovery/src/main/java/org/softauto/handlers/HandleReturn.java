@@ -17,9 +17,9 @@ public class HandleReturn {
 
     private String responseObject;
 
-    private List<String> unboxExcludeList;
+    //private List<String> unboxExcludeList;
 
-    private List<String> unboxList;
+    //private List<String> unboxList;
 
     private Body body;
 
@@ -55,11 +55,11 @@ public class HandleReturn {
 
     private LinkedList<String> responseChain = new LinkedList<>();
 
-    private HashMap<SootClass,SootMethod> invokeMap = new HashMap<>();
+    //private HashMap<SootClass,SootMethod> invokeMap = new HashMap<>();
 
-    public HashMap<SootClass,SootMethod> getInvokeMap() {
-        return invokeMap;
-    }
+    //public HashMap<SootClass,SootMethod> getInvokeMap() {
+     //   return invokeMap;
+   // }
 
     public void addResponseChain(String clazz) {
         if(!responseChain.contains(clazz)){
@@ -71,15 +71,15 @@ public class HandleReturn {
         return responseChain;
     }
 
-    public HandleReturn setUnboxExcludeList(List<String> unboxExcludeList) {
-        this.unboxExcludeList = unboxExcludeList;
-        return this;
-    }
+    //public HandleReturn setUnboxExcludeList(List<String> unboxExcludeList) {
+     //   this.unboxExcludeList = unboxExcludeList;
+     //   return this;
+   // }
 
-    public HandleReturn setUnboxList(List<String> unboxList) {
-        this.unboxList = unboxList;
-        return this;
-    }
+   // public HandleReturn setUnboxList(List<String> unboxList) {
+     //   this.unboxList = unboxList;
+     //   return this;
+   // }
 
     public HandleReturn setBody(Body body) {
         this.body = body;
@@ -107,7 +107,8 @@ public class HandleReturn {
 
 
     public String parser(String responseObject) {
-        if(unboxList.contains(responseObject)) {
+        /*
+        //if(unboxList.contains(responseObject)) {
             if (type == null) {
                 type = responseObject;
             }
@@ -186,38 +187,13 @@ public class HandleReturn {
 
                             }
                         }
-                        /*
-                        String  returnClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getReturnType().toString();
-                        if(unboxList.contains(returnClassName)) {
-                           if(((AbstractInvokeExpr) valueBox.getValue()).getArgs().size() > 0) {
-                               //for(Value v : ((AbstractInvokeExpr) valueBox.getValue()).getArgs()){
-                               for(int i=0;i< ((AbstractInvokeExpr) valueBox.getValue()).getArgs().size();i++){
-                                   Value v =  ((AbstractInvokeExpr) valueBox.getValue()).getArgs().get(i);
-                                   if (v instanceof StringConstant){
-                                       name = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(i).getValue().toString();
-                                       //type = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(0).getValue().getType().toString();
-                                   }
-                                   if(v instanceof JimpleLocal){
-                                       if(!((AbstractInvokeExpr) valueBox.getValue()).getArgBox(i).getValue().toString().contains("stack")) {
-                                           name = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(i).getValue().toString();
-                                       }
-                                       type =  ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(i).getValue().getType().toString();
-                                   }
-                               }
 
-                               //name = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(0).getValue().toString();
-                               //type = ((AbstractInvokeExpr) valueBox.getValue()).getArgBox(0).getValue().getType().toString();
-
-                           }
-                        }
-
-
-                         */
                         }
                     }
                 }
             }
-        }
+            */
+        //}
         return responseObject;
     }
 

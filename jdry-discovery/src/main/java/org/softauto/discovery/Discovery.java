@@ -131,6 +131,7 @@ public class Discovery extends AbstractDiscovery {
                         }
                     }
 
+
                     if(!sc.getName().contains("$")) {
                         LinkedList<SootClass> list = new ClassInheritanceDiscovery().apply(sc);
                         Item item = new ClassFactory().setRoot(sc).setSootClass(list).build().getItem();
@@ -142,6 +143,8 @@ public class Discovery extends AbstractDiscovery {
                             logger.debug(JDRY, "successfully process Class for " + (sc).getName());
                         }
                     }
+
+
                 }
             }
         } catch (Exception e) {
@@ -168,56 +171,7 @@ public class Discovery extends AbstractDiscovery {
 
     public Discovery discover(){
 
-        PackManager.v().getPack("jtp").add(
-                new Transform("jtp.myTransform", new BodyTransformer() {
-
-                    protected void internalTransform(Body body, String phase, Map options) {
-
-                        try {
-
-
-                            if(body.getMethod().getDeclaringClass().getName().contains("Test1")) {
-                                for (Unit unit : body.getUnits()) {
-                                    for (ValueBox valueBox : unit.getUseAndDefBoxes()) {
-                                        if(valueBox.getValue() instanceof JInstanceFieldRef){
-                                            Class c = ClassUtils.getClass(((JInstanceFieldRef) valueBox.getValue()).getFieldRef().type().toString());
-                                            if(c.isPrimitive()){
-                                                //Singletons.Global g = new soot.Singletons.Global();
-                                                RefType refType = RefType.v("java.lang.Integer");
-                                                //JimpleLocal local = new JimpleLocal(((JInstanceFieldRef) valueBox.getValue()).getFieldRef().name(),((JInstanceFieldRef) valueBox.getValue()).getFieldRef().type());
-                                                JimpleLocal local = new JimpleLocal(((JInstanceFieldRef) valueBox.getValue()).getFieldRef().name(),refType);
-                                                valueBox.setValue(local);
-                                                body.getLocals().add(local);
-                                                //JimpleLocal local1 = new JimpleLocal(((JAssignStmt.LinkedRValueBox) valueBox.getValue().)..getFieldRef().name(),((JInstanceFieldRef) valueBox.getValue()).getFieldRef().type());
-                                                //valueBox.setOtherBox(valueBox);
-                                                //Class c1 = ClassUtils.primitiveToWrapper(c);
-                                                //SootFieldRef sootFieldRef = new JInstanceFieldRef();
-                                                //((JInstanceFieldRef) valueBox.getValue())..getFieldRef()..type().
-                                            }
-
-                                        }
-                                        if(valueBox instanceof JAssignStmt.LinkedVariableBox){
-                                            //((JAssignStmt.LinkedVariableBox) valueBox).setOtherBox( valueBox);
-                                        }
-
-
-                                        String s = valueBox.getValue().getType().toString();
-                                        System.out.println(s);
-                                    }
-                                }
-                            }
-
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }));
-
-
-        PackManager.v().getPack("wjtp").add(new Transform("wjtp.myTrans", new SceneTransformer() {
+           PackManager.v().getPack("wjtp").add(new Transform("wjtp.myTrans", new SceneTransformer() {
 
 
             @Override
@@ -229,6 +183,7 @@ public class Discovery extends AbstractDiscovery {
                 discovery.set("methods",new ObjectMapper().createObjectNode());
                 discovery.set("classes",new ObjectMapper().createObjectNode());
                 discovery();
+
         }}));
         SootClass appClass = Scene.v().loadClassAndSupport(Configuration.get(Context.MAIN_CLASS).asString());
         Scene.v().setMainClass(appClass);

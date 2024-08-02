@@ -20,7 +20,7 @@ public interface Callback extends ${analyze.get("name").asText()}Service {
 #foreach ($step in $analyze.get("steps"))
 #if($step.get("type").asText().equals("method"))
 #set ($name = $step.get("fullname").asText())
-#set ($response = $step.get("unboxReturnType").asText())
+#set ($response = $step.get("returnType").asText())
 org.softauto.tester.Step  $name(##
 #foreach ($type in $step.get("parametersTypes"))
 #*      *#$type.asText() $step.get("argumentsNames")[$foreach.index].asText() #if ($foreach.hasNext), #end ##

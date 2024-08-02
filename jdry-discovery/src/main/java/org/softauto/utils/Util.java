@@ -22,11 +22,15 @@ import org.yaml.snakeyaml.Yaml;
 import soot.MethodOrMethodContext;
 import soot.Scene;
 import soot.SootClass;
+import soot.SourceLocator;
+import soot.jimple.JasminClass;
 import soot.jimple.parser.node.TClass;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
+import soot.options.Options;
 import soot.tagkit.SignatureTag;
 import soot.tagkit.Tag;
+import soot.util.JasminOutputStream;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
 
@@ -412,5 +416,26 @@ public class Util {
             }
         }
         return false;
+    }
+
+
+    public static void save(SootClass sc){
+        try {
+            File file = new File("target/sootOutput/"+sc.getName().replace(".","/"));
+            file.getParentFile().mkdirs();
+            //FileWriter writer = new FileWriter(file);
+
+            String fileName = SourceLocator.v().getFileNameFor(sc, Options.output_format_class);
+            OutputStream streamOut = new JasminOutputStream(
+                    new FileOutputStream(fileName));
+            PrintWriter writerOut = new PrintWriter(
+                    new OutputStreamWriter(streamOut));
+            JasminClass jasminClass = new JasminClass(sc);
+            jasminClass.print(writerOut);
+            writerOut.flush();
+            streamOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

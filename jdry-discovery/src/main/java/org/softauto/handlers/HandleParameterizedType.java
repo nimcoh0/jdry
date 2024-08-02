@@ -55,13 +55,13 @@ public class HandleParameterizedType {
     private void parser(String signature){
        String string =  signature.substring(signature.indexOf(")"));
        String s = getResponseType(string);
-       if(flowObject.getUnboxReturnType() == null || s.equals(flowObject.getUnboxReturnType())) {
+       //if(flowObject.getUnboxReturnType() == null || s.equals(flowObject.getUnboxReturnType())) {
            string = string != null ?  StringUtils.substringBetween(string,"<",">") : null;
            string = string != null ?  StringUtils.substringAfter(string, "L"): null;
            string = string != null ?  StringUtils.substringBefore(string, ";"): null;
            string = string != null ?  StringUtils.substringBefore(string, "<"): null;
            parameterizedType = string != null ?  string.replace("/", "."): null;
-       }
+       //}
       // parameterizedType =   StringUtils.substringBefore(string,"<").replace("/",".");
        //parameterizedType =  string.substring(1,string.length()-1).replace("/",".");
 

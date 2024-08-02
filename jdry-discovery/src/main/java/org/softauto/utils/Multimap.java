@@ -1,15 +1,21 @@
 package org.softauto.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
-public class Multimap<T,K> {
+import java.util.*;
 
-    HashMap<T, K> map = new HashMap<>();
+public class Multimap {
 
-    public HashMap<T, K> getMap() {
+    private static Logger logger = LogManager.getLogger(Util.class);
+
+    private static final Marker JDRY = MarkerManager.getMarker("JDRY");
+
+    LinkedHashMap<String, Object> map = new LinkedHashMap();
+
+    public LinkedHashMap<String, Object> getMap() {
         return map;
     }
 
@@ -17,66 +23,75 @@ public class Multimap<T,K> {
         return map.size();
     }
 
-    public void putAll(HashMap<T, K> hm ){
+    public void putAll(LinkedHashMap<String, Object> hm ){
         for(Map.Entry entry :hm.entrySet()){
-            put((T) entry.getKey().toString(), (K) entry.getValue());
+            put(entry.getKey().toString(),entry.getValue(),false);
         }
     }
 
-    public void replace(Multimap<T, K> multimap){
-        HashMap<T, K> _map = multimap.getMap();
+    public void replace(Multimap multimap){
+        LinkedHashMap<String, Object> _map = multimap.getMap();
         map.putAll(_map);
     }
 
-    public void putAll(Multimap<T, K> multimap){
-        HashMap<T, K> _map = multimap.getMap();
+    public void putAll(Multimap multimap){
+        LinkedHashMap<String, Object> _map = multimap.getMap();
         for(Map.Entry entry :_map.entrySet()){
-            put((T) entry.getKey().toString(), (K) entry.getValue());
+            put(entry.getKey().toString(),entry.getValue(),false);
         }
     }
 
-    public void put(T key, K value){
-        put(key,value,false);
+    public void put(String key, Object value){
+        put(key, value,false);
     }
 
-    public void put(T key, K value,boolean unique){
-       if(map.containsKey(key) ){
-           Object o =  map.get(key);
-           if(o instanceof ArrayList){
-               ((List<Object>)o).add(value);
-           }else if(value instanceof Multimap){
-               List<Object> list = new ArrayList<>();
-               HashMap<T, K> hm = new HashMap<>();
-               for(Map.Entry entry : ((Multimap<T,K>) value).getMap().entrySet()){
-                   hm.put((T) entry.getKey().toString(), (K) entry.getValue());
-               }
-               //hm.putAll((HashMap<String, Object>) o);
-               list.add(hm);
-               list.add(o);
-               map.put((T) key, (K) list);
-            }else {
-                List<Object> list = new ArrayList<>();
-                list.add(o);
-                if(unique ){
-                    if(!list.contains(value))
-                         list.add(value);
-                }else {
-                    list.add(value);
+
+    public void put(String key, Object value,boolean replace){
+
+        if(!replace && map.containsKey(key)){
+            Object o =  map.get(key);
+            if(o instanceof ArrayList) {
+                if (value instanceof String && !((List<Object>) o).contains(value)) {
+                    ((List<Object>) o).add(value);
+                } else if (value instanceof Multimap) {
+                    ((List<Object>) o).add(((Multimap) value).getMap());
+                } else {
+                    logger.warn(JDRY,"Multimap didn't put " + value.getClass().getTypeName());
                 }
-                map.put((T) key, (K) list);
+            }else if(o instanceof LinkedList<?>){
+                if(value instanceof String && !((LinkedList<Object>)o).contains(value)){
+                    ((LinkedList<Object>)o).add(value);
+                }else if(value instanceof Multimap){
+                    ((LinkedList<Object>) o).add(((Multimap) value).getMap());
+                }else {
+                    logger.warn(JDRY,"Multimap didn't put " + value.getClass().getTypeName());
+                }
+            }else if(value instanceof Multimap){
+                LinkedList<Object> list = new LinkedList();
+                LinkedHashMap<String, Object> hm = new LinkedHashMap();
+                list.add(o);
+                for(Map.Entry entry : ((Multimap) value).getMap().entrySet()){
+                    hm.put(entry.getKey().toString(),  entry.getValue());
+                }
+
+                list.add(hm);
+                map.put(key, list);
+            }else {
+                LinkedList<Object> list = new LinkedList();
+                list.add(o);
+                list.add(value);
+                map.put(key, list);
             }
         }else {
 
             if(value instanceof Multimap){
-                //List<Object> list = new ArrayList<>();
-                HashMap<T, K> hm = new HashMap<>();
-                for(Map.Entry entry : ((Multimap<T,K>) value).getMap().entrySet()){
-                    hm.put((T) entry.getKey().toString(), (K) entry.getValue());
+                LinkedHashMap<String, Object> hm = new LinkedHashMap();
+                for(Map.Entry entry : ((Multimap) value).getMap().entrySet()){
+                    hm.put(entry.getKey().toString(),  entry.getValue());
                 }
-                //list.add(hm);
-                map.put((T) key, (K) hm);
+                map.put(key, hm);
             }else {
-               map.put((T) key, (K) value);
+                map.put(key, value);
             }
         }
     }

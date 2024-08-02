@@ -38,7 +38,7 @@ public class Argument implements Cloneable , Serializable {
 
     private boolean modify = true;
 
-    private String context;
+    private Set<String> context = new HashSet<>();
 
     private String crud;
 
@@ -100,12 +100,16 @@ public class Argument implements Cloneable , Serializable {
         return entity;
     }
 
-    public String getContext() {
+    public Set<String>  getContext() {
         return context;
     }
 
-    public void setContext(String context) {
+    public void setContext(Set<String> context) {
         this.context = context;
+    }
+
+    public void addContext(String context) {
+        this.context.add(context);
     }
 
     public void setEntity(boolean entity) {

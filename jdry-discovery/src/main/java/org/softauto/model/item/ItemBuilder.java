@@ -69,16 +69,16 @@ public class ItemBuilder {
 
         private String subsignature;
 
-        private String unboxReturnTypeTargetObject;
+        //private String unboxReturnTypeTargetObject;
 
         protected String resultParameterizedType;
 
         private HashMap<Integer,String> parametersParameterizedType = new HashMap<>();
 
-        public Builder  setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
-            this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
-            return this;
-        }
+       // public Builder  setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
+          //  this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
+        //    return this;
+       // }
 
         public Builder setFullname(String fullname) {
             this.fullname = fullname;
@@ -211,11 +211,11 @@ public class ItemBuilder {
                 item.setNamespce(namespce);
                 item.setParametersTypes(parametersTypes);
                 item.setReturnType(returnType);
-                item.setUnboxReturnTypeTargetObject(unboxReturnTypeTargetObject);
+                //item.setUnboxReturnTypeTargetObject(unboxReturnTypeTargetObject);
                 item.setArgumentsNames(argumentsNames);
                 item.setModifier(modifier);
                 item.setResponseChain(responseChain);
-                item.setUnboxReturnType(unboxReturnType);
+                //item.setUnboxReturnType(unboxReturnType);
                 item.setArgsType(argsType);
                 item.setReturnTypeGeneric(returnTypeGeneric);
                 item.setReturnName(returnName);

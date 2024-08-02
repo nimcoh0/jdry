@@ -23,7 +23,7 @@ public class Item {
 
     protected int id;
 
-    private String unboxReturnTypeTargetObject;
+    //private String unboxReturnTypeTargetObject;
 
 
     protected String resultParameterizedType;
@@ -32,7 +32,7 @@ public class Item {
 
     private String returnType;
 
-    private String unboxReturnType;
+    //private String unboxReturnType;
 
     private String returnName;
 
@@ -56,13 +56,13 @@ public class Item {
         return parametersParameterizedType;
     }
 
-    public String getUnboxReturnTypeTargetObject() {
-        return unboxReturnTypeTargetObject;
-    }
+    //public String getUnboxReturnTypeTargetObject() {
+     //   return unboxReturnTypeTargetObject;
+    //}
 
-    public void setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
-        this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
-    }
+    //public void setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
+     //   this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
+    //}
 
     public void setParametersParameterizedType(HashMap<Integer, String> parametersParameterizedType) {
         this.parametersParameterizedType = parametersParameterizedType;
@@ -93,13 +93,13 @@ public class Item {
         this.responseChain = responseChain;
     }
 
-    public String getUnboxReturnType() {
-        return unboxReturnType;
-    }
+    //public String getUnboxReturnType() {
+      //  return unboxReturnType;
+    //}
 
-    public void setUnboxReturnType(String unboxReturnType) {
-        this.unboxReturnType = unboxReturnType;
-    }
+   // public void setUnboxReturnType(String unboxReturnType) {
+      //  this.unboxReturnType = unboxReturnType;
+   // }
 
     public int getModifier() {
         return modifier;

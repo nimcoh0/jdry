@@ -21,7 +21,7 @@ public class FlowObject {
 
     private SootMethod method ;
 
-    private String unboxReturnTypeTargetObject;
+    //private String unboxReturnTypeTargetObject;
 
     private List<String> argsname;
 
@@ -39,13 +39,13 @@ public class FlowObject {
 
     private String returnType = "void";
 
-    private String unboxReturnType;
+    //private String unboxReturnType;
 
     private String returnName ;
 
     private List<String> responseChain = new ArrayList<>();
 
-    private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
+    //private List<HashMap<String,String>> crudToSubject = new ArrayList<>();
 
     private LinkedList<String> parametersType = new LinkedList<>();
 
@@ -63,13 +63,13 @@ public class FlowObject {
         return parametersType;
     }
 
-    public String getUnboxReturnTypeTargetObject() {
-        return unboxReturnTypeTargetObject;
-    }
+    //public String getUnboxReturnTypeTargetObject() {
+      //  return unboxReturnTypeTargetObject;
+   // }
 
-    public void setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
-        this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
-    }
+    //public void setUnboxReturnTypeTargetObject(String unboxReturnTypeTargetObject) {
+      //  this.unboxReturnTypeTargetObject = unboxReturnTypeTargetObject;
+   // }
 
     public void setParametersType(List<Type> parametersType) {
         LinkedList<String> _parametersType = new LinkedList<>();
@@ -101,13 +101,13 @@ public class FlowObject {
 
 
 
-    public List<HashMap<String,String>> getCrudToSubject() {
-        return crudToSubject;
-    }
+    //public List<HashMap<String,String>> getCrudToSubject() {
+      //  return crudToSubject;
+    //}
 
-    public void setCrudToSubject(List<HashMap<String,String>> crudToSubject) {
-        this.crudToSubject = crudToSubject;
-    }
+    //public void setCrudToSubject(List<HashMap<String,String>> crudToSubject) {
+       // this.crudToSubject = crudToSubject;
+   // }
 
     public boolean isReturnTypeGeneric() {
         return returnTypeGeneric;
@@ -137,13 +137,13 @@ public class FlowObject {
         this.responseChain = responseChain;
     }
 
-    public String getUnboxReturnType() {
-        return unboxReturnType;
-    }
+   // public String getUnboxReturnType() {
+       // return unboxReturnType;
+   // }
 
-    public void setUnboxReturnType(String unboxReturnType) {
-        this.unboxReturnType = unboxReturnType;
-    }
+   // public void setUnboxReturnType(String unboxReturnType) {
+     //   this.unboxReturnType = unboxReturnType;
+   // }
 
     public boolean isEntity() {
         return entity;
