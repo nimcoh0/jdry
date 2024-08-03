@@ -104,7 +104,7 @@ public class MethodTreeDiscovery implements IFlow {
                 //HandleReturn handleReturn = new HandleReturn();
                 //String unboxReturnType = m.getReturnType().toString();
                 LinkedList<String> responseChain = new LinkedList<>();
-                String unboxReturnTypeTargetObject = null;
+                //String unboxReturnTypeTargetObject = null;
                 flowObject.setSubsignature(m.getSubSignature());
                 HashMap<SootClass,SootMethod> invokeMap = new HashMap<>();
                 invokeMap.put(m.getDeclaringClass(),m);

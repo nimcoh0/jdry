@@ -105,11 +105,18 @@ public class Argument implements Cloneable , Serializable {
     }
 
     public void setContext(Set<String> context) {
+        if(context != null)
         this.context = context;
     }
 
     public void addContext(String context) {
-        this.context.add(context);
+        if(context != null)
+         this.context.add(context);
+    }
+
+    public void addContexts(Set<String> context) {
+        if(context != null)
+        this.context.addAll(context);
     }
 
     public void setEntity(boolean entity) {

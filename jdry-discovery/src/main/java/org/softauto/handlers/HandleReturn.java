@@ -17,9 +17,9 @@ public class HandleReturn {
 
     private String responseObject;
 
-    //private List<String> unboxExcludeList;
+    private List<String> unboxExcludeList;
 
-    //private List<String> unboxList;
+    private List<String> unboxList;
 
     private Body body;
 
@@ -71,15 +71,15 @@ public class HandleReturn {
         return responseChain;
     }
 
-    //public HandleReturn setUnboxExcludeList(List<String> unboxExcludeList) {
-     //   this.unboxExcludeList = unboxExcludeList;
-     //   return this;
-   // }
+    public HandleReturn setUnboxExcludeList(List<String> unboxExcludeList) {
+        this.unboxExcludeList = unboxExcludeList;
+        return this;
+    }
 
-   // public HandleReturn setUnboxList(List<String> unboxList) {
-     //   this.unboxList = unboxList;
-     //   return this;
-   // }
+    public HandleReturn setUnboxList(List<String> unboxList) {
+        this.unboxList = unboxList;
+        return this;
+    }
 
     public HandleReturn setBody(Body body) {
         this.body = body;
@@ -104,10 +104,29 @@ public class HandleReturn {
     List<String> ignoreUnite = new ArrayList<>();
     List<String> used = new ArrayList<>();
 
+    public void parser(String responseObject) {
+        if (unboxList.contains(responseObject)) {
+            if (type == null) {
+                type = responseObject;
+            }
+            for (Unit unit : body.getUnits()) {
+                for (ValueBox valueBox : unit.getUseAndDefBoxes()) {
+                    if (valueBox.getValue() instanceof AbstractInvokeExpr) {
+                        String refClassName = ((AbstractInvokeExpr) valueBox.getValue()).getMethodRef().getDeclaringClass().getName();
+                        if (refClassName.contains(responseObject) && !ignoreUnite.contains(unit.toString())) {
+                            if (unboxList.contains(responseObject)) {
+                                addResponseChain(responseObject);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-
-    public String parser(String responseObject) {
         /*
+    public String parser(String responseObject) {
+
         //if(unboxList.contains(responseObject)) {
             if (type == null) {
                 type = responseObject;
@@ -192,11 +211,13 @@ public class HandleReturn {
                     }
                 }
             }
-            */
+
         //}
         return responseObject;
     }
 
+
+         */
     public String getResultParameterizedType(List<Tag> tags) {
         if(tags != null && tags.size() > 0) {
             for (Tag tag : tags) {

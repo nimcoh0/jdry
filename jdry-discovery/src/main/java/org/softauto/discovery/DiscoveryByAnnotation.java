@@ -50,7 +50,7 @@ public class DiscoveryByAnnotation implements IDiscovery {
             logger.error(JDRY,"fail discovery for "+o.getClass().getTypeName());
         }
 
-        return null;
+        return (SootMethod)o;
     }
 
     @Override
