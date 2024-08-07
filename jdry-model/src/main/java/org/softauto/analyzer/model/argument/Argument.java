@@ -42,6 +42,8 @@ public class Argument implements Cloneable , Serializable {
 
     private String crud;
 
+    private Boolean setter = false;
+
     private String publishName;
 
     /**
@@ -55,6 +57,14 @@ public class Argument implements Cloneable , Serializable {
     private boolean callback = false;
 
     private boolean generic = false;
+
+    public Boolean isSetter() {
+        return setter;
+    }
+
+    public void setSetter(Boolean setter) {
+        this.setter = setter;
+    }
 
     public String getPublishName() {
         return publishName;

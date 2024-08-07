@@ -2,6 +2,7 @@ package org.softauto.handlers;
 
 import org.apache.commons.lang3.StringUtils;
 import org.softauto.flow.FlowObject;
+import org.softauto.signature.DescToNativeSignature;
 import soot.tagkit.SignatureTag;
 import soot.tagkit.Tag;
 
@@ -48,15 +49,41 @@ public class HandleParametersParameterizedType {
 
 
     private void parser(String signature){
-        String string =  StringUtils.substringBetween(signature,"(",")");
-        String[] s = string.split("(;L)|(;\\[)");
-        for(int i=0;i<s.length;i++){
-            String s2 = StringUtils.substringBetween(s[i], "<", ">");
-            if(s2 != null && !s2.isEmpty()) {
-                s2 = StringUtils.substringAfter(s2,"L");
-                s2 = StringUtils.substringBefore(s2,";");
-                parameterizedTypes.put(i, s2.replace("/", "."));
+        DescToNativeSignature signatureParser = new DescToNativeSignature().setSig(signature).parse();
+
+
+        //String string =  StringUtils.substringBetween(signature,"(",")");
+        //String[] s = string.split("(;L)|(;\\[)");
+        for(int i=0;i<signatureParser.getParametersType().size();i++){
+            String r = signatureParser.getParametersType().get(i);
+            if(r.contains("<")) {
+                //r = StringUtils.substringBetween(r, "<", ">");
+                r = r.substring(r.indexOf("<") + 1, r.lastIndexOf(">"));
+
+                if (r.startsWith("T")) {
+                    parameterizedTypes.put(i, r.substring(1, r.length() - 1).replace("/", "."));
+                    //flowObject.setReturnTypeGeneric(true);
+                } else if (r.startsWith("L")) {
+                    parameterizedTypes.put(i, r.substring(1, r.length() - 1).replace("/", "."));
+                    //flowObject.setReturnTypeGeneric(false);
+                } else if (r.startsWith("+")) {
+                    parameterizedTypes.put(i, r.substring(2, r.length() - 1).replace("/", "."));
+                    //flowObject.setReturnTypeGeneric(false);
+                }
+                else {
+                    parameterizedTypes.put(i, r.replace("/", "."));
+                }
             }
+
+
+
+
+            //String s2 = StringUtils.substringBetween(s[i], "<", ">");
+            //if(s2 != null && !s2.isEmpty()) {
+             //   s2 = StringUtils.substringAfter(s2,"L");
+              //  s2 = StringUtils.substringBefore(s2,";");
+              //  parameterizedTypes.put(i, s2.replace("/", "."));
+            //}
         }
 
         //if(string != null)
