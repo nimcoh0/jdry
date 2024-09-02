@@ -33,6 +33,7 @@ public class DiscoveryByAnnotation implements IDiscovery {
         try {
             SootMethod sootMethod = (SootMethod)o;
             VisibilityAnnotationTag tag = (VisibilityAnnotationTag) sootMethod.getTag("VisibilityAnnotationTag");
+
             if (annotations != null && annotations.size() > 0 ) {
                 if (tag != null) {
                     for (AnnotationTag annotation : tag.getAnnotations()) {
@@ -44,13 +45,15 @@ public class DiscoveryByAnnotation implements IDiscovery {
                     }
                 }
             }else {
-                return sootMethod;
+                //return sootMethod;
             }
+
+
         } catch (Exception e) {
             logger.error(JDRY,"fail discovery for "+o.getClass().getTypeName());
         }
 
-        return (SootMethod)o;
+        return null; //(SootMethod)o;
     }
 
     @Override

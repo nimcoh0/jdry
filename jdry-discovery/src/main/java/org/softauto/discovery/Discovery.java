@@ -20,6 +20,7 @@ import org.softauto.model.item.*;
 import org.softauto.spel.SpEL;
 import org.softauto.utils.Util;
 import soot.*;
+import soot.jimple.JimpleBody;
 import soot.jimple.internal.JAssignStmt;
 import soot.jimple.internal.JInstanceFieldRef;
 import soot.jimple.internal.JimpleLocal;
@@ -117,6 +118,8 @@ public class Discovery extends AbstractDiscovery {
                             if(sootMethod != null) {
                                 List<FlowObject> trees = flowDiscovery((SootMethod) sootMethod);
                                 for (FlowObject tree : trees) {
+                                    List<String> names = getArgsName(tree.getMethod());
+                                    tree.setArgsname(names);
                                     Item item = new ItemFactory().setFlowObject(tree).build().getItem();
                                     if (!Util.isExist((ObjectNode) discovery.get("methods"), item)) {
                                         String name = buildName(item);
@@ -151,6 +154,22 @@ public class Discovery extends AbstractDiscovery {
             logger.error(JDRY,"fail method Discovery ",e.getMessage());
         }
     }
+
+    public  List<String> getArgsName(SootMethod m ){
+        List<String> names = new ArrayList<>();
+        if(m.isConcrete()&& !m.isAbstract()) {
+            JimpleBody jb = (JimpleBody) m.retrieveActiveBody();
+            if (jb != null) {
+                List<Local> locals = jb.getParameterLocals();
+                for (Local local : locals) {
+                    names.add(local.getName());
+                }
+            }
+        }
+        return names;
+
+    }
+
 
     private static String buildName(Item item){
 

@@ -44,7 +44,7 @@ public class Argument implements Cloneable , Serializable {
 
     private Boolean setter = false;
 
-    private String publishName;
+    //private String publishName;
 
     /**
      * is type entity ?
@@ -66,13 +66,13 @@ public class Argument implements Cloneable , Serializable {
         this.setter = setter;
     }
 
-    public String getPublishName() {
-        return publishName;
-    }
+    //public String getPublishName() {
+   //     return publishName;
+   // }
 
-    public void setPublishName(String publishName) {
-        this.publishName = publishName;
-    }
+   // public void setPublishName(String publishName) {
+     //   this.publishName = publishName;
+   // }
 
     public String getParameterizedType() {
         return parameterizedType;

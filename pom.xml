@@ -48,7 +48,7 @@
         <commons-codec>1.15</commons-codec>
         <commons-jexl3>3.0</commons-jexl3>
         <commons-text>1.9</commons-text>
-        <jackson>2.15.2</jackson>
+        <jackson>2.17.2</jackson>
         <yaml>1.27</yaml>
         <guava>31.1-jre</guava>
         <jopt-simple>5.0.4</jopt-simple>
