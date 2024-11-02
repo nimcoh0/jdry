@@ -41,7 +41,7 @@ public class FlowObject {
 
     //private String unboxReturnType;
 
-    private String returnName ;
+    //private String returnName ;
 
     private List<String> responseChain = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class FlowObject {
 
     private String subsignature;
 
-    private String resultParameterizedType;
+   // private String resultParameterizedType;
 
     private HashMap<Integer,String> parametersParameterizedType = new HashMap<>();
 
@@ -83,13 +83,13 @@ public class FlowObject {
         this.parametersParameterizedType = parametersParameterizedType;
     }
 
-    public String getResultParameterizedType() {
-        return resultParameterizedType;
-    }
+    //public String getResultParameterizedType() {
+      //  return resultParameterizedType;
+    //}
 
-    public void setResultParameterizedType(String resultParameterizedType) {
-        this.resultParameterizedType = resultParameterizedType;
-    }
+    //public void setResultParameterizedType(String resultParameterizedType) {
+        //this.resultParameterizedType = resultParameterizedType;
+    //}
 
     public String getSubsignature() {
         return subsignature;
@@ -157,13 +157,13 @@ public class FlowObject {
         return returnType;
     }
 
-    public String getReturnName() {
-        return returnName;
-    }
+    //public String getReturnName() {
+       // return returnName;
+   // }
 
-    public void setReturnName(String returnName) {
-        this.returnName = returnName;
-    }
+   // public void setReturnName(String returnName) {
+     //   this.returnName = returnName;
+   // }
 
     public void setReturnType(String returnType) {
         this.returnType = returnType;

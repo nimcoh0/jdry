@@ -74,9 +74,9 @@ public class ItemFactory {
                     .setResponseChain(flowObject.getResponseChain())
                     .setArgsType(flowObject.getArgsType())
                     .setReturnTypeGeneric(flowObject.isReturnTypeGeneric())
-                    .setReturnName(flowObject.getReturnName())
+                    //.setReturnName(flowObject.getReturnName())
                     .setSubsignature(flowObject.getSubsignature())
-                    .setResultParameterizedType(flowObject.getResultParameterizedType())
+                    //.setResultParameterizedType(flowObject.getResultParameterizedType())
                     .setParametersParameterizedType(flowObject.getParametersParameterizedType())
                     .build()
                     .getItem();

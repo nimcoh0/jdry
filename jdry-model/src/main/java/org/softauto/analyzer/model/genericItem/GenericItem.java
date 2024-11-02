@@ -36,7 +36,7 @@ public class GenericItem implements   Cloneable, Serializable {
 
     //boolean namespaceChange = false;
 
-    protected String resultParameterizedType;
+   // protected String resultParameterizedType;
 
     String fullname;
 
@@ -66,7 +66,7 @@ public class GenericItem implements   Cloneable, Serializable {
 
     //protected String unboxReturnType;
 
-    protected String returnName;
+    //protected String returnName;
 
     /**
      * call methods with interest
@@ -117,13 +117,13 @@ public class GenericItem implements   Cloneable, Serializable {
         this.parametersParameterizedType = parametersParameterizedType;
     }
 
-    public String getResultParameterizedType() {
-        return resultParameterizedType;
-    }
+    //public String getResultParameterizedType() {
+      //  return resultParameterizedType;
+    //}
 
-    public void setResultParameterizedType(String resultParameterizedType) {
-        this.resultParameterizedType = resultParameterizedType;
-    }
+   // public void setResultParameterizedType(String resultParameterizedType) {
+     //   this.resultParameterizedType = resultParameterizedType;
+   // }
 
     public String getSubsignature() {
         return subsignature;
@@ -163,13 +163,13 @@ public class GenericItem implements   Cloneable, Serializable {
         return constructorParameter;
     }
 
-    public String getReturnName() {
-        return returnName;
-    }
+    //public String getReturnName() {
+      //  return returnName;
+    //}
 
-    public void setReturnName(String returnName) {
-        this.returnName = returnName;
-    }
+   // public void setReturnName(String returnName) {
+     //   this.returnName = returnName;
+   // }
 
     //public String getUnboxReturnType() {
      //   return unboxReturnType;

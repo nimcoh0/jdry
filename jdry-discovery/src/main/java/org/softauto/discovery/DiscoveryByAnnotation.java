@@ -45,7 +45,7 @@ public class DiscoveryByAnnotation implements IDiscovery {
                     }
                 }
             }else {
-                //return sootMethod;
+                return sootMethod;
             }
 
 
@@ -53,7 +53,7 @@ public class DiscoveryByAnnotation implements IDiscovery {
             logger.error(JDRY,"fail discovery for "+o.getClass().getTypeName());
         }
 
-        return null; //(SootMethod)o;
+        return (SootMethod)o;
     }
 
     @Override

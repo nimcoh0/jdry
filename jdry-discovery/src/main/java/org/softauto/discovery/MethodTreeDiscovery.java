@@ -132,11 +132,11 @@ public class MethodTreeDiscovery implements IFlow {
 
                  */
                 //HandleParametersParameterizedType parametersParameterizedType = new HandleParametersParameterizedType().setFlowObject(flowObject).setTags(m.getTags()).build();
-                String resultParameterizedType = null;
-                if(flowObject.getResultParameterizedType()== null) {
-                    resultParameterizedType = new HandleParameterizedType().setFlowObject(flowObject).setTags(m.getTags()).build().getParameterizedType();
-                    flowObject.setResultParameterizedType(resultParameterizedType);
-                }
+                //String resultParameterizedType = null;
+                //if(flowObject.getResultParameterizedType()== null) {
+                   // resultParameterizedType = new HandleParameterizedType().setFlowObject(flowObject).setTags(m.getTags()).build().getParameterizedType();
+                  //  flowObject.setResultParameterizedType(resultParameterizedType);
+                //}
 
 
 

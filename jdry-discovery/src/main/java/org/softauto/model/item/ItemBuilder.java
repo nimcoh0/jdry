@@ -218,9 +218,9 @@ public class ItemBuilder {
                 //item.setUnboxReturnType(unboxReturnType);
                 item.setArgsType(argsType);
                 item.setReturnTypeGeneric(returnTypeGeneric);
-                item.setReturnName(returnName);
+                //item.setReturnName(returnName);
 
-                item.setResultParameterizedType(resultParameterizedType);
+               // item.setResultParameterizedType(resultParameterizedType);
                 item.setParametersParameterizedType(parametersParameterizedType);
                 item.setSubsignature(subsignature);
                 //item.setFullName(fullname);

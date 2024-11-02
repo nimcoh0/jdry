@@ -26,6 +26,7 @@ import soot.jimple.internal.JInstanceFieldRef;
 import soot.jimple.internal.JimpleLocal;
 import soot.jimple.toolkits.callgraph.CHATransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
+import soot.jimple.toolkits.callgraph.Edge;
 import soot.jimple.toolkits.callgraph.ReachableMethods;
 import soot.jimple.toolkits.pointer.LocalMustNotAliasAnalysis;
 import soot.toolkits.graph.ExceptionalUnitGraph;
@@ -202,6 +203,7 @@ public class Discovery extends AbstractDiscovery {
                 discovery.set("methods",new ObjectMapper().createObjectNode());
                 discovery.set("classes",new ObjectMapper().createObjectNode());
                 discovery();
+
 
         }}));
         SootClass appClass = Scene.v().loadClassAndSupport(Configuration.get(Context.MAIN_CLASS).asString());

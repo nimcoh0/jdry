@@ -42,7 +42,7 @@ public class Argument implements Cloneable , Serializable {
 
     private String crud;
 
-    private Boolean setter = false;
+    //private Boolean setter = false;
 
     //private String publishName;
 
@@ -58,13 +58,13 @@ public class Argument implements Cloneable , Serializable {
 
     private boolean generic = false;
 
-    public Boolean isSetter() {
-        return setter;
-    }
+   // public Boolean isSetter() {
+     //   return setter;
+    //}
 
-    public void setSetter(Boolean setter) {
-        this.setter = setter;
-    }
+    //public void setSetter(Boolean setter) {
+   //     this.setter = setter;
+   // }
 
     //public String getPublishName() {
    //     return publishName;
@@ -76,6 +76,13 @@ public class Argument implements Cloneable , Serializable {
 
     public String getParameterizedType() {
         return parameterizedType;
+    }
+
+    public boolean hasParameterizedType() {
+        if(parameterizedType != null){
+            return true;
+        }
+        return false;
     }
 
     public void setParameterizedType(String parameterizedType) {
@@ -98,6 +105,13 @@ public class Argument implements Cloneable , Serializable {
         this.crud = crud;
     }
 
+    public boolean hasCrud(){
+        if(crud != null && !crud.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
     public boolean isCallback() {
         return callback;
     }
@@ -112,6 +126,14 @@ public class Argument implements Cloneable , Serializable {
 
     public Set<String>  getContext() {
         return context;
+    }
+
+    public String  getContext(int i) {
+        return context.toArray()[i].toString();
+    }
+
+    public Boolean  hasContext() {
+        return context.size() > 0 && context.iterator().next() != null;
     }
 
     public void setContext(Set<String> context) {

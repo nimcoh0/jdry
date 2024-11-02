@@ -26,7 +26,7 @@ public class Item {
     //private String unboxReturnTypeTargetObject;
 
 
-    protected String resultParameterizedType;
+    //protected String resultParameterizedType;
 
     protected String type ;
 
@@ -34,7 +34,7 @@ public class Item {
 
     //private String unboxReturnType;
 
-    private String returnName;
+    //private String returnName;
 
     private int modifier;
 
@@ -68,13 +68,13 @@ public class Item {
         this.parametersParameterizedType = parametersParameterizedType;
     }
 
-    public String getResultParameterizedType() {
-        return resultParameterizedType;
-    }
+   // public String getResultParameterizedType() {
+   //     return resultParameterizedType;
+   // }
 
-    public void setResultParameterizedType(String resultParameterizedType) {
-        this.resultParameterizedType = resultParameterizedType;
-    }
+   // public void setResultParameterizedType(String resultParameterizedType) {
+    //    this.resultParameterizedType = resultParameterizedType;
+   // }
 
     public String getSubsignature() {
         return subsignature;
@@ -117,13 +117,13 @@ public class Item {
         this.argumentsNames = argumentsNames;
     }
 
-    public String getReturnName() {
-        return returnName;
-    }
+    //public String getReturnName() {
+     //   return returnName;
+    //}
 
-    public void setReturnName(String returnName) {
-        this.returnName = returnName;
-    }
+   // public void setReturnName(String returnName) {
+       // this.returnName = returnName;
+   // }
 
     List<Item> childes = new ArrayList<>();
 
